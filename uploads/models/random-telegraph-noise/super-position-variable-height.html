@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Superposition of Lorentzian spectra (variable pulse height)</title>
+    <link rel="stylesheet" type="text/css" href="../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../shared-libs/universal-style.css">
+    <script src="../shared-libs/plotly-131.min.js"></script>
+    <script src="../shared-libs/plotlyPlot.js"></script>
+    <script src="../shared-libs/jstat-192.min.js"></script>
+    <script src="../shared-libs/random-026.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="psdPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label for="bar_nu">a<sup>2</sup> &times; <span style="text-decoration: overline">&nu;</span> = </label>
+            <input id="bar_nu" type="number" value="1" disabled="disabled">
+            <label> [1/s]</label>
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="min_rate">&lambda;<sub>min</sub> = </label>
+            10^<input id="min_rate" type="number" min="-6" max="-1" step="0.25" value="-4">
+            <label> [1/s]</label>
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="max_rate">&lambda;<sub>max</sub> = </label>
+            10^<input id="max_rate" type="number" min="-4" max="0" step="0.25" value="-1">
+            <label> [1/s]</label>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./super-position-variable-height.js"></script>
+</body>
+</html>

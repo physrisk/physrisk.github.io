@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 09 Jan 2024 08:00:00 +0200</lastBuildDate><item><title>Last Theory: Prediction? Who cares?</title><link>https://rf.mokslasplius.lt/last-theory-prediction-who-cares/</link><description>&lt;p&gt;We invite you to watch and think about the role of prediction in science.
+While the media and funding bodies tend to prefer when the research projects
+have practical applications (which often require making some new
+predictions), this is not how the most well-known theories were formulated.
+Many of the famous theories in Physics (and other sciences) were iterations
+of the earlier "clunkier" theories. This is discussed in the following video
+by the &lt;a href="https://www.youtube.com/@lasttheory"&gt;Last Theory&lt;/a&gt; YouTube channel.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/THLq17wY5nI" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;Note that this channel is linked to &lt;a href="https://en.wikipedia.org/wiki/Stephen_Wolfram"&gt;Stephen
+Wolfram&lt;/a&gt;, who by some is
+regarded as a highly controversial figure in science. Although, he is the
+mastermind behind the &lt;a href="https://www.wolfram.com/mathematica/"&gt;Mathematica&lt;/a&gt;
+computer algebra system, which we like a lot (at least to help me with
+analytical derivations).&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 09 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-09:/last-theory-prediction-who-cares/</guid><category>2024</category><category>Last Theory</category><category>video</category><category>philosophy</category></item><item><title>Overview of 2023</title><link>https://rf.mokslasplius.lt/overview-of-2023/</link><description>&lt;p&gt;Over the last few years we have been keeping a steady pace of 33 posts a
+year. Though in 2023 we have managed to produce one more post containing
+an &lt;a href="/tag/interactive-models/"&gt;interactive app&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Number of posts written in English and still available on this site as of
+the end of 2023" src="https://rf.mokslasplius.lt/uploads/2024/overview-of-2023.png" title="Number of posts written in English and still available on this site as of
+the end of 2023"/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig 1.&lt;/span&gt;&lt;span class="caption-text"&gt;The number of posts written in English and still available on this iteration of Physics of Risk (as of the end of 2023). The wide bars represent total number of posts for each year since 2010, while the narrower bars represent a number of posts containing an interactive app.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;This year we have mostly focused on the various properties of &lt;a href="/tag/poisson-process/"&gt;Poisson
+processes&lt;/a&gt; and related topics (such as &lt;a href="/tag/point-process/"&gt;point
+processes&lt;/a&gt; and &lt;a href="/tag/shot-noise"&gt;shot noise&lt;/a&gt;).
+Otherwise we have finished a series of posts from the 2022 on the
+statistical modeling of &lt;a href="/tag/dating-apps-series/"&gt;dating apps&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There were also some major changes "under the hood". First of all we have
+moved from local server, which was managed by ourselves, to GitHub Pages.
+When making transition we have noticed couple of issues. Most immediate
+issues are already resolved. For example, some of the links were broken, or
+not using common practices in Pelican. Some of the less important issues,
+which can be easily fixed, were fixed. For example, we have renamed numerous
+article files in the source repository so that their names would match
+article slugs. What remains, is to fix some figure file names (also to match
+respective article slugs and the content of the figure). Also, as the number
+of interactive apps is growing every year, it seems worthwhile to reorganize
+their code in the source repository by putting them in "thematic"
+directories (for example, based on research topic or model type).&lt;/p&gt;
+&lt;p&gt;What is coming in 2024? Well, most likely we will have few more posts
+dedicated to our recent works on the &lt;a href="/tag/random-telegraph-noise/"&gt;random telegraph
+noise&lt;/a&gt;. Then I will likely tell you about my
+woes with football themed board game
+&lt;a href="https://boardgamegeek.com/boardgame/329716/eleven-football-manager-board-game"&gt;Eleven&lt;/a&gt;.
+While it is highly thematic, it has some glaring issues which I wanted to
+fix with science! Well, numerical simulation at least.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 02 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-02:/overview-of-2023/</guid><category>2024</category><category>General information</category></item><item><title>D. Sumpter: Four ways of thinking</title><link>https://rf.mokslasplius.lt/D-Sumpter-four-ways-of-thinking/</link><description>&lt;p&gt;On the second day of Christmas we invite to watch a seminar given by prof.
+&lt;a href="https://www.david-sumpter.com/"&gt;David Sumpter&lt;/a&gt;,
+who is likely most well-known due to his work on football
+analytics. In this seminar he gives semi-historical overview of topics more
+than relevant to the scope of our blog. We invite you to watch it!&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/PPCfDe8TfJQ" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 26 Dec 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-12-26:/D-Sumpter-four-ways-of-thinking/</guid><category>2023</category><category>video</category><category>statistics</category><category>Dynamical chaos</category><category>sports</category><category>Lotka-Volterra</category><category>complex systems</category><category>D. Sumpter</category></item><item><title>Noise generated by a single charge carrier</title><link>https://rf.mokslasplius.lt/noise-generated-by-single-charge-carrier/</link><description>&lt;p&gt;&lt;a href="/tag/shot-noise/"&gt;Shot noise&lt;/a&gt; can be observed in variety of materials,
+devices and systems. Let us consider one of the simplest examples from
+physics: noise generated by trapping and detrapping of a single charge
+carrier.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 19 Dec 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-12-19:/noise-generated-by-single-charge-carrier/</guid><category>2023</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>shot noise</category><category>Lorentzian</category><category>random telegraph noise</category></item><item><title>Shot noise in continuous time</title><link>https://rf.mokslasplius.lt/shot-noise-continuous-time/</link><description>&lt;p&gt;&lt;a href="https://rf.mokslasplius.lt/shot-noise/"&gt;Last time&lt;/a&gt; we have moved away from
+mathematical abstraction of &lt;a href="/tag/point-process/"&gt;point events&lt;/a&gt; by
+considering pulses of finite duration. Yet the theory we have derived in the
+&lt;a href="https://rf.mokslasplius.lt/shot-noise/"&gt;earlier post&lt;/a&gt; did not fully match
+the simulated &lt;a href="/tag/spectral-density/"&gt;power spectral density&lt;/a&gt;. In this post
+we will see that the discrepancy close to the &lt;a href="https://en.wikipedia.org/wiki/Nyquist_frequency"&gt;Nyquist
+frequency&lt;/a&gt;
+arises due to the observations being made in discrete time.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 05 Dec 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-12-05:/shot-noise-continuous-time/</guid><category>2023</category><category>Interactive models</category><category>statistics</category><category>Fourier transform</category><category>spectral density</category><category>shot noise</category></item><item><title>A. Hajimiri: Shot noise and other noises</title><link>https://rf.mokslasplius.lt/a-hajimiri-shot-noise-and-other-noises/</link><description>&lt;p&gt;The following video by prof. Ali Hajimiri discusses various types of noises
+often seen in physical systems. I have found it and watched it in
+preparation to our &lt;a href="https://rf.mokslasplius.lt/shot-noise/"&gt;previous post on shot
+noise&lt;/a&gt;. I believe some of our
+readers may find it interesting too.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Wu4cB9qbrBk" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 28 Nov 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-11-28:/a-hajimiri-shot-noise-and-other-noises/</guid><category>2023</category><category>video</category><category>A. Hajimiri</category><category>statistics</category><category>shot noise</category><category>1/f noise</category><category>spectral density</category></item><item><title>Shot noise</title><link>https://rf.mokslasplius.lt/shot-noise/</link><description>&lt;p&gt;In the last few posts we have looked at &lt;a href="/tag/spectral-density/"&gt;spectral
+densities&lt;/a&gt; of a select &lt;a href="/tag/point-process/"&gt;point
+processes&lt;/a&gt;. In those posts we have represented events
+as points on the time axis. Such approach is just an approximation, which is
+valid when the duration of events is negligible, but it is not always so.
+When the events have finite duration, but the process is otherwise identical
+to the Poisson process, we obtain a peculiar type of noise known as the
+&lt;a href="/tag/shot-noise/"&gt;shot noise&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 21 Nov 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-11-21:/shot-noise/</guid><category>2023</category><category>Interactive models</category><category>statistics</category><category>Fourier transform</category><category>spectral density</category><category>shot noise</category></item><item><title>Point process with normal inter-event times</title><link>https://rf.mokslasplius.lt/point-process-psd-normal/</link><description>&lt;p&gt;I have also attended couple of conferences in the end of October. At
+&lt;a href="https://icnf-2023.sciencesconf.org/"&gt;International Conference on Noise and
+Fluctuations&lt;/a&gt; I got asked a question
+the gist of which was what would change in my model, if inter-event times
+would be normally distributed. I would expect that, in the particular case
+I was talking about, little would change, but let us make sure of that. In
+this post, we will take a look at point process, and we will revisit a more
+complicated topic I talked about later on.</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 07 Nov 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-11-07:/point-process-psd-normal/</guid><category>2023</category><category>Interactive models</category><category>statistics</category><category>point process</category><category>spectral density</category></item><item><title>B. Kaulakys: Nobel prize 2021: Laureates and their research</title><link>https://rf.mokslasplius.lt/b-kaulakys-nobel-prize-2021/</link><description>&lt;p&gt;A member of our research group gave a talk on Nobel prize awarded in 2021 at
+&lt;a href="https://www.ff.vu.lt/lnfk-45"&gt;45th Lithuanian National Physics Conference&lt;/a&gt;.
+Habil. dr. &lt;a href="/tag/b-kaulakys/"&gt;B. Kaulakys&lt;/a&gt; talked about the research for
+which the prize was awarded and how this research relates to works by
+Lithuanian physicists (mostly our group) and mathematicians. We invite you
+to watch it, but note that the recording is in Lithuanian. The slides, also
+in Lithuanian, are available
+&lt;a href="https://rf.mokslasplius.lt/uploads/2023/Kaulakys_LNFK-2023.pdf"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/tT4I2JVdc0Q" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;Recording was made by the organizers of the conference. The full recording
+of the special session is available on the Facebook page of &lt;a href="https://www.facebook.com/FizikosFakultetasVU"&gt;Faculty of
+Physics at Vilnius
+University&lt;/a&gt;. See &lt;a href="https://www.facebook.com/FizikosFakultetasVU/videos/711826120389012"&gt;this
+post&lt;/a&gt;,
+if you are interested.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bronislovas Kaulakys</dc:creator><pubDate>Tue, 31 Oct 2023 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-10-31:/b-kaulakys-nobel-prize-2021/</guid><category>2023</category><category>video</category><category>B. Kaulakys</category><category>conference</category><category>LNFK</category><category>VU FF</category><category>Nobel prize</category><category>complex systems</category></item><item><title>PSD of a point process with power-law inter-event times</title><link>https://rf.mokslasplius.lt/point-process-psd-power-law/</link><description>&lt;p&gt;In &lt;a href="https://rf.mokslasplius.lt/point-process-psd-weibull/"&gt;the previous
+post&lt;/a&gt; we have seen
+that introducing memory into the memory-less &lt;a href="/tag/poisson-process/"&gt;Poisson
+process&lt;/a&gt; makes things very complicated. But we
+haven't yet still seen &lt;a href="/tag/1f-noise/"&gt;1/f noise&lt;/a&gt;. So now let us consider
+power-law distributed inter-event times!</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 17 Oct 2023 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2023-10-17:/point-process-psd-power-law/</guid><category>2023</category><category>Interactive models</category><category>statistics</category><category>Poisson process</category><category>point process</category><category>Fourier transform</category><category>spectral density</category></item></channel></rss>
