@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Power-law gaps</title>
+    <link rel="stylesheet" type="text/css" href="../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../shared-libs/universal-style.css">
+    <script src="../shared-libs/plotly-131.min.js"></script>
+    <script src="../shared-libs/plotlyPlot.js"></script>
+    <script src="../shared-libs/jstat-192.min.js"></script>
+    <script src="../shared-libs/random-026.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="seriesPlot" class="fullSize"></div>
+        <div id="psdPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock oneandhalfWidth">
+            <label for="power_gap">&alpha; = </label>
+            <input id="power_gap" type="number" min="0" max="2" step="0.1" value="1">
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="min_gap">&tau;<sub>min</sub> = </label>
+            10^<input id="min_gap" type="number" min="0" max="4" step="0.1" value="0">
+            <label> [s]</label>
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="max_gap">&tau;<sub>max</sub> = </label>
+            10^<input id="max_gap" type="number" min="1" max="5" step="0.1" value="4">
+            <label> [s]</label>
+        </span>
+        <br>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="recombination_time">&theta;<sub>c</sub> = </label>
+            10^<input id="recombination_time" type="number" value="3">
+            <label> [s]</label>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./power-law-gaps.js"></script>
+</body>
+</html>

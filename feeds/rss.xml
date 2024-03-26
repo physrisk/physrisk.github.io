@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 26 Mar 2024 08:00:00 +0200</lastBuildDate><item><title>Our group attends DPG 2024</title><link>https://rf.mokslasplius.lt/our-group-attends-dpg-2024/</link><description>&lt;p&gt;This year we have finally managed to attend &lt;a href="https://berlin24.dpg-tagungen.de/"&gt;DPG Spring Meeting of the
+Condensed Matter Section 2024&lt;/a&gt;. We have
+listened to quite a few interesting contributions and received valuable
+feedback on our own research.&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Justas (left) and myself (right) giving our
+presentations." src="https://rf.mokslasplius.lt/uploads/2024/our-group-attends-dpg-2024.jpg" title="Justas (left) and myself (right) giving our
+presentations."/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig 1.&lt;/span&gt;&lt;span class="caption-text"&gt;Justas (left) and myself (right) giving our presentations.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;My master's degree student Justas Kvedaravičius showcased his research
+endeavors spanning both his bachelor's and master's studies in a compelling
+poster presentation. His research delved into the measurement of
+spatio-hierarchical heterogeneity and the analysis of rank dynamics within
+the &lt;a href="https://rf.mokslasplius.lt/compartmental-voter-model/"&gt;compartmental voter
+model&lt;/a&gt;. Notably, his
+most recent exploration of rank dynamics, along with his journey to present
+at the conference, received a financial support from the Research Council of
+Lithuania through the student research project (during the semester) grant
+titled "Analysis of the compartmental voter model in terms of rank dynamics"
+(Grant No. S-ST-23-122).&lt;/p&gt;
+&lt;p&gt;I myself have presented my recent endeavors (in collaboration with a member
+of our group prof. B. Kaulakys) on modeling &lt;a href="/tag/1f-noise"&gt;1/f noise&lt;/a&gt;
+using model with non-overlapping rectangular pulses (although I have broken
+this assumption in my presentation), and exploration of the poll-induced
+delays in the &lt;a href="/tag/voter-model/"&gt;voter model&lt;/a&gt; (in collaboration with R.
+Astrauskas, M. Radavičius and F. Ivanauskas from Faculty of Mathematics and
+Informatics). Notably, my trip was supported by Vilnius universties Science
+Promotion Fund.&lt;/p&gt;
+&lt;p&gt;I have presented my collaborative research efforts, conducted with prof.  B.
+Kaulakys from our group, focusing on modeling &lt;a href="/tag/1f-noise"&gt;1/f noise&lt;/a&gt;.
+Our approach involved utilizing a model with non-overlapping rectangular
+pulses (things we have been writing about recently, for example, see &lt;a href="https://rf.mokslasplius.lt/noise-generated-by-single-charge-carrier/"&gt;this
+post&lt;/a&gt;,
+although I also did address the breaking of this assumption during my talk.
+I gave another talk as well, in which I discussed the impliciations of
+poll-induced delays to the phenomenology of the voter model, research
+conducted in collaboration with R. Astrauskas, M. Radavičius, and F.
+Ivanauskas from the Faculty of Mathematics and Informatics. Notably, my
+attendance at the event was made possible through support from the Vilnius
+University Science Promotion Fund.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 26 Mar 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-03-26:/our-group-attends-dpg-2024/</guid><category>2024</category><category>General information</category><category>conference</category><category>DPG</category><category>voter model</category><category>opinion dynamics</category><category>compartmental voter model</category><category>1/f noise</category><category>J. Kvedaravičius</category><category>A. Kononovicius</category></item><item><title>Power-law distribution from superposition of normal distributions</title><link>https://rf.mokslasplius.lt/power-law-distribution-from-superposition-of-normal-distributions/</link><description>&lt;p&gt;&lt;a href="https://rf.mokslasplius.lt/power-law-distribution-from-superposition-of-exponential-distributions/"&gt;Last
+time&lt;/a&gt;
+we have seen that we can recover power-law distribution from a superposition
+of exponential distributions. This idea served a basis for our [&lt;a href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise from the trapping-detrapping process of individual charge carriers. arXiv:2306.07009 [math.PR]."&gt;1&lt;/a&gt;] paper. When presenting some of these results at
+a conference I was asked question if exponential distribution is necessary,
+can't one use normal distribution instead?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 12 Mar 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-03-12:/power-law-distribution-from-superposition-of-normal-distributions/</guid><category>2024</category><category>Interactive models</category><category>statistics</category></item><item><title>Coding Train: Elementary Cellular Automata</title><link>https://rf.mokslasplius.lt/coding-train-elementary-cellular-automata/</link><description>&lt;p&gt;Would you like to code your own &lt;a href="/tag/cellular-automata/"&gt;cellular automata&lt;/a&gt;
+program? Similar to our &lt;a href="https://rf.mokslasplius.lt/wolframs-elementary-automatons/"&gt;Wolfram's elementary
+automatons&lt;/a&gt; or
+(more than likely (partially because our app is really old)) better? Watch
+the following video by the &lt;a href="https://www.youtube.com/@TheCodingTrain"&gt;Coding
+Train&lt;/a&gt; channel to learn how to do
+that using &lt;a href="https://p5js.org/"&gt;p5.js&lt;/a&gt; library.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Ggxt06qSAe4" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 05 Mar 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-03-05:/coding-train-elementary-cellular-automata/</guid><category>2024</category><category>video</category><category>Cellular automata</category><category>Coding Train</category></item><item><title>Power-law distribution from superposition of exponential distributions</title><link>https://rf.mokslasplius.lt/power-law-distribution-from-superposition-of-exponential-distributions/</link><description>&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/power-law-gap-times-rtn/"&gt;previous post&lt;/a&gt;
+we have asked a simple question - what if gap duration is distributed
+according to a power-law distribution. Our answer was an apparently pure
+&lt;a href="/tag/1f-noise/"&gt;1/f noise&lt;/a&gt;. But how could the power-law distribution arise?
+While in some materials some quantities indeed follow power-law distribution
+(such as blinking times in quantum dot experiments [&lt;a href="#Frantsuzov2008" title="P. Frantsuzov, M. Kuno, B. Jankó, R. A. Marcus. Universal emission intermittency in quantum dots, nanorods and nanowires. Nature Physics 4: 519–522 (2008). doi: 10.1038/nphys1001."&gt;1&lt;/a&gt;]), most materials have exponentially distributed
+generation and/or recombination times. So then, can we construct a power-law
+distribution from superposition of exponential distributions?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 27 Feb 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-02-27:/power-law-distribution-from-superposition-of-exponential-distributions/</guid><category>2024</category><category>Interactive models</category><category>statistics</category></item><item><title>Power-law gap times in random telegraph noise</title><link>https://rf.mokslasplius.lt/power-law-gap-times-rtn/</link><description>&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/superposition-of-lorentzians-with-fixed-height/"&gt;last
+post&lt;/a&gt;
+we have assumed that the event rate of the individual processes making up
+the superposition needs to be distributed according the bounded Pareto
+distribution. And we have seen that in \( \alpha = 0 \) case,
+&lt;a href="/tag/1f-noise/"&gt;1/f noise&lt;/a&gt; will be obtained. But superposition of such processes
+seems to be very demanding assumption, maybe we can choose another
+assumption? Here we will see what happens if we assume that gap times are
+assumed to follow bounded Pareto distribution, while the pulse times will
+still follow exponential distribution.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 13 Feb 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-02-13:/power-law-gap-times-rtn/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>1/f noise</category><category>random telegraph noise</category></item><item><title>Mathemaniac: Queuing theory and Poisson process</title><link>https://rf.mokslasplius.lt/mathemaniac-queuing-theory-and-poisson-process/</link><description>&lt;p&gt;Recently we have been looking a lot into &lt;a href="/tag/poisson-process"&gt;Poisson
+process&lt;/a&gt; and other related more physical topics. But
+the things we have been talking about also applies to our earlier more
+social science related works. This video by
+&lt;a href="https://www.youtube.com/c/Mathemaniac"&gt;Mathemaniac&lt;/a&gt; discusses how the
+statistical methodology behind the &lt;a href="/tag/poisson-process/"&gt;Poisson process&lt;/a&gt;
+can be used to understand queues. As usual, we invite you to watch this
+fascinating video!&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/rBIQmwaoZfs" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 06 Feb 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-02-06:/mathemaniac-queuing-theory-and-poisson-process/</guid><category>2024</category><category>video</category><category>statistics</category><category>queuing theory</category><category>Poisson process</category><category>Mathemaniac</category></item><item><title>Superposition of Lorentzians with fixed height pulses</title><link>https://rf.mokslasplius.lt/superposition-of-lorentzians-with-fixed-height/</link><description>&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/obtaining-1f-noise-from-superposition-of-lorentzians/"&gt;last
+post&lt;/a&gt;
+we have seen that &lt;a href="/tag/1f-noise/"&gt;1/f noise&lt;/a&gt; can be obtained from superposition of
+&lt;a href="/tag/lorentzian/"&gt;Lorentzian&lt;/a&gt; &lt;a href="/tag/spectral-density/"&gt;power spectral
+densities&lt;/a&gt;. Though we have imposed an odd
+requirement of scaling pulse height for different characteristic rates \(
+\lambda \). In this post let us explore how to achieve the same thing with
+fixed height pulses.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 30 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-30:/superposition-of-lorentzians-with-fixed-height/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>Lorentzian</category><category>1/f noise</category></item><item><title>Obtaining 1/f noise from superposition of Lorentzians</title><link>https://rf.mokslasplius.lt/obtaining-1f-noise-from-superposition-of-lorentzians/</link><description>&lt;p&gt;Earlier we have taken a look at a &lt;a href="/tag/spectral-density/"&gt;power spectral
+density&lt;/a&gt; of a signal generated by &lt;a href="https://rf.mokslasplius.lt/noise-generated-by-single-charge-carrier/"&gt;a single charge
+carrier&lt;/a&gt;.
+We have seen that it generates a signal composed of pulses and gaps. If the
+pulse and gap duration is distributed according to the exponential
+distribution (i.e., &lt;a href="/tag/poisson-process/"&gt;Poisson process&lt;/a&gt; model applies),
+then the &lt;a href="/tag/spectral-density/"&gt;power spectral density&lt;/a&gt; of the signal has
+a characteristic &lt;a href="/tag/lorentzian/"&gt;Lorentzian&lt;/a&gt; shape. Which is nothing
+alike &lt;a href="/tag/1f-noise/"&gt;1/f noise&lt;/a&gt;, which we are looking for. But maybe we
+can still obtain it?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 16 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-16:/obtaining-1f-noise-from-superposition-of-lorentzians/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>Lorentzian</category><category>1/f noise</category></item><item><title>Last Theory: Prediction? Who cares?</title><link>https://rf.mokslasplius.lt/last-theory-prediction-who-cares/</link><description>&lt;p&gt;We invite you to watch and think about the role of prediction in science.
+While the media and funding bodies tend to prefer when the research projects
+have practical applications (which often require making some new
+predictions), this is not how the most well-known theories were formulated.
+Many of the famous theories in Physics (and other sciences) were iterations
+of the earlier "clunkier" theories. This is discussed in the following video
+by the &lt;a href="https://www.youtube.com/@lasttheory"&gt;Last Theory&lt;/a&gt; YouTube channel.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/THLq17wY5nI" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;Note that this channel is linked to &lt;a href="https://en.wikipedia.org/wiki/Stephen_Wolfram"&gt;Stephen
+Wolfram&lt;/a&gt;, who by some is
+regarded as a highly controversial figure in science. Although, he is the
+mastermind behind the &lt;a href="https://www.wolfram.com/mathematica/"&gt;Mathematica&lt;/a&gt;
+computer algebra system, which we like a lot (at least to help me with
+analytical derivations).&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 09 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-09:/last-theory-prediction-who-cares/</guid><category>2024</category><category>Last Theory</category><category>video</category><category>philosophy</category></item><item><title>Overview of 2023</title><link>https://rf.mokslasplius.lt/overview-of-2023/</link><description>&lt;p&gt;Over the last few years we have been keeping a steady pace of 33 posts a
+year. Though in 2023 we have managed to produce one more post containing
+an &lt;a href="/tag/interactive-models/"&gt;interactive app&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Number of posts written in English and still available on this site as of
+the end of 2023" src="https://rf.mokslasplius.lt/uploads/2024/overview-of-2023.png" title="Number of posts written in English and still available on this site as of
+the end of 2023"/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig 1.&lt;/span&gt;&lt;span class="caption-text"&gt;The number of posts written in English and still available on this iteration of Physics of Risk (as of the end of 2023). The wide bars represent total number of posts for each year since 2010, while the narrower bars represent a number of posts containing an interactive app.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;This year we have mostly focused on the various properties of &lt;a href="/tag/poisson-process/"&gt;Poisson
+processes&lt;/a&gt; and related topics (such as &lt;a href="/tag/point-process/"&gt;point
+processes&lt;/a&gt; and &lt;a href="/tag/shot-noise"&gt;shot noise&lt;/a&gt;).
+Otherwise we have finished a series of posts from the 2022 on the
+statistical modeling of &lt;a href="/tag/dating-apps-series/"&gt;dating apps&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There were also some major changes "under the hood". First of all we have
+moved from local server, which was managed by ourselves, to GitHub Pages.
+When making transition we have noticed couple of issues. Most immediate
+issues are already resolved. For example, some of the links were broken, or
+not using common practices in Pelican. Some of the less important issues,
+which can be easily fixed, were fixed. For example, we have renamed numerous
+article files in the source repository so that their names would match
+article slugs. What remains, is to fix some figure file names (also to match
+respective article slugs and the content of the figure). Also, as the number
+of interactive apps is growing every year, it seems worthwhile to reorganize
+their code in the source repository by putting them in "thematic"
+directories (for example, based on research topic or model type).&lt;/p&gt;
+&lt;p&gt;What is coming in 2024? Well, most likely we will have few more posts
+dedicated to our recent works on the &lt;a href="/tag/random-telegraph-noise/"&gt;random telegraph
+noise&lt;/a&gt;. Then I will likely tell you about my
+woes with football themed board game
+&lt;a href="https://boardgamegeek.com/boardgame/329716/eleven-football-manager-board-game"&gt;Eleven&lt;/a&gt;.
+While it is highly thematic, it has some glaring issues which I wanted to
+fix with science! Well, numerical simulation at least.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 02 Jan 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-01-02:/overview-of-2023/</guid><category>2024</category><category>General information</category></item></channel></rss>
