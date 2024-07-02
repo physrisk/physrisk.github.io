@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 25 Jun 2024 08:00:00 +0300</lastBuildDate><item><title>Stand-up Maths: The mathematically impossible ball that shouldn’t exist</title><link>https://rf.mokslasplius.lt/standupmaths-mathematically-impossible-ball-that-shouldnt-exist/</link><description>&lt;p&gt;Summer is already here! Go grab a ball and play! Just make sure that your
+ball is correct.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/_cAl3FlQZ9Q" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-25:/standupmaths-mathematically-impossible-ball-that-shouldnt-exist/</guid><category>2024</category><category>standupmaths</category><category>video</category><category>sports</category></item><item><title>Detrapping rates arising from Fermi-Dirac statistics</title><link>https://rf.mokslasplius.lt/detrapping-rates-arising-from-fermi-dirac-statistics/</link><description>&lt;p&gt;Have you ever wondered how &lt;a href="/tag/fermi-dirac-statistics"&gt;Fermi-Dirac
+statistics&lt;/a&gt; arises? I already have in
+the previous couple of posts, but the more important question is why I
+suddenly started to care about Fermi-Dirac statistics. It is still all
+related to [&lt;a href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in electrical conductors arising from the heterogeneous detrapping process of individual charge carriers. arXiv:2306.07009 [math.PR]."&gt;1&lt;/a&gt;]. Reviewers raised doubts about
+our assumption about uniform detrapping rates, asking us to provide
+experimental evidence for our claim. As far as I am able to read the experimental
+works, it doesn't seem possible to provide any direct evidence. Still as a
+theoretician I can provide theoretical justification which is indirectly
+supported by experimental works.&lt;/p&gt;
+&lt;p&gt;This is why in this post we'll talk about detrapping rates arising from a
+simple model explored in an &lt;a href="https://rf.mokslasplius.lt/fermi-dirac-statistics-with-single-conduction-level/"&gt;earlier
+post&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 18 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-18:/detrapping-rates-arising-from-fermi-dirac-statistics/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>statistical physics</category><category>Fermi-Dirac statistics</category></item><item><title>A. Zucconi: Let's build a computer in Conway's Game of Life</title><link>https://rf.mokslasplius.lt/a-zucconi-lets-build-computer-in-conways-game-of-life/</link><description>&lt;p&gt;Summer is almost here! Are you looking for a cool computer science project
+to do in a free time? Why not implement Conway's Game of Life? Using it you
+can even build your own simulation of a computer inside your physical
+computer! See the video below by &lt;a href="https://www.youtube.com/@AlanZucconi"&gt;Alan
+Zucconi&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Kk2MH9O4pXY" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 11 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-11:/a-zucconi-lets-build-computer-in-conways-game-of-life/</guid><category>2024</category><category>A. Zucconi</category><category>video</category><category>Cellular automata</category></item><item><title>Fermi-Dirac statistics with single conduction level</title><link>https://rf.mokslasplius.lt/fermi-dirac-statistics-with-single-conduction-level/</link><description>&lt;p&gt;Have you ever wondered how &lt;a href="/tag/fermi-dirac-statistics"&gt;Fermi-Dirac
+statistics&lt;/a&gt; arises? I may have
+wondered during my bachelor degree studies, but now I only remember
+derivation done by the means of combinatorics. In this post I continue my
+wandering from a perspective of numerical simulation of a highly simplified
+system.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/fermi-dirac-statistics/"&gt;previous post&lt;/a&gt;
+we have built a model in which particles may freely jump between the energy
+levels (restricted only by the Pauli exclusion principle and Boltzmann
+statistics). This is not necessarily possible in real life systems. In
+semiconductors individual traps may have a single characteristic trap depth,
+or multiple depths which would not span full spectrum of available trap
+depths. In such case we need to assume existence of a conduction band energy
+level, which allows particles to travel between different traps.&lt;/p&gt;
+&lt;p&gt;Let us examine this particular case in this post.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 04 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-04:/fermi-dirac-statistics-with-single-conduction-level/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>statistical physics</category><category>Fermi-Dirac statistics</category></item><item><title>Fermi-Dirac statistics</title><link>https://rf.mokslasplius.lt/fermi-dirac-statistics/</link><description>&lt;p&gt;Have you ever wondered how &lt;a href="/tag/fermi-dirac-statistics"&gt;Fermi-Dirac
+statistics&lt;/a&gt; arises? I may have
+wondered during my bachelor degree studies, but now I only remember
+derivation done by the means of combinatorics. In this post let us allow
+Fermi-Dirac distribution to emerge from simulation of a simple particle
+system.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 21 May 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-05-21:/fermi-dirac-statistics/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>statistical physics</category><category>Fermi-Dirac statistics</category></item><item><title>Internship opportunity for the summer of 2024</title><link>https://rf.mokslasplius.lt/internship-opportunity-for-the-summer-of-2024/</link><description>&lt;p&gt;&lt;a href="https://lmt.lrv.lt/en/"&gt;Research Council of Lithuania&lt;/a&gt; currently accepts
+student applications to do internship projects this summer at various
+institutions across Lithuania. One of the projects students could apply for
+is mine!&lt;/p&gt;
+&lt;p&gt;My project is called "Influence of the state interaction network on the
+statistical properties of the voter model". I would expect for the intern to
+take a look at the &lt;a href="https://rf.mokslasplius.lt/many-state-herd-model-and-its-application-to-lithuanian-parliamentary-elections/"&gt;multi-state noisy voter
+model&lt;/a&gt;,
+and explore what happens when some of transitions between the states are
+forbidden (something similar was explored in &lt;a href="https://rf.mokslasplius.lt/ab-model/"&gt;AB
+model&lt;/a&gt;). You do not need to be
+familiar with sociophysics or &lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;,
+though I would expect the project to have a significant numerical aspect to
+it (some programming skills will be required).&lt;/p&gt;
+&lt;p&gt;Intern application deadline is 29th of May.&lt;/p&gt;
+&lt;p&gt;Interns will get 1000 Eur monthly stipend. Plus, for students coming from
+other countries or cities to Vilnius there is possibility to get support for
+accommodation. Based on this call's rules I will have to give priority to
+students outside Vilnius University.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;More details about this call is available on RCL's website:&lt;/strong&gt;
+&lt;a href="https://lmt.lrv.lt/en/research-funding/career-development-mobility-and-networking-opportunities/funding-for-students-research-projects-summer-schollarships/"&gt;https://lmt.lrv.lt/en/research-funding/career-development-mobility-and-networking-opportunities/funding-for-students-research-projects-summer-schollarships/&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 14 May 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-05-14:/internship-opportunity-for-the-summer-of-2024/</guid><category>2024</category><category>General information</category><category>students</category><category>opinion dynamics</category><category>voter model</category></item><item><title>Multi-success heterogeneous detrapping process</title><link>https://rf.mokslasplius.lt/multi-success-heterogeneous-detrapping-process/</link><description>&lt;p&gt;When presenting &lt;a href="https://rf.mokslasplius.lt/heterogeneous-detrapping-process/"&gt;heterogeneous detrapping
+process&lt;/a&gt; at
+the &lt;a href="https://rf.mokslasplius.lt/our-group-attends-dpg-2024/"&gt;DPG conference&lt;/a&gt;
+I got a question (or a suggestion to check) what would happen if instead of
+heterogeneous traps we would require multiple successes for the charge
+carrier to escape? In the &lt;a href="https://rf.mokslasplius.lt/multi-success-detrapping-process/"&gt;previous
+post&lt;/a&gt; we have
+seen that this change makes relatively little difference when the detrapping times are
+exponential. But what if they are power-law? What if we require \(
+N_{success} \) successes within the &lt;a href="https://rf.mokslasplius.lt/heterogeneous-detrapping-process/"&gt;heterogeneous detrapping
+process&lt;/a&gt;?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 07 May 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-05-07:/multi-success-heterogeneous-detrapping-process/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>1/f noise</category><category>random telegraph noise</category></item><item><title>Mathemaniac: Random walks in 2D and 3D are fundamentally different</title><link>https://rf.mokslasplius.lt/mathemaniac-random-walks-in-2d-and-3d-are-fundamentally-different/</link><description>&lt;p&gt;We previously delved into the &lt;a href="/tag/statistical-physics/"&gt;statistical
+physics&lt;/a&gt; of &lt;a href="https://rf.mokslasplius.lt/birds-on-wire/"&gt;birds on a
+wire&lt;/a&gt;, where the avian subjects,
+though sober, exhibited remarkably short tempers. Now, consider the
+following: which journey is more likely to be completed, that of a drunkard
+finding their way home or a tipsy bird navigating its flight path homeward?
+It's an intriguing question posed by
+&lt;a href="https://youtube.com/channel/UCrlZs71h3mTR45FgQNINfrg"&gt;Mathemaniac&lt;/a&gt; in a
+video that explores the theoretical disparities between &lt;a href="/tag/brownian-motion/"&gt;Brownian
+motion&lt;/a&gt; in 2D and 3D realms, all without any harm to
+our feathered or human friends.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/iH2kATv49rc" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 30 Apr 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-04-30:/mathemaniac-random-walks-in-2d-and-3d-are-fundamentally-different/</guid><category>2024</category><category>mathemaniac</category><category>video</category><category>statistics</category><category>Brownian motion</category></item><item><title>Multi-success detrapping process</title><link>https://rf.mokslasplius.lt/multi-success-detrapping-process/</link><description>&lt;p&gt;When presenting &lt;a href="https://rf.mokslasplius.lt/heterogeneous-detrapping-process/"&gt;heterogeneous detrapping
+process&lt;/a&gt; at
+the &lt;a href="https://rf.mokslasplius.lt/our-group-attends-dpg-2024/"&gt;DPG conference&lt;/a&gt;
+I got a question (or a suggestion to check) what would happen if instead of
+heterogeneous traps we would require multiple successes for the charge
+carrier to escape?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 23 Apr 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-04-23:/multi-success-detrapping-process/</guid><category>2024</category><category>Interactive models</category><category>statistics</category><category>spectral density</category><category>random telegraph noise</category></item><item><title>Agent-based modeling tutorial (in English)</title><link>https://rf.mokslasplius.lt/abm-tutorial-in-english-2024/</link><description>&lt;p&gt;Like in the &lt;a href="https://rf.mokslasplius.lt/abm-tutorial-in-lithuanian/"&gt;previous
+year&lt;/a&gt;, I gave
+another two lecture introduction to the &lt;a href="/tag/agent-based-models/"&gt;agent-based
+modeling&lt;/a&gt; in socio- and econophysics. This time
+in English! Otherwise the changes to the slides and material itself are
+mostly visual in comparison to the last year slides.&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="first slide" src="https://rf.mokslasplius.lt/uploads/2024/abm-tutorial-in-english-2024.jpg"/&gt;&lt;/div&gt;
+&lt;p&gt;You can find the slides &lt;a href="https://rf.mokslasplius.lt/uploads/2024/Kononovicius2024FF.pdf"&gt;here&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 16 Apr 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-04-16:/abm-tutorial-in-english-2024/</guid><category>2024</category><category>General information</category><category>Agent-based models</category><category>opinion dynamics</category><category>game theory</category><category>Network models</category><category>kinetic models</category></item></channel></rss>
