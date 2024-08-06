@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Power-law distribution from superposition of exponential distributions</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/commonFunctions.js"></script>
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../shared-libs/jstat-192.min.js"></script>
+    <script src="../../shared-libs/random-026.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="ratePdfPlot" class="fullSize"></div>
+        <div id="valuePdfPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock oneandhalfWidth">
+            <label for="rate_exp">&alpha; = </label>
+            <input id="rate_exp" type="number" min="-1.5" max="1.5" step="0.25" value="0">
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="min_rate">&lambda;<sub>min</sub> = </label>
+            10^<input id="min_rate" type="number" min="-4" max="3" step="0.25" value="0">
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label for="max_rate">&lambda;<sub>max</sub> = </label>
+            10^<input id="max_rate" type="number" min="-3" max="4" step="0.25" value="3">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>
