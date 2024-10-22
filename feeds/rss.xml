@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 15 Oct 2024 08:00:00 +0300</lastBuildDate><item><title>Detailed balance</title><link>https://rf.mokslasplius.lt/detailed-balance/</link><description>&lt;p&gt;One of the things I wondered about the previous summer was the difference
+between stationarity (balance of all inflows and outflows from the state)
+and detailed balance (balance of flows between two particular states). For
+example, when looking for the stationary distribution of the &lt;a href="/tag/voter-model/"&gt;noisy voter
+model&lt;/a&gt; it is sufficient to solve equations for the
+detailed balance condition. But why? Do all stationary stochastic models
+satisfy detailed balance condition?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 15 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-15:/detailed-balance/</guid><category>2024</category><category>interactive</category><category>statistics</category><category>Markov chains</category></item><item><title>M. San Miguel: What are complex systems?</title><link>https://rf.mokslasplius.lt/san-miguel-what-are-complex-systems/</link><description>&lt;p&gt;An excellent introduction to &lt;a href="/tag/complex-systems/"&gt;complex systems&lt;/a&gt; by
+professor emeritus at &lt;a href="https://ifisc.uib-csic.es/en/"&gt;IFISC&lt;/a&gt; &lt;a href="https://ifisc.uib-csic.es/en/people/maxi-san-miguel/"&gt;Maxi San
+Miguel&lt;/a&gt;. We invite you
+to watch it!&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Ovghn0dvkUc?start=255" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 08 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-08:/san-miguel-what-are-complex-systems/</guid><category>2024</category><category>video</category><category>M. San Miguel</category><category>IFISC</category><category>traffic</category><category>economics</category><category>financial markets</category><category>biology</category><category>sociology</category><category>networks</category><category>fractals</category><category>synchronization</category><category>emergence</category><category>complex systems</category></item><item><title>Hypergeometric distribution</title><link>https://rf.mokslasplius.lt/hypergeometric-distribution/</link><description>&lt;p&gt;Have you ever heard about the hypergeometric distribution? I haven't up to
+at least a few weeks ago. It is related to the binomial distribution in a
+sense that both of these distributions describe the probability to have
+certain number of successes after a given number of experiments. The
+difference between them being that binomial distribution assumes experiments
+to be independent (drawing the balls from the box &lt;em&gt;with&lt;/em&gt; replacement), while
+hypergeometric distribution assumes dependence (the balls are drawn
+&lt;em&gt;without&lt;/em&gt; replacement).&lt;/p&gt;
+&lt;p&gt;Let us construct a simple model for the hypergeometric distribution, and run
+simulations!&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 01 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-01:/hypergeometric-distribution/</guid><category>2024</category><category>interactive</category><category>statistics</category></item><item><title>Financial Times: Can you mastermind a US presidential campaign?</title><link>https://rf.mokslasplius.lt/financial-times-US-presidential-campaign-game/</link><description>&lt;p&gt;Presidential elections in the United States are quickly approaching. For
+this special occasion &lt;a href="https://ft.com/"&gt;Financial Times&lt;/a&gt; has created an
+interactive game, which allows you to become party leader and try to win
+electoral college in 10 swing states. You will compete against other readers
+of the &lt;a href="https://ft.com/"&gt;Financial Times&lt;/a&gt;. At my best attempt I have beaten
+75% of the other readers. How many will you beat?&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Screenshot of the
+game." src="https://rf.mokslasplius.lt/uploads/2024/financial-times-US-presidential-campaign-game.png" title="Screenshot of the
+game."/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig 1.&lt;/span&gt;&lt;span class="caption-text"&gt;Screenshot of the game.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href="https://ig.ft.com/us-election-game/"&gt;Play the US election game »&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The game itself is inspired by &lt;a href="/tag/game-theory/"&gt;game theory&lt;/a&gt; and uses
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt; as its basis.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Thu, 26 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-26:/financial-times-US-presidential-campaign-game/</guid><category>2024</category><category>Financial Times</category><category>opinion dynamics</category><category>game theory</category><category>Colonel Blotto game</category></item><item><title>Open access is ruined by perverse incentives</title><link>https://rf.mokslasplius.lt/open-access-is-ruined-by-perverse-incentives/</link><description>&lt;p&gt;This summer I had couple of experiences which ruined my opinion of &lt;a href="/tag/open-access/"&gt;open
+access&lt;/a&gt;. More than ten years ago I have felt that
+openness is crucial for future fundamental developments, but now I clearly
+see perverse practices even in top journals and publishers.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 17 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-17:/open-access-is-ruined-by-perverse-incentives/</guid><category>2024</category><category>general</category><category>open access</category></item><item><title>ritvikmath: Dirichlet distribution</title><link>https://rf.mokslasplius.lt/ritvikmath-dirichlet-distribution/</link><description>&lt;p&gt;&lt;a href="https://www.youtube.com/@ritvikmath"&gt;ritvikmath&lt;/a&gt; has already &lt;a href="https://rf.mokslasplius.lt/ritvikmath-beta-distribution/"&gt;explained to
+us what the Beta distribution
+is&lt;/a&gt;. There is
+another video by &lt;a href="https://www.youtube.com/@ritvikmath"&gt;ritvikmath&lt;/a&gt;, which
+explains multidimensional generalization of it. This generalization is known
+as &lt;a href="https://en.wikipedia.org/wiki/Dirichlet_distribution"&gt;Dirichlet
+distribution&lt;/a&gt;. Watch
+it for the data science perspective.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/HpwEMld3uVo" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;I myself understand Dirichlet distribution from the perspective of &lt;a href="/tag/voter-model/"&gt;noisy
+voter model&lt;/a&gt; (or &lt;a href="/tag/kirman-model/"&gt;Kirman's model&lt;/a&gt;.
+Although I haven't explicitly mentioned it earlier, Dirichlet distribution
+arises from the &lt;a href="https://rf.mokslasplius.lt/many-state-herd-model-and-its-application-to-lithuanian-parliamentary-elections/"&gt;multistate generalization of the voter
+model&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 10 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-10:/ritvikmath-dirichlet-distribution/</guid><category>2024</category><category>video</category><category>ritvikmath</category><category>statistics</category></item><item><title>Another summer (2024) has gone by</title><link>https://rf.mokslasplius.lt/another-summer-2024-has-gone-by/</link><description>&lt;p&gt;Another summer has gone by. This year my main summer activity was
+supervising &lt;a href="https://rf.mokslasplius.lt/internship-opportunity-for-the-summer-of-2024/"&gt;summer internship
+project&lt;/a&gt;.
+The intern was rather capable, so the project itself was not very eventful
+and comparably effortless on my part. Also the final conclusion on the
+research hypothesis was negative (i.e., state interaction network doesn't
+seem to have any effect on stationary distribution), so there wasn't much to
+analyze.&lt;/p&gt;
+&lt;p&gt;From a technical side, &lt;a href="https://rf.mokslasplius.lt/it-is-september-again-2023/"&gt;once
+again&lt;/a&gt;, my
+institution's IT admins have irritated my a bit. In mid-June I have received
+a notification about outdated software on a server I supervise (which is not
+related to Physics of Risk in any way). I promptly connected to the server
+to immediately apply the update (as I was warned about severe security risks
+of not updating), just to find that no update is available for the Linux
+server. After quick search I have found that a newer version of the software
+in question is in fact directly available from its developers, but hasn't
+yet landed in the official repositories. It is not a good idea to update
+from outside the official repositories, so I felt somewhat annoyed due to
+being prodded and lectured for no real reason.&lt;/p&gt;
+&lt;p&gt;Summer experiences aside, what is coming for Physics of Risk? At the time of
+writing I do not know. I do have material for a rant about my summer
+experiences with &lt;a href="/tag/open-access/"&gt;open access&lt;/a&gt; publishing, but really not
+much else. I expect that the first-party content might become much rarer in
+the foreseeable future.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 03 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-03:/another-summer-2024-has-gone-by/</guid><category>2024</category><category>general</category><category>students</category></item><item><title>Stand-up Maths: The mathematically impossible ball that shouldn’t exist</title><link>https://rf.mokslasplius.lt/standupmaths-mathematically-impossible-ball-that-shouldnt-exist/</link><description>&lt;p&gt;Summer is already here! Go grab a ball and play! Just make sure that your
+ball is correct.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/_cAl3FlQZ9Q" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-25:/standupmaths-mathematically-impossible-ball-that-shouldnt-exist/</guid><category>2024</category><category>standupmaths</category><category>video</category><category>sports</category></item><item><title>Detrapping rates arising from Fermi-Dirac statistics</title><link>https://rf.mokslasplius.lt/detrapping-rates-arising-from-fermi-dirac-statistics/</link><description>&lt;p&gt;Have you ever wondered how &lt;a href="/tag/fermi-dirac-statistics/"&gt;Fermi-Dirac
+statistics&lt;/a&gt; arises? I already have in
+the previous couple of posts, but the more important question is why I
+suddenly started to care about Fermi-Dirac statistics. It is still all
+related to [&lt;a href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in electrical conductors arising from the heterogeneous detrapping process of individual charge carriers. arXiv:2306.07009 [math.PR]."&gt;1&lt;/a&gt;]. Reviewers raised doubts about
+our assumption about uniform detrapping rates, asking us to provide
+experimental evidence for our claim. As far as I am able to read the experimental
+works, it doesn't seem possible to provide any direct evidence. Still as a
+theoretician I can provide theoretical justification which is indirectly
+supported by experimental works.&lt;/p&gt;
+&lt;p&gt;This is why in this post we'll talk about detrapping rates arising from a
+simple model explored in an &lt;a href="https://rf.mokslasplius.lt/fermi-dirac-statistics-with-single-conduction-level/"&gt;earlier
+post&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 18 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-18:/detrapping-rates-arising-from-fermi-dirac-statistics/</guid><category>2024</category><category>interactive</category><category>statistics</category><category>statistical physics</category><category>Fermi-Dirac statistics</category></item><item><title>A. Zucconi: Let's build a computer in Conway's Game of Life</title><link>https://rf.mokslasplius.lt/a-zucconi-lets-build-computer-in-conways-game-of-life/</link><description>&lt;p&gt;Summer is almost here! Are you looking for a cool computer science project
+to do in a free time? Why not implement Conway's Game of Life? Using it you
+can even build your own simulation of a computer inside your physical
+computer! See the video below by &lt;a href="https://www.youtube.com/@AlanZucconi"&gt;Alan
+Zucconi&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Kk2MH9O4pXY" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 11 Jun 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-06-11:/a-zucconi-lets-build-computer-in-conways-game-of-life/</guid><category>2024</category><category>A. Zucconi</category><category>video</category><category>cellular automata</category></item></channel></rss>
