@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Blotto game with fast and slow troops</title>
+    <script src="../../shared-libs/commonFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <style>
+        label{width:40px;display:inline-block}
+        #figureWrapper div.label{margin:5px auto}
+        .round-header{font-weight:bold}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <svg id="battlefield" width="480" height="100" version="1.1" viewBox="0 0 127 26.46" xmlns="http://www.w3.org/2000/svg">
+         <g transform="translate(-2.646)">
+          <g transform="translate(6.615)">
+           <path id="castle-1" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(29.77)">
+           <path id="castle-2" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(52.92)">
+           <path id="castle-3" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(76.07)">
+           <path id="castle-4" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(99.22)">
+           <path id="castle-5" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+         </g>
+        </svg>
+        <div id="message" class="label">Submit round 1 allocations! (Your record: 0-0-0)</div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock round-header round-1">Round 1:</span>
+        <br>
+        <span class="controlBlock round-1 ai-alloc">
+            <label id="ai-label-1">CPU:</label>
+            <input id="ai-troop-11" type="number" value="6" disabled>,
+            <input id="ai-troop-12" type="number" value="6" disabled>,
+            <input id="ai-troop-13" type="number" value="6" disabled>,
+            <input id="ai-troop-14" type="number" value="6" disabled>,
+            <input id="ai-troop-15" type="number" value="6" disabled>
+            (<input id="ai-troop-total-1" type="number" value="30" disabled>)
+        </span>
+        <br>
+        <span class="controlBlock round-1 human-alloc">
+            <label id="player-label-1">You:</label>
+            <input id="troop-11" class="switch-input" type="number" min="0" max="30" step="1" value="6">,
+            <input id="troop-12" class="switch-input" type="number" min="0" max="30" step="1" value="6">,
+            <input id="troop-13" class="switch-input" type="number" min="0" max="30" step="1" value="6">,
+            <input id="troop-14" class="switch-input" type="number" min="0" max="30" step="1" value="6">,
+            <input id="troop-15" class="switch-input" type="number" min="0" max="30" step="1" value="6">
+            (<input id="troop-total-1" type="number" value="30" disabled>)
+        </span>
+        <br>
+        <span class="controlBlock round-header round-2">Round 2:</span>
+        <br>
+        <span class="controlBlock round-2 ai-alloc">
+            <label id="ai-label-2">CPU:</label>
+            <input id="ai-troop-21" type="number" value="0" disabled>,
+            <input id="ai-troop-22" type="number" value="0" disabled>,
+            <input id="ai-troop-23" type="number" value="0" disabled>,
+            <input id="ai-troop-24" type="number" value="0" disabled>,
+            <input id="ai-troop-25" type="number" value="0" disabled>
+            (<input id="ai-troop-total-2" type="number" value="0" disabled>)
+        </span>
+        <br>
+        <span class="controlBlock round-2 human-alloc">
+            <label id="player-label-2">You:</label>
+            <input id="troop-21" class="switch-input" type="number" min="0" max="30" step="1" value="0" disabled>,
+            <input id="troop-22" class="switch-input" type="number" min="0" max="30" step="1" value="0" disabled>,
+            <input id="troop-23" class="switch-input" type="number" min="0" max="30" step="1" value="0" disabled>,
+            <input id="troop-24" class="switch-input" type="number" min="0" max="30" step="1" value="0" disabled>,
+            <input id="troop-25" class="switch-input" type="number" min="0" max="30" step="1" value="0" disabled>
+            (<input id="troop-total-2" type="number" value="0" disabled>)
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="attack" id="attack">Commit troops</button>
+        </span>
+        <span class="controlBlock">
+            <button name="reset" id="reset">Reset record</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index-fast-slow.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 03 Dec 2024 08:00:00 +0200</lastBuildDate><item><title>IFISC Master thesis focused on DeGroot model</title><link>https://rf.mokslasplius.lt/ifisc-master-thesis-focused-on-degroot-model/</link><description>&lt;p&gt;In a few recent posts we have looked at the &lt;a href="https://rf.mokslasplius.lt/degroot-model/"&gt;DeGroot
+model&lt;/a&gt; and its
+&lt;a href="/tag/degroot-model/"&gt;generalizations&lt;/a&gt;. In those posts I have mentioned that
+while the models are somewhat old and could be considered to be classical,
+they have resurfaced recently in the &lt;a href="/tag/opinion-dynamics/"&gt;opinion
+dynamics&lt;/a&gt; literature.&lt;/p&gt;
+&lt;p&gt;This recent Master thesis is an example of a study conducted using the
+&lt;a href="https://rf.mokslasplius.lt/degroot-model/"&gt;DeGroot model&lt;/a&gt;. Its novelty lies
+in an exploration of in-group and out-group biases within the framework of
+the &lt;a href="https://rf.mokslasplius.lt/degroot-model/"&gt;DeGroot model&lt;/a&gt;. We invite
+you to watch the recording of the defense presentation shared by
+&lt;a href="/tag/ifisc/"&gt;IFISC&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/DUq-yICSW-0" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 03 Dec 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-12-03:/ifisc-master-thesis-focused-on-degroot-model/</guid><category>2024</category><category>video</category><category>IFISC</category><category>opinion dynamics</category><category>DeGroot model</category><category>networks</category><category>bias</category></item><item><title>Friedkin-Johnsen model</title><link>https://rf.mokslasplius.lt/friedkin-johnsen-model/</link><description>&lt;p&gt;Another model I have seen recently featured a lot in the literature is the
+Friedkin-Johnsen model. This model is a generalization of the &lt;a href="https://rf.mokslasplius.lt/degroot-model/"&gt;DeGroot
+model&lt;/a&gt; we have discussed earlier,
+but it adds a novel twist which allowed it to become a ground-breaking model
+on its own &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Noorazar2020" title="H. Noorazar. Recent advances in opinion propagation dynamics: a 2020 survey. The European Physical Journal Plus 135: 521 (2020). doi: 10.1140/epjp/s13360-020-00541-2."&gt;1&lt;/a&gt;]&lt;/span&gt;. Namely, it has added stubbornness into
+the DeGroot model &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Friedkin1990" title="N. E. Friedkin, E. C. Johnsen. Social influence and opinions. The Journal of Mathematical Sociology 15: 193-206 (1990). doi: 10.1080/0022250X.1990.9990069."&gt;2&lt;/a&gt;]&lt;/span&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 26 Nov 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-11-26:/friedkin-johnsen-model/</guid><category>2024</category><category>interactive</category><category>opinion dynamics</category><category>agent-based models</category><category>DeGroot model</category></item><item><title>Wisdom of the crowd</title><link>https://rf.mokslasplius.lt/wisdom-of-crowd/</link><description>&lt;p&gt;While looking through the recent &lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;
+literature I have started noticing papers exploring various extensions of
+the DeGroot model &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#DeGroot1974" title="M. H. DeGroot. Reaching a Consensus. Journal of the American Statistical Association 69: 118-121 (1974). doi: 10.2307/2285509."&gt;1&lt;/a&gt;]&lt;/span&gt;. Prior to those papers I haven't
+even heard or paid much attention to it. So I felt a bit curious.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/degroot-model/"&gt;previous post&lt;/a&gt; we have
+talked about the core ideas in the &lt;a href="/tag/degroot-model/"&gt;DeGroot model&lt;/a&gt;. In
+this post let me show how wisdom of the crowd effect emerges in the model.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 12 Nov 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-11-12:/wisdom-of-crowd/</guid><category>2024</category><category>interactive</category><category>opinion dynamics</category><category>agent-based models</category><category>DeGroot model</category></item><item><title>Veritasium: Why Democracy Is Mathematically Impossible?</title><link>https://rf.mokslasplius.lt/veritasium-why-democracy-is-mathematically-impossible/</link><description>&lt;p&gt;While briefly going back to the topic of &lt;a href="/tag/opinion-dynamics/"&gt;opinion
+dynamics&lt;/a&gt; let us become familiar with one possibly
+unsolvable real-life problem. In other words, did you know that democracy is
+mathematically impossible?&lt;/p&gt;
+&lt;p&gt;For a democratic decision making mechanism (e.g., elections) to work
+properly, we must ensure that:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Choice rankings should be transitive. If choice A is preferred over choice
+   B, and B is preferred over C, then A should be preferred over C.&lt;/li&gt;
+&lt;li&gt;Some decision should always be made. The mechanism simply can't "give up"
+   under any however unusual circumstance.&lt;/li&gt;
+&lt;li&gt;There should be no dictators. The decision must not depend only on one
+   voter's decision.&lt;/li&gt;
+&lt;li&gt;The mechanism should be unbiased, it should not impose any preference on
+   the voters. If voters prefer choice A over choice B, this should be taken
+   into account.&lt;/li&gt;
+&lt;li&gt;Voter preference between two alternatives should depend only on the two
+   alternatives. For example, if a group of voter prefers choice A over
+   choice B, then introduction choice C should not change the relative
+   ranking of A and B.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Seems reasonable, but it is impossible as per the Arrow's impossibility
+theorem &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Arrow1950" title="K. J. Arrow. A difficulty in the concept of social welfare. Journal of Political Economy 58: 328-346 (1950). doi: 10.1086/256963."&gt;1&lt;/a&gt;]&lt;/span&gt;. Well, at least for ordinal (ranked) voting
+systems. Watch the video below to get a popular summary on "why?".&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/qf7ws2DF-zk" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;By the end of the &lt;a href="/tag/video/"&gt;video&lt;/a&gt; a possible solution is discussed.
+Instead of using ranked voting systems we should use rated voting systems,
+as first shown by D. Black &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Black1948" title="D. Black. On the Rationale of Group Decision-making. Journal of Political Economy 56(1): 23-34 (1948). doi: 10.1086/256633."&gt;2&lt;/a&gt;]&lt;/span&gt;. I feel a bit skeptical
+about this, as lots of people would likely get confused over what should
+they write in their ballots. Furthermore, I am not sure if such voting is
+impervious to strategic voting and would encourage truthful statement of the
+preferences. Still, maybe?&lt;/p&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Arrow1950"&gt;K. J. Arrow. A difficulty in the concept of social welfare. Journal of Political Economy 58: 328-346 (1950). &lt;a href="https://doi.org/10.1086/256963"&gt;doi: 10.1086/256963&lt;/a&gt;.&lt;/li&gt;&lt;li id="Black1948"&gt;D. Black. On the Rationale of Group Decision-making. Journal of Political Economy 56(1): 23-34 (1948). &lt;a href="https://doi.org/10.1086/256633"&gt;doi: 10.1086/256633&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 05 Nov 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-11-05:/veritasium-why-democracy-is-mathematically-impossible/</guid><category>2024</category><category>video</category><category>Veritasium</category><category>opinion dynamics</category><category>game theory</category></item><item><title>DeGroot model</title><link>https://rf.mokslasplius.lt/degroot-model/</link><description>&lt;p&gt;While looking through the recent &lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;
+literature I have started noticing papers exploring various extensions of
+the DeGroot model &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#DeGroot1974" title="M. H. DeGroot. Reaching a Consensus. Journal of the American Statistical Association 69: 118-121 (1974). doi: 10.2307/2285509."&gt;1&lt;/a&gt;, &lt;a class="article-cite-item" href="#Noorazar2020" title="H. Noorazar. Recent advances in opinion propagation dynamics: a 2020 survey. The European Physical Journal Plus 135: 521 (2020). doi: 10.1140/epjp/s13360-020-00541-2."&gt;2&lt;/a&gt;]&lt;/span&gt;. Prior to those papers I haven't
+even heard or paid much attention to it. So I felt a bit curious.&lt;/p&gt;
+&lt;p&gt;At a first glance DeGroot model appears to be similar to the &lt;a href="https://rf.mokslasplius.lt/ishii-trust-suspicion-model/"&gt;trust and
+suspicion models&lt;/a&gt; we have
+discussed few years ago. Also, in the broadest strokes it likely inspired
+&lt;a href="/tag/bounded-confidence/"&gt;bounded confidence&lt;/a&gt; models.&lt;/p&gt;
+&lt;p&gt;But let us see what it is actually about!&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 29 Oct 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-29:/degroot-model/</guid><category>2024</category><category>interactive</category><category>opinion dynamics</category><category>agent-based models</category><category>DeGroot model</category></item><item><title>Detailed balance</title><link>https://rf.mokslasplius.lt/detailed-balance/</link><description>&lt;p&gt;One of the things I wondered about the previous summer was the difference
+between stationarity (balance of all inflows and outflows from the state)
+and detailed balance (balance of flows between two particular states). For
+example, when looking for the stationary distribution of the &lt;a href="/tag/voter-model/"&gt;noisy voter
+model&lt;/a&gt; it is sufficient to solve equations for the
+detailed balance condition. But why? Do all stationary stochastic models
+satisfy detailed balance condition?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 15 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-15:/detailed-balance/</guid><category>2024</category><category>interactive</category><category>statistics</category><category>Markov chains</category></item><item><title>M. San Miguel: What are complex systems?</title><link>https://rf.mokslasplius.lt/san-miguel-what-are-complex-systems/</link><description>&lt;p&gt;An excellent introduction to &lt;a href="/tag/complex-systems/"&gt;complex systems&lt;/a&gt; by
+professor emeritus at &lt;a href="https://ifisc.uib-csic.es/en/"&gt;IFISC&lt;/a&gt; &lt;a href="https://ifisc.uib-csic.es/en/people/maxi-san-miguel/"&gt;Maxi San
+Miguel&lt;/a&gt;. We invite you
+to watch it!&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/Ovghn0dvkUc?start=255" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 08 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-08:/san-miguel-what-are-complex-systems/</guid><category>2024</category><category>video</category><category>M. San Miguel</category><category>IFISC</category><category>traffic</category><category>economics</category><category>financial markets</category><category>biology</category><category>sociology</category><category>networks</category><category>fractals</category><category>synchronization</category><category>emergence</category><category>complex systems</category></item><item><title>Hypergeometric distribution</title><link>https://rf.mokslasplius.lt/hypergeometric-distribution/</link><description>&lt;p&gt;Have you ever heard about the hypergeometric distribution? I haven't up to
+at least a few weeks ago. It is related to the binomial distribution in a
+sense that both of these distributions describe the probability to have
+certain number of successes after a given number of experiments. The
+difference between them being that binomial distribution assumes experiments
+to be independent (drawing the balls from the box &lt;em&gt;with&lt;/em&gt; replacement), while
+hypergeometric distribution assumes dependence (the balls are drawn
+&lt;em&gt;without&lt;/em&gt; replacement).&lt;/p&gt;
+&lt;p&gt;Let us construct a simple model for the hypergeometric distribution, and run
+simulations!&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 01 Oct 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-10-01:/hypergeometric-distribution/</guid><category>2024</category><category>interactive</category><category>statistics</category></item><item><title>Financial Times: Can you mastermind a US presidential campaign?</title><link>https://rf.mokslasplius.lt/financial-times-US-presidential-campaign-game/</link><description>&lt;p&gt;Presidential elections in the United States are quickly approaching. For
+this special occasion &lt;a href="https://ft.com/"&gt;Financial Times&lt;/a&gt; has created an
+interactive game, which allows you to become party leader and try to win
+electoral college in 10 swing states. You will compete against other readers
+of the &lt;a href="https://ft.com/"&gt;Financial Times&lt;/a&gt;. At my best attempt I have beaten
+75% of the other readers. How many will you beat?&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Screenshot of the
+game." src="https://rf.mokslasplius.lt/uploads/2024/financial-times-US-presidential-campaign-game.png" title="Screenshot of the
+game."/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig. 1:&lt;/span&gt;&lt;span class="caption-text"&gt;Screenshot of the game.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href="https://ig.ft.com/us-election-game/"&gt;Play the US election game »&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The game itself is inspired by &lt;a href="/tag/game-theory/"&gt;game theory&lt;/a&gt; and uses
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt; as its basis.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Thu, 26 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-26:/financial-times-US-presidential-campaign-game/</guid><category>2024</category><category>Financial Times</category><category>opinion dynamics</category><category>game theory</category><category>Colonel Blotto game</category></item><item><title>Open access is ruined by perverse incentives</title><link>https://rf.mokslasplius.lt/open-access-is-ruined-by-perverse-incentives/</link><description>&lt;p&gt;This summer I had couple of experiences which ruined my opinion of &lt;a href="/tag/open-access/"&gt;open
+access&lt;/a&gt;. More than ten years ago I have felt that
+openness is crucial for future fundamental developments, but now I clearly
+see perverse practices even in top journals and publishers.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 17 Sep 2024 08:00:00 +0300</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-09-17:/open-access-is-ruined-by-perverse-incentives/</guid><category>2024</category><category>general</category><category>open access</category></item></channel></rss>
