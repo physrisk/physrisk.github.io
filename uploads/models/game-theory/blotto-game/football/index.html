@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Football coach Blotto</title>
+        <link href="../../../shared-libs/bootstrap-522.min.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
+        <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+    </head>
+    <body>
+        <div id="main" class="fluid-container">
+            <div id="menu-card" class="card">
+                <div class="card-body eleven-container text-center">
+                    <h5 id="menu-title" class="card-title">Menu title</h5>
+                    <span id="add-player-tooltip" data-toggle="tooltip">
+                        <button id="add-player" class="btn btn-secondary" type="button">Add Player</button>
+                    </span>
+                    <span id="remove-player-tooltip" data-toggle="tooltip">
+                        <button id="remove-player" class="btn btn-secondary" type="button">Remove Player</button>
+                    </span>
+                    <button id="change-goalkeeper" class="btn btn-secondary" type="button">Change Goalkeeper</button>
+                    <hr>
+                    <span id="start-match-tooltip" data-toggle="tooltip">
+                        <button id="start-match" class="btn btn-secondary" type="button">Start Match</button>
+                    </span>
+                    <button id="reset-match" class="btn btn-secondary" type="button">Reset Match</button>
+                    <hr>
+                    <button id="close-menu" class="btn btn-secondary" type="button">Close Menu</button>
+                </div>
+            </div>
+            <div id="change-goalkeeper-card" class="card">
+                <div class="card-body eleven-container">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-outline-secondary" type="button" id="goalkeeper-gloves-down">-</button>
+                        <input id="goalkeeper-gloves" class="form-control" value="1" readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="goalkeeper-gloves-up">+</button>
+                        <span class="input-group-text">x</span>
+                        <button class="btn btn-outline-secondary" type="button" id="goalkeeper-level-down">-</button>
+                        <input id="goalkeeper-level" class="form-control" value="1" readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="goalkeeper-level-up">+</button>
+                    </div>
+                    <button id="update-goalkeeper" class="btn btn-secondary" type="button">Update</button>
+                </div>
+            </div>
+            <div id="pitch-card" class="card">
+                <div class="card-body eleven-container text-center">
+                    <div id="pitch">
+                        <div id="pitch-score-line">0:0</div>
+                        <div id="pitch-pitch">
+                            <div id="pitch-away-keeper" class="pitch-zone">
+                                <div id="pitch-away-gk" class="pitch-section-gk"></div>
+                            </div>
+                            <div id="pitch-attack" class="pitch-zone">
+                                <div id="pitch-lwa" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-ca" class="pitch-section"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-rwa" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                            </div>
+                            <div id="pitch-midfield" class="pitch-zone">
+                                <div id="pitch-lwm" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-cm" class="pitch-section"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-rwm" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                            </div>
+                            <div id="pitch-defence" class="pitch-zone">
+                                <div id="pitch-lwd" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-cd" class="pitch-section"><div class="away-part"></div><div class="home-part"></div></div>
+                                <div id="pitch-rwd" class="pitch-section-wing"><div class="away-part"></div><div class="home-part"></div></div>
+                            </div>
+                            <div id="pitch-home-keeper" class="pitch-zone">
+                                <div id="pitch-home-gk" class="pitch-section-gk"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="player-card" class="card">
+                <div class="card-body eleven-container">
+                    <div class="flex">
+                        <div id="player-home" class="player"></div>
+                        <div id="player-away" class="player"></div>
+                        <div id="player-attack" class="player"></div>
+                        <div id="player-defence" class="player"></div>
+                        <div id="player-level-container">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" id="player-level-down">-</button>
+                                <input id="player-level" class="form-control" value="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="player-level-up">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button id="player-card-add" class="btn btn-secondary" type="button">Add Player</button>
+                        <button id="player-card-close" class="btn btn-secondary" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../../shared-libs/bootstrap-522.bundle.min.js"></script>
+        <script src="./index.js"></script>
+        <script src="./teams.js"></script>
+        <script src="./pitch.js"></script>
+        <script src="./menu.js"></script>
+        <script src="./change-goalkeeper.js"></script>
+        <script src="./player.js"></script>
+        <script src="./resolve.js"></script>
+    </body>
+</html>
