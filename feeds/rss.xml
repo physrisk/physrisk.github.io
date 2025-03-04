@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 04 Mar 2025 08:00:00 +0200</lastBuildDate><item><title>Open PhD position for 2025 admission</title><link>https://rf.mokslasplius.lt/open-phd-position-2025/</link><description>&lt;div class="figure"&gt;&lt;img alt="poster" src="https://rf.mokslasplius.lt/uploads/2025/open-phd-position-2025.jpg"/&gt;&lt;/div&gt;
+&lt;p&gt;Are you interested in complex systems, &lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;, or the &lt;a href="/tag/voter-model/"&gt;voter
+model&lt;/a&gt;? Do you have a Master's degree in Physics or
+Mathematics and a good grasp of statistics and numerical simulation? Would you
+like to work together with me as your PhD supervisor? If so, apply for a PhD
+position at the &lt;a href="https://www.ff.vu.lt/en/itpa/"&gt;Institute of Theoretical Physics and
+Astronomy&lt;/a&gt; (part of the &lt;a href="https://www.ff.vu.lt/en/"&gt;Faculty of
+Physics&lt;/a&gt; at &lt;a href="https://www.vu.lt/en/"&gt;Vilnius
+University&lt;/a&gt;).&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 04 Mar 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-03-04:/open-phd-position-2025/</guid><category>2025</category><category>general</category><category>students</category><category>opinion dynamics</category><category>voter model</category></item><item><title>Adaptive strategy in Colonel Blotto game</title><link>https://rf.mokslasplius.lt/adaptive-strategy-colonel-blotto-game/</link><description>&lt;p&gt;&lt;a href="https://rf.mokslasplius.lt/coding-colonel-blotto-tournament/"&gt;Last week&lt;/a&gt; I
+have shared a story about &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto&lt;/a&gt;
+tournament I held back when I still used to teach &lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;.
+This tournament is interesting from the perspective of Physics of Risk,
+because it was designed to encourage adaptive strategy. Admittedly, only few
+students actually did that, but...&lt;/p&gt;
+&lt;p&gt;Anyway, let us build an adaptive strategy for one of the variations of the
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt; we have explored recently.
+Let us revisit &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/"&gt;Colonel Blotto game with varied
+castles&lt;/a&gt;!&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-25:/adaptive-strategy-colonel-blotto-game/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item><item><title>Coding Colonel Blotto tournament in Matlab</title><link>https://rf.mokslasplius.lt/coding-colonel-blotto-tournament/</link><description>&lt;p&gt;As I have already written couple of times, I used to teach
+&lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;. My experience was quite varied with many highs and
+as many lows. The high points were usually introducing and solving more
+complicated or involved problems, and also helping students to understand
+them. One time I held a tournament similar to &lt;a href="https://fivethirtyeight.com/features/can-you-rule-riddler-nation/"&gt;Riddler
+Nation&lt;/a&gt;
+tournament hosted by Riddler on
+&lt;a href="https://abcnews.go.com/538"&gt;FiveThirtyEight&lt;/a&gt;, which was based on the
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this post I discuss the problem posed to my students. And I also provide
+a live session recording of me implementing &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel
+Blotto&lt;/a&gt; tournament in &lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 18 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-18:/coding-colonel-blotto-tournament/</guid><category>2025</category><category>video</category><category>statistics</category><category>Matlab</category><category>github</category><category>Colonel Blotto game</category><category>FiveThirtyEight</category></item><item><title>Can Colonel Blotto coach a football team?</title><link>https://rf.mokslasplius.lt/can-colonel-blotto-coach-football/</link><description>&lt;p&gt;Let us now apply the things we have learned from analyzing various
+iterations of &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;! At least
+from my perspective, football match resolution engine used in the &lt;a href="https://boardgamegeek.com/boardgame/329716/eleven-football-manager-board-game"&gt;Eleven:
+Football Manager Board
+Game&lt;/a&gt;
+is a variation of this game. Can we improve our performance by leveraging
+this knowledge?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 11 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-11:/can-colonel-blotto-coach-football/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>sports</category><category>board games</category><category>Colonel Blotto game</category></item><item><title>Fast and slow troops in Colonel Blotto game</title><link>https://rf.mokslasplius.lt/fast-slow-colonel-blotto/</link><description>&lt;p&gt;Let us continue exploring &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;!
+In an &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;earlier post&lt;/a&gt;, we
+became familiar with the basic premise of the model. Then, we have
+&lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/"&gt;explored&lt;/a&gt;
+what happens when the castles (battlefields) have different importance.
+This time, let us consider a scenario with two types of troops: one that is
+slow and inexpensive, and another that is fast but more costly. What happens
+if we introduce this heterogeneity? Will you be able to beat AI strategy
+this time?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 28 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-28:/fast-slow-colonel-blotto/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item><item><title>Lasplagas: Simulating War using Game Theory!</title><link>https://rf.mokslasplius.lt/lasplagas-simulating-war-using-game-theory/</link><description>&lt;p&gt;A short video on the &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;, which
+visually introduces the &lt;a href="/tag/game-theory/"&gt;game&lt;/a&gt; we have been posting about
+recently. It implements a couple of straightforward strategies, which
+gradually grow more sophisticated.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/-bdGnMpwJbs" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;It seems that the "smart colonel" strategy from the video above is similar
+to the strategy I have implemented to be used by computer opponent in the
+app from &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;an earlier post&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 21 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-21:/lasplagas-simulating-war-using-game-theory/</guid><category>2025</category><category>video</category><category>game theory</category><category>conflicts</category><category>Lasplagas</category><category>Colonel Blotto game</category></item><item><title>Colonel Blotto game with varied castles</title><link>https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/</link><description>&lt;p&gt;In an &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;earlier post&lt;/a&gt; we
+have seen basic framework behind the Colonel Blotto game. We have assumed
+that castles are identical and of equal value. In this post let us consider
+one of the simplest ways to generalize Colonel Blotto game is to assume that
+castles are heterogeneous. Can you still find a winning strategy?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 14 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-14:/colonel-blotto-game-varied-castles/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item><item><title>Overview of 2024</title><link>https://rf.mokslasplius.lt/overview-of-2024/</link><description>&lt;p&gt;Happy New Year! It is time for our yearly reflection. Unexpectedly, we just
+had another good year on Physics of Risk. At least content-wise. We have
+published 36 posts (+3 in comparison to the &lt;a href="https://rf.mokslasplius.lt/overview-of-2023/"&gt;previous
+year&lt;/a&gt;). Half of the posts, 18 in
+total, were supplemented by &lt;a href="/tag/interactive/"&gt;interactive
+materials&lt;/a&gt;. Overall trend remains more-or-less
+stable as can be seen from the plot below. &lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Number of posts written in English and still available on this site as of
+the end of 2024" src="https://rf.mokslasplius.lt/uploads/2025/overview-of-2024.png" title="Number of posts written in English and still available on this site as of
+the end of 2024"/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig. 1:&lt;/span&gt;&lt;span class="caption-text"&gt;The number of posts written in English and still available on this iteration of Physics of Risk (as of the end of 2024). The wide bars represent total number of posts for each year since 2010, while the narrower bars represent a number of posts containing an interactive app.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;Exploring &lt;a href="/tag/random-telegraph-noise/"&gt;random telegraph noise&lt;/a&gt; has led us
+to explore some related topics in &lt;a href="/tag/statistics/"&gt;statistics&lt;/a&gt;. Namely, we
+have shown that power-law distributions can be manufactured by using
+mixtures of other distributions. Reviewer comments on our recent paper &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). doi: 10.1088/1742-5468/ad890b. arXiv:2306.07009 [math.PR]."&gt;1&lt;/a&gt;]&lt;/span&gt; have prompted a quick look at the core concept
+in statistical physics - &lt;a href="/tag/fermi-dirac-statistics/"&gt;Fermi-Dirac
+statistics&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Summer vacation has served as a reset. I have restarted with a rant about
+the state of open science, and general tutorial videos, but quickly switch
+to a few unrelated topics in &lt;a href="/tag/statistics/"&gt;statistics&lt;/a&gt; and &lt;a href="/tag/opinion-dynamics/"&gt;opinion
+dynamics&lt;/a&gt;. Finally, we have started talking about
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;, which we will continue
+this year. I would also like to write a post or two about another recent
+paper by me and coauthors from &lt;a href="https://mif.vu.lt/en/"&gt;Faculty of Mathematics and
+Informatics&lt;/a&gt; &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;2&lt;/a&gt;]&lt;/span&gt;. And
+then... we will see what comes!&lt;/p&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Kononovicius2024upoiss"&gt;A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). &lt;a href="https://doi.org/10.1088/1742-5468/ad890b"&gt;doi: 10.1088/1742-5468/ad890b&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2306.07009"&gt;arXiv:2306.07009 [math.PR]&lt;/a&gt;.&lt;/li&gt;&lt;li id="Kononovicius2024PhysA"&gt;A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). &lt;a href="https://doi.org/10.1016/j.physa.2024.130062"&gt;doi: 10.1016/j.physa.2024.130062&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2403.10277"&gt;arXiv:2403.10277 [physics.soc-ph]&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 07 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-07:/overview-of-2024/</guid><category>2025</category><category>general</category></item><item><title>Colonel Blotto game with varied troop count</title><link>https://rf.mokslasplius.lt/colonel-blotto-game-varied-troop-count/</link><description>&lt;p&gt;In an &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;earlier post&lt;/a&gt; we
+have seen basic framework behind the Colonel Blotto game. We have assumed
+both warlords are equal in their strength, and that the castles are
+identical and of equal value. So, there are at least two obvious ways to
+generalize the game. In this post let us consider what happens when warlords
+differ in their troop count. Does the weaker warlord even have a chance? How
+can the stronger warlord make use of their superior strength?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Mon, 23 Dec 2024 09:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-12-23:/colonel-blotto-game-varied-troop-count/</guid><category>2024</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item><item><title>Colonel Blotto game</title><link>https://rf.mokslasplius.lt/colonel-blotto-game/</link><description>&lt;p&gt;In an &lt;a href="https://rf.mokslasplius.lt/financial-times-US-presidential-campaign-game/"&gt;earlier
+post&lt;/a&gt;,
+we invited you to coordinate presidential campaign within a simple web game.
+We have also mentioned that the framework of the web game relates to &lt;a href="/tag/game-theory/"&gt;game
+theory&lt;/a&gt; and the &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto
+game&lt;/a&gt;. Let us turn our attention for the next
+few posts to this classic game. As we will see it contains rich strategic
+landscape, and has numerous practical applications in various fields,
+including political campaigning (as previously discussed), warfare (as
+suggested by its original context), &lt;a href="/tag/marketing/"&gt;marketing&lt;/a&gt;, and even
+&lt;a href="/tag/sports/"&gt;sports&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here, in this post, will start by discussing the original formulation of the
+game.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 10 Dec 2024 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2024-12-10:/colonel-blotto-game/</guid><category>2024</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>competition</category><category>Colonel Blotto game</category></item></channel></rss>
