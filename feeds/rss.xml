@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description></description><lastBuildDate>Tue, 25 Mar 2025 08:00:00 +0200</lastBuildDate><item><title>Primer: Simulating the evolution of rock, paper, scissors</title><link>https://rf.mokslasplius.lt/primer-simulating-the-evolution-of-rock-paper-scissors/</link><description>&lt;p&gt;Over the last few months, we have focused on the &lt;a href="/tag/game-theory/"&gt;game
+theory&lt;/a&gt;. We have recently even looked at adaptive
+strategies in repeated &lt;a href="https://rf.mokslasplius.lt/adaptive-strategy-colonel-blotto-game/"&gt;Colonel Blotto
+games&lt;/a&gt;.
+Another approach to adaptation phenomena is evolutionary game theory. Video
+by &lt;a href="https://www.youtube.com/@PrimerBlobs"&gt;Primer&lt;/a&gt; is an excellent
+illustration of this fascinating branch of &lt;a href="/tag/game-theory/"&gt;game theory&lt;/a&gt;.
+So, let us see how the players' strategies evolve when playing the classic
+"rock, paper, scissors" game. Players will play the game multiple times and
+learn from their experience. Though notably, here, learning will be
+indirect. Instead of individual, the simulated society will evolve based on
+the performance of different strategies. Can you guess the evolutionary
+trajectory of the simulated society?&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/tCoEYFbDVoI" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Mar 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-03-25:/primer-simulating-the-evolution-of-rock-paper-scissors/</guid><category>2025</category><category>video</category><category>game theory</category><category>Primer</category><category>evolution</category></item><item><title>Tutorial on physics of socio-economic phenomena 2025</title><link>https://rf.mokslasplius.lt/tutorial-on-physics-of-socio-economic-phenomena-2025/</link><description>&lt;p&gt;Continuing the ongoing tradition (see the
+&lt;a href="https://rf.mokslasplius.lt/abm-tutorial-in-english-2024/"&gt;post&lt;/a&gt; from last
+year), I gave another two lecture tutorial introducing Master degree students
+to the physics of socio-economic phenomena. This time, the tutorial's focus
+has shifted from &lt;a href="/tag/agent-based-models/"&gt;agent-based modeling&lt;/a&gt; towards
+&lt;a href="/tag/complex-systems/"&gt;complex systems&lt;/a&gt; and scale-free phenomena
+point-of-view. I was looking for a way to present this research area to
+physics students, but I have to admit that Mantegna's and Stanley's approach
+is indeed superior (see &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Mantegna1999CUP" title="R. N. Mantegna, H. E. Stanley. Introduction to Econophysics: Correlations and Complexity in Finance. Cambridge University Press, 1999. doi: 10.1017/CBO9780511755767."&gt;1&lt;/a&gt;]&lt;/span&gt;).&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="first
+slide" src="https://rf.mokslasplius.lt/uploads/2025/tutorial-on-physics-of-socio-economic-phenomena-2025.jpg"/&gt;&lt;/div&gt;
+&lt;p&gt;You can find the newest iteration of slides
+&lt;a href="https://rf.mokslasplius.lt/uploads/2025/Kononovicius2025FF.pdf"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Mantegna1999CUP"&gt;R. N. Mantegna, H. E. Stanley. Introduction to Econophysics: Correlations and Complexity in Finance. Cambridge University Press, 1999. &lt;a href="https://doi.org/10.1017/CBO9780511755767"&gt;doi: 10.1017/CBO9780511755767&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 18 Mar 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-03-18:/tutorial-on-physics-of-socio-economic-phenomena-2025/</guid><category>2025</category><category>general</category><category>financial markets</category><category>opinion dynamics</category><category>game theory</category><category>networks</category><category>kinetic models</category><category>students</category></item><item><title>S. Galam's referendum model</title><link>https://rf.mokslasplius.lt/galam-referendum-model/</link><description>&lt;p&gt;&lt;a href="https://rf.mokslasplius.lt/many-particle-interaction-in-the-kinetic-exchange-models/"&gt;Eleven years
+ago&lt;/a&gt;
+I have written a post about many particle interactions in the kinetic
+exchange models. Few days ago I have stumbled upon that post and noticed
+that it features a model that has little in common with &lt;a href="/tag/kinetic-models/"&gt;kinetic exchange
+models&lt;/a&gt;. Under these circumstances the only natural
+thing is to write a dedicated post highlighting the said model.&lt;/p&gt;
+&lt;p&gt;So, consider how we make decisions. Not all of us are skilled and informed
+enough to make decisions on our own in all possible everyday scenarios. I
+may be a physicist, but I do not understand some branches of physics well
+enough. I am not speaking about the questions outside my work or hobby
+expertise. In such cases, we must rely on our social contacts
+(acquaintances, co-workers, family members, etc.) to help us decide.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 11 Mar 2025 07:02:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-03-11:/galam-referendum-model/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>opinion dynamics</category></item><item><title>Open PhD position for 2025 admission</title><link>https://rf.mokslasplius.lt/open-phd-position-2025/</link><description>&lt;div class="figure"&gt;&lt;img alt="poster" src="https://rf.mokslasplius.lt/uploads/2025/open-phd-position-2025.jpg"/&gt;&lt;/div&gt;
+&lt;p&gt;Are you interested in complex systems, &lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;, or the &lt;a href="/tag/voter-model/"&gt;voter
+model&lt;/a&gt;? Do you have a Master's degree in Physics or
+Mathematics and a good grasp of statistics and numerical simulation? Would you
+like to work together with me as your PhD supervisor? If so, apply for a PhD
+position at the &lt;a href="https://www.ff.vu.lt/en/itpa/"&gt;Institute of Theoretical Physics and
+Astronomy&lt;/a&gt; (part of the &lt;a href="https://www.ff.vu.lt/en/"&gt;Faculty of
+Physics&lt;/a&gt; at &lt;a href="https://www.vu.lt/en/"&gt;Vilnius
+University&lt;/a&gt;).&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 04 Mar 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-03-04:/open-phd-position-2025/</guid><category>2025</category><category>general</category><category>students</category><category>opinion dynamics</category><category>voter model</category></item><item><title>Adaptive strategy in Colonel Blotto game</title><link>https://rf.mokslasplius.lt/adaptive-strategy-colonel-blotto-game/</link><description>&lt;p&gt;&lt;a href="https://rf.mokslasplius.lt/coding-colonel-blotto-tournament/"&gt;Last week&lt;/a&gt; I
+have shared a story about &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto&lt;/a&gt;
+tournament I held back when I still used to teach &lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;.
+This tournament is interesting from the perspective of Physics of Risk,
+because it was designed to encourage adaptive strategy. Admittedly, only few
+students actually did that, but...&lt;/p&gt;
+&lt;p&gt;Anyway, let us build an adaptive strategy for one of the variations of the
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt; we have explored recently.
+Let us revisit &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/"&gt;Colonel Blotto game with varied
+castles&lt;/a&gt;!&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-25:/adaptive-strategy-colonel-blotto-game/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category><category>evolution</category></item><item><title>Coding Colonel Blotto tournament in Matlab</title><link>https://rf.mokslasplius.lt/coding-colonel-blotto-tournament/</link><description>&lt;p&gt;As I have already written couple of times, I used to teach
+&lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;. My experience was quite varied with many highs and
+as many lows. The high points were usually introducing and solving more
+complicated or involved problems, and also helping students to understand
+them. One time I held a tournament similar to &lt;a href="https://fivethirtyeight.com/features/can-you-rule-riddler-nation/"&gt;Riddler
+Nation&lt;/a&gt;
+tournament hosted by Riddler on
+&lt;a href="https://abcnews.go.com/538"&gt;FiveThirtyEight&lt;/a&gt;, which was based on the
+&lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In this post I discuss the problem posed to my students. And I also provide
+a live session recording of me implementing &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel
+Blotto&lt;/a&gt; tournament in &lt;a href="/tag/matlab/"&gt;Matlab&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 18 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-18:/coding-colonel-blotto-tournament/</guid><category>2025</category><category>video</category><category>statistics</category><category>Matlab</category><category>github</category><category>Colonel Blotto game</category><category>FiveThirtyEight</category></item><item><title>Can Colonel Blotto coach a football team?</title><link>https://rf.mokslasplius.lt/can-colonel-blotto-coach-football/</link><description>&lt;p&gt;Let us now apply the things we have learned from analyzing various
+iterations of &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;! At least
+from my perspective, football match resolution engine used in the &lt;a href="https://boardgamegeek.com/boardgame/329716/eleven-football-manager-board-game"&gt;Eleven:
+Football Manager Board
+Game&lt;/a&gt;
+is a variation of this game. Can we improve our performance by leveraging
+this knowledge?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 11 Feb 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-02-11:/can-colonel-blotto-coach-football/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>sports</category><category>board games</category><category>Colonel Blotto game</category></item><item><title>Fast and slow troops in Colonel Blotto game</title><link>https://rf.mokslasplius.lt/fast-slow-colonel-blotto/</link><description>&lt;p&gt;Let us continue exploring &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;!
+In an &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;earlier post&lt;/a&gt;, we
+became familiar with the basic premise of the model. Then, we have
+&lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/"&gt;explored&lt;/a&gt;
+what happens when the castles (battlefields) have different importance.
+This time, let us consider a scenario with two types of troops: one that is
+slow and inexpensive, and another that is fast but more costly. What happens
+if we introduce this heterogeneity? Will you be able to beat AI strategy
+this time?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 28 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-28:/fast-slow-colonel-blotto/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item><item><title>Lasplagas: Simulating War using Game Theory!</title><link>https://rf.mokslasplius.lt/lasplagas-simulating-war-using-game-theory/</link><description>&lt;p&gt;A short video on the &lt;a href="/tag/colonel-blotto-game/"&gt;Colonel Blotto game&lt;/a&gt;, which
+visually introduces the &lt;a href="/tag/game-theory/"&gt;game&lt;/a&gt; we have been posting about
+recently. It implements a couple of straightforward strategies, which
+gradually grow more sophisticated.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/-bdGnMpwJbs" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;It seems that the "smart colonel" strategy from the video above is similar
+to the strategy I have implemented to be used by computer opponent in the
+app from &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;an earlier post&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 21 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-21:/lasplagas-simulating-war-using-game-theory/</guid><category>2025</category><category>video</category><category>game theory</category><category>conflicts</category><category>Lasplagas</category><category>Colonel Blotto game</category></item><item><title>Colonel Blotto game with varied castles</title><link>https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/</link><description>&lt;p&gt;In an &lt;a href="https://rf.mokslasplius.lt/colonel-blotto-game/"&gt;earlier post&lt;/a&gt; we
+have seen basic framework behind the Colonel Blotto game. We have assumed
+that castles are identical and of equal value. In this post let us consider
+one of the simplest ways to generalize Colonel Blotto game is to assume that
+castles are heterogeneous. Can you still find a winning strategy?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 14 Jan 2025 08:00:00 +0200</pubDate><guid isPermaLink="false">tag:rf.mokslasplius.lt,2025-01-14:/colonel-blotto-game-varied-castles/</guid><category>2025</category><category>interactive</category><category>game theory</category><category>conflicts</category><category>Colonel Blotto game</category></item></channel></rss>
