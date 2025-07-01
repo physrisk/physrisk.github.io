@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Detailed balance</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div class="fullSize">
+            <svg width="500" height="250" viewBox="0 0 132.29166 66.145833" version="1.1" id="statePlot">
+                <defs>
+                    <marker style="overflow:visible" id="Triangle" refX="0" refY="0" orient="auto-start-reverse" markerWidth="1" markerHeight="1" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid">
+                        <path transform="scale(0.5)" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" d="M 5.77,0 -2.88,5 V -5 Z" />
+                    </marker>
+                </defs>
+                <circle style="fill:#ffffff;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:2.8;stroke-opacity:1" id="stateCircle0" cx="14.552087" cy="51.59375" r="12.964583" />
+                <circle style="fill:#ffffff;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:2.8;stroke-opacity:1" id="stateCircle1" cx="66.145836" cy="14.552083" r="12.964583" />
+                <circle style="fill:#ffffff;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-dasharray:none;stroke-dashoffset:2.8;stroke-opacity:1" id="stateCircle2" cx="117.73958" cy="51.59375" r="12.964583" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.79374998;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle)" d="M 51.585327,22.283533 26.466759,40.158129" id="transitionArrow01" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.793751;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)" d="M 54.231161,25.987702 29.112593,43.862298" id="transitionArrow10" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.79375;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle)" d="M 101.86458,49.344127 H 30.427082" id="transitionArrow02" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.79375;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)" d="M 101.86458,53.697615 H 30.427082" id="transitionArrow20" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.793751;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)" d="M 80.706334,22.283533 105.8249,40.158129" id="transitionArrow12" />
+                <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.793751;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle)" d="m 78.0605,25.987702 25.11857,17.874596" id="transitionArrow21" />
+            </svg>
+        </div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock singleWidth">
+            <label for="assym_degree">&epsilon; = </label>
+            <input id="assym_degree" type="number" min="0" max="1" step="0.1" value="1">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="simulate" id="simulate">Simulate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>
