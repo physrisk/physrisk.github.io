@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Stationary variance of AR(2) process</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="variancePlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock singleWidth">
+            <label for="phi_1">ϕ<sub>1</sub> = </label>
+            <input id="phi_1" type="number" min="-0.95" max="0.95" step="0.05" value="0.5">
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./variance-phi2.js"></script>
+</body>
+</html>
