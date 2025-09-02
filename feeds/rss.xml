@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description/><atom:link href="https://rf.mokslasplius.lt/feeds/rss.xml" rel="self"/><lastBuildDate>Tue, 10 Jun 2025 08:00:00 +0300</lastBuildDate><item><title>Workshop on Sociophysics at ICTP SAIFR</title><link>https://rf.mokslasplius.lt/workshop-on-sociophysics-at-ictp-saifr/</link><description>&lt;p&gt;In October 2021, &lt;a href="https://www.ictp-saifr.org"&gt;South American Institute of Fundamental Research of
+International Centre for Theoretical Physics&lt;/a&gt;
+hosted a workshop on Sociophysics. If you're looking to get started in doing
+&lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;, this recording of the talks by
+the two leading researchers in the field, Katarzyna Sznajd-Weron and Maxi
+San Miguel, is a great place to begin. If you are interested, complete
+program and recordings of other talks are available on dedicated
+&lt;a href="https://www.ictp-saifr.org/workshop-on-sociophysics-social-phenomena-from-a-physics-perspective/"&gt;site&lt;/a&gt;&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/VZfbW9Bf9CM" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;With this &lt;a href="/tag/video/"&gt;video&lt;/a&gt; we end this academic year and wish you
+relaxing summer holidays. &lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 10 Jun 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-06-10:/workshop-on-sociophysics-at-ictp-saifr/</guid><category>2025</category><category>video</category><category>opinion dynamics</category><category>ICTP SAIFR</category></item><item><title>Analyzing poll-delayed voter model as AR(2) process</title><link>https://rf.mokslasplius.lt/analyzing-poll-delayed-voter-model-as-ar-2-process/</link><description>&lt;p&gt;In a &lt;a href="https://rf.mokslasplius.lt/stationary-variance-of-ar-2-process/"&gt;recent
+post&lt;/a&gt;, we
+have discussed how to obtain the stationary variance of the AR(2) process
+using &lt;a href="https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/"&gt;Yule-Walker
+equations&lt;/a&gt;.
+While intuitively, it is trivial to see that the &lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;poll-delayed voter
+model&lt;/a&gt; is an AR(2)
+process, showing this formally is a bit more involved. Let us delve into
+this question further.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 03 Jun 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-06-03:/analyzing-poll-delayed-voter-model-as-ar-2-process/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item><item><title>Stationary variance of AR(2) process</title><link>https://rf.mokslasplius.lt/stationary-variance-of-ar-2-process/</link><description>&lt;p&gt;It is hard (or impossible) to directly obtain the analytical expression for
+the &lt;a href="https://rf.mokslasplius.lt/stationary-distribution-of-poll-delayed-voter-model/"&gt;stationary distribution of the poll-delay voter
+model&lt;/a&gt;.
+But we can look at various possible approximations, with the &lt;a href="https://rf.mokslasplius.lt/ritvikmath-beta-distribution/"&gt;Beta
+distribution&lt;/a&gt;
+being the prime suspect. To fit the Beta distribution (or any other
+two-parameter distribution), we need to know two stationary moments of the
+model.  Deriving the stationary mean is a trivial problem, while deriving
+the stationary variance is more involved.&lt;/p&gt;
+&lt;p&gt;In this post, let us use the &lt;a href="https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/"&gt;Yule-Walker
+equations&lt;/a&gt; to
+obtain the expression for stationary variance of &lt;a href="/tag/time-series-models/"&gt;AR(2)
+process&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 20 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-20:/stationary-variance-of-ar-2-process/</guid><category>2025</category><category>interactive</category><category>time series models</category><category>statistics</category></item><item><title>ritvikmath: Yule-Walker equations</title><link>https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/</link><description>&lt;p&gt;Important thing to notice about &lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;the poll-delayed voter
+model&lt;/a&gt; is that it is a
+second order auto-regressive process. In &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;
+we have used this observation to derive an analytical expression for the
+stationary variance for the model. To understand how this result came to
+be, the following video by &lt;a href="https://www.youtube.com/@ritvikmath"&gt;ritvikmath&lt;/a&gt;
+might prove useful.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/1230arWETzY" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Kononovicius2024PhysA"&gt;A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). &lt;a href="https://doi.org/10.1016/j.physa.2024.130062"&gt;doi: 10.1016/j.physa.2024.130062&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2403.10277"&gt;arXiv:2403.10277 [physics.soc-ph]&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 13 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-13:/ritvikmath-yule-walker-equations/</guid><category>2025</category><category>video</category><category>ritvikmath</category><category>statistics</category><category>time series models</category><category>poll-delayed voter model</category></item><item><title>Stationary distribution of the poll-delayed voter model</title><link>https://rf.mokslasplius.lt/stationary-distribution-of-poll-delayed-voter-model/</link><description>&lt;p&gt;In the last few posts, I have introduced you to two variations of the voter
+model enhanced with &lt;a href="/tag/opinion-polls/"&gt;polling mechanism&lt;/a&gt; &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;. These two
+variations differed in whether the announcement of poll outcome is
+&lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;delayed&lt;/a&gt; or
+&lt;a href="https://rf.mokslasplius.lt/polled-voter-model/"&gt;not&lt;/a&gt;. This time, we
+will explore the distributions obtained from these models.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 06 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-06:/stationary-distribution-of-poll-delayed-voter-model/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item><item><title>BritMonkey: The Power of Land: Georgism 101</title><link>https://rf.mokslasplius.lt/britmonkey-the-power-of-the-land-georgism-101/</link><description>&lt;p&gt;Last Sunday in Lithuania, a protest took place against the proposed changes
+to property tax laws. The protest itself reminded me of a
+&lt;a href="/tag/video/"&gt;video&lt;/a&gt; I watched some time ago. The video was about Georgism -
+an idea that most taxes could be abolished (or significantly reduced) if we
+instead taxed land more heavily.&lt;/p&gt;
+&lt;p&gt;While I think Georgist land value taxation is a not perfect solution, it is
+an interesting alternative worth our consideration. Especially, as a
+replacement for the typical taxation of labor. I invite you to watch an
+introductory video by &lt;a href="https://www.youtube.com/@BritMonkey"&gt;BritMonkey&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/smi_iIoKybg" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 29 Apr 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-04-29:/britmonkey-the-power-of-the-land-georgism-101/</guid><category>2025</category><category>video</category><category>wealth</category><category>politics</category><category>BritMonkey</category></item><item><title>Polled voter model</title><link>https://rf.mokslasplius.lt/polled-voter-model/</link><description>&lt;p&gt;We have already seen the basic workings of the &lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;poll-delayed voter
+model&lt;/a&gt; introduced in
+&lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;. Previously, we have assumed that polling
+information is being revealed with delay and that the delay coincides with
+the polling period. However, quite often, processing polling information
+does not take a lot of time, so the information becomes available almost
+immediately. So, what changes when we remove this delay?&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 22 Apr 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-04-22:/polled-voter-model/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item><item><title>N. Oreskes: The Big Myth</title><link>https://rf.mokslasplius.lt/santa-fe-institute-the-big-myth/</link><description>&lt;p&gt;From time to time I enjoy catching up to the seminars hosted by the &lt;a href="https://www.santafe.edu/"&gt;Santa
+Fe Institute&lt;/a&gt; and shared on &lt;a href="https://www.youtube.com/@SFIScience"&gt;their Youtube
+page&lt;/a&gt;. In this seminar Naomi Oreskes
+(from Harvard University) discusses her recent book (written together with
+Erik M. Conway) titled "The Big Myth: How American Business Taught Us to
+Loathe Government and Love the Free Market". This seminar (and the book, I
+guess) dives into the historical context of how &lt;a href="/tag/free-market/"&gt;free
+market&lt;/a&gt; fundamentalism became dominant
+&lt;a href="/tag/economics"&gt;economic&lt;/a&gt; ideology in the US and the western world, in
+general.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/_V_AZRZfu9I" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;For me key points of the talk were that Adam Smith, who pseudo-economists in
+Lithuania like to paint as &lt;a href="/tag/free-market/"&gt;free market&lt;/a&gt; saint, was on a
+big fan of the "invisible hand". He wrote that regulation might be warranted
+when the "natural liberty of a few individuals endangers the security of the
+whole society". Providing a regulatory advice on dealing with reckless
+banking practices of his own time:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The obligation of building [fire] walls, in order to prevent the
+communication of fire, is a violation of natural liberty exactly of the
+same kind with the regulations of the banking trade which are here
+proposed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A few more comments clarifying Adam Smith's relationship with the &lt;a href="/tag/free-market/"&gt;free
+market&lt;/a&gt; ideology can be found in this
+&lt;a href="https://evonomics.com/stop-associating-adam-smith-with-laissez-faire-economics/"&gt;article&lt;/a&gt;
+by Jag Bhalla on evonomics.com.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 15 Apr 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-04-15:/santa-fe-institute-the-big-myth/</guid><category>2025</category><category>video</category><category>economics</category><category>free market</category><category>competition</category><category>Santa Fe Institute</category><category>evonomics.com</category></item><item><title>Poll-delayed voter model</title><link>https://rf.mokslasplius.lt/poll-delayed-voter-model/</link><description>&lt;p&gt;In the &lt;a href="https://rf.mokslasplius.lt/overview-of-2024/"&gt;yearly overview&lt;/a&gt;, I
+mentioned that I wanted to write a few posts about &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;. The model introduced in &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt; is particularly interesting because it breaks
+the core assumption of the &lt;a href="https://rf.mokslasplius.lt/voter-model/"&gt;original voter
+model&lt;/a&gt;. In the "poll-delayed voter
+model" the &lt;a href="/tag/agent-based-models/"&gt;agents&lt;/a&gt; do not interact directly with
+each other. Instead, they become aware of the opinion distribution in
+society through the periodic public polling.&lt;/p&gt;
+&lt;p&gt;Let us see what we can learn from this model.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 08 Apr 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-04-08:/poll-delayed-voter-model/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item><item><title>Primer: Simulating the evolution of rock, paper, scissors</title><link>https://rf.mokslasplius.lt/primer-simulating-the-evolution-of-rock-paper-scissors/</link><description>&lt;p&gt;Over the last few months, we have focused on the &lt;a href="/tag/game-theory/"&gt;game
+theory&lt;/a&gt;. We have recently even looked at adaptive
+strategies in repeated &lt;a href="https://rf.mokslasplius.lt/adaptive-strategy-colonel-blotto-game/"&gt;Colonel Blotto
+games&lt;/a&gt;.
+Another approach to adaptation phenomena is evolutionary game theory. Video
+by &lt;a href="https://www.youtube.com/@PrimerBlobs"&gt;Primer&lt;/a&gt; is an excellent
+illustration of this fascinating branch of &lt;a href="/tag/game-theory/"&gt;game theory&lt;/a&gt;.
+So, let us see how the players' strategies evolve when playing the classic
+"rock, paper, scissors" game. Players will play the game multiple times and
+learn from their experience. Though notably, here, learning will be
+indirect. Instead of individual, the simulated society will evolve based on
+the performance of different strategies. Can you guess the evolutionary
+trajectory of the simulated society?&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/tCoEYFbDVoI" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 25 Mar 2025 08:00:00 +0200</pubDate><guid>tag:rf.mokslasplius.lt,2025-03-25:/primer-simulating-the-evolution-of-rock-paper-scissors/</guid><category>2025</category><category>video</category><category>game theory</category><category>Primer</category><category>evolution</category></item></channel></rss>
