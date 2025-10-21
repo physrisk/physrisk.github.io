@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Physics of Risk</title><link>https://rf.mokslasplius.lt/</link><description/><atom:link href="https://rf.mokslasplius.lt/feeds/rss.xml" rel="self"/><lastBuildDate>Tue, 21 Oct 2025 08:00:00 +0300</lastBuildDate><item><title>Veritasium: The strange math that predicts anything</title><link>https://rf.mokslasplius.lt/veritasium-the-strange-math-that-predicts-anything/</link><description>&lt;p&gt;After one of my first presentations at the students' conference
+&lt;a href="https://openreadings.eu/"&gt;OpenReadings&lt;/a&gt;, I received a comment along the
+lines of "it's just some fancy randomness". Well, yes, but... Over the
+years, I have seen lots of otherwise good students who struggle with even
+the most basic statistical concepts.  So, being "fancy" makes it reasonably
+hard. Furthermore, random processes underlie many important everyday
+systems.&lt;/p&gt;
+&lt;p&gt;This &lt;a href="https://www.youtube.com/@veritasium"&gt;Veritasium&lt;/a&gt; video tells a
+fascinating story about how a petty feud between two Russian mathematicians
+led to the development of &lt;a href="/tag/markov-chains/"&gt;Markov chain&lt;/a&gt; formalism.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/KZeIEiBrT_w" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 21 Oct 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-10-21:/veritasium-the-strange-math-that-predicts-anything/</guid><category>2025</category><category>video</category><category>Veritasium</category><category>statistics</category><category>Markov chains</category></item><item><title>2025 autumn conferences</title><link>https://rf.mokslasplius.lt/2025-autumn-conferences/</link><description>&lt;p&gt;Over the last few weeks we, &lt;a href="/tag/a-kononovicius/"&gt;I&lt;/a&gt; and
+&lt;a href="/tag/r-kazakevicius/"&gt;Rytis&lt;/a&gt;, have attended two conferences. One, &lt;a href="https://fens25.fizyka.pw.edu.pl/"&gt;Polish
+symposium&lt;/a&gt;, in Warsaw and the other,
+&lt;a href="https://lnfk.ktu.edu/"&gt;Lithuanian conference&lt;/a&gt;, in Kaunas.&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Some photos of us attending
+conferences" src="https://rf.mokslasplius.lt/uploads/2025/2025-autumn-conferences.jpg" title="Some photos of us attending
+conferences"/&gt;&lt;span class="caption"&gt;&lt;span class="caption-prefix"&gt;Fig. 1:&lt;/span&gt;&lt;span class="caption-text"&gt;Some photos of us attending 46th Lithuanian National Physics Conference and XIII Polish Symposium on Physics in Economics and Social Sciences.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;a href="https://fens25.fizyka.pw.edu.pl/"&gt;Polish symposium&lt;/a&gt; was particularly
+interesting to me, because I got to see the directions in which Econophysics
+and Sociophysics are developing. We had a chance to hear about fractal
+complex networks, correlation dynamics in cryptocurrency markets, limit
+order book modeling (with presenters from Finnish and German institutions)
+and applications of &lt;a href="/tag/agent-based-models/"&gt;agent-based modeling&lt;/a&gt; to
+variety of problems.&lt;/p&gt;
+&lt;p&gt;The &lt;a href="https://lnfk.ktu.edu/"&gt;Lithuanian conference&lt;/a&gt; allowed us to see what is
+being done here in Lithuania, and by Lithuanian scientists abroad.&lt;/p&gt;
+&lt;p&gt;We have also presented our recent advances. Both of my presentations (one
+talk and one poster) were about the same thing - the &lt;a href="/tag/poll-delayed-voter-model/"&gt;poll-delayed voter
+model&lt;/a&gt; &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;.
+While &lt;a href="/tag/r-kazakevicius/"&gt;Rytis&lt;/a&gt; talked about our work on scaled voter
+model &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kazakevicius2023PRE" title="R. Kazakevičius, A. Kononovicius. Anomalous diffusion and long-range memory in the scaled voter model. Physical Review E 107: 024106 (2023). doi: 10.1103/PhysRevE.107.024106. arXiv:2301.08088 [cond-mat.stat-mech]."&gt;2&lt;/a&gt;]&lt;/span&gt; (sadly, it might be too complicated
+for Physics of Risk) and about a brand new topic on stochastic diffusion he
+is developing together with one of his student.&lt;/p&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Kononovicius2024PhysA"&gt;A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). &lt;a href="https://doi.org/10.1016/j.physa.2024.130062"&gt;doi: 10.1016/j.physa.2024.130062&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2403.10277"&gt;arXiv:2403.10277 [physics.soc-ph]&lt;/a&gt;.&lt;/li&gt;&lt;li id="Kazakevicius2023PRE"&gt;R. Kazakevičius, A. Kononovicius. Anomalous diffusion and long-range memory in the scaled voter model. Physical Review E 107: 024106 (2023). doi: &lt;a href="https://doi.org/10.1103/PhysRevE.107.024106"&gt;10.1103/PhysRevE.107.024106&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2210.11792"&gt;arXiv:2301.08088 [cond-mat.stat-mech]&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 14 Oct 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-10-14:/2025-autumn-conferences/</guid><category>2025</category><category>general</category><category>conference</category><category>opinion dynamics</category><category>stochastic models</category><category>statistical physics</category><category>voter model</category><category>agent-based models</category><category>LNFK</category><category>FENS</category><category>A. Kononovicius</category><category>R. Kazakevicius</category></item><item><title>Numberphile: The Clever Way to Count Tanks</title><link>https://rf.mokslasplius.lt/numberphile-the-clever-way-to-count-tanks/</link><description>&lt;p&gt;In this &lt;a href="https://www.youtube.com/@numberphile"&gt;Numberphile&lt;/a&gt; video dr. James
+Grime tells about a practical tank counting problem from World War 2 and how
+it was approached by statisticians at that time.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/WLCwMRJBhuI" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 30 Sep 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-09-30:/numberphile-the-clever-way-to-count-tanks/</guid><category>2025</category><category>video</category><category>Numberphile</category><category>statistics</category></item><item><title>Vilas Winstein: Simulating and understanding phase change</title><link>https://rf.mokslasplius.lt/vilas-winstein-simulating-and-understanding-phase-change/</link><description>&lt;p&gt;This summer, &lt;a href="https://www.youtube.com/@3blue1brown"&gt;3Blue1Brown&lt;/a&gt; ran a series
+of guest videos. One of them is particularly interesting for the fans of
+&lt;a href="/tag/statistical-physics/"&gt;statistical physics&lt;/a&gt;. The video describes
+physical and mathematical details of the simulation of the phase change.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/itRV2jEtV8Q" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;The second video goes into the mathematical analysis of the vapor-liquid
+model (which is notably very much like the &lt;a href="/tag/ising-model/"&gt;Ising model&lt;/a&gt; we
+mention occasionally). It is available on the &lt;a href="https://www.youtube.com/@SpectralCollective"&gt;Spectral
+Collective&lt;/a&gt; Youtube channel.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/yEcysu5xZH0" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 16 Sep 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-09-16:/vilas-winstein-simulating-and-understanding-phase-change/</guid><category>2025</category><category>3Blue1Brown</category><category>Spectral Collective</category><category>video</category><category>statistical physics</category><category>Ising model</category></item><item><title>New academic year!</title><link>https://rf.mokslasplius.lt/new-academic-year-2025/</link><description>&lt;p&gt;Another summer has ended, and we are back to uncover and learn new things!
+With the start of the new academic season, I want to dedicate more time to a
+few research directions I have started but have not fully committed to. &lt;/p&gt;
+&lt;p&gt;Sadly, this means less time for Physics of Risk. While I do have a list of
+models and other curiosities to share with you (the readers of Physics of
+Risk blog), the time I can reasonably allocate to the blog grows scarcer.
+This year will be much slower in terms of the original and interactive
+content.&lt;/p&gt;
+&lt;p&gt;Thank you for reading the blog, and I wish everyone a productive and
+inspiring new academic year!&lt;/p&gt;
+&lt;div class="figure"&gt;&lt;img alt="Image illustrating the start of new academic year generated by MS
+Copilot" src="https://rf.mokslasplius.lt/uploads/2025/new-academic-year-2025.jpg"/&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 09 Sep 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-09-09:/new-academic-year-2025/</guid><category>2025</category><category>general</category></item><item><title>Workshop on Sociophysics at ICTP SAIFR</title><link>https://rf.mokslasplius.lt/workshop-on-sociophysics-at-ictp-saifr/</link><description>&lt;p&gt;In October 2021, &lt;a href="https://www.ictp-saifr.org"&gt;South American Institute of Fundamental Research of
+International Centre for Theoretical Physics&lt;/a&gt;
+hosted a workshop on Sociophysics. If you're looking to get started in doing
+&lt;a href="/tag/opinion-dynamics/"&gt;opinion dynamics&lt;/a&gt;, this recording of the talks by
+the two leading researchers in the field, Katarzyna Sznajd-Weron and Maxi
+San Miguel, is a great place to begin. If you are interested, complete
+program and recordings of other talks are available on dedicated
+&lt;a href="https://www.ictp-saifr.org/workshop-on-sociophysics-social-phenomena-from-a-physics-perspective/"&gt;site&lt;/a&gt;&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/VZfbW9Bf9CM" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;With this &lt;a href="/tag/video/"&gt;video&lt;/a&gt; we end this academic year and wish you
+relaxing summer holidays. &lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 10 Jun 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-06-10:/workshop-on-sociophysics-at-ictp-saifr/</guid><category>2025</category><category>video</category><category>opinion dynamics</category><category>ICTP SAIFR</category></item><item><title>Analyzing poll-delayed voter model as AR(2) process</title><link>https://rf.mokslasplius.lt/analyzing-poll-delayed-voter-model-as-ar-2-process/</link><description>&lt;p&gt;In a &lt;a href="https://rf.mokslasplius.lt/stationary-variance-of-ar-2-process/"&gt;recent
+post&lt;/a&gt;, we
+have discussed how to obtain the stationary variance of the AR(2) process
+using &lt;a href="https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/"&gt;Yule-Walker
+equations&lt;/a&gt;.
+While intuitively, it is trivial to see that the &lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;poll-delayed voter
+model&lt;/a&gt; is an AR(2)
+process, showing this formally is a bit more involved. Let us delve into
+this question further.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 03 Jun 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-06-03:/analyzing-poll-delayed-voter-model-as-ar-2-process/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item><item><title>Stationary variance of AR(2) process</title><link>https://rf.mokslasplius.lt/stationary-variance-of-ar-2-process/</link><description>&lt;p&gt;It is hard (or impossible) to directly obtain the analytical expression for
+the &lt;a href="https://rf.mokslasplius.lt/stationary-distribution-of-poll-delayed-voter-model/"&gt;stationary distribution of the poll-delay voter
+model&lt;/a&gt;.
+But we can look at various possible approximations, with the &lt;a href="https://rf.mokslasplius.lt/ritvikmath-beta-distribution/"&gt;Beta
+distribution&lt;/a&gt;
+being the prime suspect. To fit the Beta distribution (or any other
+two-parameter distribution), we need to know two stationary moments of the
+model.  Deriving the stationary mean is a trivial problem, while deriving
+the stationary variance is more involved.&lt;/p&gt;
+&lt;p&gt;In this post, let us use the &lt;a href="https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/"&gt;Yule-Walker
+equations&lt;/a&gt; to
+obtain the expression for stationary variance of &lt;a href="/tag/time-series-models/"&gt;AR(2)
+process&lt;/a&gt;.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 20 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-20:/stationary-variance-of-ar-2-process/</guid><category>2025</category><category>interactive</category><category>time series models</category><category>statistics</category></item><item><title>ritvikmath: Yule-Walker equations</title><link>https://rf.mokslasplius.lt/ritvikmath-yule-walker-equations/</link><description>&lt;p&gt;Important thing to notice about &lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;the poll-delayed voter
+model&lt;/a&gt; is that it is a
+second order auto-regressive process. In &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;
+we have used this observation to derive an analytical expression for the
+stationary variance for the model. To understand how this result came to
+be, the following video by &lt;a href="https://www.youtube.com/@ritvikmath"&gt;ritvikmath&lt;/a&gt;
+might prove useful.&lt;/p&gt;
+&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item html5-embed html5-embed-youtube" src="https://www.youtube-nocookie.com/embed/1230arWETzY" allow="fullscreen"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul class="article-references"&gt;&lt;li id="Kononovicius2024PhysA"&gt;A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). &lt;a href="https://doi.org/10.1016/j.physa.2024.130062"&gt;doi: 10.1016/j.physa.2024.130062&lt;/a&gt;. &lt;a href="https://arxiv.org/abs/2403.10277"&gt;arXiv:2403.10277 [physics.soc-ph]&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 13 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-13:/ritvikmath-yule-walker-equations/</guid><category>2025</category><category>video</category><category>ritvikmath</category><category>statistics</category><category>time series models</category><category>poll-delayed voter model</category></item><item><title>Stationary distribution of the poll-delayed voter model</title><link>https://rf.mokslasplius.lt/stationary-distribution-of-poll-delayed-voter-model/</link><description>&lt;p&gt;In the last few posts, I have introduced you to two variations of the voter
+model enhanced with &lt;a href="/tag/opinion-polls/"&gt;polling mechanism&lt;/a&gt; &lt;span class="article-cite-items"&gt;[&lt;a class="article-cite-item" href="#Kononovicius2024PhysA" title="A. Kononovicius, R. Astrauskas, M. Radavičius, F. Ivanauskas. Delayed interactions in the noisy voter model through the periodic polling mechanism. Physica A 652: 130062 (2024). doi: 10.1016/j.physa.2024.130062. arXiv:2403.10277 [physics.soc-ph]."&gt;1&lt;/a&gt;]&lt;/span&gt;. These two
+variations differed in whether the announcement of poll outcome is
+&lt;a href="https://rf.mokslasplius.lt/poll-delayed-voter-model/"&gt;delayed&lt;/a&gt; or
+&lt;a href="https://rf.mokslasplius.lt/polled-voter-model/"&gt;not&lt;/a&gt;. This time, we
+will explore the distributions obtained from these models.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Aleksejus Kononovicius</dc:creator><pubDate>Tue, 06 May 2025 08:00:00 +0300</pubDate><guid>tag:rf.mokslasplius.lt,2025-05-06:/stationary-distribution-of-poll-delayed-voter-model/</guid><category>2025</category><category>agent-based models</category><category>interactive</category><category>voter model</category><category>opinion dynamics</category><category>opinion polls</category><category>delayed models</category><category>poll-delayed voter model</category></item></channel></rss>
