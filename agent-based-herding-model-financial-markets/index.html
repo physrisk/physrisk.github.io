@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Agent-based herding model of financial markets
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Kirman&#39;s ant colony model, previously presented on our website as agent based (based on [1]) and stochastic (based on [2, 3]) model, has become classical example of herding modeling. Application of this model towards economic, financial or other...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Agent-based herding model of financial markets - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2011/agent-based-herding-model-financial-markets.png">
+            <meta property="og:description" content="Kirman&#39;s ant colony model, previously presented on our website as agent based (based on [1]) and stochastic (based on [2, 3]) model, has become classical example of herding modeling. Application of this model towards economic, financial or other...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Agent-based herding model of financial markets</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> July 08, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+            <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+            <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+            <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+            <a href="/tag/cev-process/" data-toggle="tooltip" class="label label-default" title="#CEV process has 4 articles">#CEV process</a>
+
+
+            </div>
+        </header>
+        <p>Kirman's ant colony model, previously
+presented on our website as <a href="https://rf.mokslasplius.lt/kirman-ants/">agent
+based</a>
+(based on <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">1</a>]</span>) and
+<a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">stochastic</a>
+(based on <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>, <a class="article-cite-item" href="#Alfarano2008Dyncon" title="S. Alfarano, T. Lux, F. Wagner. Time variation of higher moments in a financial market with heterogeneous agents: An analytical approach. Journal of Economic Dynamics and Control 32: 101-136 (2008).">3</a>]</span>) model,
+has become classical example of herding modeling. Application of this
+model towards economic, financial or other social scenarios might seem
+doubtful as human society is far more complex than ant colony, but
+methodologically it is more useful to start from very simple and
+stylized model and later add complexity on top of it. Furthermore we
+have already shown that Kirman's herding dynamics could be applicable in
+agent-based marketing (see <a href="https://rf.mokslasplius.lt/unidirectional-kirman-model/">comparison of Kirman's and Bass diffusion
+model</a>).
+In this text we will consider financial market scenario and obtain
+stochastic differential equations similar to the existing stochastic
+models considered in <span class="article-cite-items">[<a class="article-cite-item" href="#Reimann2011PhysA" title="S. Reimann, V. Gontis, M. Alaburda. Interplay between positive feedback in the generalized CEV process. Physica A 390: 1393-1401 (2011). arXiv: 1008.0568 [physics.data-an].">4</a>, <a class="article-cite-item" href="#Ruseckas2010PhysRevE" title="J. Ruseckas, B. Kaulakys. 1/f noise from nonlinear stochastic differential equations. Physical Review E 81: 031105 (2010). arXiv: 1002.4316 [nlin.AO].">5</a>]</span>.</p>
+
+<p>Discussion and model presented in this text is the main topic of our
+paper on <em>Microscopic reasoning for the non-linear stochastic models of
+long-range memory</em> <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">6</a>]</span>.</p>
+<h2>Introduction of variable event time scale</h2>
+<p>Original Kirman's model assumes constant agent meeting rate. In
+financial market scenario one could draw analogy between these events
+and trades, as trade is pair-wise interaction of traders, or agents in
+model's case, and also a great opportunity to reconsider available
+options. Thus we rewrite original one-step transition probabilities as</p>
+<p>\begin{equation}
+ p(X \rightarrow X+1)=(N-X) \left[\sigma_1 + \frac{hX}{\tau(X)} \right] \Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(X \rightarrow X-1)=X \frac{\sigma_2 + h (N-X)}{\tau(X)}\Delta t , 
+\end{equation}</p>
+<p>where \(  \tau(X) \) is characteristic inter-event time, which now
+depends on system state. Note that in the above transition probabilities
+we have already assumed that one group of agent is rational, \( N-X \), while another is not, \(  X \). For this reason transition
+rate, \(  \sigma_1 \), of \(  N-X \) has remained constant.</p>
+<p>In this, more general, case derivation of stochastic differential
+equation in the manner it was done in <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>
+(also discussed on our
+<a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">website</a>)
+is rather troublesome. Though alternatively we can use one-step process
+formalism <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2008Dyncon" title="S. Alfarano, T. Lux, F. Wagner. Time variation of higher moments in a financial market with heterogeneous agents: An analytical approach. Journal of Economic Dynamics and Control 32: 101-136 (2008).">3</a>, <a class="article-cite-item" href="#VanKampen2007NorthHolland" title="N. G. van Kampen. Stochastic process in Physics and Chemistry. North Holland, Amsterdam, 2007.">7</a>]</span>.
+In such case we compactly express Master equation using one-step
+operators, \(  \boldsymbol{E} \) and \(  \boldsymbol{E}^{-1} \):</p>
+<p>\begin{equation}
+ \partial_t \omega(x,t) = N^2 \left\{ (\boldsymbol{E} -1)[ \pi^{-}(x) \omega(x,t) ] + (\boldsymbol{E}^{-1} -1) [\pi^{+}(x) \omega(x,t) ] \right\} , \label{master}
+\end{equation}</p>
+<p>where \(  \pi^{\pm}(x)  \) are probability fluxes related to
+the transitions probabilities as \(  P(X \rightarrow X \pm 1)=N^2 \pi^{\pm}(x) \Delta t  \). Evidently \(  x \) is
+continuous system state variable, defined as \(  x= \frac{X}{N} \)
+(large \(  N \) values can be assumed to secure continuity of the new
+system state variable).</p>
+<p>As one-step operators act on continuous functions they can be expanded
+using Taylor series up to the second order terms:</p>
+<p>\begin{equation}
+ \boldsymbol{E}[f(x)] = f(x+\Delta x) \approx f(x) + \Delta x \partial_x f(x) + \frac{\Delta x^2}{2} \partial^2_x f(x) ,
+\end{equation}</p>
+<p>\begin{equation}
+ \boldsymbol{E}^{-1}[f(x)] = f(x-\Delta x) \approx f(x) -\Delta x \partial_x f(x) + \frac{\Delta x^2}{2} \partial^2_xf(x) , 
+\end{equation}</p>
+<p>where \(  \Delta x \) is smallest possible increment of the
+continuous system state variable, \(  \frac{1}{N} \). After this
+expansion Master equation, Eq. \eqref{master}, becomes
+Fokker-Planck equation:</p>
+<p>\begin{equation}
+ \partial_t \omega(x,t) = -\partial_x [A(x) \omega(x,t)]+ \frac{1}{2} \partial^2_x [D(x) \omega(x,t)] , \label{fokpla}
+\end{equation}</p>
+<p>where \(  A(x) \) and \(  D(x) \) are custom functions:</p>
+<p>\begin{equation}
+ A(x) = N (\pi^{+}(x)-\pi^{-}(x)) = \sigma_1 (1-x) -\frac{\sigma_2 x}{\tau(x)} , 
+\end{equation}</p>
+<p>\begin{equation}
+ D(x) = \pi^{+}(x)+\pi^{-}(x) \approx \frac{2 h x(1-x)}{\tau(x)} . 
+\end{equation}</p>
+<p>The above Fokker-Planck equation, \eqref{fokpla}, can be
+rewritten as Langevin equation:</p>
+<p>\begin{equation}
+ \mathrm{d} x = A(x) \mathrm{d} t + \sqrt{D(x)} \mathrm{d} W= \left[ \sigma_1 (1-x) - \frac{\sigma_2 x}{\tau(x)} \right]\mathrm{d} t + \sqrt{\frac{2 h x (1-x)}{\tau(x)}} \mathrm{d} W .
+\end{equation}</p>
+<p>To simplify model we can introduce dimensionless time, \(  t_s = ht \):</p>
+<p>\begin{equation}
+ \mathrm{d} x = \left[ \varepsilon_1 (1-x) -\frac{\varepsilon_2 x}{\tau(x)} \right] \mathrm{d} t_s +\sqrt{\frac{2 x (1-x)}{\tau(x)}} \mathrm{d} W_s , \label{lanx}
+\end{equation}</p>
+<p>where \(  \varepsilon_i \) are accordingly rescaled original model
+parameters, \(  \varepsilon_i = \frac{\sigma_i}{h} \).</p>
+<h2 id="price-return">Introducing price and return</h2>
+<p>While introducing variable time scale we assumed that there are at least
+two types of traders - some are rational, while some are not so. In
+recent agent-based modeling <span class="article-cite-items">[<a class="article-cite-item" href="#Cristelli2012Fermi" title="M. Cristelli, L. Pietronero, A. Zaccaria. Critical Overview of Agent-Based Models for Economics. Proceedings of the School of Physics 'E. Fermi', Course CLXXVI, ed. F. Mallnace, H. E. Stanley, pp. 235-282. SIF-IOS, Bologna-Amsterdam, 2012. doi: 10.3254/978-1-61499-071-0-235.">8</a>]</span> it is also
+very common to assume that there are two types of traders in the market
+- fundamentalists and noise traders. By definition fundamentalists are
+assumed to be rational investors aiming for the long term profits, while
+noise traders rely on technical trading strategies aiming for short term
+profits.</p>
+<p>Fundamentalists base their decision on information about the stock's
+value in the market. This information is quantified via so-called
+fundamental price, \(  P_f(t) \). Fundamentalists expect that in
+long-run market will tend towards correct estimate of the stock's value.
+If \(  P_f(t) &gt; P(t) \) fundamentalists will expect growth of
+prices, thus placing buying orders. In the opposite case they'll attempt
+to sell stock, as they will expect decrease of price. These ideas are
+mathematical put down as <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>:</p>
+<p>\begin{equation}
+ D_f(t) = N_f(t) \ln \frac{P_f(t)}{P(t)} , 
+\end{equation}</p>
+<p>where \(  D_f(t) \) is fundamentalists', \(  N_f \) entities,
+excess demand at a given time.</p>
+<p>Contrary noise traders attempt to forecast future prices based on
+previous price movements. As they are using price charts to make
+forecast, they are also called chartists. As very is a wide selection of
+very different chartist trading strategies, chartists are likely to make
+very different forecasts. Difference in forecasts would lead to
+difference in bids. This intrinsic disagreement might be macroscopically
+seen as irrational mood of noise traders. Thus theirs' excess demand can
+mathematical be expressed as <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>:</p>
+<p>\begin{equation}
+ D_c(t) = r_0 N_c(t) \xi(t) , 
+\end{equation}</p>
+<p>where \(  \xi(t) \) is an average noise traders' mood, \( r_0 \) is scaling term, which might also be seen as relative impact of
+chartists' trades on the market.</p>
+<p>Now one can use Walras law in order to obtain definition of price and,
+later, return. Original Walras law <span class="article-cite-items">[<a class="article-cite-item" href="#Jolink1996Routledge" title="A. Jolink. The evolutionist economics of Lean Walras. Routledge, London and New York, 1996.">9</a>]</span>
+assumes that trading in the market occurs trough the market maker, who
+stabilizes the market. Market is consider to be stable if all agents'
+excess demands equal zero:</p>
+<p>\begin{equation}
+ \sum_{i=1}^{N} D_i(t) = D_f(t) + D_c(t) = N_f(t) \ln\frac{P_f(t)}{P(t)} + r_0 N_c(t) \xi(t) = 0 , 
+\end{equation}</p>
+<p>\begin{equation}
+ P(t) = P_f(t) \exp \left[ r_0 \frac{N_c(t)}{N_f(t)}\xi(t) \right] , 
+\end{equation}</p>
+<p>here one can assume that fundamental price remains constant (i.e., it is
+not a function of time). As we have definition of price, now we can
+obtain definition of return:</p>
+<p>\begin{equation}
+ r_{T}(t)=\ln \frac{P(t)}{P(t-T)} = r_0 \left[\frac{x(t)}{1-x(t)} \xi(t) - \frac{x(t-T)}{1-x(t-T)} \xi(t-T)\right] . \label{fullret}
+\end{equation}</p>
+<p>Note that in the above we have expressed \(  N_c(t) \) and \( N_f(t) \) using \(  x(t) \), which we have defined previously as a
+systems state variable of Kirman's model. As fundamentalists are
+rational we have set that \(  N_f(t)/N = 1-x(t) \), while chartists
+are thus directly related to \(  x(t) \).</p>
+<p>In <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span> definition of return, \eqref{fullret}
+is simplified by using adiabatic approximation. Namely
+it is assumed that noise traders' change their mood very quickly, if
+compared with \(  x(t) \). This gives simpler definition of return:</p>
+<p>\begin{equation}
+ r(t)=r_0 \frac{x(t)}{1-x(t)} \zeta(t) , \label{return}
+\end{equation}</p>
+<p>where \(  \zeta(t) \) is a change of noise traders' mood, \( \zeta(t) = \xi(t) - \xi(t-T) \). This change can be modeled in
+different ways, in <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span> it is modeled using
+spin noise. In such case \(  y(t)=\frac{x(t)}{1-x(t)} \) can be seen
+as absolute return, for which we will derive stochastic model in the
+next section of this text.</p>
+<h2>Derivation of stochastic model for absolute return, y</h2>
+<p>Eqs. \eqref{lanx} and \eqref{return} were derived in
+<span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span> (stochastic model was derived in a bit
+different way), but Alfarano et al. stopped there and did not derive
+stochastic differential equation for absolute return. In order to obtain
+stochastic model for absolute return we use variable substitution
+formula, via Ito's lemma, <span class="article-cite-items">[<a class="article-cite-item" href="#Gardiner2009Springer" title="C. W. Gardiner. Handbook of stochastic methods. Springer, Berlin, 2009.">10</a>]</span>:</p>
+<p>\begin{equation}
+ \mathrm{d} y(x) = \left[ A_x(x) \partial_x y(x) +\frac{1}{2} B_x^2(x) \partial^2_x y(x) \right] \mathrm{d} t +B_x(x) \partial_x y(x) \mathrm{d} W , 
+\end{equation}</p>
+<p>to obtain stochastic model for \(  y \):</p>
+<p>\begin{equation}
+ \mathrm{d} y = \left(\varepsilon_1 + y\frac{2-\varepsilon_2}{\tau(y)} \right) (1 + y) \mathrm{d} t_s +\sqrt{\frac{2 y}{\tau(y)}} ( 1 + y ) \mathrm{d} W_s . \label{lany}
+\end{equation}</p>
+<p>If we consider \(  \tau(y) = y^{-\alpha}  \), this selection
+might be backed by the positive correlation between trading activity and
+absolute return and also by the similarity of statistical properties,
+and a limit of large \(  y \) values Eq. \eqref{lany} becomes:</p>
+<p>\begin{equation}
+ \mathrm{d} y = (2-\varepsilon_2) y^{2+\alpha} \mathrm{d}t_s + \sqrt{2 y^{3+\alpha}} \mathrm{d} W_s . \label{lanyour}
+\end{equation}</p>
+<p>We find that Eq. \eqref{lanyour} is very similar to stochastic
+differential equation consider in <span class="article-cite-items">[<a class="article-cite-item" href="#Ruseckas2010PhysRevE" title="J. Ruseckas, B. Kaulakys. 1/f noise from nonlinear stochastic differential equations. Physical Review E 81: 031105 (2010). arXiv: 1002.4316 [nlin.AO].">5</a>]</span>:</p>
+<p>\begin{equation}
+ \mathrm{d} y = \left( \eta - \frac{\lambda}{2} \right)y^{2 \eta -1} \mathrm{d} t + y^\eta \mathrm{d} W , \label{oursde}
+\end{equation}</p>
+<p>which is known to give power law statistics:</p>
+<p>\begin{equation}
+ S(f) \sim \frac{1}{f^\beta}, \quad\beta=1+\frac{\lambda-3}{2(\eta-1)} , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(y) \sim y^{-\lambda} . 
+\end{equation}</p>
+<p>As relations between different model parameters are \(  \eta =\frac{3+\alpha}{2} \), \(  \lambda = \varepsilon_2 + \alpha+1 \) (obtained by directly comparing stochastic differential equations
+\eqref{lanyour} and \eqref{oursde}), we expect that
+\(  y \) defined by Eq. \eqref{lany} will also have power law
+statistics:</p>
+<p>\begin{equation}
+ S(f) \sim \frac{1}{f^\beta}, \quad\beta=1+\frac{\varepsilon_2+\alpha-2}{1+\alpha} , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(y) \sim y^{-\varepsilon_2 - \alpha -1} . 
+\end{equation}</p>
+<p>Using these predictions we have reproduced \(  1/f \) noise in three
+distinct cases (see <a href="#attachment_1776">Fig 1.</a>, this figure is featured
+in <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">6</a>]</span>).</p>
+<div class="figure"><img alt="image" id="attachment_1776" src="https://rf.mokslasplius.lt/uploads/2011/agent-based-herding-model-financial-markets.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Numerically calculated PDF (a) and power spectral density (b) in three distinct cases, \( \alpha =0 \) (red squares), \( \alpha=1 \) (blue circles) and \( \alpha=2 \) (magenta triangles), of considered stochastic model, Eq. (6). Other model parameters were set as follows: \( \varepsilon_1=0 \), \( \varepsilon_2 =2-\alpha \). Solid curves are inverse power law fits: (a) \( \lambda=3 \) (all three cases), (b) \( \beta = 1 \) (all three cases).</span></span></div>
+<p>The above comparison is very important as stochastic differential
+equation \eqref{oursde} is a more general case of our stochastic
+model of return <span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">11</a>]</span>. Working on this approach
+further we might be able to create agent-based model providing more
+sophisticated statistical features reproduced by the model consider in
+<span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">11</a>]</span>.</p>
+<p>There is another stochastic model whose stochastic differential equation
+resembles Eq. \eqref{lany}. It is so-called generalized CEV
+process, which was consider in <span class="article-cite-items">[<a class="article-cite-item" href="#Reimann2011PhysA" title="S. Reimann, V. Gontis, M. Alaburda. Interplay between positive feedback in the generalized CEV process. Physica A 390: 1393-1401 (2011). arXiv: 1008.0568 [physics.data-an].">4</a>]</span>:</p>
+<p>\begin{equation}
+ \mathrm{d} y = a y \mathrm{d} t + b y^\eta \mathrm{d} W .\label{cev}
+\end{equation}</p>
+<p>Eq. \eqref{cev} is noted to be a special case of Eq. \eqref{oursde},
+when exponential diffusion restriction is applied <span class="article-cite-items">[<a class="article-cite-item" href="#Reimann2011PhysA" title="S. Reimann, V. Gontis, M. Alaburda. Interplay between positive feedback in the generalized CEV process. Physica A 390: 1393-1401 (2011). arXiv: 1008.0568 [physics.data-an].">4</a>]</span>. Though comparison with generalized CEV process
+is important on its own, as generalized CEV process encompass many
+stochastic models used in risk management. In order to obtain similar
+stochastic differential equation we have to linearize drift function of
+Eq. \eqref{lany} (i.e. set \(  \varepsilon_2 = 2 \)).
+Similarity is once again obtained in the limit of large \(  y \)
+values:</p>
+<p>\begin{equation}
+ \mathrm{d} y = \varepsilon_1 y \mathrm{d} t_s + \sqrt{2y^{3+\alpha}} \mathrm{d} W_s . 
+\end{equation}</p>
+<p>Due to the similarity between Eqs. \eqref{oursde} and \eqref{cev},
+theoretical predictions of statistical properties remain the
+same. Though now they have a bit simpler mathematical expression:</p>
+<p>\begin{equation}
+ S(f) \sim \frac{1}{f^\beta}, \quad\beta=1+\frac{\alpha}{1+\alpha} , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(y) \sim y^{- \alpha -3} . 
+\end{equation}</p>
+<p>In case of generalized CEV process we can't reproduce \(  1/f \)
+noise in three distinct cases, but we can still obtain three different
+power law spectral densities in three distinct cases (in each cases
+giving precise prediction). In <a href="#attachment_1777">Fig 2.</a>, this figure
+is featured in <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">6</a>]</span>, we have shown that
+theoretical predictions for CEV process are also valid for \(  y \)
+defined by Eq. \eqref{lany}.</p>
+<div class="figure"><img alt="image" id="attachment_1777" src="https://rf.mokslasplius.lt/uploads/2011/kirmancev.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Numerically calculated PDF (a) and power spectral density (b) of considered stochastic model, Eq. (6), with linearized drift function in three distinct cases, \( \alpha=0 \) (red squares), \( \alpha=1 \) (blue circles) and \( \alpha=2 \) (magenta triangles). Other model parameters were set as follows: \( \varepsilon_1 = \varepsilon_2 =2 \). Solid curves provide inverse power law fits for modelic data: (a) \( \lambda=3 \) (red squares), \( \lambda=4 \) (blue circles), \( \lambda=5 \) (magenta triangles), (b) \( \beta=1 \) (red squares), \( \beta=1.5 \) (blue circles), \( \beta=1.66 \) (magenta triangles).</span></span></div>
+<h2>Applet</h2>
+<p>This applet numerically solves Eq. \eqref{lany} using
+Euler-Maruyama method <span class="article-cite-items">[<a class="article-cite-item" href="#Kloeden1992Springer" title="P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. doi: 10.1007/978-3-662-12616-5.">12</a>]</span>. In such case
+Eq. \eqref{lany} becomes a set of difference equations:</p>
+<p>\begin{equation}
+ y_{i+1} = y_i + \frac{\kappa^2}{1+y_i} \left[\frac{\varepsilon_1 y_i}{\tau(y_i)} + 2 - \varepsilon_2\right] + \kappa \sqrt{2} \varsigma_i , 
+\end{equation}</p>
+<p>\begin{equation}
+ t_{i+1} = t_i + \frac{\kappa^2 \tau(y_i)}{y_i(1+y_i)^2} , 
+\end{equation}</p>
+<p>where \(  \kappa \) is numerical precision parameter (numerical
+solution tends to improve with smaller values of the parameter (applet
+uses \(  \kappa =0.4 \))), while \(  \varsigma_i \) is normally
+distributed (zero mean, unit variance) random variable. Precision and
+quality of numerical results are also influenced by the enforced
+restrictions (in applet values of \(  y \) are restricted in \( [0.01,100] \) value interval).</p>
+<p>The applet plots both time series and statistical properties in real
+time. In the first few moments it may show incorrect and very
+approximate results - please wait a bit for a program to "settle down",
+it will start to show correct and precise results as time passes.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/kirman/sde-ret/index.html" style="height: 480px; width: 470px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Kirman1993QJE">A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).</li><li id="Alfarano2005CompEco">S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).</li><li id="Alfarano2008Dyncon">S. Alfarano, T. Lux, F. Wagner. Time variation of higher moments in a financial market with heterogeneous agents: An analytical approach. Journal of Economic Dynamics and Control 32: 101-136 (2008).</li><li id="Reimann2011PhysA">S. Reimann, V. Gontis, M. Alaburda. Interplay between positive feedback in the generalized CEV process. Physica A 390: 1393-1401 (2011). <a href="https://arxiv.org/abs/1008.0568">arXiv: 1008.0568 [physics.data-an]</a>.</li><li id="Ruseckas2010PhysRevE">J. Ruseckas, B. Kaulakys. 1/f noise from nonlinear stochastic differential equations. Physical Review E 81: 031105 (2010). <a href="https://arxiv.org/abs/1002.4316">arXiv: 1002.4316 [nlin.AO]</a>.</li><li id="Kononovicius2012PhysA">A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). <a href="https://doi.org/10.1016/j.physa.2011.08.061">doi: 10.1016/j.physa.2011.08.061</a>. <a href="https://arxiv.org/abs/1106.2685">arXiv: 1106.2685 [q-fin.ST]</a>.</li><li id="VanKampen2007NorthHolland">N. G. van Kampen. Stochastic process in Physics and Chemistry. North Holland, Amsterdam, 2007.</li><li id="Cristelli2012Fermi">M. Cristelli, L. Pietronero, A. Zaccaria. Critical Overview of Agent-Based Models for Economics. Proceedings of the School of Physics 'E. Fermi', Course CLXXVI, ed. F. Mallnace, H. E. Stanley, pp. 235-282. SIF-IOS, Bologna-Amsterdam, 2012. <a href="https://doi.org/10.3254/978-1-61499-071-0-235">doi: 10.3254/978-1-61499-071-0-235</a>.</li><li id="Jolink1996Routledge">A. Jolink. The evolutionist economics of Lean Walras. Routledge, London and New York, 1996.</li><li id="Gardiner2009Springer">C. W. Gardiner. Handbook of stochastic methods. Springer, Berlin, 2009.</li><li id="Gontis2010Intech">V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. <a href="https://doi.org/10.5772/9748">doi: 10.5772/9748</a>.</li><li id="Kloeden1992Springer">P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. <a href="https://doi.org/10.1007/978-3-662-12616-5">doi: 10.1007/978-3-662-12616-5</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/long-range-memory-stochastic-model-return/">Long-range memory stochastic model of return</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/order-book-model-herd-behavior/">Order book model with herd behavior</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/thesis-defense-a-kononovicius/">Thesis defense of A. Kononovicius</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/v-gontis-econophysics-physics-of-risk/">V. Gontis: "Econophysics = Physics of Risk"</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

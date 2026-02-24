@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Blotto game with varied castles and adaptive strategies</title>
+    <script src="../../../shared-libs/commonFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <style>
+        label{width:50px;display:inline-block}
+        #cpu-strategy-label{width:auto}
+        #cpu-strategy{width:150px}
+        #figureWrapper div.label{margin:5px auto}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <svg width="480" height="100" version="1.1" viewBox="0 0 127 26.46" xmlns="http://www.w3.org/2000/svg">
+         <path id="castle-1" d="m8.267 5.413v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+         <path d="m16.2 12.65h1.852v3.175h-1.852z" stroke-width="0"/>
+         <path d="m15.81 21.65c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+         <path id="castle-2" d="m31.42 5.413v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+         <path d="m39.36 12.65h1.852v3.175h-1.852z" stroke-width="0"/>
+         <path d="m38.96 21.65c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+         <g fill-rule="evenodd" stroke="#000" stroke-linejoin="round" stroke-width=".7938">
+          <path d="m11.97 6.965v-5.249l1.589 0.9177-1.589 0.9555z"/>
+          <path d="m17.26 6.965v-5.249l1.589 0.9177-1.589 0.9555z"/>
+          <path d="m22.55 6.965v-5.249l1.589 0.9177-1.589 0.9555z"/>
+         </g>
+         <path id="castle-3" d="m54.57 5.413v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+         <path d="m62.51 12.65h1.852v3.175h-1.852z" stroke-width="0"/>
+         <path d="m62.11 21.65c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+         <g stroke="#000" stroke-linejoin="round" stroke-width=".7938">
+          <path d="m60.26 5.413v-3.697l1.589 0.9177-1.589 0.9555z" fill-rule="evenodd"/>
+          <path d="m65.55 5.413v-3.697l1.589 0.9177-1.589 0.9555z" fill-rule="evenodd"/>
+          <path id="castle-4" d="m77.72 5.413v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke-dashoffset="2.8" stroke-linecap="round"/>
+         </g>
+         <path d="m85.66 12.65h1.852v3.175h-1.852z" stroke-width="0"/>
+         <path d="m85.26 21.65c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+         <path d="m86.72 6.965v-5.249l1.589 0.9177-1.589 0.9555z" fill-rule="evenodd" stroke="#000" stroke-linejoin="round" stroke-width=".7938"/>
+         <path id="castle-5" d="m100.9 5.413v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+         <path d="m108.8 12.65h1.852v3.175h-1.852z" stroke-width="0"/>
+         <path d="m108.4 21.65c0-0.7916 0.7582-1.058 1.323-1.058s1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+         <g fill-rule="evenodd" stroke="#000" stroke-linejoin="round" stroke-width=".7938">
+          <path d="m109.9 6.965v-5.249l1.589 0.9177-1.589 0.9555z"/>
+          <path d="m37.11 5.413v-3.697l1.589 0.9177-1.589 0.9555z"/>
+          <path d="m42.4 5.413v-3.697l1.589 0.9177-1.589 0.9555z"/>
+         </g>
+        </svg>
+        <div id="message" class="label">Ada hasn't yet fought!</div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label id="cpu-strategy-label">CPU strategy:</label>
+            <select id="cpu-strategy">
+                <option value="0" selected>Priority-based</option>
+                <option value="1">Completely random</option>
+                <option value="2">Weighted(0.5) random</option>
+                <option value="3">Weighted(1) random</option>
+                <option value="4">Weighted(3) random</option>
+                <option value="5">Fixed(13-3-3-3-3)</option>
+                <option value="6">Fixed(13-12-0-0-0)</option>
+                <option value="7">Fixed(9-8-0-8-0)</option>
+                <option value="8">Copycat</option>
+                <option value="9">Random over all</option>
+            </select>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label id="cpu-label">CPU:</label>
+            <input id="cpu-troop-1" type="number" value="5" disabled>,
+            <input id="cpu-troop-2" type="number" value="5" disabled>,
+            <input id="cpu-troop-3" type="number" value="5" disabled>,
+            <input id="cpu-troop-4" type="number" value="5" disabled>,
+            <input id="cpu-troop-5" type="number" value="5" disabled>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label id="ada-label">ADA:</label>
+            <input id="ada-troop-1" type="number" value="5" disabled>,
+            <input id="ada-troop-2" type="number" value="5" disabled>,
+            <input id="ada-troop-3" type="number" value="5" disabled>,
+            <input id="ada-troop-4" type="number" value="5" disabled>,
+            <input id="ada-troop-5" type="number" value="5" disabled>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="continuous" id="continuous">Start attacking</button>
+        </span>
+        <span class="controlBlock">
+            <button name="attack" id="attack">Single attack</button>
+        </span>
+        <span class="controlBlock">
+            <button name="reset" id="reset">Reset record</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Three group Kirman&#39;s agent-based model for financial markets
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="As we have seen previously application of the original Kirman&#39;s model enables reproduction of single power law spectral density [1]. While actual financial markets and sophisticated stochastic models [2] have double power law spectral density -...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Three group Kirman&#39;s agent-based model for financial markets - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/three-group-kirman-agent-based-model-for-financial-markets/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2011/three-group-kirman-agent-based-model-for-financial-markets.png">
+            <meta property="og:description" content="As we have seen previously application of the original Kirman&#39;s model enables reproduction of single power law spectral density [1]. While actual financial markets and sophisticated stochastic models [2] have double power law spectral density -...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Three group Kirman's agent-based model for financial markets</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> September 20, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+            <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+            <a href="/tag/p-purlys/" data-toggle="tooltip" class="label label-default" title="#P. Purlys has 2 articles">#P. Purlys</a>
+
+
+            </div>
+        </header>
+        <p>As we have seen previously <a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">application of the
+original Kirman's
+model</a>
+enables reproduction of single power law spectral density <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">1</a>]</span>. While actual financial markets and
+<a href="https://rf.mokslasplius.lt/long-range-memory-stochastic-model-return/">sophisticated stochastic
+models</a>
+<span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">2</a>]</span> have double power law spectral density -
+i.e., fractured spectral density. Thus it would be nice to obtain
+fracture of spectral density by improving application of Kirman's agent
+based model towards financial markets.</p>
+
+<p>One can create more sophisticated model in various ways. The two main
+options are a possibility to combine multiple stochastic models obtained
+while analyzing stochastic treatment of Kirman's model <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2011DPGVerh" title="A. Kononovicius, V. Gontis, B. Kaulakys. Agent based reasoning of the nonlinear stochastic models. Verhandlungen DPG (VI) 46: 502. Dresden, Germany, 2011.">3</a>]</span> and a possibility extend agent-based
+model itself <span class="article-cite-items">[<a class="article-cite-item" href="#Purlys2011mtd2" title="P. Purlys. Kirmano sąveika tarp trijų tipų agentų finansuose. Vilniaus universitetas, Kursinis darbas, 2011.">4</a>]</span>. Speaking of latter
+possibility, it is possible to improve agent-based model by introducing
+additional agent groups or splitting old ones. Despite of previous lack
+of success, even multi-group agent-based models <span class="article-cite-items">[<a class="article-cite-item" href="#Bornholdt2001IJMPC" title="S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).">5</a>, <a class="article-cite-item" href="#Lux1999Nature" title="T. Lux, M. Marchesi. Scaling and criticality in a stochastic multi-agent model of a financial market. Nature 397: 498-500 (1999).">6</a>, <a class="article-cite-item" href="#Yook2008JKPS" title="S. H. Yook, H. J. Kim, Y. Kim. Agent-based generalized spin model for financial markets on two-dimensional lattices. Journal of the Korean Physical Society 52: S150-S153 (2008).">7</a>]</span> were unable to
+reproduce fracture in spectral density, this option still looks
+promising as one does not need to make strong assumptions.</p>
+<h2>Three group financial market model</h2>
+<p>In this text we will attempt to obtain fractured spectral density
+without making any strong assumptions. Similar, though broader,
+discussion is available in <span class="article-cite-items">[<a class="article-cite-item" href="#Purlys2011mtd2" title="P. Purlys. Kirmano sąveika tarp trijų tipų agentų finansuose. Vilniaus universitetas, Kursinis darbas, 2011.">4</a>]</span>). <a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">In previous
+application</a>
+we have considered dynamics only between chartist and fundamentalist
+groups <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">1</a>]</span>, while it is natural to
+expect that chartist agents may disagree in their expectations and thus
+devide into additional groups (or subgroups) - pessimists and optimists.
+Therefore now all three groups (see <a href="#attachment_1910">Fig. 1</a>) may
+interact among themselves.</p>
+<div class="figure"><img alt="image" id="attachment_1910" src="https://rf.mokslasplius.lt/uploads/2011/three-group-kirman-agent-based-model-for-financial-markets.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Three groups interactions: f - fundamentalists, c+ - chartists optimists, c- - chartists pessimists. Symbols written near the bubbles correspond to the parameters related to individual decision, while symbols written on the inter-connections are related to herding.</span></span></div>
+<p>Group interactions are mathematically described in the terms of
+<a href="https://rf.mokslasplius.lt/kirman-ants/">original Kirman's
+model</a>,
+where relevant parameters somewhat differ (see <a href="#attachment_1910">Fig.
+1</a>). These now six, as we have interactions between
+three groups, transition equations mathematically are expressed as:</p>
+<p>\begin{equation}
+ p( c_{-} \rightarrow f) = n_{c-} (a_1 + h_{cf} n_f)\Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p( c_{+} \rightarrow f) = n_{c+} (a_2 + h_{cf} n_f)\Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p( f \rightarrow c_{+}) = n_{f} (b_1 + h_{cf} n_{c+})\Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p( c_{-} \rightarrow c_{+}) = n_{c-} (b_2 + h_{cc}n_{c+}) \Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p( f \rightarrow c_{-}) = n_{f} (c_1 + h_{cf} n_{c-})\Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p( c_{+} \rightarrow c_{-}) = n_{c+} (c_2 + h_{cc}n_{c-}) \Delta t . 
+\end{equation}</p>
+<p>Note that the above transition probabilities describe one agent
+transition between varying groups. \(  a_i \), \(  b_i \) and
+\(  c_i \) in these transition probabilities stand for individual
+behavior, while \(  h_{ij} \) describe herding tendencies. Also it
+is important to note that only two different herding parameters are
+being used - one is being used for chartist-chartist process, which we
+will assume to be a faster one, and chartist-fundamentalist process,
+which was assumed to be slower process and analyzed in <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">1</a>]</span>. As we allow only one agent to change his
+group during \(  \Delta t \), it should be accordingly short time
+period. \(  \Delta t \) can be treated as model parameter, though
+constant value will hinder numerical evaluation. Therefore it is more
+convenient to use variable \(  \Delta t \), which can be defined by
+requiring that the sum of the transition probabilities is one or less:</p>
+<p>\begin{equation}
+ \sum\limits_i p(i) = \Delta t \sum\limits_i \pi(i) =\kappa \quad \Rightarrow \quad \Delta t =\frac{\kappa}{\sum\limits_i \pi(i)} , 
+\end{equation}</p>
+<p>here \(  p(i) = \pi(i) \Delta t \), index \(  i \) denotes all
+possible single transition scenarios, \(  \kappa \leq 1 \) may
+stand for numerical evaluation precision parameter.</p>
+<p>Model might be also improved by reducing the number of model parameters.
+To do so we introduce dimensionless time scale \(  t = h_{cf} t_s \). After its introduction one should also substitute
+non-dimensionless model parameters for their dimensionless counterparts:
+\(  A_i = \frac{a_i}{h_{cf}}  \), \(  B_i =\frac{b_i}{h_{cf}}  \), \(  C_i = \frac{c_i}{h_{cf}} \) and \(  H = \frac{h_{cc}}{h_{cf}}  \).</p>
+<h2>Application towards financial markets</h2>
+<p>All that is left to do now is to relate previously discussed group
+dynamics to the financial market observables, namely price and return.
+We do so by utilizing original Walras law, i.e., we assume that market
+maker stabilizes the market after each change to the supply and demand.
+We have already discussed this topic on Physics of Risk (see <a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">this
+text</a>).
+Thus from the market maker assumption, and by using previous experience,
+we can draw expression of price</p>
+<p>\begin{equation}
+ P(t) = P_f(t) \exp \left[ r_0 \frac{N_c(t)}{N_f(t)}\xi(t) \right] = P_f(t) \exp \left[ -r_0\frac{N_{c+}(t)-N_{c-}(t)}{N_f(t)} \right] , 
+\end{equation}</p>
+<p>and thus return, under the assumption that fundamental price remains
+constant,</p>
+<p>\begin{equation}
+ r_{T}(t)=\ln \frac{P(t)}{P(t-T)} = r_0 \left[-\frac{N_{c+}(t)-N_{c-}(t)}{N_f(t)} +\frac{N_{c+}(t-T)-N_{c-}(t-T)}{N_f(t-T)} \right] . 
+\end{equation}</p>
+<p>As in this text we are only interested in spectral density we can drop
+\(  r_0 \) from the definition of return.</p>
+<h2>Model results</h2>
+<p>In <span class="article-cite-items">[<a class="article-cite-item" href="#Purlys2011mtd2" title="P. Purlys. Kirmano sąveika tarp trijų tipų agentų finansuose. Vilniaus universitetas, Kursinis darbas, 2011.">4</a>]</span> paper model's spectral density was
+analyzed using different parameter sets. In <a href="#attachment_1908">Fig. 2</a>
+we can see reportedly best fractured spectral density (its powers,
+\(  \beta \), are close to empirical ones). Qualitatively similar
+results can be obtained with H being larger than 10 and smaller than
+1000. Otherwise spectral densities of chartist-chartist and
+chartist-fundamentalist process do not sufficiently differ (H smaller
+than 10) or overlap (H larger 1000).</p>
+<div class="figure"><img alt="image" id="attachment_1908" src="https://rf.mokslasplius.lt/uploads/2011/three-spectra.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Spectral density (red curve) of absolute return time series obtained by numerically evaluating the discussed model and its power law fits (blue curves). Powers of power law fits: \( \beta=0.68 \), \( \beta=0.22 \). Model parameters: \( a_1=a_2=b_1=c_1=30 \), \( b_2=c_2=500 \), \( h_{cf}=1 \), \( H=50 \), \( T=0.001 \).</span></span></div>
+<h2>Applet</h2>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/financial-markets/three-state-return-model/index.html" style="height: 385px; width: 515px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Kononovicius2012PhysA">A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). <a href="https://doi.org/10.1016/j.physa.2011.08.061">doi: 10.1016/j.physa.2011.08.061</a>. <a href="https://arxiv.org/abs/1106.2685">arXiv: 1106.2685 [q-fin.ST]</a>.</li><li id="Gontis2010Intech">V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. <a href="https://doi.org/10.5772/9748">doi: 10.5772/9748</a>.</li><li id="Kononovicius2011DPGVerh">A. Kononovicius, V. Gontis, B. Kaulakys. Agent based reasoning of the nonlinear stochastic models. Verhandlungen DPG (VI) 46: 502. Dresden, Germany, 2011.</li><li id="Purlys2011mtd2">P. Purlys. Kirmano sąveika tarp trijų tipų agentų finansuose. Vilniaus universitetas, Kursinis darbas, 2011.</li><li id="Bornholdt2001IJMPC">S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).</li><li id="Lux1999Nature">T. Lux, M. Marchesi. Scaling and criticality in a stochastic multi-agent model of a financial market. Nature 397: 498-500 (1999).</li><li id="Yook2008JKPS">S. H. Yook, H. J. Kim, Y. Kim. Agent-based generalized spin model for financial markets on two-dimensional lattices. Journal of the Korean Physical Society 52: S150-S153 (2008).</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/order-book-model-herd-behavior/">Order book model with herd behavior</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/many-state-herd-model-and-its-application-to-lithuanian-parliamentary-elections/">Many state herding model and its application to Lithuanian parliamentary elections</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/thesis-defense-a-kononovicius/">Thesis defense of A. Kononovicius</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

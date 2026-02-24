@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Compartmental voter model
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="In sociological papers it is quite common to see the analysis of how specific socio-demographic factors influence voting behavior. In opinion dynamics on the other hand we are usually interested only in contagion effects. Though some of the...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Compartmental voter model - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/compartmental-voter-model/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2020/cvm-schema.png">
+            <meta property="og:description" content="In sociological papers it is quite common to see the analysis of how specific socio-demographic factors influence voting behavior. In opinion dynamics on the other hand we are usually interested only in contagion effects. Though some of the...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Compartmental voter model</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> April 21, 2020</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+            <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+            <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+            <a href="/tag/zipfs-law/" data-toggle="tooltip" class="label label-default" title="#Zipf's law has 8 articles">#Zipf's law</a>
+            <a href="/tag/compartmental-voter-model/" data-toggle="tooltip" class="label label-default" title="#compartmental voter model has 6 articles">#compartmental voter model</a>
+            <a href="/tag/schelling-model/" data-toggle="tooltip" class="label label-default" title="#Schelling model has 3 articles">#Schelling model</a>
+
+
+            </div>
+        </header>
+        <p>In <a href="/tag/sociology/">sociological</a> papers it is quite common to see the analysis
+of how specific socio-demographic factors influence voting behavior. In
+<a href="/tag/opinion-dynamics/">opinion dynamics</a> on the other hand we are usually
+interested only in contagion effects. Though some of the models sometimes are
+more sophisticated and include things like
+<a href="/tag/bounded-confidence/">bounded confidence</a>, <a href="/tag/networks/">explicit</a>
+or implicit (like in <a href="https://rf.mokslasplius.lt/ishii-trust-suspicion-model/">Ishii's trust and suspicion
+models</a>
+we have recently discussed) network structure, which effectively segment the
+society into separate groups. Yet these groups are surely not equivalent to the
+socio-demographic groups.</p>
+
+<p>Another issue is that often in <a href="/tag/opinion-dynamics/">opinion dynamics</a> the
+data is not temporal, but is spatial instead. One way to avoid this problem is
+to assume that electoral districts (our spatial dimension) are independent of
+each other (we have implicitly made this assumption
+<a href="https://rf.mokslasplius.lt/many-state-herd-model-and-its-application-to-lithuanian-parliamentary-elections/">here</a>). Though obviously,
+this assumption is not true. If you recall another
+<a href="https://rf.mokslasplius.lt/kawasaki-ising-model/">recent post</a>, then you likely
+already know what we will do here. We will discuss an extension of the voter
+model, which is similar to the discussed Kawasaki's idea about the
+<a href="/tag/ising-model/">Ising model</a>.</p>
+<p>Note that the model in question was published in
+<span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2019Comp" title="A. Kononovicius. Compartmental voter model. Journal of Statistical Mechanics 2019: 103402 (2019). doi: 10.1088/1742-5468/ab409b. arXiv: 1906.01842 [physics.soc-ph].">1</a>]</span>. This post reuses some of the figures present
+in the paper.</p>
+<h2>The model</h2>
+<p>We will assume that there are \( N \) agents, each of which is in one of
+\( T \) states. These states can correspond to opinions or to
+socio-demographic types (hence the notation). Similarly to the spins in the
+<a href="https://rf.mokslasplius.lt/kawasaki-ising-model/">Kawasaki's Ising model</a>, the
+states of the agents in this model are also assumed to be fixed. Instead the
+agents are able to move between \( M \) compartments as long as the
+compartments are not overcrowded (they are assume to have inherent capacity
+\( C \)).</p>
+<p>Let us assume that the movements between compartments are based on homophily.
+With the actual rule inspired by the
+<a href="https://rf.mokslasplius.lt/voter-model/">original voter model</a>. Given
+different source and destination compartments, \( i \neq j \), and that
+the destination compartment is not over its capacity, \( N_j &lt; C \), the
+transition rate is assumed to be:</p>
+<p>\begin{equation}
+\lambda_{\left(k\right)}^{i\rightarrow j} = X_{i}^{\left(k\right)}\left(\varepsilon^{\left(k\right)}+X_{j}^{\left(k\right)}\right) .
+\end{equation}</p>
+<p>Otherwise the transition rate is equal to zero. In the above
+\( X_i^{(k)} \) is the number of type \( k \) agents in the
+district \( i \), \( \varepsilon^{(k)} \) is the individual transition
+rate for type \( k \), \( N_j \) is total number of agents in the
+district \( j \).</p>
+<div class="figure"><img alt="Schema of the compartmental voter model." src="https://rf.mokslasplius.lt/uploads/2020/cvm-schema.png" title="Schema of the compartmental voter model."/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Schema of the compartmental voter model. Arrows show directions of possible transitions along with respective transition rates. Note that zero rate means that this transitions will not happen unless something changes. Parameters: N = 20, T=2, M=5, C=5, ε=2.</span></span></div>
+<p>Note that the compartmental voter model is conceptually similar to the
+<a href="https://rf.mokslasplius.lt/schellings-segregation-model/">original Schelling's model</a>
+as well. Yet we implement a continuous transition rule instead of discrete one.
+This allows us to implement the compartmental voter model in continuous time.</p>
+<h2>Dynamics</h2>
+<p>Sadly, the model can be studied analytically only if the capacity is effectively
+infinite, \( C = N \). If so, then we can write total entry and exit rates
+for the compartments. Otherwise, if \( C &lt; N \), the total entry and exit
+rates do not have closed forms. Furthermore the analytical results apply only to
+the stationary probability density functions and not to the compartmental
+<a href="https://rf.mokslasplius.lt/rank-size-distribution-and-uk-census-2011-data-set/">rank-size distributions</a>
+in which we are interested in.</p>
+<p>For the infinite capacity case it can be easily shown that the stationary
+distribution is Beta distribution, or for finite \( N \) it is Beta-binomial
+distribution instead.</p>
+<div class="figure"><img alt="Model (red) vs Beta-fit (black): N=3000, T=1, M=100 and C=N (both), ε=2 (a) and 0.03 (b)." src="https://rf.mokslasplius.lt/uploads/2020/cvm-jstat-fig1.png" title="Model (red) vs Beta-fit (black): N=3000, T=1, M=100 and C=N (both), ε=2 (a) and 0.03 (b)."/><span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Model (red) vs Beta-fit (black): N=3000, T=1, M=100 and C=N (both), ε=2 (a) and 0.03 (b).</span></span></div>
+<p>Yet interestingly the same fit also applies to the compartmental rank-size
+distribution.</p>
+<div class="figure"><img alt="Model (red) vs Beta-fit (black) with the same parameters as in the previous figure." src="https://rf.mokslasplius.lt/uploads/2020/cvm-jstat-fig2.png" title="Model (red) vs Beta-fit (black) with the same parameters as in the previous figure."/><span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Model (red) vs Beta-fit (black) with the same parameters as in the previous figure</span></span></div>
+<p>Note that there is an essential difference between how we calculate stationary
+and compartmental distributions. Stationary distributions are obtained by
+observing the model over time at fixed spatial unit (as the model is ergodic,
+this approach is equivalent to observing an ensemble), while compartmental
+distributions are obtained by observing the model over space at fixed time.
+They do not need to match, yet they do.</p>
+<h2>Interactive app</h2>
+<p>Meanwhile we invite you to explore interactive app, which implements the
+compartmental voter model. Though there are few restrictions.</p>
+<p>First of all note that in this app has fixed \( T \) to be \( 1 \).
+Allowing for a flexible number of the agent types would make user interface
+more complex than it is currently necessary. Having \( T&gt;1 \) does somewhat
+change dynamics of the model, but only if \( C &lt; N \). Because different
+agent types interact only via finite capacity.</p>
+<p>Also we have fixed \( M \) to be \( 100 \). While this choice is not
+that necessary, but it doesn't limit the user a lot as \( M \) doesn't have
+huge impact on the observed dynamics of the model. Having it at \( 100 \)
+is optimal, because the simulation is still not that resource intensive, but we
+can also see pattern in the rank-size distribution.</p>
+<p>Note that in this app you specify not the total number of agents, \( N \),
+but \( X_i(0) \), which corresponds to the number of agents in any given
+compartment \( i \) at time \( t = 0 \). Therefore initial spatial
+distribution of the agents is uniform over compartments.</p>
+<p>Note that if \( C &lt; N_i(0) \cdot M \), you can change the fitting 
+parameters, \( \alpha \) and \( \beta \). Otherwise they are set
+automatically to values obtained during analytical derivation of the stationary
+distribution.</p>
+<p>Finally, allow some time for the stationary distribution, which is obtained
+from the first compartment time series, to converge. It does take some time as
+well as enough data points are needed for the probability density function to
+start look smoother.</p>
+<p>So feel free to explore the model using the app below. Note that in a few weeks
+time, with new posts on this same model, we will add a few apps more.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/voter/compartmental/index-single.html" style="height: 300px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<div class="side-note"><div class="figure float-right notouch"><img alt="esf logo" src="https://rf.mokslasplius.lt/uploads/special/esf.png"></div><p><strong>Acknowledgment.</strong> This post is based on research which was carried out as a part of the postdoctoral fellowship ''Physical modeling of order-book and opinion dynamics'' (09.3.3-LMT-K-712-02-0026) project. The fellowship is funded by the European Social Fund under the No 09.3.3-LMT-K-712 ''Development of Competences of Scientists, other Researchers and Students through Practical Research Activities'' measure.</p></div><h2>References</h2><ul class="article-references"><li id="Kononovicius2019Comp">A. Kononovicius. Compartmental voter model. Journal of Statistical Mechanics 2019: 103402 (2019). <a href="https://doi.org/10.1088/1742-5468/ab409b">doi: 10.1088/1742-5468/ab409b</a>. <a href="https://arxiv.org/abs/1906.01842">arXiv: 1906.01842 [physics.soc-ph]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/compartmental-voter-model-and-uk-census-data/">Compartmental voter model and UK census data</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/total-population-dynamics-in-the-compartmental-voter-model/">Total population dynamics in the compartmental voter model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/space-and-time-symmetry-in-the-compartmental-voter-model/">Space and time symmetry in the compartmental voter model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/compartmental-voter-model-with-finite-capacity/">Compartmental voter model with finite capacity</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/rank-size-distribution-and-uk-census-2011-data-set/">Rank-size distribution and UK census 2011 data set</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Aleksejus Kononovicius: What can the Bass diffusion model tell us about piracy?
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Recently in Lithuanian and world&#39;s different or global social spaces there was a lot of disccusion on anti-piracy and the proportionality of so-called &#34;protection&#34; of intelectual properties. The US politicians consider SOPA and PIPA, while EU...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Aleksejus Kononovicius: What can the Bass diffusion model tell us about piracy? - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/what-can-the-bass-diffusion-model-tell-us-about-piracy/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2012/what-can-the-bass-diffusion-model-tell-us-about-piracy.png">
+            <meta property="og:description" content="Recently in Lithuanian and world&#39;s different or global social spaces there was a lot of disccusion on anti-piracy and the proportionality of so-called &#34;protection&#34; of intelectual properties. The US politicians consider SOPA and PIPA, while EU...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Aleksejus Kononovicius: What can the Bass diffusion model tell us about piracy?</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> March 19, 2012</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+            <a href="/tag/marketing/" data-toggle="tooltip" class="label label-default" title="#marketing has 10 articles">#marketing</a>
+            <a href="/tag/bass-model/" data-toggle="tooltip" class="label label-default" title="#Bass model has 7 articles">#Bass model</a>
+
+
+            </div>
+        </header>
+        <p>Recently
+in Lithuanian and world's different or global social spaces there was a
+lot of disccusion on anti-piracy and the proportionality of so-called
+"protection" of intelectual properties. The US politicians consider SOPA
+and PIPA, while EU countries one after another expressed will to join
+ACTA. In Lithuanian media and blogosphere, as most probably in the rest
+of the world, has split into the <a href="https://www.delfi.lt/mokslas/technologijos/acaplikas-sprendimas-prisijungti-prie-acta-yra-teisingas-55518815">ACTA
+supporter</a>
+and <a href="https://kroitus.com/2012/02/26/tai-kas-gi-vagia/">opposition</a>
+camps.</p>
+
+<p>It is rather easy to notice that representatives from both camps
+sometimes base themselves on the ideological "truths" and personal
+experiences. Most of arguments by the ACTA supporters nicely fit into
+the phrase "property is sacred", which is one of the main postulates of
+liberal ideology. The only thing that is strange here is that another
+postulate of the same ideology is the sacred nature of economic and social
+freedom of each individual. Which is obviously breached if very person
+using the Internet is assumed to be criminal by definition. ACTA's
+opposition relies on a more diverse set of arguments. Yet I find the
+notion of how common plagiarism and intellectual piracy is inside the
+intellectual creation process itself to be the key point. Actually I
+myself have dealt with artists who use pirated software to produce their
+intellectual product, yet asking money for their own service. In
+Lithuania we have also had numerous plagiarism scandals ranging from the
+music to monumental art (e.g., sculptures). But let us stop here while we
+can - we are interested in the fundamental truths, not ideology or
+personal experiences. Let us attempt to understand the actual and
+observed reality!</p>
+<p>By the way on the Internet I have found two more-or-less professionally
+written texts (though I am aware that most probably there are more of
+them) - see <a href="https://kiskis.eu/post/17969820474/trigrasis-apie-acta/">lawyer M.
+Kiškis</a> and
+sepuku.lt blogs. In the first text the
+ACTA is tackled from the legal point of view, while the second is based
+on the scientific research <span class="article-cite-items">[<a class="article-cite-item" href="#Dahaner2012" title="B. Dahaner, J. Waldfogel. Reel Piracy: The Effect of Online Film Piracy on International Box Office Sales. 2012. https://www.ssrn.com/abstract=1986299.">1</a>]</span>. Further in text I
+will also rely on the scientific works relevant in terms of Physics of
+Risk - namely I will use the Bass diffusion model <span class="article-cite-items">[<a class="article-cite-item" href="#Bass1969ManSci" title="F. M. Bass. A New Product Growth Model for Consumer Durables. Management Science 15: 215-227 (1969).">2</a>]</span> and review by Prasad and Mahajan <span class="article-cite-items">[<a class="article-cite-item" href="#Prasad2003IJResMar" title="A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).">3</a>]</span>.</p>
+<p>The links to other websites above are available only in Lithuanian.
+Writing this text I am mostly concerned with Lithuania, though the
+actual ideas below are not geo-centric. Either way for serious analysis
+in English I refer you to the cited works.</p>
+<h2>Introducing piracy into the Bass model</h2>
+<p>Evidently the piracy can be introduced into the Bass model by including
+"shadow" diffusion process, which unlike the main diffusion process does
+not provide profit, though otherwise it is the same. Thus the market
+potential is divided into the legal consumers and pirates. The ratio of
+between these groups is determined by the availability of the product
+(depends on the price and the consumers income) and the tolerance of
+piracy. Mathematically this ideas are put down like this <span class="article-cite-items">[<a class="article-cite-item" href="#Prasad2003IJResMar" title="A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).">3</a>]</span>:</p>
+<p>\begin{equation}
+ \partial_t X(t) = f(p(t)) \left[ N-X(t)-Y(t) \right]\left[ \sigma +\frac{h}{N} \{X(t) - Y(t)\} \right] , 
+\end{equation}</p>
+<p>\begin{equation}
+ \partial_t Y(t) = \alpha \left[ N-X(t)-Y(t) \right]\left[ \sigma +\frac{h}{N} \{X(t) - Y(t)\} \right] , 
+\end{equation}</p>
+<p>here \(  N \) is a market potential (total amount of agents in the
+system, the theoretical limit for the product adoption), \(  X \) -
+number of legal adopters at a given time, \(  Y \) - number of
+pirates at a given time, \(  \sigma \) - coefficient of innovation,
+\(  h \) - coefficient of imitation, \(  f(p(t)) \) - availability
+of product as a function of price, \(  \alpha \) - tolerance of the
+piracy. The above equations might be further generalized by assuming
+that tolerance of piracy might vary in time and etc. Though for our
+simple analysis this model should suffice.</p>
+<p>Model equations suggest that:</p>
+<ul>
+<li>If the price is large, and thus the availability of product is low,
+    and/or piracy is tolerated, then piracy will prevail in the market.
+    In the opposite case consumers will tend to choose legal product.</li>
+<li>Piracy hastens product diffusion.</li>
+<li>Piracy is the main cause for the lost profit.</li>
+</ul>
+<p>First two suggestions are correct and are justified by analyzing
+empirical data. While the third suggestion is caused by the simplicity
+of the model - it is highly doubtful that all of the pirates would
+become legals under certain conditions. Another point ruling out the
+third suggestion is that precise evaluation of actual market potential
+is very troublesome task (if doable at all). Thus the profit might
+be also lost due to overestimation of the market potential.</p>
+<h2>The analysis of different scenarios: constant tolerance, initial tolerance and "charity"</h2>
+<p>Having in mind the aforementioned simplicity of the model let us study
+the curves plotted in <a href="#attachment_2288">Fig. 1</a>. In this figure we see
+the diffusion of product if piracy is present (blue curve) and absent
+(green curve). Note that blue curve grows significantly faster than the
+green one, though the green one reaches larger value than the blue one.
+If piracy is present it "consumes" part of the market potential (red
+curve).</p>
+<div class="figure"><img alt="image" id="attachment_2288" src="https://rf.mokslasplius.lt/uploads/2012/BassPiracy.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Bass diffusion without piracy (green curve) and with it (pirates - red curve; legal consumers - blue curve). Model parameters are identical in both cases. On the abscissa axis we plot time, t, while on the ordinate we plot the number of consumers, X.</span></span></div>
+<p>One could stop tolerating piracy after a certain moment to gain both
+momentum and gain more money <span class="article-cite-items">[<a class="article-cite-item" href="#Prasad2003IJResMar" title="A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).">3</a>]</span>. This
+scenario is shown in <a href="#attachment_2289">Fig. 2</a>. Note that once again
+diffusion is faster then pirates are present, yet in this case larger
+profit is gained as more consumers are legals.</p>
+<div class="figure"><img alt="image" id="attachment_2289" src="https://rf.mokslasplius.lt/uploads/2012/BassPiracy2.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Bass diffusion without piracy (green curve) and with it (pirates - red curve; legal consumers - blue curve). Model parameters are identical in both cases.</span></span></div>
+<p>One might consider another marketing strategy. One could further
+increase the speed of diffusion by giving away the product for free or
+with large discounts. The model stays the same as in case with "shadow"
+diffusion, but the "shadow" diffusion term remains constant, \( Y(t) = Y_0 \). As you can see in <a href="#attachment_2290">Fig. 3</a> profit loss
+once again stays minimal, yet the diffusion is even faster.</p>
+<div class="figure"><img alt="image" id="attachment_2290" src="https://rf.mokslasplius.lt/uploads/2012/what-can-the-bass-diffusion-model-tell-us-about-piracy.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Bass diffusion without piracy (green curve), with pirates (blue curve) and in 'charity' scenario (magenta curve). Model parameters are otherwise identical.</span></span></div>
+<p>The full effectiveness of the previous approach can not be seen from the
+point of our analysis. Recall that our model is very simple - namely
+modeled market doesn't have any structure (every agent is connected to
+every other agent), while the real markets have structures. Some
+elements of real markets have a lot more influence than others as they
+are socially active and widely available. Choosing to facilitate product
+diffusion among them would be a very wise choice as it would also
+significantly facilitate product diffusion among other market elements.</p>
+<h2>Somewhat ideological moral or "instead of conclusions"</h2>
+<p>As we have shown in the above tolerance of piracy is an excellent
+marketing tool, which helps to improve the spread of the newly
+introduced product. This conclusion also applies towards markets with
+competition (note that our simple model considers only monopolist
+market). It is so as if we would have two products of similar perceived
+quality and similar availability, market would adopt the one, which is
+more pirated, namely which tolerates the piracy more. This conclusion is
+also made in <span class="article-cite-items">[<a class="article-cite-item" href="#Prasad2003IJResMar" title="A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).">3</a>]</span> after studying a bit more
+complex model.</p>
+<p>Interesting, and important in context of ACTA, notion is that seeing
+piracy as excellent marketing strategy is not new. <span class="article-cite-items">[<a class="article-cite-item" href="#Prasad2003IJResMar" title="A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).">3</a>]</span> argues that this strategy was used by
+Microsoft to obtain leading position in Taiwan market. And after
+obtaining leading position in Taiwan, Microsoft has cracked down
+software pirates in this country. Similar strategy was also used to
+conquer Chinese market, but the conquest is not yet completed thus the
+piracy in China is tolerated. This poses an interesting question - is
+the piracy genuinely a bad thing (as ACTA supporters claim) or it is
+just the market manipulation tool, which is not useful anymore in
+certain countries.</p>
+<p>The "charity" scenario is also very interesting as it is even more
+effective than tolerance of piracy. So in order to gain the most we have
+to present the product to the most active social elements. In case of
+software there two very active social elements - governmental
+organizations and public (and private?) schools. Due to the software
+adoption in schools most of kids would assumed to be taught using only
+the presented software, thus after graduating they might be unable to
+use the other (possibly analogous) pieces of software. While
+software adoption in governmental organizations forces adults and
+business to adopt same kind of software, because effective electronic
+communication would be only possible if both parties use the same
+standardized software.</p>
+<p>It is interesting to note, yet it is not surprising, that this strategy
+is also widely applied. In Lithuania most schools use the same software
+to teach kids. Thus in the end only a few school graduates are aware
+that Windows and Microsoft Office have their corresponding alternatives.
+Also most of governmental organizations use Microsoft Office "native"
+formats to convey information to the people (e.g., presenting templates
+.doc on their websites).</p>
+<p>Therefore for me it is very strange why we have this situation? Why the
+(Lithuanian) politicians, who were not previously concerned with
+software piracy problems, without any discussion are eager to ratify
+questionable agreements, which possible infringe human rights? Why the
+first idea in their heads is to capture and punish? Why they do not care
+about educating society and increasing accessibility of electronic
+government (e.g., by legislating open standards)?</p>
+<p>Note that this analysis is mostly based on the example of software
+piracy, yet the same mathematical formalism applies towards other types
+of industries. Though the other industries might have their own specific
+qualities, might be needed to account for on theoretical level. In case
+of multimedia industry one could use works by A. Ishii <span class="article-cite-items">[<a class="article-cite-item" href="#Ishii2010EconoPhysColl" title="A. Ishii, S. Umemura, T. Hayashi, N. Matsuda, T. Nakagawa, H. Arakaki, N. Yoshida. Mathematical Model for Hit Phenomena. Proceedings of Econophysics Colloquium 2010. 2010. arXiv: 1002.4460 [physics.soc-ph].">4</a>, <a class="article-cite-item" href="#Ishii2012NJP" title="A. Ishii, H. Arakaki, N. Matsuda, S. Umemura, T. Urushidani, N. Yamagata, N. Yoshda. The hit phenomenon: a mathematical model of human dynamics interactions as a stochastic process. New Journal of Physics 14: 063018 (2012). doi: 10.1088/1367-2630/14/6/063018. arXiv: 1112.1143 [physics.soc-ph].">5</a>, <a class="article-cite-item" href="#Ishii2012PTP" title="A. Ishii, T. Matsumoto, S. Miki. Revenue Prediction of Local Event using Mathematical Model of Hit Phenomena. Progress of Theoretical Physics Supplements 194: 64-72 (2012). arXiv: 1112.0767 [physics.soc-ph].">6</a>]</span> to improve
+understanding of the diffusion of multimedia products. Though the
+specifics of the industries should not influence the general conclusions
+reached in this analysis.</p>
+<p>You can explore these possibilities by using interactive applet available
+<a href="https://rf.mokslasplius.lt/unidirectional-kirman-model/">here</a>.</p><h2>References</h2><ul class="article-references"><li id="Dahaner2012">B. Dahaner, J. Waldfogel. Reel Piracy: The Effect of Online Film Piracy on International Box Office Sales. 2012. <a href="https://www.ssrn.com/abstract=1986299" title="Open this website">https://www.ssrn.com/abstract=1986299</a>.</li><li id="Bass1969ManSci">F. M. Bass. A New Product Growth Model for Consumer Durables. Management Science 15: 215-227 (1969).</li><li id="Prasad2003IJResMar">A. Prasad, V. Mahajan. How many pirates should a software firm tolerate? An analysis of piracy protection on the diffusion of software. International Journal of Research in Marketing 20: 337-353 (2003).</li><li id="Ishii2010EconoPhysColl">A. Ishii, S. Umemura, T. Hayashi, N. Matsuda, T. Nakagawa, H. Arakaki, N. Yoshida. Mathematical Model for Hit Phenomena. Proceedings of Econophysics Colloquium 2010. 2010. <a href="https://arxiv.org/abs/1002.4460">arXiv: 1002.4460 [physics.soc-ph]</a>.</li><li id="Ishii2012NJP">A. Ishii, H. Arakaki, N. Matsuda, S. Umemura, T. Urushidani, N. Yamagata, N. Yoshda. The hit phenomenon: a mathematical model of human dynamics interactions as a stochastic process. New Journal of Physics 14: 063018 (2012). <a href="https://doi.org/10.1088/1367-2630/14/6/063018">doi: 10.1088/1367-2630/14/6/063018</a>. <a href="https://arxiv.org/abs/1112.1143">arXiv: 1112.1143 [physics.soc-ph]</a>.</li><li id="Ishii2012PTP">A. Ishii, T. Matsumoto, S. Miki. Revenue Prediction of Local Event using Mathematical Model of Hit Phenomena. Progress of Theoretical Physics Supplements 194: 64-72 (2012). <a href="https://arxiv.org/abs/1112.0767">arXiv: 1112.0767 [physics.soc-ph]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/iaria-publication-reviewing-our-different-research-directions/">IARIA publication reviewing our different research directions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-versus-macroscopic-modeling-competition-business-processes-economics/">Agent-based versus macroscopic modeling of competition and business processes in economics</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/unidirectional-kirman-model/">Unidirectional Kirman's model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/facebook-contest-data-set-reproducing-day-night-cycle/">Facebook contest data set: Reproducing day-night cycle</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/why-properties-of-individual-agents-may-be-ignored/">Why the properties of individual agents may be ignored?</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

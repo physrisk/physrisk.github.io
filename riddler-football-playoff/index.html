@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Riddler&#39;s football playoff
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="This week we will take a look at another Riddler&#39;s Classic puzzle. The problem for December 9th, 2022 invites us to take a look at a particular stochastic football tournament.">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Riddler&#39;s football playoff - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/riddler-football-playoff/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2023/riddler-football-playoff.png">
+            <meta property="og:description" content="This week we will take a look at another Riddler&#39;s Classic puzzle. The problem for December 9th, 2022 invites us to take a look at a particular stochastic football tournament.">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Riddler's football playoff</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> February 21, 2023</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+            <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+            <a href="/tag/fivethirtyeight/" data-toggle="tooltip" class="label label-default" title="#FiveThirtyEight has 6 articles">#FiveThirtyEight</a>
+
+
+            </div>
+        </header>
+        <p>This week we will take a look at another <a href="/tag/fivethirtyeight/">Riddler's Classic
+puzzle</a>. The problem for <a href="https://fivethirtyeight.com/features/can-you-win-the-riddler-football-playoff/">December 9th,
+2022</a>
+invites us to take a look at a particular stochastic <a href="/tag/sports/">football</a>
+tournament.</p>
+
+<h2>The problem</h2>
+<p>Four teams participate in knock-out tournament. Two pairs play their
+semi-final games, while the winners advance and play the final game to
+determine the overall winner.</p>
+<p>Each team is described by a random variable \( x_i \) (equality
+distributed in \( [ 0, 1 ] \) interval), which stands for its strength.
+Semi-finals are seed appropriately - the strongest team (one with highest
+\( x_i \)) is paired with the weakest one (one with lowest
+\( x_i \)), while the other two form the second pair.</p>
+<p>The outcome of each match is random. The probability that team \( i \)
+will beat team \( j \) is given by</p>
+<p>\begin{equation}
+    p(w_{ij} = i) = \frac{x_i}{x_i + x_j} .
+\end{equation}</p>
+<p>Question: What is the average quality of the champion?</p>
+<h2>Analytical solution</h2>
+<p>Let us first consider a simpler problem. Lets assume that we have just two
+competing teams and, therefore, a single match to play. In this case it is
+just but a simple arithmetic exercise, as if team \( i \) wins, then the
+winner is of strength \( x_i \), otherwise team \( j \) wins and
+the winner's strength is \( x_j \). The average is given by:</p>
+<p>\begin{equation}
+    \bar{x}_c(x_i, x_j) = x_i p(w_{ij} = j) + x_j p(w_{ij} = j) =
+        \frac{x_i^2}{x_i + x_j} + \frac{x_j^2}{x_i + x_j} .
+\end{equation}</p>
+<p>The above average is over a match between two particular teams (to denote
+this we use bar above the \( x \)). To get the answer we are looking for
+we need to average over all possible team pairs:</p>
+<p>\begin{equation}
+    \langle x_c \rangle = \int_0^1 \int_0^1 \bar{x}_c(x_i, x_j) d x_i d x_j =
+        \frac{4 \ln (2) - 1}{3} \approx 0.591\ldots
+\end{equation}</p>
+<h3>Four team case</h3>
+<p>Dealing with the four team case follows similar logic, but there is a
+complicating that teams are ranked. So, let us assume that
+\( x_i &gt; x_j &gt; x_k &gt; x_l \). There are four possible champions and
+we need to calculate the probabilities of each outcome.</p>
+<p>First let us consider the outcome when team \( i \) is the champion. For
+this to happen \( i \) needs to beat team \( l \) in the semi-final.
+Probability of that happening:</p>
+<p>\begin{equation}
+    p(w_{il} = i) = \frac{x_i}{x_i + x_l} .
+\end{equation}</p>
+<p>Then its opponent in the final will be team \( j \), with probability:</p>
+<p>\begin{equation}
+    p(w_{jk} = j) = \frac{x_j}{x_j + x_k} ,
+\end{equation}</p>
+<p>or team \( k \), with probability:</p>
+<p>\begin{equation}
+    p(w_{jk} = k) = \frac{x_k}{x_j + x_k} .
+\end{equation}</p>
+<p>Team \( i \) will be those opponents with probabilities:</p>
+<p>\begin{equation}
+    p(w_{ij} = i) = \frac{x_i}{x_i + x_j} ,
+\end{equation}</p>
+<p>\begin{equation}
+    p(w_{ik} = i) = \frac{x_i}{x_i + x_k} .
+\end{equation}</p>
+<p>Now we just need to properly combine those probabilities into the
+probability that \( i \) will be the champions:</p>
+<p>\begin{equation}
+    P(c=i) = p(w_{il} = i) \cdot \left[
+        p(w_{jk} = j) \cdot p(w_{ij} = i) +
+        p(w_{jk} = k) \cdot p(w_{ik} = i)
+    \right] .
+\end{equation}</p>
+<p>Following similar logic we can easily derive probability for \( l \) to
+become champions:</p>
+<p>\begin{equation}
+    P(c=l) = p(w_{il} = l) \cdot \left[
+        p(w_{jk} = j) \cdot p(w_{lj} = l) +
+        p(w_{jk} = k) \cdot p(w_{lk} = l)
+    \right] ,
+\end{equation}</p>
+<p>as well as for \( j \) and \( k \):</p>
+<p>\begin{equation}
+    P(c=j) = p(w_{jk} = j) \cdot \left[
+        p(w_{il} = i) \cdot p(w_{ij} = j) +
+        p(w_{il} = l) \cdot p(w_{lj} = j)
+    \right] ,
+\end{equation}</p>
+<p>\begin{equation}
+    P(c=k) = p(w_{jk} = k) \cdot \left[
+        p(w_{il} = i) \cdot p(w_{ik} = k) +
+        p(w_{il} = l) \cdot p(w_{lk} = k)
+    \right] .
+\end{equation}</p>
+<p>We can verify that everything is correct simply by adding all for
+championship outcome probabilities together. As no other event is possible
+the sum should be equal to \( 1 \).</p>
+<p>As before, let us calculate the average for the particular teams:</p>
+<p>\begin{equation}
+    \bar{x}_c(x_i, x_j, x_k, x_l) =
+       x_i P(c=i) + x_j P(c=j) + x_k P(c=k) + x_l P(c=l) .
+\end{equation}</p>
+<p>And the average over all possible quadruplets of teams:</p>
+<p>\begin{equation}
+    \langle x_c \rangle = (4!) \cdot \int_0^1 \int_0^{x_i} \int_0^{x_j}
+        \int_0^{x_k} \bar{x}_c(x_i, x_j, x_k, x_l)
+            d x_l d x_k d x_j d x_i .
+\end{equation}</p>
+<p>Why \( 4! \) multiplier? This term appears, because we need to make an
+assumption about ranking. In general all possible quadruplets are not
+necessarily ranked.</p>
+<p>Integrating the final integral by hand is problematic, but any specialized
+computer algebra system can do it for us. The result involves couple of
+natural logarithms and a special <a href="https://en.wikipedia.org/wiki/Riemann_zeta_function">Riemann zeta
+function</a>, which is at
+the core of one of the hardest problems faced by modern mathematics
+(<a href="https://en.wikipedia.org/wiki/Riemann_hypothesis">Riemann hypothesis</a>).
+But we are interested in at least an approximation of the true result. It
+is:</p>
+<p>\begin{equation}
+    \langle x_c \rangle \approx 0.6735\ldots 
+\end{equation}</p>
+<h2>Interactive app</h2>
+<p>Alternatively we could also solve the problem by running numerical
+experiment! The app below does exactly that. Though note that it involves
+three additional parameters.</p>
+<p>\( \alpha \) and \( \beta \) are the
+parameters of Beta distribution from which we assume that \( x \) is
+sampled in the app. In \( \alpha = \beta = 1 \) case Beta distribution
+corresponds to uniform distribution in \( [0, 1] \) interval.</p>
+<p>\( \gamma \) parameter changes the probability to win the match. Now it
+would be:</p>
+<p>\begin{equation}
+    p(w_{ij} = i) = \frac{x_i^\gamma}{x_i^\gamma + x_j^\gamma} .
+\end{equation}</p>
+<p>Obviously, \( \gamma = 1 \) case corresponds to the original problem.
+Higher \( \gamma \) values make stronger teams more likely to win, while
+lower values improve the chance of the weaker teams. In the special case
+\( \gamma = 0 \) teams' strength does not matter. For negative
+\( \gamma \) team's strength are effectively inverted (weaker teams
+become stronger).</p>
+<p>Feel free to explore the original problem and its generalization! This app
+outputs the current mean strength of the champion (at the top near the
+iteration number), the teams (and their pairings) from the last playoff and
+the team strength distribution.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/stats/puzzles/football-playoff/index.html" style="height: 295px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<p>Note that all team names are generic "Team #XX", where XX indicates the
+strength of the team: \( XX = \left\lceil x_i \cdot 100 \right\rceil \).
+The colors indicate team rank: blue team is always the strongest, then
+followed by red, green and yellow. In the figure champion's strength
+distribution is shown by dark gray curve.</p>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/boring-basketball-game/">Boring basketball game</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/riddler-fan-bus/">Riddler's Fan Bus problem</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/bowling-percolation/">Bowling percolation puzzle</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/analytical-solution-boring-basketball-game/">Analytical solution of the boring basketball game</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/law-of-large-numbers/">Law of large numbers</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

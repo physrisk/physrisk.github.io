@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Lotka-Volterra equations
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="The simplest ecological system can be constructed from the two interacting species, e.g., prey and predator. This kind of system is very interesting in the terms of Physics of Risk primarily because it is nonlinear [1], and due to being real life...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Lotka-Volterra equations - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/lotka-volterra-equations/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2012/lotka-volterra-equations.png">
+            <meta property="og:description" content="The simplest ecological system can be constructed from the two interacting species, e.g., prey and predator. This kind of system is very interesting in the terms of Physics of Risk primarily because it is nonlinear [1], and due to being real life...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Lotka-Volterra equations</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> October 01, 2012</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+            <a href="/tag/wolfram-cdf/" data-toggle="tooltip" class="label label-default" title="#Wolfram CDF has 5 articles">#Wolfram CDF</a>
+            <a href="/tag/lotka-volterra/" data-toggle="tooltip" class="label label-default" title="#Lotka-Volterra has 3 articles">#Lotka-Volterra</a>
+
+
+            </div>
+        </header>
+        <p>The simplest ecological system can be
+constructed from the two interacting species, e.g., prey and predator.
+This kind of system is very interesting in the terms of Physics of Risk
+primarily because it is nonlinear <span class="article-cite-items">[<a class="article-cite-item" href="#Goel1971RevModPhys" title="N. S. Goel, S. C. Maitra, E. W. Montroll. On the Volterra and Other Nonlinear Models of Intereacting Populations. Reviews of Modern Physics 43: 231-276 (1971). doi: 10.1103/RevModPhys.43.231.">1</a>]</span>, and
+due to being real life example of competition (conflict). Also there are
+few known simple models for the prey-predator interaction. Among them
+there are both macroscopic, Lotka-Volterra equations, and microscopic,
+agent-based, models. We will start our discussion from the macroscopic
+Lotka-Volterra model.</p>
+
+<h2>Lotka-Volterra equations</h2>
+<p>Instead of simply writing down the equations let us briefly discuss what
+is going on in this kind of system. Interestingly enough the ideas we
+will discuss are also applicable for the socio-economic modeling <span class="article-cite-items">[<a class="article-cite-item" href="#Ausloos2009Chess" title="M. Ausloos. On religion and language evolutions seen through mathematical and agent based models. Proceedings of the First Interdisciplinary Chess Interactions Conference, pp. 157-182. Canada, 2009. arXiv: 1103.5382 [physics.soc-ph].">2</a>, <a class="article-cite-item" href="#Goodwin1967Cambridge" title="R. M. Goodwin. A Growth Cycle. In: Socialism, Capitalism and Economic Growth, ed. C.H. Feinstein. Cambridge University Press, 1967.">3</a>, <a class="article-cite-item" href="#Olivera2011DynSocEcoSys" title="N. L. Olivera, A. N. Proto, M. Ausloos. Information Society: Modeling A Complex System With Scarce Data. Proceedings of The V Meeting on Dynamics of Social and Economic Systems 6: 443-460 (2011). arXiv: 1201.1547 [physics.soc-ph].">4</a>, <a class="article-cite-item" href="#Solomon2000Hermes" title="S. Solomon. Generalized Lotka Volterra (GLV) Models of Stock Markets. In: Applications of Simulation to Social Sciences, ed. G. Ballot, G. Weisbuch, pp. 301-322. Hermes Science Publications, 2000. arXiv: cond-mat/9901250.">5</a>, <a class="article-cite-item" href="#Vitanov2012ACS" title="N. K. Vitanov, M. Ausloos, G. Rotundo. Discrete model of ideological struggle accounting for migration. Advances in Complex Systems 15 (supp01), 2012: 1250049. doi: 10.1142/S021952591250049X.">6</a>]</span>. Yet we choose the ecosystem for
+the discussion as in this case all interactions should be pretty clear
+and straightforward.</p>
+<p>First let us start with the natural birth-death processes. The numbers
+of both prey and predator are changing at certain rate. For the sake of
+simplicity we could assume that this rate is constant and depends only
+on the current number of individuals. Though it is worthwhile to note
+that there are some works considering non-constant and even stochastic
+rates. For the sake of simplicity we could also assume that the prey can
+only increase its abundance. This might be seen as an assumption that
+prey would live infinitely long if not getting eaten by the predator.
+Also we could assume that predator population should naturally decrease.
+The thought behind this is that predators need to be full and strong to
+be able to produce an offspring. Under these assumptions the birth-death
+terms might be expressed in the terms Malthus and Verhulst models:</p>
+<p>\begin{equation}
+ \mathrm{d} X = a X \mathrm{d} t \quad\text{or}\quad\mathrm{d} X = ( a X - b X^2 ) \mathrm{d} t . 
+\end{equation}</p>
+<p>Our interest lies in the non-linear terms, which stand for the
+interaction of the species. It should be evident that the population of
+prey should decrease due to inter-species interaction, while the
+predator population should grow. The probability of the meeting of the
+prey and the predator is proportional to the both sizes of the
+respective populations. Taking it into account we can finally write the
+Lotka-Volterra equations, in the general form:</p>
+<p>\begin{equation}
+ \mathrm{d} X_i = \left[ a_i X_i - b_i X_i^2 - \sum_{j\neq i} c_{ij} X_i X_j \right] \mathrm{d} t , 
+\end{equation}</p>
+<p>here i is an index related to the certain species, while c parameters
+describe the interaction between species labeled by index i and j. If c
+is positive, then i-th species is suffering from j-th, otherwise the
+species is gaining from the interaction.</p>
+<p>Note that the general form of Lotka-Volterra equations can describe the
+interaction of more than two species, though this text is dedicated to
+the two species prey-predator interaction. If the populations can growth
+is not limited, then the set of Lotka-Volterra equations will look like
+this:</p>
+<p>\begin{equation}
+ \mathrm{d} X_1 = \left[ a_1 X_1 - c_{12} X_1 X_2\right] \mathrm{d} t , \quad \mathrm{d} X_2 = \left[ -a_2 X_2+ c_{21} X_2 X_1 \right] \mathrm{d} t , 
+\end{equation}</p>
+<p>here index 1 is used with variables related to the prey population,
+while index 2 marks the relation to the predator population. All
+parameters in these equations are positive numbers - the nature of
+interaction is already accounted for.</p>
+<div class="figure"><img alt="Solution of Lotka-Volterra eqs." id="attachment_2359" src="https://rf.mokslasplius.lt/uploads/2012/lotka-volterra-equations.png" title="Solution of Lotka-Volterra eqs."/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Solution of the Lotka-Volterra equations. Red line marks the predator evolution, while blue - prey's. Dashed lines mark the model's fixed points. Parameters: \( X_1(0)=8 \), \( X_2(0)=12 \), \( a_1=20 \), \( a_2 =30\), \( c_{12}=c_{21}=1 \).</span></span></div>
+<p>In <a href="#attachment_2359">Fig 1.</a> we have shown one of the possible
+solutions of the Lotka-Volterra equations. The example demonstrates
+essential qualitative behavior of the model - its "fluctuating" nature.
+These "fluctuations" are inherent to a real life system. If predators
+are few, then the prey population has an opportunity to grow as the
+predators are able to catch less prey than new prey are born. On the
+other hand if the prey population becomes abundant many predators will
+be satisfied enough to bear an offspring. The growing predator
+population will consume more of prey, until at certain the consumption
+will become larger than the reproduction of the prey. After this the
+population of prey will start to decline. The predator population will
+soon follow, because the decreased abundance of food will cause mass
+starvation. We will one again find our ecosystem in the state with few
+prey and few predators, so the prey population will once again grow...
+In this manner the history will repeat itself.</p>
+<p>Repetition might be avoided if both populations arrive at the respective
+fixed point at the same time or the model starts with the initial
+conditions equal to the fixed points. Note that for the prey this fixed
+point is a ratio between the qualities of the predator population,
+\(  a_2 / c_{21} \), while the predators depend on the qualities of
+the prey population, \(  a_1 / c_{12} \). The better for prey, the
+better for predator, while the better for predator, the worse for prey.
+This is very interesting, though ultimately simple, example of conflict
+and cooperation in the actual real life system.</p>
+<h2>Interactive Lotka-Volterra model applet</h2>
+<iframe id="html5app" class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/ordinary-differential-equations/lotka-volterra/index.html" style="height: 540px; width: 470px" scrolling="no" allow="fullscreen"></iframe>
+<p>Previously, instead of the currently used HTML5 app, we have used an app
+based on the Wolfram CDF technology. The old app is still available for
+<a href="https://rf.mokslasplius.lt/uploads/2012/lotka-volterra.cdf">download</a>.</p>
+<h2>Stochastic Lotka-Volterra model</h2>
+<p>In the recent scientific literature <span class="article-cite-items">[<a class="article-cite-item" href="#Goel1971RevModPhys" title="N. S. Goel, S. C. Maitra, E. W. Montroll. On the Volterra and Other Nonlinear Models of Intereacting Populations. Reviews of Modern Physics 43: 231-276 (1971). doi: 10.1103/RevModPhys.43.231.">1</a>, <a class="article-cite-item" href="#Solomon2000Hermes" title="S. Solomon. Generalized Lotka Volterra (GLV) Models of Stock Markets. In: Applications of Simulation to Social Sciences, ed. G. Ballot, G. Weisbuch, pp. 301-322. Hermes Science Publications, 2000. arXiv: cond-mat/9901250.">5</a>, <a class="article-cite-item" href="#Arato2003MCM" title="M. Arato. A Famous Nonlinear Stochastic Equation (Lotka-Volterra Model with Diffusion). Mathematical and Computer Modelling 38: 709-726 (2003). doi: 10.1016/S0895-7177(03)90056-2.">7</a>, <a class="article-cite-item" href="#Mao2003JMAA" title="X. Mao, S. Sabanis, E. Renshaw. Asymptotic behaviour of the stochastic Lotka-Volterra model. Journal of Mathematical Analysis and Applications 287: 141-156 (2003). doi: 10.1016/S0022-247X(03)00539-0.">8</a>, <a class="article-cite-item" href="#Solomon2001Springer" title="S. Solomon, P. Richmond. Stability of Pareto-Zipf Law in Non-stationary Economies. In: Economics with Heterogeneous Interacting Agents, Lecture Notes in Economics and Mathematical Systems, 503: 141-159. Springer, 2001. arXiv: cond-mat/0012479 [cond-mat.stat-mech].">9</a>, <a class="article-cite-item" href="#Zhu2009JMAA" title="C. Zhu, G. Yin. On competitive Lotka-Volterra model in random environments. Journal of Mathematical Analysis and Applications 357: 154-170 (2009). doi: 10.1016/j.jmaa.2009.03.066.">10</a>]</span> one can find many examples of not only the deterministic,
+previously discussed, Lotka-Volterra model, but also of its stochastic
+treatment. Usually randomness is introduced into the model by making
+simple assumption about the random nature of the external forces acting
+on the species (e.g., random food supply for the prey) or the random
+nature of the internal forces obviously influencing the interaction of
+the populations.</p>
+<p>In the first case, \(  a_i \rightarrow \bar a_i + \sigma_{a,i}\mathcal{N}_i(0,1)  \), one obtains linear (with the respect to
+the noise) set of stochastic differential equations:</p>
+<p>\begin{equation}
+ \mathrm{d} X_i = \left[ \bar a_i X_i - b_i X_i^2 -\sum_{j \neq i} c_{ij} X_i X_j \right] \mathrm{d} t +\sigma_{a,i} X_i \mathrm{d} W_i . 
+\end{equation}</p>
+<p>The non-linear (with the respect to the noise) stochastic differential
+equations can be obtained by both assuming the random capacity (external
+feature) of the species and by randomizing interaction parameters. Let
+us assume the latter, \(  c_{ij} \rightarrow \bar c_{ij} -\sigma_{c,ij} \mathcal{N}_{ij}(0,1)  \):</p>
+<p>\begin{equation}
+ \mathrm{d} X_i = \left[ a_i X_i - b_i X_i^2 - \sum_{j\neq i} \bar c_{ij} X_i X_j \right] \mathrm{d} t + \sum_{j\neq i} \sigma_{c,ij} X_i X_j \mathrm{d} W_{ij} . 
+\end{equation}</p>
+<p>In the above stochastic differential equation W, as common, stands for
+the Wiener process or standard Brownian motion. We won't further analyze
+the stochastic model, though we would like to draw the readers attention
+to the fact that this model can be applied to economics and financial
+markets. Furthermore the stochastic Lotka-Volterra model might be used
+to obtained the power law probability density functions observed in
+those complex systems <span class="article-cite-items">[<a class="article-cite-item" href="#Solomon2000Hermes" title="S. Solomon. Generalized Lotka Volterra (GLV) Models of Stock Markets. In: Applications of Simulation to Social Sciences, ed. G. Ballot, G. Weisbuch, pp. 301-322. Hermes Science Publications, 2000. arXiv: cond-mat/9901250.">5</a>, <a class="article-cite-item" href="#Solomon2001Springer" title="S. Solomon, P. Richmond. Stability of Pareto-Zipf Law in Non-stationary Economies. In: Economics with Heterogeneous Interacting Agents, Lecture Notes in Economics and Mathematical Systems, 503: 141-159. Springer, 2001. arXiv: cond-mat/0012479 [cond-mat.stat-mech].">9</a>]</span>.</p><h2>References</h2><ul class="article-references"><li id="Goel1971RevModPhys">N. S. Goel, S. C. Maitra, E. W. Montroll. On the Volterra and Other Nonlinear Models of Intereacting Populations. Reviews of Modern Physics 43: 231-276 (1971). <a href="https://doi.org/10.1103/RevModPhys.43.231">doi: 10.1103/RevModPhys.43.231</a>.</li><li id="Ausloos2009Chess">M. Ausloos. On religion and language evolutions seen through mathematical and agent based models. Proceedings of the First Interdisciplinary Chess Interactions Conference, pp. 157-182. Canada, 2009. <a href="https://arxiv.org/abs/1103.5382">arXiv: 1103.5382 [physics.soc-ph]</a>.</li><li id="Goodwin1967Cambridge">R. M. Goodwin. A Growth Cycle. In: Socialism, Capitalism and Economic Growth, ed. C.H. Feinstein. Cambridge University Press, 1967.</li><li id="Olivera2011DynSocEcoSys">N. L. Olivera, A. N. Proto, M. Ausloos. Information Society: Modeling A Complex System With Scarce Data. Proceedings of The V Meeting on Dynamics of Social and Economic Systems 6: 443-460 (2011). <a href="https://arxiv.org/abs/1201.1547">arXiv: 1201.1547 [physics.soc-ph]</a>.</li><li id="Solomon2000Hermes">S. Solomon. Generalized Lotka Volterra (GLV) Models of Stock Markets. In: Applications of Simulation to Social Sciences, ed. G. Ballot, G. Weisbuch, pp. 301-322. Hermes Science Publications, 2000. <a href="https://arxiv.org/abs/cond-mat/9901250">arXiv: cond-mat/9901250</a>.</li><li id="Vitanov2012ACS">N. K. Vitanov, M. Ausloos, G. Rotundo. Discrete model of ideological struggle accounting for migration. Advances in Complex Systems 15 (supp01), 2012: 1250049. <a href="https://doi.org/10.1142/S021952591250049X">doi: 10.1142/S021952591250049X</a>.</li><li id="Arato2003MCM">M. Arato. A Famous Nonlinear Stochastic Equation (Lotka-Volterra Model with Diffusion). Mathematical and Computer Modelling 38: 709-726 (2003). <a href="https://doi.org/10.1016/S0895-7177(03)90056-2">doi: 10.1016/S0895-7177(03)90056-2</a>.</li><li id="Mao2003JMAA">X. Mao, S. Sabanis, E. Renshaw. Asymptotic behaviour of the stochastic Lotka-Volterra model. Journal of Mathematical Analysis and Applications 287: 141-156 (2003). <a href="https://doi.org/10.1016/S0022-247X(03)00539-0">doi: 10.1016/S0022-247X(03)00539-0</a>.</li><li id="Solomon2001Springer">S. Solomon, P. Richmond. Stability of Pareto-Zipf Law in Non-stationary Economies. In: Economics with Heterogeneous Interacting Agents, Lecture Notes in Economics and Mathematical Systems, 503: 141-159. Springer, 2001. <a href="https://arxiv.org/abs/cond-mat/0012479">arXiv: cond-mat/0012479 [cond-mat.stat-mech]</a>.</li><li id="Zhu2009JMAA">C. Zhu, G. Yin. On competitive Lotka-Volterra model in random environments. Journal of Mathematical Analysis and Applications 357: 154-170 (2009). <a href="https://doi.org/10.1016/j.jmaa.2009.03.066">doi: 10.1016/j.jmaa.2009.03.066</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/power-spectral-density-part-2/">Power spectral density (part 2)</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-prey-predator-model/">Agent-based prey-predator model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">Stochastic ant colony model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/birds-on-field/">Birds on a field</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/birds-on-wire/">Birds on a wire</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

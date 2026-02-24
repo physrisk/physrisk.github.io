@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Blotto game</title>
+    <script src="../../shared-libs/commonFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <style>
+        label{width:50px;display:inline-block}
+        #figureWrapper div.label{margin:5px auto}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <svg id="battlefield" width="480" height="100" version="1.1" viewBox="0 0 127 26.46" xmlns="http://www.w3.org/2000/svg">
+         <g transform="translate(-2.646)">
+          <g transform="translate(6.615)">
+           <path id="castle-1" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(29.77)">
+           <path id="castle-2" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(52.92)">
+           <path id="castle-3" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(76.07)">
+           <path id="castle-4" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(99.22)">
+           <path id="castle-5" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+         </g>
+        </svg>
+        <div id="message" class="label">You haven't yet fought!</div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label id="ai-label">CPU:</label>
+            <input id="ai-troop-1" type="number" value="5" disabled>,
+            <input id="ai-troop-2" type="number" value="5" disabled>,
+            <input id="ai-troop-3" type="number" value="5" disabled>,
+            <input id="ai-troop-4" type="number" value="5" disabled>,
+            <input id="ai-troop-5" type="number" value="5" disabled>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label id="player-label">You:</label>
+            <input id="troop-1" type="number" min="0" max="25" step="1" value="5">,
+            <input id="troop-2" type="number" min="0" max="25" step="1" value="5">,
+            <input id="troop-3" type="number" min="0" max="25" step="1" value="5">,
+            <input id="troop-4" type="number" min="0" max="25" step="1" value="5">,
+            <input id="troop-5" type="number" min="0" max="25" step="1" value="5">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="continuous" id="continuous">Start attacking</button>
+        </span>
+        <span class="controlBlock">
+            <button name="attack" id="attack">Single attack</button>
+        </span>
+        <span class="controlBlock">
+            <button name="reset" id="reset">Reset record</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>

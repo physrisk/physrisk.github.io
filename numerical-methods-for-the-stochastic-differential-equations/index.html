@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Numerical methods for the stochastic differential equations
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Reviewers of one of our most recent papers have asked some very interesting questions. One of them was about the numerical methods we use to solve the stochastic differential equations. The question was to be expected as, while we provide the...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Numerical methods for the stochastic differential equations - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/numerical-methods-for-the-stochastic-differential-equations/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2012/numerical-methods-for-the-stochastic-differential-equations.png">
+            <meta property="og:description" content="Reviewers of one of our most recent papers have asked some very interesting questions. One of them was about the numerical methods we use to solve the stochastic differential equations. The question was to be expected as, while we provide the...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Numerical methods for the stochastic differential equations</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> May 28, 2012</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+            <a href="/tag/java/" data-toggle="tooltip" class="label label-default" title="#Java has 3 articles">#Java</a>
+
+
+            </div>
+        </header>
+        <p>Reviewers of one of our most recent papers have asked some very interesting
+questions. One of them was about the numerical methods we use to solve the
+stochastic differential equations.  The question was to be expected as,
+while we provide the final difference equations, we do not discuss how they
+were obtained. Thus here we will briefly review the most basic
+principles of the numerical solution of the stochastic differential
+equations.</p>
+
+<p>Let us recall that in general case stochastic differential equation (in Ito
+sense) has the following form:</p>
+<p>\begin{equation}
+ \mathrm{d} x = f(x) \mathrm{d} t + g(x) \mathrm{d} W.
+\end{equation}</p>
+<p>In the above \( f(x) \) is the drift function, which represents the
+strength of deterministic force. \( g(x) \) is the diffusion function,
+which represents the strength of random force. \( W \) is the Wiener
+process (one dimensional standard Brownian motion). It is also common
+(especially in physics) to rewrite the same equation as:</p>
+<p>\begin{equation}
+ \dot{x} = f(x) + g(x) \zeta(t) .
+\end{equation}</p>
+<p>Where in the above \( \zeta(t) \) is the white noise (a derivative of
+Brownian motion). Here we make dependence on time explicitly, as the random
+force would fluctuate in time. Here it is important to emphasize that we
+understand stochastic differential equation in Ito sense, while in physics
+it is much more common to use Stratonovich interpretation (we will
+eventually address this issue in some later post).</p>
+<p>Notably, these equations can be further generalized by introducing time
+dependence into the drift, \( f(x) \), and (or) diffusion, \( g(x)
+\), functions. But most commonly used stochastic models do not have this
+complication, as this would make the models non-stationary.</p>
+<h2>Euler method for the differential equations</h2>
+<p>Before tackling stochastic differential equation let us recall how one
+can numerically solve first order ordinary differential equations. The
+most intuitive and simple method is known as Euler method or first order
+numerical discretization method. Sometimes it is also used for solving
+stochastic differential equations, simply by assuming the diffusion term is
+small (random force is weak) in comparison to the drift term (deterministic
+force). If so, we can write:</p>
+<p>\begin{equation}
+ \Delta x \approx f(x) \Delta t \quad \Rightarrow \quad x_{i+1} =x_i + f(x_i) \Delta t .
+\end{equation}</p>
+<p>To understand what have we done here recall the definition of
+derivative:</p>
+<p>\begin{equation}
+ \frac{\mathrm{d} x(t)}{\mathrm{d} t} = \lim_{\Delta t\rightarrow 0} \frac{x(t) - x(t-\Delta t)}{\Delta t} \approx\frac{\Delta x}{\Delta t} .
+\end{equation}</p>
+<p>It should be evident that if the drift function is constant, namely if the
+correct answer is linear function of time, then Euler method is precise.
+While if the drift function does vary with \( x \), if the correct
+answer is something more complicated than linear function, then the
+differences between the numerical solution and correct answer will be
+noticeable. The deviation will depend on the size of the time step - if it
+is small, the deviations will also tend to be smaller.</p>
+<div class="figure"><img alt="image" id="attachment_2323" src="https://rf.mokslasplius.lt/uploads/2012/num-methods-euler.png" title="image"/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Illustration of the Euler method applied towards non-linear differential equation. Note that the numerical solution (red dots) doesn't fully coincide with the correct answer (blue curve).</span></span></div>
+<p>In <a href="#attachment_2323">Fig. 1</a> the differences between the numerical and
+correct answer are easily noticeable. In order to improve numerical
+results one can decrease the time step (which was selected to be overly
+large on purpose) or use another, more precise, numerical method. One of the
+possible choices, in order to retain speed of the numerical evaluation,
+would be <a href="https://en.wikipedia.org/wiki/Midpoint_method" title="Read about the midpoint method on Wikipedia">midpoint
+method</a>,
+which is an improved version of the first order Euler method considered
+in this text. In order to further improve the precision one should
+become interested in higher order methods, e.g., <a href="https://rf.mokslasplius.lt/runge-kutta-4-order-method/">Runge-Kutta 4-th order
+method</a>.
+Another interesting idea might be implementation of variable time steps
+(see <a href="#var-step">below</a>).</p>
+<h2>Euler-Maruyama method for the stochastic differential equations</h2>
+<p>Let us now apply the ideas above towards stochastic differential equations
+(in Ito sense)! First let us substitute the differentiation with the changes
+of variables during some time window. By doing so we obtain the following
+difference equation:</p>
+<p>\begin{equation}
+ x_{i+1} = x_i + f(x_i) \Delta t + g(x_i) \Delta W .
+\end{equation}</p>
+<p>The difference equation has a very familiar shape and the only unanswered
+question is about \( \Delta W \). As \( W \) is the Wiener process,
+then \( \Delta W \) should be a random sample from a normal distribution
+with zero mean, and variance proportional to \( \Delta t \). We can
+denote it by \( \sqrt{\Delta t} \zeta_i \) with \( \zeta_i \)
+being standardized (zero mean, unit variance) random variate coming from
+normal distribution (i.e., \( \zeta_i \sim \mathcal{N}(0,1) \)). The
+difference equation then becomes:</p>
+<p>\begin{equation}
+ x_{i+1} = x_i + f(x_i) \Delta t + g(x_i) \sqrt{\Delta t}\zeta_i .
+\end{equation}</p>
+<p>Here, we have purely intuitively arrived at numerical method which is known
+as Euler-Maruyama method. For more details on this method and its
+alternatives see <span class="article-cite-items">[<a class="article-cite-item" href="#Kloeden1992Springer" title="P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. doi: 10.1007/978-3-662-12616-5.">1</a>]</span>.</p>
+<h2 id="var-step">Solving non-linear stochastic differential equations using variable time step</h2>
+<p>Note that Euler-Maruyama method works fine if the stochastic
+differential equation is at most linear or the diffusion area of the
+variable is somehow restricted. In case of the non-linear equations one
+can decrease the time step used to numerically solve the equation.
+Though note that this will significantly increase the required computational
+resources. Such choice would not be very optimal as the small time step
+is actually needed only if the movement, either drift or diffusion, of
+the random variable is large. It would be very intuitive and rational to
+use variable time steps! This way it would be possible to decrease
+computational load if it is not necessary.</p>
+<p>Let us now consider the following non-linear stochastic differential
+equation:</p>
+<p>\begin{equation}
+ \mathrm{d} x = \left(\eta - \frac{\lambda}{2} \right)x^{2 \eta -1} \mathrm{d} t + x^\eta \mathrm{d} W . \label{nlin-sde}
+\end{equation}</p>
+<p>We choose this equation as it represents very general class of
+stochastic differential equations <span class="article-cite-items">[<a class="article-cite-item" href="#Ruseckas2010PhysRevE" title="J. Ruseckas, B. Kaulakys. 1/f noise from nonlinear stochastic differential equations. Physical Review E 81: 031105 (2010). arXiv: 1002.4316 [nlin.AO].">2</a>, <a class="article-cite-item" href="#Ruseckas2011PhysRevE" title="J. Ruseckas, B. Kaulakys. Tsallis distributions and 1/f noise from nonlinear stochastic differential equations. Physical Review E 84: 051125 (2011). arXiv: 1111.2995 [cond-mat.stat-mech].">3</a>]</span> and it lies in the base of the stochastic models
+derived and studied by our group <span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">4</a>, <a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">5</a>]</span>. Furthermore in some distinct cases this
+equation becomes very similar to some very well known stochastic
+processes (we will discuss this in the following texts).</p>
+<p>Following the previous ideas we can rewrite our non-linear stochastic
+differential equation as the following difference equation:</p>
+<p>\begin{equation}
+ x_{i+1} = x_i + \left(\eta - \frac{\lambda}{2} \right)x_i^{2 \eta -1} \Delta t + x_i^\eta \sqrt{\Delta t} \zeta_i .
+\end{equation}</p>
+<p>Note the powers of random variable in the drift and diffusion terms.
+Also take note of the powers of time step. By comparing them we can that
+if the time step would be a function of random variable we could
+linearize the difference equation. Though now we will have to deal with
+two difference equations (one for the random variable, another for the
+time):</p>
+<p>\begin{equation}
+ x_{i+1} = x_i + \kappa^2 \left(\eta - \frac{\lambda}{2}\right) x_i + \kappa x_i \zeta_i ,
+\end{equation}</p>
+<p>\begin{equation}
+ t_{i+1} = t_i + \kappa^2 x_i^{2- 2 \eta} .
+\end{equation}</p>
+<p>Note that now the equations includes \(  \kappa \), which stands for
+the numerical precision. Ideally it should be as small as possible, but
+in most of the cases 0.1 or 0.01 are ok.</p>
+<p>This difference equation can be already solved numerically. Yet some
+problems might occur - e.g., for \(  \eta&gt;1 \) and small values of
+random variable the time step might become very large. This problem
+might be solved by switching back to the constant time step (of course
+only if its smaller than the variable one). Another frequent problem is
+related to the overly large or small values, which potentially can cause
+freezes, overflows or underflows, but this is another more technical
+topic.</p>
+<p>The idea of the variable time steps can be easily and somewhat
+efficiently applied towards solution of the ordinary differential
+equations - see <a href="#attachment_2324">Fig. 2</a>.</p>
+<div class="figure"><img alt="image" id="attachment_2324" src="https://rf.mokslasplius.lt/uploads/2012/numerical-methods-for-the-stochastic-differential-equations.png" title="image"/><span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Introducing variable time steps into the original Euler method. Note that under similar conditions the agreement between analytical and numerical solution is improved.</span></span></div>
+<h2>Source code as an example</h2>
+<p>Take time to familiarize yourself with the example Java program.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">&lt;</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">innerDt</span><span class="o">=</span><span class="n">variableTimeStep</span><span class="p">(</span><span class="n">lastX</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">Double</span><span class="p">.</span><span class="na">isNaN</span><span class="p">(</span><span class="n">innerDt</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">Double</span><span class="p">.</span><span class="na">isInfinite</span><span class="p">(</span><span class="n">innerDt</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">innerDt</span><span class="o">=</span><span class="n">dt</span><span class="o">+</span><span class="n">dt</span><span class="o">-</span><span class="n">t</span><span class="o">-</span><span class="n">t</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">whileDt</span><span class="o">=</span><span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">dt</span><span class="o">-</span><span class="n">t</span><span class="p">,</span><span class="n">innerDt</span><span class="p">);</span>
+<span class="w">            </span><span class="n">lastX</span><span class="o">=</span><span class="n">solveSDE</span><span class="p">(</span><span class="n">lastX</span><span class="p">,</span><span class="n">whileDt</span><span class="p">);</span>
+<span class="w">            </span><span class="n">t</span><span class="o">+=</span><span class="n">whileDt</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lastX</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">drift</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="n">lambda</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mf">2.0</span><span class="o">*</span><span class="n">eta</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">diffusion</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">eta</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">solveSDE</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="n">drift</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="o">+</span><span class="n">diffusion</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+<span class="w">            </span><span class="o">*</span><span class="n">gen</span><span class="p">.</span><span class="na">nextGaussian</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">variableTimeStep</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">kappa</span><span class="p">,</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="n">Math</span><span class="p">.</span><span class="na">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mf">2.0</span><span class="o">-</span><span class="mf">2.0</span><span class="o">*</span><span class="n">eta</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h2>Interactive HTML5 app</h2>
+<p><strong>(comment added in 2025)</strong> While reorganizing
+<a href="/tag/interactive/">interactive</a> apps I have found that one legacy-styled
+app that had no home. I think its home should be here, as it shows numerical
+solution of \eqref{nlin-sde}. Though it uses not the <a href="/tag/java/">Java</a> code
+above, but it is instead implemented in the JavaScript language.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/stats/models/nonlinear-sde/index.html" style="height: 470px; width: 470px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Kloeden1992Springer">P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. <a href="https://doi.org/10.1007/978-3-662-12616-5">doi: 10.1007/978-3-662-12616-5</a>.</li><li id="Ruseckas2010PhysRevE">J. Ruseckas, B. Kaulakys. 1/f noise from nonlinear stochastic differential equations. Physical Review E 81: 031105 (2010). <a href="https://arxiv.org/abs/1002.4316">arXiv: 1002.4316 [nlin.AO]</a>.</li><li id="Ruseckas2011PhysRevE">J. Ruseckas, B. Kaulakys. Tsallis distributions and 1/f noise from nonlinear stochastic differential equations. Physical Review E 84: 051125 (2011). <a href="https://arxiv.org/abs/1111.2995">arXiv: 1111.2995 [cond-mat.stat-mech]</a>.</li><li id="Gontis2010Intech">V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. <a href="https://doi.org/10.5772/9748">doi: 10.5772/9748</a>.</li><li id="Kononovicius2012PhysA">A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). <a href="https://doi.org/10.1016/j.physa.2011.08.061">doi: 10.1016/j.physa.2011.08.061</a>. <a href="https://arxiv.org/abs/1106.2685">arXiv: 1106.2685 [q-fin.ST]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/power-spectral-density-part-2/">Power spectral density (part 2)</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/multifractality-time-series/">Multifractality of time series</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/runge-kutta-4-order-method/">Runge-Kutta 4th order method</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/ks-test/">Kolmogorov-Smirnov test</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/brownian-motion-interpolation-part-2/">Interpolation of Brownian motion (part 2)</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

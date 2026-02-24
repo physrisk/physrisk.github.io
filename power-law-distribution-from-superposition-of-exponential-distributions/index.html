@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Power-law distribution from superposition of exponential distributions
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="In the previous post we have asked a simple question - what if gap duration is distributed according to a power-law distribution. Our answer was an apparently pure 1/f noise. But how could the power-law distribution arise? While in some materials...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Power-law distribution from superposition of exponential distributions - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/power-law-distribution-from-superposition-of-exponential-distributions/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2024/power-law-distribution-from-superposition-of-exponential-distributions.png">
+            <meta property="og:description" content="In the previous post we have asked a simple question - what if gap duration is distributed according to a power-law distribution. Our answer was an apparently pure 1/f noise. But how could the power-law distribution arise? While in some materials...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Power-law distribution from superposition of exponential distributions</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> February 27, 2024</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+
+
+            </div>
+        </header>
+        <p>In the <a href="https://rf.mokslasplius.lt/power-law-gap-times-rtn/">previous post</a>
+we have asked a simple question - what if gap duration is distributed
+according to a power-law distribution. Our answer was an apparently pure
+<a href="/tag/1f-noise/">1/f noise</a>. But how could the power-law distribution arise?
+While in some materials some quantities indeed follow power-law distribution
+(such as blinking times in quantum dot experiments <span class="article-cite-items">[<a class="article-cite-item" href="#Frantsuzov2008" title="P. Frantsuzov, M. Kuno, B. Jankó, R. A. Marcus. Universal emission intermittency in quantum dots, nanorods and nanowires. Nature Physics 4: 519–522 (2008). doi: 10.1038/nphys1001.">1</a>]</span>), most materials have exponentially distributed
+generation and/or recombination times. So then, can we construct a power-law
+distribution from superposition of exponential distributions?</p>
+
+<p>Indeed we can. From purely mathematical perspective let us sample from an
+exponential distribution. Let the rate of that distribution be distributed
+according to a power-law distribution,</p>
+<p>\begin{equation}
+p(\lambda) \propto \frac{1}{\lambda^\alpha} .
+\end{equation}</p>
+<p>To make normalization of this distribution possible for any \( \alpha \)
+let us assume that \( \lambda \) is confined to \( [
+\lambda_\text{min}, \lambda_\text{max} ] \) interval. Then the sampled
+values \( x \) will follow a power-law distribution. Probability density
+function of this distribution is</p>
+<p>\begin{align}
+p(x) &amp; \propto \int_{\lambda_\text{min}}^{\lambda_\text{max}} \lambda^{1-\alpha} \exp(-\lambda x) \mathrm{d} \lambda = \nonumber \\
+     &amp; = [\Gamma(2-\alpha, \lambda_\text{min} x) - \Gamma(2-\alpha, \lambda_\text{max} x) ] \cdot x^{-2+\alpha} .
+\end{align}</p>
+<p>Visual intuition of what is happening is encompassed in a figure from our
+recent work <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). doi: 10.1088/1742-5468/ad890b. arXiv:2306.07009 [math.PR].">2</a>]</span>, which we also reproduce here
+(see <a href="#exponential-power-law">Fig. 1</a>). In <a href="#exponential-power-law">Fig. 1</a>
+we have shown \( \alpha = 0 \) case, which results in the inverse square
+law. Note that the dashed black curves visually form a simple inverse law,
+which when integrated becomes the inverse square law.</p>
+<div class="figure"><img alt="How the integration over exponents (black dashed curves) results in a
+power-law distribution (red curve). Only few selected exponents shown for
+visualization purpose. α=0 case is
+shown." id="exponential-power-law" src="https://rf.mokslasplius.lt/uploads/2024/power-law-distribution-from-superposition-of-exponential-distributions.png" title="How the integration over exponents (black dashed curves) results in a
+power-law distribution (red curve). Only few selected exponents shown for
+visualization purpose. α=0 case is
+shown."/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">How the integration over exponents (black dashed curves) results in a power-law distribution (red curve). Only few selected exponents shown for visualization purpose. α=0 case is shown.</span></span></div>
+<p>Let \( \frac{1}{\lambda_\text{max}} \ll x \ll \frac{1}{\lambda_\text{min}} \), then:</p>
+<p>\begin{equation}
+p(x) \approx \frac{(1-\alpha) \Gamma(2-\alpha)}{\lambda_\text{max}^{1-\alpha} - \lambda_\text{min}^{1-\alpha}} x^{-2+\alpha} .
+\end{equation}</p>
+<p>The above works almost all \( \alpha \) (the only exception are positive
+integer values). For closest \( \alpha = 1 \) case we can show that:</p>
+<p>\begin{equation}
+p(x) \approx \frac{1}{\ln\left(\lambda_\text{max}\right) - \ln\left(\lambda_\text{min}\right)} x^{-1} .
+\end{equation}</p>
+<p>The other cases are less interesting to us, because they lead either to the
+uniform distribution, or to the strange ("unnatural" might be a better word
+for it) distributions with increasing \( p(x) \). Furthermore, having in
+mind the earlier
+<a href="https://rf.mokslasplius.lt/power-law-gap-times-rtn/">post</a>, we mostly care
+about \( \alpha = 0 \) case, which leads to \( p(x) \sim 1/x^2 \),
+and its vicinity.</p>
+<p><strong>How this is related to the <a href="/tag/random-telegraph-noise/">random telegraph
+noise</a>?</strong> Well, it allows us to avoid assuming
+power-law distributions to obtain <a href="/tag/1f-noise/">1/f noise</a>. All we need is
+just uniformity of detachment rates <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). doi: 10.1088/1742-5468/ad890b. arXiv:2306.07009 [math.PR].">2</a>]</span>.
+Replacing the power-law distribution in this way has few mathematical
+consequences (the results from <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2023rtn" title="A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). doi: 10.1103/PhysRevE.107.034117. arXiv:2210.11792 [cond-mat.stat-mech].">3</a>]</span> still hold),
+but lead to a couple new insights into the low-frequency cutoff problem
+<span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2024upoiss" title="A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). doi: 10.1088/1742-5468/ad890b. arXiv:2306.07009 [math.PR].">2</a>]</span>, some of these we will probably discuss
+some time in the future.</p>
+<h2>Interactive app</h2>
+<p>The app below allows you to see how the probability density functions of
+rates, \( \lambda \), and "final" sample values, \( x \), change
+when you tweak the parameter values. It is important to note that the \(
+p(\lambda) \) plot (top one) has double linear axes, while \( p(x) \)
+plot (bottom one) has double logarithmic axes. We made this choice, because
+for us most interesting case is when \( \alpha = 0 \) and \( \lambda
+\) follows a uniform distribution, which looks best when presented on
+double linear axes. As usual we show the simulation result by a red curve,
+and theoretical fit (bottom figure only) by a dark gray curve.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/stats/concepts/exponential-power-law/index.html" style="height: 470px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<p>Given enough time, the app will reproduce probability density function with
+a power-law slope for the intermediate values. While for the extreme values,
+exponential cutoffs should be visible. Cutoffs appear quicker for
+positive \( \alpha \).</p><h2>References</h2><ul class="article-references"><li id="Frantsuzov2008">P. Frantsuzov, M. Kuno, B. Jankó, R. A. Marcus. Universal emission intermittency in quantum dots, nanorods and nanowires. Nature Physics 4: 519–522 (2008). <a href="https://doi.org/10.1038/nphys1001">doi: 10.1038/nphys1001</a>.</li><li id="Kononovicius2024upoiss">A. Kononovicius, B. Kaulakys. 1/f noise in semiconductors arising from the heterogeneous detrapping process of individual charge carriers. Journal of Statistical Mechanics 2024: 113201 (2024). <a href="https://doi.org/10.1088/1742-5468/ad890b">doi: 10.1088/1742-5468/ad890b</a>. <a href="https://arxiv.org/abs/2306.07009">arXiv:2306.07009 [math.PR]</a>.</li><li id="Kononovicius2023rtn">A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). <a href="https://doi.org/10.1103/PhysRevE.107.034117">doi: 10.1103/PhysRevE.107.034117</a>. <a href="https://arxiv.org/abs/2210.11792">arXiv:2210.11792 [cond-mat.stat-mech]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/multi-success-heterogeneous-detrapping-process/">Multi-success heterogeneous detrapping process</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/heterogeneous-detrapping-process/">Heterogeneous detrapping process</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/power-law-distribution-from-superposition-of-normal-distributions/">Power-law distribution from superposition of normal distributions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/power-law-gap-times-rtn/">Power-law gap times in random telegraph noise</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/power-law-in-exponential-growth/">Power-law in exponential growth</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

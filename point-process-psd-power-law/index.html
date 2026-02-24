@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    PSD of a point process with power-law inter-event times
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="In the previous post we have seen that introducing memory into the memory-less Poisson process makes things very complicated. But we haven&#39;t yet still seen 1/f noise. So now let us consider power-law distributed inter-event times!">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="PSD of a point process with power-law inter-event times - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/point-process-psd-power-law/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2023/point-process-psd-power-law.png">
+            <meta property="og:description" content="In the previous post we have seen that introducing memory into the memory-less Poisson process makes things very complicated. But we haven&#39;t yet still seen 1/f noise. So now let us consider power-law distributed inter-event times!">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>PSD of a point process with power-law inter-event times</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> October 17, 2023</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+            <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+            <a href="/tag/fourier-transform/" data-toggle="tooltip" class="label label-default" title="#Fourier transform has 9 articles">#Fourier transform</a>
+            <a href="/tag/poisson-process/" data-toggle="tooltip" class="label label-default" title="#Poisson process has 8 articles">#Poisson process</a>
+            <a href="/tag/point-process/" data-toggle="tooltip" class="label label-default" title="#point process has 4 articles">#point process</a>
+
+
+            </div>
+        </header>
+        <p>In <a href="https://rf.mokslasplius.lt/point-process-psd-weibull/">the previous
+post</a> we have seen
+that introducing memory into the memory-less <a href="/tag/poisson-process/">Poisson
+process</a> makes things very complicated. But we
+haven't yet still seen <a href="/tag/1f-noise/">1/f noise</a>. So now let us consider
+power-law distributed inter-event times!</p>
+
+<h2>Pareto distributed inter-event times</h2>
+<p>Let us assume that inter-event times are distributed according to the Pareto
+distribution. To make the process stationary, let us impose limits on the
+possible of inter-event times: they must be larger or equal to \(
+\tau_{\mathrm{min}} \) and smaller or equal to \( \tau_{\mathrm{max}}
+\). Then the PDF of the bounded Pareto distribution can be written as:</p>
+<p>\begin{equation}
+p\left(\tau\right)=\begin{cases}
+\frac{\alpha\tau_{\mathrm{min}}^{\alpha}}{1-\left(\frac{\tau_{\mathrm{min}}}{\tau_{\mathrm{max}}}\right)^{\alpha}}\cdot\frac{1}{\tau^{\alpha+1}} &amp; \text{for }\tau_{\mathrm{min}}\leq\tau\leq\tau_{\mathrm{max}},\\
+0 &amp; \text{otherwise}.
+\end{cases}
+\end{equation}</p>
+<p>To use general result derived in <a href="https://rf.mokslasplius.lt/poisson-process-psd/">an earlier
+post</a> we need the
+expression for the characteristic function of this distribution. And it is
+given by:</p>
+<p>\begin{equation}
+\chi_{\tau}\left(f\right)=\frac{\alpha\left(-2\pi\mathrm{i} f\tau_{\mathrm{min}}\tau_{\mathrm{max}}\right)^{\alpha}}{\tau_{\mathrm{max}}^{\alpha}-\tau_{\mathrm{min}}^{\alpha}}\cdot\left[\Gamma\left(-\alpha,-2\pi\mathrm{i} f\tau_{\mathrm{min}}\right)-\Gamma\left(-\alpha,-2\pi\mathrm{i} f\tau_{\mathrm{max}}\right)\right].
+\end{equation}</p>
+<p>In the above \( \Gamma\left(s,x\right) \) is the <a href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">upper incomplete Gamma
+function</a>. The
+expression above is not that helpful if we want to derive compact expression
+for the PSD. We need an approximation, and unlike in the <a href="https://rf.mokslasplius.lt/point-process-psd-weibull/">previous
+post</a>, this time
+it works! The approximation for \( \frac{1}{2\pi\tau_{\mathrm{max}}}\ll
+f\ll\frac{1}{2\pi\tau_{\mathrm{min}}} \) and \( 0 &lt; \alpha &lt; 2 \)
+(with an exception for particular case of \( \alpha = 1 \):</p>
+<p>\begin{equation}
+\chi_{\tau}\left(f\right)\approx 1+\frac{\alpha}{\alpha-1}\cdot\left(2\pi\mathrm{i} f\tau_{\mathrm{min}}\right)-\Gamma\left(1-\alpha\right)\cdot\left(-2\pi\mathrm{i} f\tau_{\mathrm{min}}\right)^{\alpha}.
+\end{equation}</p>
+<p>For the particular case of \( \alpha = 1 \), we have:</p>
+<p>\begin{equation}
+\chi_{\tau}\left(f\right) \approx 1-\pi^{2}f\tau_{\mathrm{min}}+\left[1-C_{\gamma}-\ln\left(2\pi f\tau_{\mathrm{min}}\right)\right]\cdot\left(2\pi\mathrm{i} f\tau_{\mathrm{min}}\right).
+\end{equation}</p>
+<p>In the above \( C_\gamma \) is the Euler's gamma constant (\(
+C_\gamma = 0.577\ldots \)).</p>
+<h2>The power spectral density</h2>
+<p>So, from <a href="https://rf.mokslasplius.lt/poisson-process-psd/">earlier</a> we have
+that:</p>
+<p>\begin{equation}
+    S(f) = 2 \bar{\nu} \left( 1 + \mathrm{Re} \left[ \frac{2}{1 - \chi_\tau(f)} \right] \right) .
+\end{equation}</p>
+<p>Thus, for the particular case of \( \alpha = 1 \), we obtain:
+\begin{equation}
+    S(f) \propto \frac{1}{f \tau_{\mathrm{min}} ( \pi^2 + 4 [1 - C_\gamma - \ln(2\pi f \tau_{\mathrm{min}})]^2)} .
+\end{equation}</p>
+<p>As long as \( \pi^2 \gg 4 [1 - C_\gamma - \ln(2\pi f
+\tau_{\mathrm{min}})]^2 \) it seems we can celebrate obtaining the illusive
+<a href="/tag/1f-noise/">1/f noise</a>? But recall that we have assumed that both \(
+f \) and \( \tau_{\mathrm{min}} \) are small. Thus the natural
+logarithm in the expression above is a large negative
+number, at least certainly larger than \( \pi \). Thus the condition is
+not satisfied and we don't have straight \( 1/f \) dependence in the
+<a href="/tag/spectral-density/">spectral density</a>.</p>
+<p>For the other cases, we do not obtain \( 1/f \) dependencies, but we get
+something reasonably close. For \( 0 &lt; \alpha &lt; 1 \):</p>
+<p>\begin{equation}
+    S(f) \propto \frac{1}{f^\alpha}.
+\end{equation}</p>
+<p>While for \( 1 &lt; \alpha &lt; 2 \), we have:</p>
+<p>\begin{equation}
+    S(f) \propto \frac{1}{f^{2-\alpha}}.
+\end{equation}</p>
+<p>So for \( \alpha \) not close to unity we have pure power-law dependence
+between the <a href="/tag/spectral-density/">power spectral density</a> and frequency.
+The exponents are always below \( 1 \), and thus closer to the <a href="/tag/white-noise/">white
+noise</a>.</p>
+<h2>Interactive app</h2>
+<p>Interactive app below samples time series from the <a href="/tag/point-process/">point
+process</a> with inter-event times being sampled from the
+bounded Pareto distribution. To verify the analytical intuitions above, we
+perform <a href="/tag/spectral-density/">spectral analysis</a> on the discretized time
+series. The discretized time series are obtained by counting the number of
+events inside unit time windows (the top plot). In total \( 2^{20} \)
+(roughly one million) such time windows are observed each time "Generate"
+button is pressed. PSD of the sampled series is shown in the bottom plot as
+a red curve, dark gray curves are best fits made according to the analytical
+predictions (the exponents of the frequency dependence remain the same, but
+the constant term is fitted according to the generated numerical data).</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/stats/models/psd-point-process/pareto.html" style="height: 480px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/point-process-psd-weibull/">PSD of a point process with non-exponential inter-event times</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/poisson-process-psd/">PSD of a Poisson process</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/multi-success-heterogeneous-detrapping-process/">Multi-success heterogeneous detrapping process</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/heterogeneous-detrapping-process/">Heterogeneous detrapping process</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/power-law-gap-times-rtn/">Power-law gap times in random telegraph noise</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
