@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Herd immunity
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Recently a new movement made its way to Lithuania - anti-vaccine movement. Some parents after reading few texts online become convinced that vaccines are actually dangerous to health of their children. Thus they decide no to vaccinate their...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Herd immunity - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/herd-immunity/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2016/herd-immunity.png">
+            <meta property="og:description" content="Recently a new movement made its way to Lithuania - anti-vaccine movement. Some parents after reading few texts online become convinced that vaccines are actually dangerous to health of their children. Thus they decide no to vaccinate their...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Herd immunity</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> September 06, 2016</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+
+
+            </div>
+        </header>
+        <p>Recently a new movement made its way
+to Lithuania - anti-vaccine movement. Some parents after reading few
+texts online become convinced that vaccines are actually dangerous to
+health of their children. Thus they decide no to vaccinate their
+children. A brief reading online somehow trumps centuries of scientific
+progress in Medicine.</p>
+<p>While we here at Physics of Risk usually write about economical and
+social systems, but the tools we use may be as effectively used to
+understand the spreading of diseases. Contemporary scientific literature
+usually uses network theory to find optimal vaccination strategies, but
+we will not delve in this complex matter. Our aim in this text is to
+show that vaccination helps saving lives of millions of people. Thus we
+may use a simpler agent-based model for this.</p>
+
+<h2>Formulation of the model</h2>
+<p>First of all let us note that agents may be either vaccinated (in the
+app below they will be shown in green) or unvaccinated (shown in blue).
+The probability that individual agent will be vaccinated is one of the
+parameters of the model \(  p_{vac} \). App below asks for two
+values of this parameter. One of them is used for the left population of
+agents, while the second one is used for the right population of agents.
+These agent populations "live" on separate square grids, opposing ends
+of which are connected (right-to-left, top-to-bottom).</p>
+<p>Each of the agents may be healthy (the coloring then represents its
+vaccination status), infected (shown in red) and dead (show in black).
+The agents transition between these states according to simple
+transition probabilities per unit of time. Healthy agent might get
+infected by single other infected agent with probability \( p_{hi} \) (each agent has 4 neighbors, has some natural immunity and may
+be vaccinated, thus actual infection probability is more complex (see
+below)), infected agent might become healthy again, \(  p_{ih} \),
+or die, \(  p_{id} \).</p>
+<div class="figure"><img alt="Simplified scheme of the
+model" id="attachment_2899" src="https://rf.mokslasplius.lt/uploads/2016/herd-immunity.png" title="Simplified scheme of the
+model"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Simplified scheme of the model</span></span></div>
+<p>During each time tick (we assume that it is fixed and equal to 1) each
+agent interacts with 4 of his nearest neighbors. Thus each of his
+infected neighbors might infect him. Let us assume that \( n_{j,i} \) of agents \(  j \) neighbors are infected. Then the
+probability that agent will not get infected from any of them equals:</p>
+<p>\begin{equation}
+ p_{j,hh} = (1-p_{hi})^{n_{j,i}} . 
+\end{equation}</p>
+<p>Probability of the opposite event, that agent will get infected, is
+given by:</p>
+<p>\begin{equation}
+ {\tilde p}_{j,hi} = 1 - p_{j,hh} = 1 -(1-p_{hi})^{n_{j,i}} . 
+\end{equation}</p>
+<p>Lets say that \(  p_{im} \) describes the probability of avoiding
+infection due to natural immunity. Then the probability to become
+infected has the following form:</p>
+<p>\begin{equation}
+ p_{j,hi} = (1 - p_{im}) {\tilde p}_{j,hi} = (1 - p_{im}) [1 - (1-p_{hi})^{n_{j,i}} ] . 
+\end{equation}</p>
+<p>Vaccinated agents are further protected. Let us say that \( p_{eff} \) describes the probability of avoiding infection due to
+vaccination. Then the probability to become infected has the following
+form:</p>
+<p>\begin{equation}
+ p_{j,v,hi} = (1-p_{eff}) p_{j,hi} = (1-p_{eff}) (1 -p_{im}) [1 - (1-p_{hi})^{n_{j,i}}] . 
+\end{equation}</p>
+<p>From the comparison between \(  p_{j,hi} \) and \( p_{j,v,hi} \) should evident that \(  p_{j,hi} \geq p_{j,v,hi} \)
+(the probability of getting infected is larger for the unvaccinated
+agents). This is true as due to the definition of probability, \(  0\leq p \leq 1 \), the inequality \(  1 \geq 1 - p_{eff} \) is
+always satisfied. There two edge cases in which vaccination does not
+matter - ineffective vaccine, \(  p_{eff} = 0 \), and ideal
+immunity, \(  p_{im} = 1 \). It is rather obvious that vaccines are
+rigorously tested thus their are at least a bit effective (thus \( 0 &lt; p_{eff} \)), furthermore no single individual has an ideal
+immunity (inborn or obtained), thus \(  p_{im} &lt; 1 \). Thus
+vaccination improves the odds of the individual to survive.</p>
+<p>Each infected agent, during each time tick, might become healthy again
+or die. These probabilities were already discussed above, but then
+setting their values it is important to satisfy the following condition:</p>
+<p>\begin{equation}
+ p_{ih} + p_{id} \leq 1 . 
+\end{equation}</p>
+<p>The modeling might be further complicated by introducing the impact of
+immunity and vaccination (or drugs) to the probability to get healthy or
+die. But this complication is not necessary in our case.</p>
+<p>Evidently the dead agent is not able to recover during any time tick.</p>
+<p>This model does not take into account side-effects of vaccination (e.g.,
+getting infected due to vaccination). Anti-vaxxers love this argument,
+but they forget that side-effects are single individual cases, while
+hundreds millions of people get vaccinated each year (if not more). In
+most cases it is hard to prove that vaccination caused the side-effect
+in question. Having this in mind we say that the probability of causing
+the side-effect would be extremely small and would not be observable in
+the model.</p>
+<p>During initial time moment, we randomly assign one agent to be patient
+zero. It does not matter if his is vaccinated or not. Further spreading
+of the disease should be taken into consideration.</p>
+<h2>Results</h2>
+<p>As we already mentioned, the app allows to do the same experiment in two
+population groups. This was implemented in order to allow to compare how
+the disease spreads in population with low vaccination rate and in
+population with high population rate. Each population is represented by
+"geographical" view (i.e., the grid of agents is shown) and graph (which
+illustrates certain variables changing in time).</p>
+<p>Red curve in graphs shows how the fraction of infected agents, \( N_{inf} / N \), changes in time. Black curve - fraction of dead agents,
+\(  N_{dead} / N \). Green and blue curves - fraction of dead agents
+among vaccinated and unvaccinated agents, \(  N_{dead,vac} /N_{vac} \) and \(  N_{dead,unv} / N_{unv} \). Magenta curve -
+fraction of unvaccinated agents among dead agents, \(  N_{dead,unv}/ N_{dead} \).</p>
+<p>The last variable, \(  N_{dead,unv} / N_{dead} \), makes no sense -
+it provides no useful information about the spreading of disease in
+agent populations. We consider it only because anti-vaxxers like to use
+one similar to it. They like to estimate the fraction of vaccinated
+agents among dead agents:</p>
+<p>\begin{equation}
+ \frac{N_{dead,vac}}{N_{dead}} =\frac{N_{dead}-N_{dead,unv}}{N_{dead}} = 1 -\frac{N_{dead,unv}}{N_{dead}}. 
+\end{equation}</p>
+<p>Anti-vaxxers prefer this variable due to a very simple reason. It is
+extremely easy to find cases, which would imply the conclusion, which
+anti-vaxxers would like to prove. But this approach is wrong (read more
+on <a href="https://en.wikipedia.org/wiki/Cherry_picking">Cherry picking</a> and
+<a href="https://en.wikipedia.org/wiki/Texas_sharpshooter_fallacy">Sharpshooter
+fallacy</a>).
+Why? Imagine we have only a single victim to the disease. What is the
+probability that it was vaccinated? \(  p_{vac} \)! If vaccination
+rates are high, then usually the victim would be vaccinated. Lets say
+that disease took 10-20 lives. What is the probability that majority of
+them were vaccinated? Once again if vaccination rates are high, then it
+might be that there will be 50-50 chance that majority of victims would
+be vaccinated. So far the narration implies that it is dangerous to get
+vaccinated. But let us see how many lives will be taken if vaccination
+rates are low!</p>
+<div class="figure"><img alt="If vaccination rates are high, then you may obtain cases were majority of
+victims will be among vaccinated
+agents." id="attachment_2896" src="https://rf.mokslasplius.lt/uploads/2016/herd-immunity-case-1.png" title="If vaccination rates are high, then you may obtain cases were majority of
+victims will be among vaccinated
+agents."/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">If vaccination rates are high, then you may obtain cases were majority of victims will be among vaccinated agents. If vaccination rates are low, everybody dies.</span></span></div>
+<div class="figure"><img alt="If vaccination rates are high, then you may also obtain cases were
+majority of victims will be among unvaccinated
+agents." id="attachment_2897" src="https://rf.mokslasplius.lt/uploads/2016/herd-immunity-case-2.png" title="If vaccination rates are high, then you may also obtain cases were
+majority of victims will be among unvaccinated
+agents."/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">If vaccination rates are high, then you may also obtain cases were majority of victims will be among unvaccinated agents. If vaccination rates are low, everybody dies.</span></span></div>
+<p>The important figure is the total number of victims and not the ratios
+between the vaccinated and unvaccinated victims. High vaccination rates
+prevent higher number of victims. Though, it is worth to note that there
+should be an optimal \(  p_{vac} \) value, implying that it is not
+necessary to vaccinate everybody. Medical doctors usually recommend
+vaccines to patients based on their health record. If medical doctor
+believes that patient might suffer due to vaccination, the medical
+doctor will not make the recommendation. Some people might have certain
+health conditions, which would make vaccination dangerous to them. Yet
+the people who chose not to vaccinate due to other reasons put not only
+themselves, people unable to get vaccines and broader community in risk.</p>
+<p>There will always be some individuals, who will not be saved by the
+vaccine. But vaccination helps to save millions of others!</p>
+<h2>HTML5 app</h2>
+<p>We invite you to play around with the app below to convince yourself
+that vaccination helps prevent disease outbreaks.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/epidemic-models/herd-immunity/index.html" style="height: 570px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/birds-on-field/">Birds on a field</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/birds-on-wire/">Birds on a wire</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-prey-predator-model/">Agent-based prey-predator model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">Stochastic ant colony model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/kirman-ants/">Kirman's ant colony model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

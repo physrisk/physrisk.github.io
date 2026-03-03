@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Multifractality of time series
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="One of the conclusions of fractal geometry is a fact that fractals unlike traditional Euclidean shapes lack characteristic scale. Those &#34;fractured&#34; objects are self-similar - defining geometry is clearly visible on multitude of scales. It is...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Multifractality of time series - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/multifractality-time-series/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2011/multifractality-time-series.png">
+            <meta property="og:description" content="One of the conclusions of fractal geometry is a fact that fractals unlike traditional Euclidean shapes lack characteristic scale. Those &#34;fractured&#34; objects are self-similar - defining geometry is clearly visible on multitude of scales. It is...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Multifractality of time series</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> October 27, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+            <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+            <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+            <a href="/tag/multifractality/" data-toggle="tooltip" class="label label-default" title="#multifractality has 5 articles">#multifractality</a>
+
+
+            </div>
+        </header>
+        <p>One of the conclusions of fractal
+geometry is a fact that fractals unlike traditional Euclidean shapes
+lack characteristic scale. Those "fractured" objects are self-similar -
+defining geometry is clearly visible on multitude of scales. It is known
+that self-similarity is observed not only in formally defined geometric
+objects, such as <a href="https://rf.mokslasplius.lt/sierpinski-triangle/">Sierpinski
+triangle</a>
+or Koch
+snowflake,
+but also in the surrounding nature. One of my most favorite examples is
+a comparison of tree, its branches and a leaf - they all have branching
+structure and something green filling the
+extra space in between.</p>
+<p>The interesting thing, in context of the topic in focus, is that one can
+extend fractal formalism beyond formal or natural geometric shapes. It
+is also noticed that some of the natural processes exhibit fractal
+features in their time series! It is known that geoelectrical processes
+<span class="article-cite-items">[<a class="article-cite-item" href="#Telesca2005NJP" title="L. Telesca, V. Lapenna, M. Macchiato. Multifractal fluctuations in earthquake-related geoelectrical signals. New Journal of Physics 7: 214 (2005). doi: 10.1088/1367-2630/7/1/214.">1</a>]</span>, heartbeat <span class="article-cite-items">[<a class="article-cite-item" href="#Ivanov1999Nature" title="P. Ch. Ivanov, L. A. N. Amaral, A. L. Goldberger, S. Havlin, M. B. Rosenblum, Z. Struzik, H. E. Stanley. Multifractality in healthy heartbeat dynamics. Nature 399: 461-465 (1999).">2</a>]</span>
+and even human gait <span class="article-cite-items">[<a class="article-cite-item" href="#West2003PhysRevE" title="B. J. West, N. Scafetta. Nonlinear dynamical model of human gait. Physical Review E 67: 051917 (2003).">3</a>]</span> time series posses
+this feature. While financial market, frequently analyzed on Physics of
+Risk website, time series are also no exception <span class="article-cite-items">[<a class="article-cite-item" href="#Peters1994Willey" title="E. E. Peters. Fractal market analysis: applying chaos theory to investment and economics. John Wiley and Sons, 1994.">4</a>, <a class="article-cite-item" href="#Kwapien2005PhysA" title="J. Kwapien, P. Oswiecimka, S. Drozdz. Components of multifractality in high-frequency stock returns. Physica A 350: 466-474 (2005). arXiv: cond-mat/0411112 [cond-mat.other].">5</a>]</span>. Though the aforementioned
+time series are much more complex - they exhibit not monofractality
+(single manner self-similar behavior as the aforementioned formal
+geometric fractals do), but multifractality!</p>
+
+<h2>Fractality of time series</h2>
+<p>In Physics, but not only in Physics, scale invariance is mostly
+associated with power law dependencies. One can put this idea down
+mathematically as:</p>
+<p>\begin{equation}
+ W(a t) = a^H W(t) , 
+\end{equation}</p>
+<p>where \(  W(t) \) is some time series, \(  a \) some scale shift,
+\(  H \) characteristic scaling exponent. Equality of the left hand
+side and right hand side of equation doesn't need to be strict - in case
+of stochastic processes it might represent purely statistical similarity
+<span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>]</span>.</p>
+<p>One of the most well known statistically self-similar processes is
+Brownian motion, which also known as Wiener process. It is known that
+Wiener process obeys Gaussian distribution with time dependent standard
+deviation, which increases overtime as square root of elapsed time -
+\(  \sigma \sim \sqrt{t-t_0} = \sqrt{\Delta t}  \). Thus
+we above relation holds for variance of Wiener process with \( H=0.5 \). It is worthy note that there is extension of this process known
+as fractional Brownian motion, which may be represented by different
+values of characteristic scaling exponent <span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>]</span>.</p>
+<p>The problem of monofractality in the time series still remain as Wiener
+process, or its generalizations, is still described by single scaling
+exponent. While multifractal time series would be described by a set of
+scaling exponents <span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>, <a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>. Nevertheless our understanding of fractality of
+time series should have improved as now we should be able to understand
+fractals, whose dimensions are not limited to spatial ones. Using this
+example we have also understood what statistical self-similarity stands
+for - it doesn't stand for strictly repeating shapes (as for example in
+aforementioned Sierpinsky triangle case), it stands for repetition of
+statistical properties, which describe observed random shapes.</p>
+<p>As we have mentioned before we will be interested in processes with
+broad \(  H \) spectrum. One can obtain it using varying methods
+<span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>, <a class="article-cite-item" href="#Feder1988Plenum" title="J. Feder. Fractals. Plenum Press, New York, 1988.">8</a>]</span>, while we will limit
+ourselves to presentation of only one, yet very common and popular,
+method - MF-DFA method <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>.</p>
+<h2>Multifractal detrended fluctuation analysis (MF-DFA)</h2>
+<p><strong>To begin with</strong> (step 1) the analysis of time series using MF-DFA
+method one should obtain the profile of time series:</p>
+<p>\begin{equation}
+ y_i = \sum_{k=1}^{i} [x_k - \langle x \rangle] , \quad i=1, 2, \ldots, N , 
+\end{equation}</p>
+<p>here \(  y \) is profile, \(  x \) is the analyzed time series,
+\(  \langle x \rangle  \) is its mean value, while \(  N \)
+stands for the length of the series. Subtraction of mean is not
+necessary, yet it might facilitate (depends on the method used for
+detrending) calculations in further steps.</p>
+<div class="figure"><img alt="image" id="attachment_1972" src="https://rf.mokslasplius.lt/uploads/2011/multifrac-signal-profile.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Step 1: stochastic time series (a) and its profile (b). Stochastic time series generated using standard Wiener process.</span></span></div>
+<p><strong>Afterwards</strong> (step 2) one should split profile series into separate
+non-overlaping segments with size \(  s \). After this operation one
+should have \(  N_s = \mathrm{int}(N/s) \) segments. For the most
+\(  s \) there will be some leftover points, whose number is to small
+to form another segment. If we are not willing to lose information
+contained in them we should repeat the same process, namely splitting,
+from the end of the profile series. In such case we effectively double
+the number of segments - one should now have \(  2 N_s \) segments.</p>
+<p>During <strong>the third step</strong> trends in all segments are estimated. Trends
+should be approximated by polynomial of the selected order. As there is
+no restriction for possible selection, one can choose any positive
+integer. MF-DFA title is appended based on the selected order. Thus if
+one uses parabolic (or square) fits, then one can say that MF-DFA2 is
+used. As it is problematic, in terms of computer resource and evaluation
+time, to fit data with higher order polynomials, in practice polynomials
+of first to third order are considered. For the sake of simplicity and
+ease of presentation we use MF-DFA1 method, namely we use linear
+least-square fits to detect and remove trends in the profile series.</p>
+<div class="figure"><img alt="image" id="attachment_1973" src="https://rf.mokslasplius.lt/uploads/2011/multifrac-fitted-profile.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Steps 2 and 3: we have split the profile (red curve) into s=100 sized segments (splits are marked with dashed line) and estimated their trends (blue curve). The profile has remained the same as in , while the profile fits in each given segment are linear.</span></span></div>
+<p><strong>When the trends are known</strong> (step 4) we can remove them by subtracting
+them from the profile series. Mathematically for the segments, which
+were formed the start of the series, \(  \nu = 1, 2, \ldots,N_s \), this can be expressed as:</p>
+<p>\begin{equation}
+ F^2_{\nu}(s) = \frac{1}{s} \sum_{i=1}^{s} \left[y_{(\nu-1) s +i} - {\bar y}_{\nu}(i) \right]^2 , 
+\end{equation}</p>
+<p>while for the remaining segments, \(  \nu = N_s +1, \ldots, 2N_s \), same thing can be done like this:</p>
+<p>\begin{equation}
+ F^2_{\nu}(s)= \frac{1}{s} \sum_{i=1}^{s} \left[y_{N-(\nu-N_s) s +i} - {\bar y}_{\nu}(i) \right]^2 . 
+\end{equation}</p>
+<div class="figure"><img alt="image" id="attachment_1974" src="https://rf.mokslasplius.lt/uploads/2011/multifrac-f2ns.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Step 4: \( F_ν^2(100) \) for the selected segments. Profile and its splits remain the same as in Fig. 2.</span></span></div>
+<p><strong>All what remains</strong> (step 5) is to average obtained fluctuations
+functions over all segments:</p>
+<p>\begin{equation}
+ F_q(s) = \left\{ \frac{1}{2 N_s} \sum_{\nu=1}^{2 N_s}\left[ F^2_{\nu}(s) \right]^{\frac{q}{2}}\right\}^{\frac{1}{q}}. 
+\end{equation}</p>
+<p>In the above \(  q \) stands for generalized coefficient, which is
+the one enabling us to recover multifractal features - it is also the
+only difference from the original detrended fluctuation analysis (DFA)
+method <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>. It is worthy to note that
+\(  q \) is a real number and if its value approaches zero the above
+relation diverges. Thus in such case one must substitute ordinary
+averaging procedure with exponential averaging:</p>
+<p>\begin{equation}
+ F_0(s) = \exp\left\{ \frac{1}{4 N_s} \sum_{\nu=1}^{2N_s} \ln\left[ F^2_{\nu}(s) \right] \right\}. 
+\end{equation}</p>
+<p><strong>Finally</strong> (step 6) by changing \(  q \) and \(  s \), while once
+again iterating through steps 2, 3, 4 and 5, one obtains \( F_q(s) \) curves. From their plots on log-log scale one should be able
+to recover power law relations - \(  F_q(s) \sim s^{h(q)}  \)
+(here \(  h(q) \) is a generalized exponent, which is related to the
+generalized Hurst exponents as \(  H(q) = h(q) -1 \) (for
+non-stationary \(  h(q)&gt;1 \) time series) or \(  H(q) = h(q) \)
+(for stationary series, \( h(q)&lt;1 \))). If generalized exponents
+are constant or almost constant, then time series can be considered
+monofractal. While if \( h(q) \) dependence (or in other words
+spectrum) is rich, then time series can be considered multifractal.</p>
+<div class="figure"><img alt="image" id="attachment_1976" src="https://rf.mokslasplius.lt/uploads/2011/multifrac-hurst-spectra.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 4:</span><span class="caption-text">Steps 5 and 6: deviations from trends estimated for different segment sizes (a) and generalized exponent spectrum (b). Relations obtained from time series based on one presented in  (original series extended to 32768 points).</span></span></div>
+<p>In the above figures we have illustrated different MF-DFA steps by
+analyzing standard Wiener process. Thus the final result, <a href="#attachment_1976">Fig.
+4</a>, namely the observed monofractality of time series
+was not unexpected. Though at first glance it might occur that signal is
+multifractal as width of \(  h(q) \) spectrum is non-zero as it
+should be according to the theory. This discrepancy is caused by the
+finite size of analyzed time series. Actually we have attempted to
+obtain \(  h(q) \) spectrum in case of original, 1000 point wide,
+time series, but the obtained \(  h(q) \) spectrum was unexpectedly
+broad - 0.2 (approximately 15% of the mean \(  h(q) \)). While the
+multifractal analysis of the same yet extended, 32768 points wide,
+series (as you can see in <a href="#attachment_1976">Fig. 4</a>) revealed narrower
+spectrum - 0.04 (approximately 2.5% of the mean). Literature <span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>, <a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span> suggests that in the
+infinite limit spectrum would converge to single dot.</p>
+<p>Furthermore as we see in <a href="#attachment_1993">Fig. 5</a> \(  h(q) \)
+spectrum of multifractal time series is far more broader - 1.1
+(approximately 90% of the mean). Curves presented in <a href="#attachment_1993">Fig.
+5</a> were obtained by analyzing time series generated by
+the <a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial
+markets</a>.
+Multifractal properties of this model were already studied with two
+different methods - GHHCF <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">9</a>]</span> and the
+very same MF-DFA <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2011LNFK" title="A. Kononovicius, V. Gontis. Mikroskopinis stochastinių modelių aiškinimas. 39-oji Lietuvos nacionalinė fizikos konferencija: Programa ir pranešimų tezės, p. 34. Vilnius, Lietuva, 2011.">10</a>]</span>. Also note the
+difference in scaling of \(  F_q(s) \) (<a href="#attachment_1993">Fig. 5</a>
+(a) and <a href="#attachment_1976">Fig. 4</a> (a)).</p>
+<div class="figure"><img alt="image" id="attachment_1993" src="https://rf.mokslasplius.lt/uploads/2011/multifractality-time-series.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 5:</span><span class="caption-text">Multifractal features of Agent-based herding model of financial markets: deviations from trends estimated for different segment sizes (a) and generalized exponent spectrum (b). Model parameters: \( \varepsilon_1=\varepsilon_2=1 \), \( \Delta t=0.001 \), \( \tau(y)=1/y \).</span></span></div>
+<h2>Additional information visible in generalized exponent spectrum</h2>
+<p>Actually MF-DFA is a generalization of an older DFA method. In case of
+\(  q=2 \) MF-DFA produces exactly the same results as ordinary DFA
+method would <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span> - \(  h(2) \) equals
+exponent \(  h \) as it is understood in the original DFA framework.
+Therefore interpretations which have originated from DFA <span class="article-cite-items">[<a class="article-cite-item" href="#Buldyrev1995PhysRevE" title="S. V. Buldyrev, A. L. Goldberger, S. Havlin, R. N. Mantegna, M. E. Matsa, C. K. Peng, M. Simons, H. E. Stanley. Long-range correlation properties of coding and noncoding DNA sequences: GenBank analysis. Physical Review E 51: 5084-5091 (1995). doi: 10.1103/PhysRevE.51.5084.">11</a>]</span> might be also applied to the results
+obtained with MF-DFA.</p>
+<p>Judging from \(  h(2) \) time series might be <span class="article-cite-items">[<a class="article-cite-item" href="#Buldyrev1995PhysRevE" title="S. V. Buldyrev, A. L. Goldberger, S. Havlin, R. N. Mantegna, M. E. Matsa, C. K. Peng, M. Simons, H. E. Stanley. Long-range correlation properties of coding and noncoding DNA sequences: GenBank analysis. Physical Review E 51: 5084-5091 (1995). doi: 10.1103/PhysRevE.51.5084.">11</a>]</span>:</p>
+<ul>
+<li>anti-correlated, if \( h(2) &lt; 0.5 \).</li>
+<li>uncorrelated (be related to white noise), if \( h(2) \simeq 0.5 \).</li>
+<li>positively correlated, if \( h(2) &lt; 1 \).</li>
+<li>strongly positively correlated, if \( h(2) \simeq 1 \). Or in
+    other words exhibit so-called pink, or \( 1/f \),
+    <a href="/tag/1f-noise/">noise</a>. Such
+    time series should exhibit other long range memory related
+    properties. Note that we have obtained such results with time series
+    from Agent-based herding model of financial markets (see <a href="#attachment_1993">Fig.
+    5</a>).</li>
+<li>non-stationary or similar to random walk, if \( h(2) &lt; 1.5 \).</li>
+<li>related to Brown noise or Wiener process, if \( h(2) \simeq 1.5 \). See <a href="#attachment_1976">Fig. 4</a>.</li>
+</ul>
+<p>The above discussion can might be briefly mathematically expressed as
+<span class="article-cite-items">[<a class="article-cite-item" href="#Buldyrev1995PhysRevE" title="S. V. Buldyrev, A. L. Goldberger, S. Havlin, R. N. Mantegna, M. E. Matsa, C. K. Peng, M. Simons, H. E. Stanley. Long-range correlation properties of coding and noncoding DNA sequences: GenBank analysis. Physical Review E 51: 5084-5091 (1995). doi: 10.1103/PhysRevE.51.5084.">11</a>]</span>:</p>
+<p>\begin{equation}
+ \gamma = 2 - 2 h(2) , \quad \beta = 2 h(2) - 1 , 
+\end{equation}</p>
+<p>here \(  \gamma \) is negative correlation function exponent, while
+\(  \beta \) is negative power spectral density exponent. Note that
+the above relations are strict in no way - they might hold for some
+short regions of dependence, of for example frequencies (in case of power
+spectral density).</p>
+<p>It is important to note that actual \(  h(q) \) might be negative,
+while MF-DFA is able to detect only its positive values. Though one can
+extend the detectable range of \(  h(q) \) of repeating step 1 few
+times. After each repetition detected generalized exponents increases by
+1, \( \tilde{h}(q) = h(q) + n \) (here \( \tilde{h}(q) \) is
+detected generalized exponent, \(  h(q) \) actual generalized
+exponent and \( n \) is a number of step 1 repetition times),
+allowing one to analyze strongly anti-correlated time series. This
+property of generalized exponent also suggests what might be observed
+for \(  h(2) &gt; 1.5 \).</p>
+<p>This discussion also leads to another interesting conclusion - if step 1
+is skipped results obtained from MF-DFA method should also coincide with
+results obtained from GHHCF method. For example Brownian-like time
+series would have \( h(2) \) equal to 0.5. Though in such case it
+would a problem to differentiate between Pink and White noises. The
+corresponding time series would be almost indistinguishable - both very
+different dynamics would produce the same value of \( h(2) \),
+namely zero. Thus obtaining time series profile is very important step
+needed to be able to distinguish Pink and White noises.</p>
+<h2>Singularity, Hölder exponent, spectrum</h2>
+<p>Singularity spectrum is an alternative way to characterize multifractal
+series. It was derived to accompany standard textbook box counting
+formalism <span class="article-cite-items">[<a class="article-cite-item" href="#Feder1988Plenum" title="J. Feder. Fractals. Plenum Press, New York, 1988.">8</a>]</span>. Box counting formalism is a
+relatively simple and for a long time very popular method to determine
+fractal features of analyzed objects (including spatial ones). Thus
+singularity spectrum has become a default way to characterize
+multifractal series.</p>
+<p>Singularity spectrum, \(  f(\alpha) \), can be obtained by
+transforming generalized scaling function defined in terms of box
+counting formalism, \(  \tau(q) \). Note that \(  h(q) \) may
+also be referred to as a scaling function (or scaling exponent), but it
+is defined in the terms of MF-DFA or DFA, not in the terms of box
+counting formalism. Though it is known that both scaling exponents are
+related <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>:</p>
+<p>\begin{equation}
+ \tau(q) = q h(q) -1 . 
+\end{equation}</p>
+<p>By transforming, using Legendre transform, \(  \tau(q) \) one
+obtains <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>:</p>
+<p>\begin{equation}
+ \alpha = \partial_q \tau(q) = h(q) + q \partial_q h(q) ,\quad f(\alpha) = q \alpha - \tau(q) = q \left[ \alpha - h(q)\right] +1 , 
+\end{equation}</p>
+<p>here \(  \alpha \) is Hölder exponent, which describes the strength
+of singularity, while \(  f(\alpha) \) denotes the dimension of the
+subset of the series described by certain Hölder exponent <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>. In <a href="#attachment_1994">Fig. 6</a> we clearly
+see large difference between the detected multifractality of the
+analyzed models/processes - singularity spectrum of Agent-based herding
+model of financial markets time series has broad spectrum of Hölder
+exponents, while Wiener process has very thin spectrum.</p>
+<div class="figure"><img alt="image" id="attachment_1994" src="https://rf.mokslasplius.lt/uploads/2011/multifrac-holder-spectra.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 6:</span><span class="caption-text">Singularity spectrum: standard Wiener process (red curve) and Agent-based herding model of financial markets (blue curve). Parameters of Agent-based herding model of financial markets were set as follows: \( \varepsilon_1=\varepsilon_2=1 \), \( \Delta t=0.001 \), \( \tau(y)=1/y \).</span></span></div>
+<p>In scientific literature singularity spectrum is also frequently called
+Hölder exponent spectrum <span class="article-cite-items">[<a class="article-cite-item" href="#Riedi2002Birkhauser" title="R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf.">6</a>]</span>.</p>
+<h2>Applet</h2>
+<p>GUI of the applet below is reminiscent of the previous
+<a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">applet</a>,
+which was published together with the text on Agent-based herding model
+of financial markets. Thus there is no point in discussing its input
+parameters. Furthermore most of the input parameters are directly
+related to the model discussed in the same text.</p>
+<p>The only important differences are that this applet outputs
+multifractality spectra and that it allows to deform model time series.
+It is possible to remove correlations by shuffling time series and
+distort the underlying distribution (values are remapped to the
+\( [0,1] \) value region). Deformation of time series is very important
+and useful function as multifractal features might be observed due to
+correlations (model dynamics) and broad underlying distribution <span class="article-cite-items">[<a class="article-cite-item" href="#Kantelhardt2002PhysA" title="J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). arXiv: physics/0202070 [physics.data-an].">7</a>]</span>. It is also known that multifractality can
+be influenced by the number of agents in the agent-based model <span class="article-cite-items">[<a class="article-cite-item" href="#passos2011" title="F. S. Passos, C. M. Nascimento, I. Gleria, S. da Silva, G. M. Viswanathan. Fat tails, long-range correlations and multifractality as emergent properties in nonstationary time series. EPL 93: 58006 (2011). doi: 10.1209/0295-5075/93/58006.">12</a>]</span>, though we don't analyze this as it is already firmly
+confirmed that in this model dependence of multifractality on the number
+of agents is negligible <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2011LNFK" title="A. Kononovicius, V. Gontis. Mikroskopinis stochastinių modelių aiškinimas. 39-oji Lietuvos nacionalinė fizikos konferencija: Programa ir pranešimų tezės, p. 34. Vilnius, Lietuva, 2011.">10</a>]</span>.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/kirman/sde-ret/multifractal.html" style="height: 505px; width: 520px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Telesca2005NJP">L. Telesca, V. Lapenna, M. Macchiato. Multifractal fluctuations in earthquake-related geoelectrical signals. New Journal of Physics 7: 214 (2005). <a href="https://doi.org/10.1088/1367-2630/7/1/214">doi: 10.1088/1367-2630/7/1/214</a>.</li><li id="Ivanov1999Nature">P. Ch. Ivanov, L. A. N. Amaral, A. L. Goldberger, S. Havlin, M. B. Rosenblum, Z. Struzik, H. E. Stanley. Multifractality in healthy heartbeat dynamics. Nature 399: 461-465 (1999).</li><li id="West2003PhysRevE">B. J. West, N. Scafetta. Nonlinear dynamical model of human gait. Physical Review E 67: 051917 (2003).</li><li id="Peters1994Willey">E. E. Peters. Fractal market analysis: applying chaos theory to investment and economics. John Wiley and Sons, 1994.</li><li id="Kwapien2005PhysA">J. Kwapien, P. Oswiecimka, S. Drozdz. Components of multifractality in high-frequency stock returns. Physica A 350: 466-474 (2005). <a href="https://arxiv.org/abs/cond-mat/0411112">arXiv: cond-mat/0411112 [cond-mat.other]</a>.</li><li id="Riedi2002Birkhauser">R. H. Riedi. Multifractal Processes. In: Long range dependence: theory and applications, ed. P. Doukhan, G. Oppenheim, M. S. Taqqu, pp. 625-715. Birkhauser, Boston, 2002. <a href="https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf" title="Open this website">https://www.stat.rice.edu/~riedi/Publ/PDF/MP.pdf</a>.</li><li id="Kantelhardt2002PhysA">J. W. Kantelhardt, S. A. Zschiegner, E. Koscielny-Bunde, S. Havlin, A. Bunde, H. E. Stanley. Multifractal detrended fluctuation analysis of nonstationary time series. Physica A 316: 87-114 (2002). <a href="https://arxiv.org/abs/physics/0202070">arXiv: physics/0202070 [physics.data-an]</a>.</li><li id="Feder1988Plenum">J. Feder. Fractals. Plenum Press, New York, 1988.</li><li id="Kononovicius2012PhysA">A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). <a href="https://doi.org/10.1016/j.physa.2011.08.061">doi: 10.1016/j.physa.2011.08.061</a>. <a href="https://arxiv.org/abs/1106.2685">arXiv: 1106.2685 [q-fin.ST]</a>.</li><li id="Kononovicius2011LNFK">A. Kononovicius, V. Gontis. Mikroskopinis stochastinių modelių aiškinimas. 39-oji Lietuvos nacionalinė fizikos konferencija: Programa ir pranešimų tezės, p. 34. Vilnius, Lietuva, 2011.</li><li id="Buldyrev1995PhysRevE">S. V. Buldyrev, A. L. Goldberger, S. Havlin, R. N. Mantegna, M. E. Matsa, C. K. Peng, M. Simons, H. E. Stanley. Long-range correlation properties of coding and noncoding DNA sequences: GenBank analysis. Physical Review E 51: 5084-5091 (1995). <a href="https://doi.org/10.1103/PhysRevE.51.5084">doi: 10.1103/PhysRevE.51.5084</a>.</li><li id="passos2011">F. S. Passos, C. M. Nascimento, I. Gleria, S. da Silva, G. M. Viswanathan. Fat tails, long-range correlations and multifractality as emergent properties in nonstationary time series. EPL 93: 58006 (2011). <a href="https://doi.org/10.1209/0295-5075/93/58006">doi: 10.1209/0295-5075/93/58006</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">Stochastic ant colony model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/iaria-publication-reviewing-our-different-research-directions/">IARIA publication reviewing our different research directions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-versus-macroscopic-modeling-competition-business-processes-economics/">Agent-based versus macroscopic modeling of competition and business processes in economics</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

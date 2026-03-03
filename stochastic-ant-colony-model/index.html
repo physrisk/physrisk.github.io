@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Stochastic ant colony model
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Previously on Physics of Risk website we have presented Kirman&#39;s ant colony agent-based model [1], where each ant was represented as an agent. In this article we will move from the agent-based model framework to the stochastic differential...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Stochastic ant colony model - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg">
+            <meta property="og:description" content="Previously on Physics of Risk website we have presented Kirman&#39;s ant colony agent-based model [1], where each ant was represented as an agent. In this article we will move from the agent-based model framework to the stochastic differential...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Stochastic ant colony model</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> November 28, 2010</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+            <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+
+
+            </div>
+        </header>
+        <p>Previously on Physics of Risk website we have
+presented <a href="https://rf.mokslasplius.lt/kirman-ants/">Kirman's ant colony agent-based
+model</a>
+<span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">1</a>]</span>, where each ant was represented as an agent.
+In this article we will move from the agent-based model framework to the
+stochastic differential equation framework. Thus showing that in case of
+simple agent-based models full transition to stochastic framework is
+possible. This transition is very important as stochastic framework is
+very popular and well developed in quantitative finance. The problem is
+that stochastic framework mainly gives only a macroscopic insight into
+the modeled system, while microscopic behavior currently is also of big
+interest.  </p>
+
+<h2>Derivation of stochastic differential equation</h2>
+<p>In this section of the article we will follow derivation of stochastic
+differential equation, analogous to <a href="https://rf.mokslasplius.lt/kirman-ants/">the previously discussed agent
+based
+model</a>,
+done by Alfarano and Lux in <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>. Authors
+of <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span> in their derivation follow the
+underlying ideas of <em>birth-death processes</em> or <em>one-step processes</em>,
+overview of which is given in most of handbooks concerning Stochastic
+Calculus. Thus if you want to get more familiar with the ideas below
+you should see <span class="article-cite-items">[<a class="article-cite-item" href="#Gardiner2009Springer" title="C. W. Gardiner. Handbook of stochastic methods. Springer, Berlin, 2009.">3</a>]</span> or other similar works.</p>
+<p>Alfarano and Lux start by simplifying notation, used in <a href="https://rf.mokslasplius.lt/kirman-ants/">the previous
+agent-based
+model</a>,
+of system state, defined as number of ants using one of the food
+sources, \(  X \), transition probabilities,</p>
+<p>\begin{equation}
+ p(X \rightarrow X+1) = \pi_{+}(X) \Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(X \rightarrow X-1) = \pi_{-}(X) \Delta t , 
+\end{equation}</p>
+<p>where \(  \pi_{+}(X)  \) stands for \(  (N - X) (\sigma_1 + hX)  \) and \(  \pi_{-}(X)  \) for \(  X (\sigma_2 + h(N-X)) \). In such case <em>Master equation</em>, for very short times \( \Delta t \), can be expressed as</p>
+<p>\begin{equation}
+ \frac{\Delta \bar \omega_X}{\Delta t} = {\bar\omega_{X+1}} \pi_{-}(X+1) + {\bar \omega_{X-1}} \pi_{+}(X-1) -{\bar \omega_{X}} \pi_{-}(X) - {\bar \omega_{X}} \pi_{+}(X) ,
+\end{equation}</p>
+<p>here \(  \bar \omega_X \) is probability for system to be in the
+state described by agent number \(  X \), or in the other words
+probability of \(  X \) ants at a given time to be using one of the
+two food sources.</p>
+<p>It is comfortable for further derivation to introduce, from the Master
+equation above, <em>total probability flux</em>, \(  \bar j_{i} \),
+between states \(  X=i \) and \(  X=i-1 \). Latter can be
+expressed as</p>
+<p>\begin{equation}
+ \bar j_{i} = \bar \omega_{i-1} \pi_{+} (i-1) - \bar\omega_{i} \pi_{-} (i) , 
+\end{equation}</p>
+<p>here first term describes transitions from \(  X=i-1 \) to \( X=i \), while the second term describes transitions in the opposite
+direction - from \(  X=i \) to \(  X=i-1 \). Thus if flux, \( \bar j_{i} \), is positive system state with larger \(  X \)
+becomes more probable than the system state with smaller \(  X \).
+Now by using defined probability fluxes and Master equation above one
+can obtain a <em>discrete continuity equation</em></p>
+<p>\begin{equation}
+ \frac{\Delta \bar \omega_X}{\Delta t} + \bar j_{X+1} -\bar j_{X} = 0 . 
+\end{equation}</p>
+<p>The interpretation of this equation is generally the same as, for
+example, in case of electric current continuity equation - if flux
+outside of current system state (or differential volume in case of
+electric current) is positive, the probability (analogous to charge)
+density of this system state will decrease. This idea stands behind the
+idea of <em>local continuity</em>. If probability flux vanishes at some
+boundaries, let say \(  \bar j_0 = \bar j_{N+1} = 0 \), then one
+can show that \(  \sum_i \bar \omega_i = 1 \) is true for every
+time moment. The last result actually stands behind the idea of the
+<em>global continuity</em>.</p>
+<p>Now lets move on from the discrete case of \(  X \in \{ 0,\,1,\, 2,\, \dots ,\, N \} \)
+to continuous case with \(  x \in[0,\,1] \), applying transformation
+\(  x= \frac{X}{N} \), where \(  N \rightarrow \infty \). One can
+rewrite probability of continuous system state through
+discrete system state as</p>
+<p>\begin{equation}
+ \omega (x) = N \bar\omega_{x N} , 
+\end{equation}</p>
+<p>and total probability flux as</p>
+<p>\begin{equation}
+ j \left(x - \frac{1}{2 N} \right) = \bar j_{x N} . 
+\end{equation}</p>
+<p>The reasoning behind the offset in the latter equation lies within the
+fact that flux noted by \(  \bar j_i \) connects two discrete
+states \(  X=i-1 \) and \(  X=i \), thus it should be located in
+the middle of that interval. This offset also helps to avoid tedious
+mathematics in further derivation. Alfarano and Lux also mention that
+this offset in flux is widely used in discretization of Maxwell's
+equations and in gauge theories on a discrete lattices (see the
+references in <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>).</p>
+<p>One can rewrite the above discrete continuity equation in continuous
+terms by taking analogy with electric current continuity equation or by
+expanding \(  j(x) \) using Taylor series expansion (dropping second
+order, \(  N^{-2}  \), and above terms). Either way one would
+obtain,</p>
+<p>\begin{equation}
+ \frac{\partial \omega (x)}{\partial t} + \frac{\partial j(x)}{\partial x} = 0 , 
+\end{equation}</p>
+<p>continuity equation for continuous time (is introduced by assuming that
+\(  \Delta t \rightarrow 0 \)) and space.</p>
+<p>Now let's recall definition of total probability flux in discrete terms
+and rewrite it in continuous terms. In the process it becomes</p>
+<p>\begin{equation}
+ j (x) = \frac{1}{N} \left[ \omega \left( x - \frac{1}{2N}\right) \pi_{+} \left(x N - \frac{1}{2} \right) - \omega \left(x + \frac{1}{2N} \right) \pi_{-} \left(x N + \frac{1}{2} \right)\right] . 
+\end{equation}</p>
+<p>In the equation above \(  x \) was additionally shifted by \( \frac{1}{2 N} \).</p>
+<p>When \(  N \rightarrow \infty \), we can also expand \( \omega ( x \pm \frac{1}{2 N}) \), using Taylor series expansion (up to
+second order), as \(  \omega(x) \pm \frac{1}{2 N} \partial_x\omega(x) \). And thus we finally obtain</p>
+<p>\begin{equation}
+ j(x) = \frac{\pi_{+}\left(x N - \frac{1}{2}\right) -\pi_{-}\left(x N + \frac{1}{2}\right)}{N} \omega(x) -\frac{\pi_{+}\left(x N - \frac{1}{2}\right) + \pi_{-}\left(x N+ \frac{1}{2}\right)}{2 N^2} \partial_x \omega(x) . 
+\end{equation}</p>
+<p>Now one should put into the equation above definitions of \( \pi_{+} \) and \(  \pi_{-} \) to make one more step in derivation,
+but before this it is comfortable to define two custom functions</p>
+<p>\begin{equation}
+ D(x) = 2 h x (1-x) + \frac{\sigma_1 (1-x) + \sigma_2 x}{N},
+\end{equation}</p>
+<p>\begin{equation}
+ A(x) = \sigma_1 (1-x) - \sigma_2 x . 
+\end{equation}</p>
+<p>Then after putting in definitions of transitions probabilities, \( \pi_{+} \) and \(  \pi_{-} \), and dropping terms of second order
+and above one obtains</p>
+<p>\begin{equation}
+ j(x) = A(x) \omega(x) - \frac{1}{2}\frac{\partial}{\partial x} [ D(x) \omega(x) ] . 
+\end{equation}</p>
+<p>And then from continuity equation one can obtain <em>Fokker-Plank equation</em></p>
+<p>\begin{equation}
+ \frac{\partial}{\partial t} \omega (x,t) = -\frac{\partial}{\partial x} [ A(x) \omega (x,t) ] + \frac{1}{2}\frac{\partial^2}{\partial x^2} [ D(x) \omega (x,t) ] , 
+\end{equation}</p>
+<p>which produces the same dynamics as agent-based model. Note that custom
+functions, which were introduced before, have special meaning - \( A(x) \)
+describes drift of the system state and \(  D(x) \) describes its
+diffusion.</p>
+<p>Fokker-Plank equation above can be alternatively modeled using <em>Langevin
+stochastic differential equation</em> (for general details on conversion see
+<span class="article-cite-items">[<a class="article-cite-item" href="#Gardiner2009Springer" title="C. W. Gardiner. Handbook of stochastic methods. Springer, Berlin, 2009.">3</a>]</span>)</p>
+<p>\begin{equation}
+ \mathrm{d} x = A(x) \mathrm{d} t + \sqrt{D(x)} \mathrm{d} W, 
+\end{equation}</p>
+<p>and in the limit of high \(  N \)</p>
+<p>\begin{equation}
+ \mathrm{d} x = \left[ \sigma_1 (1-x) - \sigma_2 x\right] \mathrm{d} t + \sqrt{2 h x (1-x)} \mathrm{d} W , 
+\end{equation}</p>
+<p>here \(  W \) is Wiener-Brownian process. This, final, equation is
+solved in the java applet below.</p>
+<h2>Observed population fraction dynamics</h2>
+<p>The only thing, which has changed since <a href="https://rf.mokslasplius.lt/kirman-ants/">the previous
+implementation</a>
+of Kirman's ant colony model, is modeling framework - in the section
+above we have derived Langevin equation for Kirman's ant colony. Thus
+observations discussed in <a href="https://rf.mokslasplius.lt/kirman-ants/">the previous
+article</a>
+also apply towards this model. This time we just limit ourselves to
+simply showing that Langevin equation and agent-based model produce same
+results using same parameter values (see <a href="#attachment_788">Fig 1.</a>).</p>
+<div class="figure"><img alt="image" id="attachment_788" src="https://rf.mokslasplius.lt/uploads/2010/stochastic-ant-colony-model.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Comparison of probability density function (a) and power spectral density (b) of external observable, x, time series, which were produced by agent-based model (points) and stochastic model (lines). Parameters are set as follows: \( h=1 \) (same in all cases), \( \sigma_1 =0.2 \) (red points, blue lines), \( \sigma_1 =16 \) (magenta points, cyan lines), \( \sigma_2=5 \) (same in all cases).</span></span></div>
+<h2>Population fraction SDE Applet</h2>
+<p>In the applet below we solve aforementioned Langevin equation using
+simple Euler-Maruyama method (see <span class="article-cite-items">[<a class="article-cite-item" href="#Kloeden1992Springer" title="P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. doi: 10.1007/978-3-662-12616-5.">4</a>]</span>).
+Using this method we transform stochastic differential equation into
+<em>difference equation</em></p>
+<p>\begin{equation}
+ x_{i+1} = x_{i} + \left[ \sigma_1 (1-x) - \sigma_2 x\right] \Delta t + \sqrt{2 h x (1-x) \Delta t} \zeta_i , 
+\end{equation}</p>
+<p>where \(  \zeta_i  \) is Gaussian random variable with zero mean
+and unit variance. As \(  x \) has meaning only in the interval
+\(  [0,\, 1] \), we also enforce boundary conditions to restrict
+\(  x_i \) values.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/kirman/sde/index.html" style="height: 480px; width: 470px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Kirman1993QJE">A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).</li><li id="Alfarano2005CompEco">S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).</li><li id="Gardiner2009Springer">C. W. Gardiner. Handbook of stochastic methods. Springer, Berlin, 2009.</li><li id="Kloeden1992Springer">P. E. Kloeden, E. Platen. Numerical Solution of Stochastic Differential Equations. Springer, Berlin, 1992. <a href="https://doi.org/10.1007/978-3-662-12616-5">doi: 10.1007/978-3-662-12616-5</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/kirman-ants/">Kirman's ant colony model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/anomalous-diffusion-in-time-transformation-of-voter-model/">Anomalous diffusion in time transformation of voter model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/anomalous-diffusion-in-nonlinear-transformation-of-voter-model/">Anomalous diffusion in non-linear transformation of voter model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

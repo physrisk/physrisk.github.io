@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Core-periphery network models
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Do you remember a talk &#34;Who controls the world? &#34; given by J. B. Glatterfelder on the ted.com website? If not, you could go ant watch now or rely on us. As far as we remember the key point behind the talk is a scientific discovery of a fact that...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Core-periphery network models - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/core-periphery-network-models/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2013/core-periphery-network-models.png">
+            <meta property="og:description" content="Do you remember a talk &#34;Who controls the world? &#34; given by J. B. Glatterfelder on the ted.com website? If not, you could go ant watch now or rely on us. As far as we remember the key point behind the talk is a scientific discovery of a fact that...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Core-periphery network models</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> October 07, 2013</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+            <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+            <a href="/tag/scale-free-network/" data-toggle="tooltip" class="label label-default" title="#scale-free network has 9 articles">#scale-free network</a>
+            <a href="/tag/erdos-renyi-model/" data-toggle="tooltip" class="label label-default" title="#Erdos-Renyi model has 7 articles">#Erdos-Renyi model</a>
+
+
+            </div>
+        </header>
+        <p>Do you remember a talk
+<a href="https://rf.mokslasplius.lt/j-b-glattfelder-who-controls-world/">"Who controls the world?
+"</a>
+given by J. B. Glatterfelder on the
+<a href="https://www.ted.com/talks/james_b_glattfelder_who_controls_the_world">ted.com</a>
+website? If not, you could go ant watch now or rely on us. As far as we
+remember the key point behind the talk is a scientific discovery of a
+fact that few hundred of large financial institutions control majority
+of the smaller financial institutions all around the world.
+Interestingly enough these large financial institutions also control
+each other! In this text we will give some examples which will show that
+similar network topology may form not only due to the conspiracy of
+these institutions, but also due to the other reasons.</p>
+<p>Thus in this text we continue our topic on the <a href="/tag/networks/">network formation
+models</a>. This
+time we will be interested in the so-called core-periphery network
+formation models, which will grow networks with well pronounced core and
+periphery.</p>
+
+<h2>Core and periphery in the networks</h2>
+<p>From time to time, even then using
+<a href="https://rf.mokslasplius.lt/erdos-renyi-model/">Erdos-Renyi</a>
+or
+<a href="https://rf.mokslasplius.lt/barabasi-albert-model/">Barabasi-Albert</a>
+network formation models, we may obtain networks with two differently
+wired groups of nodes. Lets say that the first group of nodes is tightly
+interconnected, while the other is very sparsely interconnected or not
+interconnected at all. Though the nodes in the second group are
+connected to the nodes from the first group. In this case the first
+group would be called a core, while the second would be referred to as a
+periphery. The concepts of the network core and periphery are visually
+explained in <a href="#attachment_2507">Fig. 1</a>.</p>
+<div class="figure"><img alt="Fig. 1: Core-periphery network generated using the modified Erdos-Renyi
+model." id="attachment_2507" src="https://rf.mokslasplius.lt/uploads/2013/core-periphery-network-models.png" title="Fig. 1: Core-periphery network generated using the modified Erdos-Renyi
+model."/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Core-periphery network generated using the modified Erdos-Renyi model. Nodes in the red area belong to core, while the nodes in the blue area are in periphery.</span></span></div>
+<p>What is so special about the core-periphery networks? They are very
+resilient in a sense that ideal core-periphery network does not suffer
+much from the removal of nodes. Namely if you remove a node from an
+ideal core-periphery network, it doesn't matter if you remove core or
+periphery node, you do not destroy the network structure. If you remove
+the core node, the other core nodes will still have the same links the
+removed node had, so no other nodes would get separated from the
+surviving network. If you remove a periphery node, you just remove an
+unimportant node, which was just connected to the core and not to other
+nodes, so once again you have just remove a single node and a couple of
+edges. So, no matter which node you remove, the surviving network
+remains interconnected. It is worthwhile to note that real
+core-periphery networks are far from being ideal, yet the impact of node
+removal would still be comparatively small - only one branch of networks
+nodes would be separated from the surviving network and its size would
+be significantly smaller than the size of the whole network.</p>
+<h2>Obtaining ideal core-periphery network</h2>
+<p>It is not very hard task to generate the ideal core-periphery network.
+At first you should decided how many nodes will make up the core of the
+network. Next create the selected number of nodes and connect them (all
+nodes to all nodes!). Then add a chosen number of periphery nodes.
+Connect them to all of the core nodes. In this manner you will obtain an
+ideal core-periphery network.</p>
+<div class="figure"><img alt="Fig. 2: Ideal core-periphery
+network." id="attachment_2508" src="https://rf.mokslasplius.lt/uploads/2013/ideal-core-periphery.png" title="Fig. 2: Ideal core-periphery
+network."/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Ideal core-periphery network.</span></span></div>
+<p>Yet this network topology is pretty boring - it is deterministic (only
+influenced by an externally made choice)! What else should we expect.</p>
+<p>This algorithm, and some simple, but less ideal, are describe in the
+paper by Borgatti and Everett <span class="article-cite-items">[<a class="article-cite-item" href="#Borgatti2000SN" title="S. P. Borgatti, M. G. Everett. Models of core/periphery structures. Social Networks 21: 375-395 (2000). doi: 10.1016/S0378-8733(99)00019-2.">1</a>]</span> (see it if
+you want to know more).</p>
+<h2>"Destroy the core-periphery network" challenge!</h2>
+<p>We have written above that the core-periphery networks are almost
+indestructible. Namely they are immune to node removal. You can test
+this claim using the app below. Your aim should be a destruction of the
+network without fully destroying its core. The nodes are destroyed by
+pressing "X" button, which is found near every node. If it is necessary
+you can move the nodes by dragging, and also restart app by pressing
+"&gt;" button.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/network-models/core-periphery/destroy-network.html" style="height: 490px; width: 480px" scrolling="no" allow="fullscreen"></iframe>
+<h2>Modifying Erdos-Renyi model to recover core-periphery network model</h2>
+<p>We could randomly "grow" a core-periphery network by using <a href="https://rf.mokslasplius.lt/erdos-renyi-model/">Erdos-Renyi
+model</a>.
+To make task easier let us modify the Erdos-Renyi model. First let us
+assume that our nodes are of two types and thus the connection
+probabilities become inhomogeneous. Namely we now will have not one, but
+multiple connection, edge forming, probabilities depending on which two
+nodes could be connected. As three distinct parings are possible we will
+have three distinct connection probabilities: \(  p_{11} \) for the
+two nodes of first type to be connected, \(  p_{22} \) for the two
+nodes of second type to connected and finally \(  p_{12} =p_{21} \) for the connection between the nodes of differing types.</p>
+<p>To completely avoid determinism we will assign types to nodes randomly -
+we will have a probability \(  p_{c1} \) that a new node is of the
+first type, and \(  p_{c2} \) that a new node is of the second type.
+To avoid some problems, or possibly overly complex implementation of the
+model, we will assume that the first type nodes are the core nodes and
+we will require that at least one node of this type actually exists.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/network-models/core-periphery/random-network.html" style="height: 540px; width: 480px" scrolling="no" allow="fullscreen"></iframe>
+<p>Note that the app shows only the nodes which are connected to the core
+nodes. All of the other nodes are not shown.</p>
+<p>Similar algorithm is used in <span class="article-cite-items">[<a class="article-cite-item" href="#Persitz2010SSRN" title="D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. doi: 10.2139/ssrn.1579634.">2</a>, <a class="article-cite-item" href="#Rombach2012CoRR" title="M. P. Rombach, M. A. Porter, J. H. Fowler, P. J. Mucha. Core-Periphery Structure in Networks. CoRR abs/1202.2684: 1-27 (2012). arXiv: 1202.2684 [cs.SI].">3</a>]</span>. Reference <span class="article-cite-items">[<a class="article-cite-item" href="#Persitz2010SSRN" title="D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. doi: 10.2139/ssrn.1579634.">2</a>]</span> considers a
+network model based on the deterministic utility functions (with
+conditional payoffs depending on the agent types), while the network
+considered in reference <span class="article-cite-items">[<a class="article-cite-item" href="#Rombach2012CoRR" title="M. P. Rombach, M. A. Porter, J. H. Fowler, P. J. Mucha. Core-Periphery Structure in Networks. CoRR abs/1202.2684: 1-27 (2012). arXiv: 1202.2684 [cs.SI].">3</a>]</span> is random, but its
+connection probabilities are inter-coupled.</p>
+<p>The core and periphery formed in this case due to the assumption we put
+in the model. Namely we decided to have two types of nodes - attractive
+ones (core nodes) and less-attractive ones (periphery nodes).</p>
+<h2>Core-periphery networks form the Barabasi-Albert model</h2>
+<p>We can also obtain a network with almost scale-free structure, visible
+core and periphery. This time the modification of the underlying model
+is rather minimal - we just have to assume that the "growth" of the
+scale-free network starts from \(  N_{0} \) fully interconnected
+nodes and further the <a href="https://rf.mokslasplius.lt/barabasi-albert-model/">original
+algorithm</a>
+is used. Note that in this case we will observe newly formed hubs (the
+nodes with large degrees) in the periphery, though the core nodes should
+still have larger degrees.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/network-models/core-periphery/index.html" style="height: 540px; width: 480px" scrolling="no" allow="fullscreen"></iframe>
+<p>This time the core was dictated by the history of the network - it
+existed before we started to grow the network.</p>
+<h2>Strategic emergence of the core-periphery network topology</h2>
+<p>We have already written that <span class="article-cite-items">[<a class="article-cite-item" href="#Persitz2010SSRN" title="D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. doi: 10.2139/ssrn.1579634.">2</a>]</span> work relies
+on the utility functions to shape the core-periphery network. But how is
+it possible? For a start let us note that the utility functions of each
+agent (which is placed in the network nodes) depends on the network
+topology. Namely if an agent can easily communicate with many other
+agents, his utility function is larger. It appears that such agents
+should form completely connected network. The intuition is right, but in
+the real world in order to keep relationship (or connection) alive the
+nodes have to pay a certain price. So the completely connected network
+is no longer effective nor desired by the agents. They now attempt to
+gain as much from communication with other agents, but to lose as few
+resources as possible. In certain cases, for details see <span class="article-cite-items">[<a class="article-cite-item" href="#Persitz2010SSRN" title="D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. doi: 10.2139/ssrn.1579634.">2</a>]</span>, in this interplay of cost and benefit the
+core-periphery network topology emerges.</p>
+<p>So the core-periphery network topology may also emerge from a need to
+cooperate. Direct communication is costly, so part of the agents have to
+play a role of hubs. It is worth to recall that in the model proposed in
+<span class="article-cite-items">[<a class="article-cite-item" href="#Persitz2010SSRN" title="D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. doi: 10.2139/ssrn.1579634.">2</a>]</span> the agents are divided into core and
+periphery agents, so the core forms not for the natural endogenous
+reasons, but once again it forms from the exogenous reasons. This may be
+bypassed by assuming that agents initializing connection have to pay
+whole "price" for the connection (namely to have directed network). In
+such case the hubs are being subsidized by the periphery and thus may
+emerge endogenously <span class="article-cite-items">[<a class="article-cite-item" href="#Hojman2006" title="D. Hojman, A. Szeidl. The Payoff to Being Central: Core and Periphery in Networks. 2006.">4</a>]</span>.</p><h2>References</h2><ul class="article-references"><li id="Borgatti2000SN">S. P. Borgatti, M. G. Everett. Models of core/periphery structures. Social Networks 21: 375-395 (2000). <a href="https://doi.org/10.1016/S0378-8733(99)00019-2">doi: 10.1016/S0378-8733(99)00019-2</a>.</li><li id="Persitz2010SSRN">D. Persitz. Power and Core-Periphery Networks. SSRN, 2010: 1579634. <a href="https://doi.org/10.2139/ssrn.1579634">doi: 10.2139/ssrn.1579634</a>.</li><li id="Rombach2012CoRR">M. P. Rombach, M. A. Porter, J. H. Fowler, P. J. Mucha. Core-Periphery Structure in Networks. CoRR abs/1202.2684: 1-27 (2012). <a href="https://arxiv.org/abs/1202.2684">arXiv: 1202.2684 [cs.SI]</a>.</li><li id="Hojman2006">D. Hojman, A. Szeidl. The Payoff to Being Central: Core and Periphery in Networks. 2006.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/achieving-high-clustering-in-scale-free-networks/">Achieving high clustering in scale-free networks</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/edge-redirection-network-formation-models/">Edge redirection network formation models</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/another-model-of-high-clustering-in-scale-free-networks/">Another model of high clustering in scale-free networks</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/scale-free-behavior-as-a-result-of-luck-and-reason/">Scale-free behavior as a result of "luck and reason"</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/barabasi-albert-model/">Barabasi-Albert model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Colonel Blotto game with varied troop count
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="In an earlier post we have seen basic framework behind the Colonel Blotto game. We have assumed both warlords are equal in their strength, and that the castles are identical and of equal value. So, there are at least two obvious ways to...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Colonel Blotto game with varied troop count - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/colonel-blotto-game-varied-troop-count/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2024/colonel-blotto-game-varied-troop-count.png">
+            <meta property="og:description" content="In an earlier post we have seen basic framework behind the Colonel Blotto game. We have assumed both warlords are equal in their strength, and that the castles are identical and of equal value. So, there are at least two obvious ways to...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Colonel Blotto game with varied troop count</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> December 23, 2024</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+            <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+            <a href="/tag/colonel-blotto-game/" data-toggle="tooltip" class="label label-default" title="#Colonel Blotto game has 9 articles">#Colonel Blotto game</a>
+
+
+            </div>
+        </header>
+        <p>In an <a href="https://rf.mokslasplius.lt/colonel-blotto-game/">earlier post</a> we
+have seen basic framework behind the Colonel Blotto game. We have assumed
+both warlords are equal in their strength, and that the castles are
+identical and of equal value. So, there are at least two obvious ways to
+generalize the game. In this post let us consider what happens when warlords
+differ in their troop count. Does the weaker warlord even have a chance? How
+can the stronger warlord make use of their superior strength?</p>
+
+<p>Originally, I haven't planned on writing this post, but when doing research
+for the upcoming post, I have stumbled upon <span class="article-cite-items">[<a class="article-cite-item" href="#Macdonell2015ET" title="S. T. Macdonell, N. Mastronardi. Waging simple wars: a complete characterization of two-battlefield Blotto equilibria. Economic Theory 58: 183-216 (2015). doi: 10.1007/s00199-014-0807-1.">1</a>]</span>. The
+paper instructs on optimal strategies for the two-battlefield Colonel Blotto
+games, which lead to certain conclusions I haven't touched upon in the
+previous post. Refer to the paper, if you want to get a more mathematically
+rigorous analysis, or if you want to see what lies beyond the standard
+asymmetric two-battlefield case I'll write about in this post.</p>
+<h2>General setup</h2>
+<p>In this post, we examine the conflict between two generals, one named Blotto
+and the other named Enemy, each commanding a different number of troops.
+This enables the stronger warlord to dominate in most conflicts; however, if
+the weaker warlord commits their troops carefully, they can occasionally
+manage to force a stalemate by capturing one of the two castles.</p>
+<p><strong>Few quick side notes:</strong> Here, it is important to clarify that by
+"optimally" I mean strategies which would be Nash equilibrium strategies.
+Also, in our analysis we will consider Blotto commanding more troops than
+Enemy, \( B \geq E \).</p>
+<h2>The trivial case</h2>
+<p>So, first let us consider a trivial case when \( E \leq B / 2 \). In
+this case, Colonel Blotto could simply assign \( B / 2 \) troops to each
+of the castles. In the worst case scenario Blotto would win one castle, and
+face stalemate in the other, while still winning the overall war.</p>
+<p>This trivial case leads us to a few important conclusions. The first one is
+that you don't need all the troops to win the war. You can keep some troops
+as a reserve and still come out on top.</p>
+<p>Another important take away is that, if you are the weaker side, you should
+increase number of battlefields (castles) you fight over. If there would be
+three battlefields, then having an army twice your size would not matter.
+Your opponent would need to have thrice as many troops as you have. </p>
+<p>This leads to another important insight: offense is the best defense. How
+come? Not all conflicts aim for complete and immediate victory. For example,
+guerrilla forces focus on achieving a series of small local victories to
+gradually weaken their enemy over time. Terrorist groups frequently aim to
+instill fear and provoke outrage locally, leveraging these emotions to deter
+certain behaviors or diminish legitimacy of the ruling regime. These groups
+are fine with winning just one "castle". To defend all "castles" properly
+the stronger "warlord" needs to have a huge advantage. So the stronger
+"warlord" would be better off not defending, but attacking their opponent.
+Though, obviously, it is not always possible.</p>
+<h2>Partitions</h2>
+<p>If Enemy has a bit more troops, things quickly become more complicated. If
+\( B / 2 &lt; E \leq 2/3\cdot B \), then Blotto no longer has a safe way to
+win the war.</p>
+<p>Obvious strategy for Blotto, would be to try to send \( E \) soldiers to
+a one castle, and at least \( E / 2 \) troops to the other. To avoid the
+risks of being predictable, Blotto would randomly select a primary target,
+e.g., by flipping a coin.</p>
+<p>Enemy would prefer to know which castle Blotto has allocated fewer troops
+to, as this would allow for an effective mismatch. However, lacking this
+information, the best strategy for Enemy is to randomly select a castle to
+heavily reinforce with the majority of their troops, while sending only a
+token force (if any) to the other.</p>
+<p>If Enemy is even stronger, then the logic becomes much more complicated, as
+it involves progressively more and more layers of "what my opponent thinks I
+think ...". For these cases a simple graphical algorithm can be used to find
+the higher order partitions.</p>
+<h2>Graphical algorithm</h2>
+<p>To use the graphical algorithm first we need to plot resource constraints of
+both warlords. The only constraint in our specific scenario is the total
+amount of troops: no warlord may assign more troops to the castles than they
+actually have available. If values on x-axis represent troop count assigned
+to the first castle, and values on y-axis represent troop count assigned to
+the second castle, then the resource constraint curves for both warlords
+will be a straight diagonal lines. These lines plot all possible pairs of
+solutions to:</p>
+<p>\begin{equation}
+x+y=T.
+\end{equation}</p>
+<p>In the above \( T \) is the total troop count in the warlord's army. The
+equality is strict if we assume that warlords use all their troops and put
+nothing in reserve. If there is a point for warlord to keep some troops in
+reserve, then we could replace \( = \) sign with \( \leq \) sign.</p>
+<p>Now when we have plotted resource constraint lines, we can make use of the
+graphical algorithm. The graphical algorithm is essentially a three-step
+process:</p>
+<ol>
+<li>Vertical line is drawn from \( (E, 0) \). Each time it intersects any
+   diagonal line representing resource constraints of a warlord, we rotate
+   it 90 degrees alternating between counterclockwise and clockwise
+   rotations (so that we see snaking curve, which looks like reflections
+   between two mirror surfaces). Every other rotation, we not only reflect
+   but also extend the "ray" towards the axes. We repeat the procedure until
+   the reflected "ray" finally leaves the graph.</li>
+<li>Now we start from \( (0, E) \) by drawing a horizontal line. As
+   before we follow the same "reflection" logic.</li>
+<li>At this point we will have \( n \) triangles below Enemy's (weaker
+   warlord) resource constraint line and \( 2 n - 1 \) triangles below
+   Blotto's resource constraint line. Enemy will play inside those \( n
+   \) triangles, while Blotto will pick those triangles (exactly \( n
+   \) of them), which do not overlap with Enemy's triangles on any axis.</li>
+</ol>
+<p>It sounds somewhat daunting and complicated, but it is not if you get the
+gist of it. For more details on the algorithm  see the section 4.3 in <span class="article-cite-items">[<a class="article-cite-item" href="#Macdonell2015ET" title="S. T. Macdonell, N. Mastronardi. Waging simple wars: a complete characterization of two-battlefield Blotto equilibria. Economic Theory 58: 183-216 (2015). doi: 10.1007/s00199-014-0807-1.">1</a>]</span>. Here, we invite you to experiment with the
+interactive graph app below. </p>
+<h2>Interactive graph app</h2>
+<p>The app below illustrates Nash equilibrium strategies by relying on the
+logic of the graphical algorithm. The default troop counts in the app are
+tuned to the \( B / 2 &lt; E \leq 2/3\cdot B \) case we have discussed in
+detail earlier in this post. Though you may want to change the troop count
+to see the other possible strategic partitions. You could even make Enemy
+stronger than our titular Blotto!</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/game-theory/blotto-game/graph-varied-count.html" style="height: 435px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<p>As in the article <span class="article-cite-items">[<a class="article-cite-item" href="#Macdonell2015ET" title="S. T. Macdonell, N. Mastronardi. Waging simple wars: a complete characterization of two-battlefield Blotto equilibria. Economic Theory 58: 183-216 (2015). doi: 10.1007/s00199-014-0807-1.">1</a>]</span>, we have shaded the triangles
+representing the warlords' Nash equilibrium strategies. Although we haven't
+specifically distinguished between them, a careful reader will notice that
+the triangles below the resource allocation curve correspond to each
+warlord's optimal play strategy.</p>
+<h2>Interactive game app</h2>
+<p>Besides exploring the strategy graph above, you could also try playing
+against computer who uses Nash equilibrium strategies. This app is mostly
+similar to the app from the <a href="https://rf.mokslasplius.lt/colonel-blotto-game/">earlier
+post</a>, but with an
+important difference - there are just two castles now!</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/game-theory/blotto-game/index-varied-count.html" style="height: 220px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<p>Also, playing a lot of games against the computer will be somewhat hard, as
+you are expected to randomize, so we have added "relinquish control"
+checkbox. If you tick it, then the computer will play against itself.</p>
+<p>Though note, that if you set a proper fixed allocation (which would be a
+part of mixed Nash equilibrium strategy), your record will still be similar
+to the automated computer's record. This is because the opponent you are
+playing against is dumb in a sense. All they know is mixed equilibrium
+strategy, and they won't react to you playing the same thing over and over
+again. But, this (adaptability) is another topic for another time.</p><h2>References</h2><ul class="article-references"><li id="Macdonell2015ET">S. T. Macdonell, N. Mastronardi. Waging simple wars: a complete characterization of two-battlefield Blotto equilibria. Economic Theory 58: 183-216 (2015). <a href="https://doi.org/10.1007/s00199-014-0807-1">doi: 10.1007/s00199-014-0807-1</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/adaptive-strategy-colonel-blotto-game/">Adaptive strategy in Colonel Blotto game</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/fast-slow-colonel-blotto/">Fast and slow troops in Colonel Blotto game</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/colonel-blotto-game-varied-castles/">Colonel Blotto game with varied castles</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/colonel-blotto-game/">Colonel Blotto game</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/can-colonel-blotto-coach-football/">Can Colonel Blotto coach a football team?</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

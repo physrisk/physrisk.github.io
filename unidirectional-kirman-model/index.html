@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Unidirectional Kirman&#39;s model
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Bass diffusion model [1] is widely known and very important model in marketing science. This model predicts diffusion, sales, of new successful products inside the market. While previously discussed model, Kirman model [2], has wide range of...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Unidirectional Kirman&#39;s model - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/unidirectional-kirman-model/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2011/unidirectional-kirman-model.png">
+            <meta property="og:description" content="Bass diffusion model [1] is widely known and very important model in marketing science. This model predicts diffusion, sales, of new successful products inside the market. While previously discussed model, Kirman model [2], has wide range of...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Unidirectional Kirman's model</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> June 10, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+            <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+            <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+            <a href="/tag/marketing/" data-toggle="tooltip" class="label label-default" title="#marketing has 10 articles">#marketing</a>
+            <a href="/tag/bass-model/" data-toggle="tooltip" class="label label-default" title="#Bass model has 7 articles">#Bass model</a>
+            <a href="/tag/v-daniunas/" data-toggle="tooltip" class="label label-default" title="#V. Daniunas has 6 articles">#V. Daniunas</a>
+
+
+            </div>
+        </header>
+        <p>Bass diffusion model <span class="article-cite-items">[<a class="article-cite-item" href="#Bass1969ManSci" title="F. M. Bass. A New Product Growth Model for Consumer Durables. Management Science 15: 215-227 (1969).">1</a>]</span> is widely known and very important model in
+marketing science. This model predicts diffusion, sales, of new
+successful products inside the market. While previously <a href="https://rf.mokslasplius.lt/kirman-ants/">discussed
+model</a>,
+Kirman model <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">2</a>]</span>, has wide range of possible
+applications - from biology to finance. In <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">2</a>]</span>
+it is noted that behavior observed by entomologists is similar to one
+observed in economic scenarios (ex. popularity of books and
+restaurants). Thus one might expect that Kirman's model might be
+modified to work in the marketing scenario.</p>
+
+<h2>Bass diffusion model as a special case of Kirman's model</h2>
+<p>Bass diffusion model is underlied by the assumption that "the
+probability of adopting by those who have not yet adopted is a linear
+function of those who had previously adopted" <span class="article-cite-items">[<a class="article-cite-item" href="#Bass1969ManSci" title="F. M. Bass. A New Product Growth Model for Consumer Durables. Management Science 15: 215-227 (1969).">1</a>]</span>. Or mathematically:</p>
+<p>\begin{equation}
+ \partial_t F(t) = [1-F(t)] [p + q F(t)] , \label{bassode}
+\end{equation}</p>
+<p>where \(  F(t) \) is fraction of market that have adopted product by
+time t, \(  p \) is coefficient of innovation, while \(  q \) is
+coefficient of imitation. Solution of the above ordinary differential
+equation, with boundary condition \(  F(0)=0 \), is:</p>
+<p>\begin{equation}
+ F(t) = \frac{p \left[ e^{(p+q) t} -1 \right]}{e^{(p+q)t}+q} . 
+\end{equation}</p>
+<p>Number of new consumers per unit of time is given by the derivative of
+the above:</p>
+<p>\begin{equation}
+ \Delta F(t) = \frac{p (p+q)^2 e^{(p+q) t}}{\left[pe^{(p+q) t}+q \right]^2} . 
+\end{equation}</p>
+<p>Kirman's model <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">2</a>]</span> is based on very similar
+ideas - some ants discover food sources independently, while other ants
+imitate behavior. The only difference is that in Kirman model
+transitions are bidirectional, while in Bass diffusion model there is
+only one possible transition - from potential consumer to consumer.</p>
+<p>Though it is rather easy to introduce this unidirectionality into
+Kirman's model. We simply one transition probability to zero:</p>
+<p>\begin{equation}
+ p(X \rightarrow X+1) = (N - X) \left( \sigma + \frac{h X}{N} \right) \Delta t , 
+\end{equation}</p>
+<p>\begin{equation}
+ p(X \rightarrow X-1) = 0 , 
+\end{equation}</p>
+<p>here \(  X \) is number of consumers, while \(  N-X \) is thus a
+number of potential consumers. \(  \sigma \) and \(  h \) are
+probabilities of individual decision and influenced decision to buy
+product (they should be equivalent to \(  p \) and \(  q \) in
+\eqref{bassode}). Note that transition probabilities are somewhat
+different from the original ones <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">2</a>]</span> (or see
+<a href="https://rf.mokslasplius.lt/kirman-ants/">this model on Physics of
+Risk</a>).
+This happens due to assumption that rate of consumption is indepedent of
+absolute size of the market.</p>
+<p>By introducing continuous system state variable \(  x=X/N \) (we
+assume \(  N \) to be large enough to secure continuity of \( x \)) and by using one step formalism <span class="article-cite-items">[<a class="article-cite-item" href="#VanKampen2007NorthHolland" title="N. G. van Kampen. Stochastic process in Physics and Chemistry. North Holland, Amsterdam, 2007.">3</a>]</span> we obtain macroscopic model for the
+unidirectional Kirman model,</p>
+<p>\begin{equation}
+ \partial_t x = (1-x) (\sigma + h x) , 
+\end{equation}</p>
+<p>which is notably identical to the Bass diffusion model. Thus in the
+limit of large \(  N \) we can expect that unidirectional agent-based
+Kirman's model will provide similar results to the differential Bass
+diffusion model.</p>
+<h2>Comparison of models</h2>
+<p>Below, in <a href="#attachment_1747">Fig. 1</a>, you can see that agreement
+between Kirman's and Bass diffusion models improve with larger \( N \) and \(  \Delta t \) (here it is time series discretization
+step). With lower values of these parameters agreement is worse, as Bass
+diffusion model describe mean, while unidirectional Kirman's model
+provides only single realization. This figure is featured in <span class="article-cite-items">[<a class="article-cite-item" href="#Daniunas2011ICCGI" title="V. Daniunas, V. Gontis, A. Kononovicius. Agent-based versus macroscopic modeling of competition and business processes in economics. ICCGI 2011, The Sixth International Multi-Conference on Computing in the Global Information Technology, pp. 84-88. Luxembourg, 2011. Note: Received IARIA Best Paper Award (see https://www.iaria.org/conferences2011/AwardsICCGI11.html). thinkmind: iccgi_2011_4_40_10188. arXiv: 1104.2895 [physics.soc-ph].">4</a>]</span>.</p>
+<div class="figure"><img alt="image" id="attachment_1747" src="https://rf.mokslasplius.lt/uploads/2011/unidirectional-kirman-model.png" title="image"/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Agreement between Kirman's (red dots) and Bass diffusion (blue curves) models. (a) N=1000, Δt=0.1, (b) N=1000, Δt=1, (c) N=10000, Δt=0.1, (d) N=10000, Δt=1. Other model parameters: σ=0.01, h=0.275.</span></span></div>
+<h2>Applet</h2>
+<p>This applet plots theoretical Bass diffusion curves, number of consumer
+and number of new consumers per unit of time, (blue continuous curves)
+and analogous quantities obtained from agent-based Kirman's model (red
+dots). Applet control parameters are identical to Kirman's model
+parameters with a notable exception to \(  \Delta t \). Here
+\( \Delta t \) is time series discretization step. Kirman's model's
+\( \Delta t \) is selected by applet on its own. The applet also includes
+additional parameters \(  \alpha \) (tolerance for piracy) and
+\(  Y_0 \) (charity) not discussed in this text, but considered in
+the <a href="https://rf.mokslasplius.lt/what-can-the-bass-diffusion-model-tell-us-about-piracy/">another
+one</a>
+(Bass curves are plotted while not taking these into account).</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/kirman/unidirectional/index.html" style="height: 535px; width: 475px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Bass1969ManSci">F. M. Bass. A New Product Growth Model for Consumer Durables. Management Science 15: 215-227 (1969).</li><li id="Kirman1993QJE">A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).</li><li id="VanKampen2007NorthHolland">N. G. van Kampen. Stochastic process in Physics and Chemistry. North Holland, Amsterdam, 2007.</li><li id="Daniunas2011ICCGI">V. Daniunas, V. Gontis, A. Kononovicius. Agent-based versus macroscopic modeling of competition and business processes in economics. ICCGI 2011, The Sixth International Multi-Conference on Computing in the Global Information Technology, pp. 84-88. Luxembourg, 2011. Note: Received IARIA Best Paper Award (see https://www.iaria.org/conferences2011/AwardsICCGI11.html). <a href="https://www.thinkmind.org/index.php?view=article&articleid=iccgi_2011_4_40_10188" title="Open this website">thinkmind: iccgi_2011_4_40_10188</a>. <a href="https://arxiv.org/abs/1104.2895">arXiv: 1104.2895 [physics.soc-ph]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-versus-macroscopic-modeling-competition-business-processes-economics/">Agent-based versus macroscopic modeling of competition and business processes in economics</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/iaria-publication-reviewing-our-different-research-directions/">IARIA publication reviewing our different research directions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/why-properties-of-individual-agents-may-be-ignored/">Why the properties of individual agents may be ignored?</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

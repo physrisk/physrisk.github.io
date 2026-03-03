@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Exploring parking strategies
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Traffic problems are ones we all face every day and we can explore using Physics of Risk tools such as agent-based models. Here we will take a look at a couple simple parking strategies from [1, 2].">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Exploring parking strategies - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/exploring-parking-strategies/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2022/parking-optimist.png">
+            <meta property="og:description" content="Traffic problems are ones we all face every day and we can explore using Physics of Risk tools such as agent-based models. Here we will take a look at a couple simple parking strategies from [1, 2].">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Exploring parking strategies</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> April 26, 2022</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+
+
+            </div>
+        </header>
+        <p><a href="/tag/traffic/">Traffic</a> problems are ones we all face every day and we can
+explore using Physics of Risk tools such as <a href="/tag/agent-based-models/">agent-based
+models</a>. Here we will take a look at a couple
+simple parking strategies from <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>, <a class="article-cite-item" href="#Krapivsky2020JStat" title="P. L. Krapivsky, S. Redner. Where should you park your car? The 1/2 rule. Journal of Statistical Mechanics 2020: 073404 (2020). arXiv:2003.10603 [physics.soc-ph]. doi: 10.1088/1742-5468/ab96b7.">2</a>]</span>.</p>
+
+<h2>Problem setup</h2>
+<p>Let us assume that cars arrive one at a time at rate \( \lambda \) and
+park in a long one dimensional parking lot. The drivers are clueless on the
+location of the best available parking spots, they can see just the first car
+parked ahead of them (and number of free spots in between them).</p>
+<p>One can easily imagine three natural strategies <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>]</span>:</p>
+<ul>
+<li><strong>Meek</strong>. Park at the first available spot. Just behind the last car in
+the parking lot. In our setup, if the last spot is taken, then the driver
+looks for the first gap.</li>
+<li><strong>Prudent</strong>. Find the first gap and park at the left end of that gap. If
+there are no gaps, then you'll have to backtrack.</li>
+<li><strong>Optimistic</strong>. Go all the way to the end (destination) and then backtrack
+until you find available spot.</li>
+</ul>
+<p>These parking strategies are illustrated in the figure below. The figure
+and the respective caption was copied from the original article <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>]</span>.</p>
+<div class="figure"><img alt="Figure and its caption copied from the arXiv copy of (Krapivsky &amp; Redner,
+2019)." src="https://rf.mokslasplius.lt/uploads/2022/parking-strategies.png"/></div>
+<p>Another strategy was proposed in <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2020JStat" title="P. L. Krapivsky, S. Redner. Where should you park your car? The 1/2 rule. Journal of Statistical Mechanics 2020: 073404 (2020). arXiv:2003.10603 [physics.soc-ph]. doi: 10.1088/1742-5468/ab96b7.">2</a>]</span>. This
+strategy is known as <strong>1/2 rule</strong>. If using this strategy, the driver
+ignores first \( L/2 \) spots (here \( L \) is the coordinate of the
+last parked car) and then acts as a prudent driver. Possibly backtracking
+and occupying spot at \( x &gt; L/2 \).</p>
+<p>While somewhat unrealistic, but we assume that only one car looks for a spot
+at a time. Namely, other cars are not allowed to enter the parking lot until
+the last entering (or leaving) car has found a spot (or left the parking
+lot).</p>
+<p>We assume that a single parked car will leave at rate \( \mu \). For
+simplicity we set \( \mu = 1 \).</p>
+<h2>Dynamics of the model</h2>
+<p>Number of things for each of the simple strategies and the 1/2 rule can be
+derived analytically <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>, <a class="article-cite-item" href="#Krapivsky2020JStat" title="P. L. Krapivsky, S. Redner. Where should you park your car? The 1/2 rule. Journal of Statistical Mechanics 2020: 073404 (2020). arXiv:2003.10603 [physics.soc-ph]. doi: 10.1088/1742-5468/ab96b7.">2</a>]</span>. For
+example, if the parking lot would be infinite, then the distribution of cars
+in the parking lot is Poissonian with rate parameter \( \lambda \). This
+means that you can reasonably expect to see
+\( \lambda \pm \sqrt{\lambda} \) cars in the parking lot as the model
+reaches stationary dynamics.</p>
+<p><span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>]</span> also explored occupation densities for each
+of the simple strategies. And found that meek drivers will escape towards
+infinity. In our particular model meek drivers will crowd at the end of the
+parking lot, because if the last place is taken, then they will be looking
+for the first gap.</p>
+<div class="figure"><img alt="If meek drivers parked in the simulated parking
+lot." src="https://rf.mokslasplius.lt/uploads/2022/parking-meek.png" title="If meek drivers parked in the simulated parking
+lot."/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">If meek drivers parked in the simulated parking lot.</span></span></div>
+<p>Prudent drivers, as per <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>]</span>, will leave number of
+available spots very close to the destination (marked by the red square),
+but otherwise will pack quite nicely in front of the parking lot.</p>
+<div class="figure"><img alt="If prudent drivers parked in the simulated parking
+lot." src="https://rf.mokslasplius.lt/uploads/2022/parking-prudent.png" title="If prudent drivers parked in the simulated parking
+lot."/><span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">If prudent drivers parked in the simulated parking lot.</span></span></div>
+<p>Optimist drivers, as per <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2019JStat" title="P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). arXiv:1904.06612v2 [physics.soc-ph]. doi: 10.1088/1742-5468/ab3a2a.">1</a>]</span>, will quickly fill
+in any gap close to the destination and will pack even tighter than the
+prudent drivers.</p>
+<div class="figure"><img alt="If optimist drivers parked in the simulated parking
+lot." src="https://rf.mokslasplius.lt/uploads/2022/parking-optimist.png" title="If optimist drivers parked in the simulated parking
+lot."/><span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">If optimist drivers parked in the simulated parking lot.</span></span></div>
+<p>Drivers using 1/2 rule will fill in the parking lot very much alike to
+prudent and optimist drivers. This strategy is superior <span class="article-cite-items">[<a class="article-cite-item" href="#Krapivsky2020JStat" title="P. L. Krapivsky, S. Redner. Where should you park your car? The 1/2 rule. Journal of Statistical Mechanics 2020: 073404 (2020). arXiv:2003.10603 [physics.soc-ph]. doi: 10.1088/1742-5468/ab96b7.">2</a>]</span> to prudent or optimistic strategy, because it gives
+non-vanishing probability to park at the best available spot with out
+backtracking. Optimistic strategy will require backtracking with probability
+\( \lambda / ( 1 + \lambda ) \), while ensuring parking at the best
+spot. Prudent strategy will rarely require backtracking, but will give the
+best spot with probability vanishing as \( \lambda^{-1/2} \).</p>
+<div class="figure"><img alt="If 1/2 rule drivers parked in the simulated parking
+lot." src="https://rf.mokslasplius.lt/uploads/2022/parking-half.png" title="If 1/2 rule drivers parked in the simulated parking
+lot."/><span class="caption"><span class="caption-prefix">Fig. 4:</span><span class="caption-text">If 1/2 rule drivers parked in the simulated parking lot.</span></span></div>
+<h2>The cost</h2>
+<p>The cost is our own addition to the model. It is calculated as follows:</p>
+<p>\begin{equation}
+    C_i = W x_i + D s_i .
+\end{equation}</p>
+<p>In the above \( x_i \) is the parking spot coordinate (also distance to
+the destination, as agents are not allowed to walk over the green field),
+while \( s_i \) is the distance \( i \)-th driver has driven until
+parked at the spot. If driver parks in an optimal space
+\( s_i = 508 - x_i \). In the above \( W \) is the walking cost
+and \( D \) is the driving cost. The average cost over all currently
+parked cars is normalized as follows:</p>
+<p>\begin{equation}
+    \tilde{C} = \frac{\sum_i C_i}{\sum_{j=1}^{N} \left( W j + D \left[ 508 - j \right] \right)} = \frac{\sum_i C_i}{N \cdot \left( 508 D + \frac{W - D}{2} \cdot [N-1] \right)}
+\end{equation}</p>
+<p>Denominator is effectively the total cost for all cars if they would have
+been parked closest to the destination.</p>
+<h2>Interactive app</h2>
+<p>This interactive app visualizes finite (508 places) one-dimensional parking
+lot. Empty parking spaces are shown in light gray, while taken parking space
+are shown in dark gray. Note that the parking lot snakes through out the
+green field, entrance is on the bottom left, while the destination square in
+on the top left (red square).</p>
+<p>Along with visual representation of the current occupation of the parking
+lot two plots are shown. The first plot shows how the total number of cars
+(blue curve) and the position of the last parked car (dark curve) changes in
+time. The second plot shows normalized average cost for all currently parked
+cars.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/stats/models/parking/index.html" style="height: 500px; width: 520px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Krapivsky2019JStat">P. L. Krapivsky, S. Redner. Simple parking strategies. Journal of Statistical Mechanics 2019: 093404 (2019). <a href="https://arxiv.org/abs/1904.06612">arXiv:1904.06612v2 [physics.soc-ph]</a>. <a href="https://doi.org/10.1088/1742-5468/ab3a2a">doi: 10.1088/1742-5468/ab3a2a</a>.</li><li id="Krapivsky2020JStat">P. L. Krapivsky, S. Redner. Where should you park your car? The 1/2 rule. Journal of Statistical Mechanics 2020: 073404 (2020). <a href="https://arxiv.org/abs/2003.10603">arXiv:2003.10603 [physics.soc-ph]</a>. <a href="https://doi.org/10.1088/1742-5468/ab96b7">doi: 10.1088/1742-5468/ab96b7</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/exploring-parking-strategies-nonhomogeneous/">Exploring parking strategies with nonhomogeneous inflow</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/stop-and-go-waves/">Stop-and-go waves</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/boundary-conditions-and-zealotry-in-noisy-voter-model/">Boundary conditions and zealotry in the noisy voter model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/accidental-politicians/">Accidental politicians</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/peter-principle/">Peter principle</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

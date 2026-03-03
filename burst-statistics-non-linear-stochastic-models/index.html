@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Burst statistics in non-linear stochastic models
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Time series obtained by solving non-linear stochastic models exhibit rather interesting statistical properties. On Physics of Risk we have already discussed some of these models [1, 2] (ex. stochastic model of return, herding model of financial...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Burst statistics in non-linear stochastic models - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/burst-statistics-non-linear-stochastic-models/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg">
+            <meta property="og:description" content="Time series obtained by solving non-linear stochastic models exhibit rather interesting statistical properties. On Physics of Risk we have already discussed some of these models [1, 2] (ex. stochastic model of return, herding model of financial...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Burst statistics in non-linear stochastic models</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> September 02, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+            <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+            <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+            <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+            <a href="/tag/b-kaulakys/" data-toggle="tooltip" class="label label-default" title="#B. Kaulakys has 7 articles">#B. Kaulakys</a>
+            <a href="/tag/first-passage-time/" data-toggle="tooltip" class="label label-default" title="#first-passage time has 2 articles">#first-passage time</a>
+            <a href="/tag/m-alaburda/" data-toggle="tooltip" class="label label-default" title="#M. Alaburda has 1 article">#M. Alaburda</a>
+
+
+            </div>
+        </header>
+        <p>Time series obtained by solving
+non-linear stochastic models exhibit rather interesting statistical
+properties. On Physics of Risk we have already discussed some of these
+models <span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">1</a>, <a class="article-cite-item" href="#Kononovicius2012PhysA" title="A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). doi: 10.1016/j.physa.2011.08.061. arXiv: 1106.2685 [q-fin.ST].">2</a>]</span> (ex.
+<a href="https://rf.mokslasplius.lt/long-range-memory-stochastic-model-return/">stochastic model of
+return</a>,
+<a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">herding model of financial
+markets</a>),
+which are able to reproduce statistical properties of high frequency
+return (namely spectral density and probability distribution).</p>
+<p>In statistical sense model and financial market behavior might be
+studied in many different manners. One may study probability
+distributions, moments, spectral densities, autocorrelations and etc.,
+using each of them to obtain vital information on the statistical and
+dynamical properties of the studied system. It is important to note that
+new useful information might be provided by the statistical indicators,
+which are related to the previously used indicators in unambiguous
+manner. One may also introduce new variables describing system itself or
+its time series.</p>
+<p>There is a group of such variables, which is closely related to the
+estimation of risk, known as <em>burst statistics</em> <span class="article-cite-items">[<a class="article-cite-item" href="#Alaburda2011JDySES" title="M. Alaburda, B. Kaulakys. Simulation of bursting, rare and extreme events by nonlinear stochastic differential equations. Dynamics of Socio-Economic Systems 2: 175-182 (2011).">3</a>, <a class="article-cite-item" href="#Kaulakys2009AIP" title="B. Kaulakys, M. Alaburda, V. Gontis. Modeling scaled processes and clustering of events by the nonlinear stochastic differential equations. AIP Conference Proceedings 1129: 13-16 (2009).">4</a>]</span>. In this text we will discuss
+these variables and their statistical properties. At the end of the text
+we also present an interactive HTML5 applet, using which one can reproduce
+burst statistics of certain stochastic model.</p>
+
+<h2>Burst statistics</h2>
+<p>Before analyzing burst statistics we have first to define what these
+burst are. Evidently burst is a cluster of larger values in the time
+series, thus we must define some threshold value and assume that every
+point above it belong to burst. We denote threshold value as h
+(abbreviation of "height"). In <a href="#attachment_1854">Fig. 1</a> we have also
+marked three threshold passage events - start of the example burst, end
+of the example burst, start of the next to the example burst. These
+three events will be further referenced then introducing variables
+schematically introduced in <a href="#attachment_1854">Fig. 1</a>.</p>
+<div class="figure"><img alt="image" id="attachment_1854" src="https://rf.mokslasplius.lt/uploads/2011/burst-statistics-non-linear-stochastic-models.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Variables related to the burst statistics: h - threshold value; τ - waiting time; T - burst duration; S - burst size; θ - inter-burst time.</span></span></div>
+<p>As you can see in <a href="#attachment_1854">Fig. 1</a> we have denoted time window
+between first and third event as τ. We will call τ waiting time as it
+tells us the times between two successive bursts. Time interval between
+second and third event, θ, is similar variable, but it describes
+inter-burst times. Burst duration, time between first and second events,
+is denoted as T, while burst size, defined as area between threshold
+line and time series curve (cyan area in <a href="#attachment_1854">Fig. 1</a>), is
+assigned symbol S (abbreviation of "size").</p>
+<p>It is known that probability densities of τ, T and θ, obtained from
+non-linear stochastic models, can be fitted by power law. Furthermore it
+is known that characteristic burst size is proportional to the power of
+burst duration <span class="article-cite-items">[<a class="article-cite-item" href="#Alaburda2011JDySES" title="M. Alaburda, B. Kaulakys. Simulation of bursting, rare and extreme events by nonlinear stochastic differential equations. Dynamics of Socio-Economic Systems 2: 175-182 (2011).">3</a>, <a class="article-cite-item" href="#Kaulakys2009AIP" title="B. Kaulakys, M. Alaburda, V. Gontis. Modeling scaled processes and clustering of events by the nonlinear stochastic differential equations. AIP Conference Proceedings 1129: 13-16 (2009).">4</a>]</span>.
+Numerical evaluation of simple non-linear stochastic model,</p>
+<p>\begin{equation}
+ \mathrm{d} x = \left ( \eta - \frac{\lambda}{2} \right)\left( 1+x^2 \right)^{\eta-1} x \mathrm{d} t + \left( 1+x^2\right)^{\frac{\eta}{2}} \mathrm{d} W , \label{sde}
+\end{equation}</p>
+<p>provides \(  S \propto T^2  \), \(  p(\tau) \sim\tau^{-1.5}  \), \(  p(T) \sim T^{-1.5}  \), \( p(\theta) \sim \theta^{-1.5}  \) relations, where p is
+probability density function of certain variable. It was shown that
+these relations hold for \(  \eta \geq 1 \) case <span class="article-cite-items">[<a class="article-cite-item" href="#Kaulakys2009AIP" title="B. Kaulakys, M. Alaburda, V. Gontis. Modeling scaled processes and clustering of events by the nonlinear stochastic differential equations. AIP Conference Proceedings 1129: 13-16 (2009).">4</a>]</span> and are very similar, power law nature is
+retained, but powers themselves slightly differ, in \(  \eta &lt;1 \) case <span class="article-cite-items">[<a class="article-cite-item" href="#Alaburda2011JDySES" title="M. Alaburda, B. Kaulakys. Simulation of bursting, rare and extreme events by nonlinear stochastic differential equations. Dynamics of Socio-Economic Systems 2: 175-182 (2011).">3</a>]</span>. Below, see <a href="#attachment_1881">Fig.
+2</a>, we have shown typical results obtained by using
+interactive applet provided at <a href="#applet">the end of this text</a>.</p>
+<div class="figure"><img alt="image" id="attachment_1881" src="https://rf.mokslasplius.lt/uploads/2011/bursts_stats.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Burst statistics observed in non-linear stochastic model. All scales are lg-lg. (a) S versus T, (b) τ , (c) T and (d) θ probability densities. Blue dots are numerically obtained results, while differently colored lines fit them with power law. Slope, power, of gray line is 1.99, green line -1.54, red line -1.56 and magenta line -1.45. Program parameters: η=2.5, λ=3, Δt=0.001, h=2.</span></span></div>
+<p>Eq. \eqref{sde} was derived while looking for stochastic model
+capable of reproducing empirical statistical properties of high
+frequency return <span class="article-cite-items">[<a class="article-cite-item" href="#Gontis2010Intech" title="V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. doi: 10.5772/9748.">1</a>]</span> (see <a href="https://rf.mokslasplius.lt/long-range-memory-stochastic-model-return/">the corresponding
+text on Physics of
+Risk</a>).
+Though this equation is simpler than final one, it is still able to
+reproduce power law distribution and long-range memory of return. Thus
+analysis of this equation in terms of burst statistics might provide
+useful insights for risk management.</p>
+<p>This presumptuous conclusion might be backed by empirical analysis. As
+solutions of Eq. \eqref{sde} have spectral density similar to the
+empirical spectral density, it is to be expected that empirical data
+should also have similar burst statistics. Indeed as you can see in
+<a href="#attachment_1884">Fig. 3</a> empirical data, we have analyzed 26 different
+stocks traded on New York Stock Change from January 2005 to March 2007,
+has similar burst statistics:</p>
+<ul>
+<li>In sub-figure <a href="#attachment_1884">(a)</a> we have presented burst size
+    versus burst duration plot. Different symbols correspond to
+    different stocks (we have used 9 randomly selected stocks). As you
+    can see symbols of all stocks lie in same region with little or no
+    difference in positioning visible. Empirical data in this figure was
+    fitted as power law, \(  S \propto T^{1.94}  \).</li>
+<li>In sub-figure <a href="#attachment_1884">(b)</a> we have plotted average,
+    averaged over 26 stocks, τ probability density function. Empirical
+    data once again can be fitted by power law, \(  p(\tau) \sim    \tau^{-1.47}  \).</li>
+<li>In sub-figure <a href="#attachment_1884">(c)</a> we have plotted average,
+    averaged over 26 stocks, T probability density function. Empirical
+    data once again can be fitted by power law, \(  p(T) \sim    T^{-1.46}  \).</li>
+<li>In sub-figure <a href="#attachment_1884">(d)</a> we have plotted average,
+    averaged over 26 stocks, θ probability density function. Empirical
+    data once again can be fitted by power law, \(  p(\theta) \sim    \theta^{-1.52}  \).</li>
+</ul>
+<div class="figure"><img alt="image" id="attachment_1884" src="https://rf.mokslasplius.lt/uploads/2011/bursts_empir.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Empirical burst statistics (h=1) of one minute absolute return time series, filtered by one hour moving average filter, of 26 varying stocks from New York Stock Exchange, traded from January 2005 to March 2007. (a) burst size versus burst duration of 9 randomly selected stocks, while (b), (c) and (d) are probability density plots. Empirical data was fitted by power laws with powers: (a) 1.94, (b) -1.47, (c) -1.46 ir (d) -1.52.</span></span></div>
+<p>We have obtained results presented in <a href="#attachment_1884">Fig. 3</a> by
+analyzing one minute absolute return time series. All analyzed time
+series were filtered using one hour moving average filter prior to
+analysis. We have set burst threshold value to 1, h=1.</p>
+<h2 id="applet">HTML5 applet</h2>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/financial-markets/grk-return-model/bursts.html" style="height: 515px; width: 520px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Gontis2010Intech">V. Gontis, J. Ruseckas, A. Kononovicius. A Non-linear Stochastic Model of Return in Financial Markets. In: Stochastic Control, ed. C. Myers. InTech, 2010. <a href="https://doi.org/10.5772/9748">doi: 10.5772/9748</a>.</li><li id="Kononovicius2012PhysA">A. Kononovicius, V. Gontis. Agent based reasoning for the non-linear stochastic models of long-range memory. Physica A 391: 1309-1314 (2012). <a href="https://doi.org/10.1016/j.physa.2011.08.061">doi: 10.1016/j.physa.2011.08.061</a>. <a href="https://arxiv.org/abs/1106.2685">arXiv: 1106.2685 [q-fin.ST]</a>.</li><li id="Alaburda2011JDySES">M. Alaburda, B. Kaulakys. Simulation of bursting, rare and extreme events by nonlinear stochastic differential equations. Dynamics of Socio-Economic Systems 2: 175-182 (2011).</li><li id="Kaulakys2009AIP">B. Kaulakys, M. Alaburda, V. Gontis. Modeling scaled processes and clustering of events by the nonlinear stochastic differential equations. AIP Conference Proceedings 1129: 13-16 (2009).</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/long-range-memory-stochastic-model-return/">Long-range memory stochastic model of return</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/big-review/">Big review of works by our group</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/february-and-march-active-time-for-econophysicists/">February and March active time for econophysicists</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/nonlinear-feedback-and-long-range-memory-in-garch-model/">Nonlinear feedback and long-range memory in GARCH model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

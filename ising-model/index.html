@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Ising model
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Ising model is a generalized mathematical model of feromagnetism in statistical physics. In this model particles having magnetic spin are put inside vertices of graph. In general case structure of graph can vary a lot, but in the usual case...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Ising model - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/ising-model/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2010/ising-model.png">
+            <meta property="og:description" content="Ising model is a generalized mathematical model of feromagnetism in statistical physics. In this model particles having magnetic spin are put inside vertices of graph. In general case structure of graph can vary a lot, but in the usual case...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Ising model</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> December 09, 2010</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+            <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+            <a href="/tag/magnetism/" data-toggle="tooltip" class="label label-default" title="#magnetism has 3 articles">#magnetism</a>
+
+
+            </div>
+        </header>
+        <p><em>Ising model</em> is a generalized mathematical model of
+feromagnetism in statistical physics. In this model particles having
+magnetic spin are put inside vertices of graph. In general case
+structure of graph can vary a lot, but in the usual case selection is
+limited to the lattices of different dimensions. Behavior of such system
+is observed at different temperature in the quest to find critical
+temperature at which phase shift occurs. If you want to familiarize
+yourself more with Ising model and its various interpretations, you
+should read <span class="article-cite-items">[<a class="article-cite-item" href="#Baxter1982Academic" title="R. J. Baxter. Exactly solved models in statistical mechanics. Academic Press Inc., Harcourt Brace Jovanovich Publishers, London, 1982.">1</a>, <a class="article-cite-item" href="#Sethna2009Clarendon" title="J. P. Sethna. Statistical Mechanics: Entropy, Order Parameters and Complexity. Clarendon Press, Oxford, 2009.">2</a>]</span> works,
+because in this text we will only consider one possible, numerical,
+algorithm - heat bath algorithm.  </p>
+
+<p>Note that this model is not only applicable towards common problems of
+Statistical Physics, but it also has many different interdisciplinary
+applications. It is true as one can put
+<a href="/tag/agent-based-models/">agents</a>, generalized
+objects imitating seemingly human behavior, into the vertices of the
+<a href="/tag/networks/">graph</a>. Thus one could
+analyze herding behavior in human inhabited systems (see for ex. <span class="article-cite-items">[<a class="article-cite-item" href="#Bornholdt2001IJMPC" title="S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).">3</a>, <a class="article-cite-item" href="#Kaizoji2002PhysA" title="T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).">4</a>, <a class="article-cite-item" href="#Yook2008JKPS" title="S. H. Yook, H. J. Kim, Y. Kim. Agent-based generalized spin model for financial markets on two-dimensional lattices. Journal of the Korean Physical Society 52: S150-S153 (2008).">5</a>]</span>).</p>
+<h2>About the model</h2>
+<p>Hamiltonian of system, whose every particle can interact with other
+particles and with the external magnetic field, can be expressed as</p>
+<p>\begin{equation}
+ \mathcal{H} = - \frac{1}{2} \sum\limits_{j \neq i=1}^{N}J_{i,j} \vec S_i \vec S_j - \vec H \sum\limits_{i=1}^{N} \vec S_i , 
+\end{equation}</p>
+<p>here \(  J_{i,j}  \) - strength of interaction between two
+particles, \(  \vec S_i \) - spin of the particle, \(  \vec H \) - external magnetic field.</p>
+<p>The above Hamiltonian is very general, thus it is simplified by making
+some assumptions. First it is required that spins of the
+particles can align themselves in parallel to the selected axis, thus
+\(  \vec S_i \) projection on to that axis, \(  s_i \), can
+only be equal to \(  \pm 1 \). If the requirement is fulfilled, then
+only the projection, \(  h \), of the external magnetic field,
+\(  \vec H \), has to be considered. Also note that strength of
+interaction between two particles should decrease with the increasing
+distance between them - thus in the simplest case one can assume that
+particle interacts only with it's immediate neighbors. In case of 2D
+lattice, structure we chose, particle has 4 immediate neighbors. Thus
+now we can rewrite Hamiltonian as</p>
+<p>\begin{equation}
+ \mathcal{H_{2D}} = - J \sum\limits_{x,y} s_{x,y} \left(s_{x+1,y} + s_{x,y+1} \right) - h \sum\limits_{x,y} s_{x,y} ,
+\end{equation}</p>
+<p>here \(  x  \) and \(  y  \) are coordinates on 2D lattice
+(summations in the above Hamiltonian is made over all possible \(  x \) and \(  y  \) values). In the original Ising model value of
+\(  J \) is fixed and equal to 1 - modeled matter is assumed to have
+feromagnetic properties below critical temperature and paramagnetic
+above. Thus we could drop \(  J \) from the above Hamiltonian, but it
+is kept as in the applet below we have also implemented opposite,
+antiferomagnetic (\(  J = -1 \)), case. Though antiferomagnetic case
+is not very interesting as phase shift is not observed.</p>
+<p>Temperature is introduced into the model by implementing heat bath. Each
+selected particle is connected to the heat bath. Afterward joint system
+is allowed to reach thermal equilibrium. Thus new state of the particle,
+direction of it's spin, is chosen based on Boltzmann distribution -
+probability to observe system state with energy \(  E \) is
+proportional to \(  \exp \left(- \frac{E}{k T} \right) \).</p>
+<h2>Phases and phase shift in Ising model</h2>
+<p>From the introduction of temperature in to the model it should be
+evident that model will behave differently at different temperatures -
+two different phases will be observed. Disorder will dominate in case of
+high temperature as particles will increase their own energy using
+thermal energy. While if temperature is low, thermal energy is also low,
+thus particles will not be able to increase their energy - particles
+will try to obtain minimal energy. In this orderly phase at first same
+spin domains will form and grow, while finally in the end one spin will
+dominate whole lattice. Most interesting behavior is observed at
+intermediate, critical, temperature - aforementioned two behaviors are
+balanced and forming orderly domains are continuously being destroyed by
+random spin flips. Below in <a href="#attachment_994">Fig. 1</a> we present
+typical lattice snapshots at different temperatures.</p>
+<div class="figure"><img alt="image" id="attachment_994" src="https://rf.mokslasplius.lt/uploads/2010/ising-model.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Three different phases of Ising model: paramagnetic, critical, feromagnetic.</span></span></div>
+<p>In order to numerically estimate critical temperature one must check a
+range of temperatures and observe how magnetization and system energy
+change. Below in <a href="#attachment_995">Fig. 2</a> we demonstrate how the
+aforementioned observables change with changing model parameter \( \frac{\Delta E}{k T} \) (\(  \frac{\Delta \mathcal{H}}{k T} =\frac{\Delta E}{k T} J \sum\limits_{\langle i , j \rangle} s_js_i  \)), which is actually inverse temperature measured as energy
+in terms of spin energy. As we see from the figure phase shift occurs in
+the interval \(  0.3 &lt; \left( \frac{\Delta E}{k T} \right)_c&lt; 0.5  \).</p>
+<div class="figure"><img alt="image" id="attachment_995" src="https://rf.mokslasplius.lt/uploads/2010/temperature-ising-metrapolis-2D.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">System absolute magnetization (a) and energy (b) reached after \( 10^7 \) spin flips with different model parameter \( \Delta E / kT \) values.</span></span></div>
+<p>Previously we assumed that there is no external magnetic field. But how
+would observed model behavior change if external magnetic field is
+present? The answer is given in h-1/T phase diagram below (see <a href="#attachment_1010">Fig.
+3</a>) - external magnetic field aligns most of the spins
+in one direction (same as the direction of magnetic field).</p>
+<div class="figure"><img alt="image" id="attachment_1010" src="https://rf.mokslasplius.lt/uploads/2010/magnetic-field-temperature-ising-phases.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">h-1/T phase diagram: in the red and blue areas one spin direction dominates (s=1 (red) or s=-1 (blue)) due to the external magnetic field, paramagnetism is observed near \( h=0 \) and \( T &gt; T_c \) (magenta area), feromagnetism is observed near \( h=0 \) and \( T &lt; T_c \) (area colored in red-blue stripes). Critical behavior area around h=0 and \( T=T_c \) (green area).</span></span></div>
+<h2>HTML5 Applet</h2>
+<p>In the applet below we present implementation of Ising model on 50x50
+2D square lattice. In the applet window you can see four figures -
+current spatial spin distribution graph, evolution of energy, entropy
+and magnetization. Single iteration corresponds to the one thousand
+attempts to change the spin of the random particle. After every
+iteration each figure is renewed. Numerical calculations are started by
+pressing button "Start" and can be stopped by pressing button "Stop".
+After stopping the calculations user can resume them or restart them
+from the beginning.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/physics-models/ising-model/index.html" style="height: 475px; width: 440px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Baxter1982Academic">R. J. Baxter. Exactly solved models in statistical mechanics. Academic Press Inc., Harcourt Brace Jovanovich Publishers, London, 1982.</li><li id="Sethna2009Clarendon">J. P. Sethna. Statistical Mechanics: Entropy, Order Parameters and Complexity. Clarendon Press, Oxford, 2009.</li><li id="Bornholdt2001IJMPC">S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).</li><li id="Kaizoji2002PhysA">T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).</li><li id="Yook2008JKPS">S. H. Yook, H. J. Kim, Y. Kim. Agent-based generalized spin model for financial markets on two-dimensional lattices. Journal of the Korean Physical Society 52: S150-S153 (2008).</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/kawasaki-ising-model/">Kawasaki Ising model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/spin-glass-model/">Spin glass model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/detrapping-rates-arising-from-fermi-dirac-statistics/">Detrapping rates arising from Fermi-Dirac statistics</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/fermi-dirac-statistics-with-single-conduction-level/">Fermi-Dirac statistics with single conduction level</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/fermi-dirac-statistics/">Fermi-Dirac statistics</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

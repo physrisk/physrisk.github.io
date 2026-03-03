@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    q-Voter model with non-conformers
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="One of the differences between how social scientists and sociophysicists view the modeling of social systems is the outlook towards independent behavior. Importance of individuality underlies many theories in social sciences, while physicists are...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="q-Voter model with non-conformers - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/q-voter-model-with-non-conformers/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2019/q-voter-model-with-non-conformers.png">
+            <meta property="og:description" content="One of the differences between how social scientists and sociophysicists view the modeling of social systems is the outlook towards independent behavior. Importance of individuality underlies many theories in social sciences, while physicists are...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>q-Voter model with non-conformers</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> April 16, 2019</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+            <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+            <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+            <a href="/tag/diamond-social-response-model/" data-toggle="tooltip" class="label label-default" title="#diamond social response model has 1 article">#diamond social response model</a>
+
+
+            </div>
+        </header>
+        <p>One of the differences between how social scientists and sociophysicists view
+the modeling of social systems is the outlook towards independent behavior.
+Importance of individuality underlies many theories in social sciences, while
+physicists are used to explain various emergent properties through interactions.
+Obviously both approaches are oversimplifications of objective reality. This
+time we consider another generalization of the
+<a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a> in which a group of
+physicists and social scientists attempted to bridge this gap.</p>
+<p><a href="https://rf.mokslasplius.lt/why-properties-of-individual-agents-may-be-ignored/">Two years ago</a>
+we have already explained that properties of individual agents in some cases do
+not matter, because they average out. This is obviously true if we build models
+from perspective of physics. But if we include intuitions from social sciences,
+then this "truth" might no longer be true. Thus in some cases minute details
+about individuality of agents can have interesting effects on the dynamics of
+the modeled social systems.</p>
+<p>So here we discuss a generalization of the <a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a>
+using so-called diamond model of social response <span class="article-cite-items">[<a class="article-cite-item" href="#Nail2016APPA" title="P. R. Nail, K. Sznajd-Weron. The Diamond Model of Social Response within an Agent-Based Approach. Acta Physica Polonica A 129: 1050-1054 (2016). doi: 10.12693/APhysPolA.129.1050.">1</a>]</span>. An
+interesting result reported in <span class="article-cite-items">[<a class="article-cite-item" href="#Nail2016APPA" title="P. R. Nail, K. Sznajd-Weron. The Diamond Model of Social Response within an Agent-Based Approach. Acta Physica Polonica A 129: 1050-1054 (2016). doi: 10.12693/APhysPolA.129.1050.">1</a>]</span> is that two different
+psycho-social approaches to non-conformative behavior generate somewhat different
+results when introduced into the <a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a>.</p>
+
+<h2>The diamond model for social responses</h2>
+<p>The core idea of the diamond model is that there are four possible responses
+to an external influence <span class="article-cite-items">[<a class="article-cite-item" href="#Willis1965" title="H. R. Willis. Conformity, Independence and Anticonformity. Human Relations 18: 373 (1965). doi: 10.1177/001872676501800406.">2</a>]</span>:</p>
+<ul>
+<li><strong>Conformity.</strong> After being exposed to an opposite opinion, agent changes his
+opinion to conform.</li>
+<li><strong>Independence.</strong> After being exposed to some opinion, agent ignores it and
+keeps his own.</li>
+<li><strong>Anti-conformity.</strong> After being exposed to some opinion, agent changes his
+opinion to disagree with it.</li>
+<li><strong>Variability.</strong> After being exposed to some opinion, agent changes his opinion
+regardless of the source.</li>
+</ul>
+<p>Conformative behavior is already present in numerous sociophysical models. What
+is missing from the most of them is details about non-conformative behavior.
+Usually these details are hand-waived and simple noise is used to reflect
+non-conforming behavior in agents. Yet as we can see there are three types
+of non-conformist behaviors.</p>
+<h2>Building the diamon model into the <a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a></h2>
+<p><span class="article-cite-items">[<a class="article-cite-item" href="#Nail2016APPA" title="P. R. Nail, K. Sznajd-Weron. The Diamond Model of Social Response within an Agent-Based Approach. Acta Physica Polonica A 129: 1050-1054 (2016). doi: 10.12693/APhysPolA.129.1050.">1</a>]</span> builds two different models based on the
+<a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a>. First one (A model)
+incorporates anti-conformist behavior, second one (I model) incorporates
+independence and variability (which are actually two sides of the same, random
+behavior, coin). In the article and its precursor articles (e.g., <span class="article-cite-items">[<a class="article-cite-item" href="#Nyzka2012PRE" title="P. Nyczka, K. Sznajd-Weron, J. Cislo. Phase transitions in the q-voter model with two types of stochastic driving. Physical Review E 86: 011105 (2012). doi: 10.1103/PhysRevE.86.011105.">3</a>]</span>)
+it is shown that these two models have different critical values.</p>
+<p>Before discussing the critical values let us provide an algorithms for each
+model. A model:</p>
+<ol>
+<li>Pick a random agent.</li>
+<li>With probability \( p_a \) agent is anti-conformist. He will disagree
+with his \( q \)-panel. Otherwise agent is conformist and will agree with
+his \( q \)-panel (as usual in the
+<a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a>).</li>
+<li>Select \( q \) neighbors of the selected agent. If all neighbors have
+the same opinion, the selected agent changes his opinion to either agree (if
+he is conformist) or disagree (if he is anti-conformist) with the selected
+\( q \)-panel.</li>
+</ol>
+<p>I model:</p>
+<ol>
+<li>Pick a random agent.</li>
+<li>With probability \( p_i \) agent is independent. His opinion will be
+flipped with probability \( 1/2 \). Otherwise agent is conformist and will
+agree with his \( q \)-panel (as usual in the
+<a href="https://rf.mokslasplius.lt/q-voter-model/">q-Voter model</a>).</li>
+<li>If the agent is conformist, then select \( q \) neighbors of his. If all
+neighbors have the same opinion, the selected agent changes his opinion to agree
+with the selected \( q \)-panel.</li>
+</ol>
+<p>Critical values, when the model is executed on the complete graph, are the following:
+for the A model
+\begin{equation}
+p^*_a=\frac{q -1}{2 q},
+\end{equation}
+and for the I model
+\begin{equation}
+p^*_i=\frac{q -1}{q -1 + 2^{q-1}}.
+\end{equation}</p>
+<p>If the probabilities are larger than the critical probabilities, then disordered
+(anti-ferromagnetic) phase should be observed in the dynamics of that model.
+Otherwise ordered (ferromagnetic) phase should be observed. Note that for \( q&gt;5 \)
+I model has a rather complicated behavior in the vicinity of critical
+probability. Namely, both phases appear to coexist.</p>
+<div class="figure"><img alt="Phase diagram" src="https://rf.mokslasplius.lt/uploads/2019/qaivoter-phase.png" title="Phase diagram"/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Phase diagram for the A model (red) and I model (green). Lines show the critical value dependence on q. Ordered phase area is shaded.</span></span></div>
+<h2>HTML 5 apps</h2>
+<p>Here we provide you a single app, which evaluates both models with the same
+non-conformity probability. Explore the difference in the dynamics of the models
+with larger values of \( q \) and intermediate probabilities. I model should
+be quick to enter disordered phase, while A model should enter this phase with
+a bit larger \( p_a \).</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/voter/qaivoter.html" style="height: 520px; width: 520px" scrolling="no" allow="fullscreen"></iframe>
+<p>You can also study the models separately using separate app for each of the
+models. <a href="https://rf.mokslasplius.lt/uploads/models/voter/qavoter.html">Click here to find the app for the A model</a>
+and <a href="https://rf.mokslasplius.lt/uploads/models/voter/qivoter.html">click here for the I model</a>.</p>
+<div class="side-note"><div class="figure float-right notouch"><img alt="esf logo" src="https://rf.mokslasplius.lt/uploads/special/esf.png"></div><p><strong>Acknowledgment.</strong> This post was written while reviewing literature relevant to the planned activities in postdoctoral fellowship ''Physical modeling of order-book and opinion dynamics'' (09.3.3-LMT-K-712-02-0026) project. The fellowship is funded by the European Social Fund under the No 09.3.3-LMT-K-712 ''Development of Competences of Scientists, other Researchers and Students through Practical Research Activities'' measure.</p></div><h2>References</h2><ul class="article-references"><li id="Nail2016APPA">P. R. Nail, K. Sznajd-Weron. The Diamond Model of Social Response within an Agent-Based Approach. Acta Physica Polonica A 129: 1050-1054 (2016). <a href="https://doi.org/10.12693/APhysPolA.129.1050">doi: 10.12693/APhysPolA.129.1050</a>.</li><li id="Willis1965">H. R. Willis. Conformity, Independence and Anticonformity. Human Relations 18: 373 (1965). <a href="https://doi.org/10.1177/001872676501800406">doi: 10.1177/001872676501800406</a>.</li><li id="Nyzka2012PRE">P. Nyczka, K. Sznajd-Weron, J. Cislo. Phase transitions in the q-voter model with two types of stochastic driving. Physical Review E 86: 011105 (2012). <a href="https://doi.org/10.1103/PhysRevE.86.011105">doi: 10.1103/PhysRevE.86.011105</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/partisan-voter-model-two-dimensional-grid/">Partisan voter model on a two dimensional grid</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/partisan-voter-model/">Partisan voter model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/stationary-distribution-of-the-noisy-voter-model-with-supportive-interactions/">Stationary distribution of the noisy voter model with supportive interactions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/supportive-interactions-voter-model-preventing-recruitment/">Supportive interactions in the noisy voter model preventing recruitment</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/supportive-interactions-voter-model/">Supportive interactions in the noisy voter model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

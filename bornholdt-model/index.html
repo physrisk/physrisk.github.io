@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Bornholdt&#39;s heterogeneous agent-based spin model for financial markets
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="Previously we have discussed ant colony model [1, 2] (see Kirman&#39;s agent based and stochastic model of ant colony), which is an interesting example of applying knowledge obtained from one field to another. Human (ex., trader in the financial...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Bornholdt&#39;s heterogeneous agent-based spin model for financial markets - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/bornholdt-model/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2011/bornholdt-model.png">
+            <meta property="og:description" content="Previously we have discussed ant colony model [1, 2] (see Kirman&#39;s agent based and stochastic model of ant colony), which is an interesting example of applying knowledge obtained from one field to another. Human (ex., trader in the financial...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Bornholdt's heterogeneous agent-based spin model for financial markets</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> May 05, 2011</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+            <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+            <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+            <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+
+
+            </div>
+        </header>
+        <p>Previously we have discussed ant colony model <span class="article-cite-items">[<a class="article-cite-item" href="#Kirman1993QJE" title="A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).">1</a>, <a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span> (see Kirman's <a href="https://rf.mokslasplius.lt/kirman-ants/">agent
+based</a>
+and
+<a href="https://rf.mokslasplius.lt/stochastic-ant-colony-model/">stochastic</a>
+model of ant colony), which is an interesting example of applying
+knowledge obtained from one field to another. Human (ex., trader in the
+financial markets) crowd behavior is ideologically quite similar to the
+behavior in ant colonies, thus the success and relevancy of the
+aforementioned model were to be expected. Though the key to success lies
+in the description of large number of entities.</p>
+<p>Interestingly enough one can also create, and thus provide additional
+backing for the argument above, a successful model for human crowd
+behavior using classical models of statistical physics as an
+inspiration. In this text we will discuss agent-based spin model of the
+financial markets proposed by Bornholdt <span class="article-cite-items">[<a class="article-cite-item" href="#Bornholdt2001IJMPC" title="S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).">3</a>, <a class="article-cite-item" href="#Kaizoji2002PhysA" title="T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).">4</a>]</span>, which is based on widely known <a href="https://rf.mokslasplius.lt/ising-model/">Ising
+model</a>.
+Despite the fact that Ising model models inanimate system, natural
+interactions are introduced by assuming two different types of
+interactions between the agents - local herding (local feromagnetic
+interaction) and global minority game (coupling with total magnetic
+field generated by whole lattice).</p>
+<p>Bornholdt's model is also interesting as recently there were some
+attempts to propose macro treatment of the original agent-based model
+<span class="article-cite-items">[<a class="article-cite-item" href="#Krause2011DPGVerh" title="S. M. Krause, S. Bornholdt. Spin models as microfoundation of macroscopic financial market models. 2011. arXiv: 1103.5345 [q-fin.PR].">5</a>]</span>. Previously similar thing was done with
+Kirman's model <span class="article-cite-items">[<a class="article-cite-item" href="#Alfarano2005CompEco" title="S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).">2</a>]</span>.</p>
+
+<h2>Bornholdt's modifications of Ising model</h2>
+<p>In <a href="https://rf.mokslasplius.lt/ising-model/">the previous
+text</a>
+on Ising model we have already mentioned that Ising model can be applied
+towards human crowd behavior modeling. One just have to imagine that
+each particle within the grid is agent representing some subject in the
+modeled system (ex., human). In such case the spin of particle can be
+interpreted as agent's decision or opinion towards some question. As in
+the financial markets agents choose to buy or to sell stock - we can use
+simplest case (with spins point either up or down) of Ising model when
+applying it towards the financial markets.</p>
+<p>The above analogy is very general, while Ising model has a lot of
+variations and interpretations, thus technical details about the actual
+models might differ by a lot. One of the most essential technical
+details is how agents make their decisions. In the Bornholdt's model
+agents are polled asynchronously using heat bath formalism. Meaning that
+randomly chosen particles are allowed to achieve thermal equilibrium
+while being in contact with a heat bath, whose temperature \(  T\sim \frac{1}{\beta}  \). Particle state, or alternatively agent
+decision, after polling statistically (Boltzmann distribution is used)
+depends on the energy of the state:</p>
+<p>\begin{equation}
+ p_{S_i(t+1) = 1} = \frac{1}{1+\exp(-2 \beta h_i(t))}\,,\quad p_{S_i(t+1) = -1} = 1-p_{S_i(t+1) = 1}\,,
+\end{equation}</p>
+<p>here \(  h_i(t) \) is local magnetic field acting on particle <em>i</em>.
+Note that the above probabilities were simplified by using the fact that
+possible \(  S_i(t+1) \) values are restricted to +1 and -1, and
+that \(  Z = \exp[-\beta h_i(t) S_i(t+1)]+\exp[\beta h_i(t) S_i(t+1)] \). Due to the first simplification it might appear
+that probabilities do not depend on the energy, the product of \( h_i(t) \) and \(  S_i(t) \), while it should be noted that formally
+dependence persists.</p>
+<p>Note that the time tick in the probabilities above is not the time tick
+used in applets figures. 6400 of spin flips (time ticks in the
+probabilities above) correspond to the single time tick in applet
+figures. Number 6400 is selected due to the number of agents in the grid
+(80x80).</p>
+<p>In the simplest case of Ising model local magnetic field is created by
+the neighboring particles and the external magnetic field. In
+Bornholdt's model interaction with the neighboring particles is
+retained, but there is no external magnetic field. Instead particles
+interact with global magnetic field, which is created by all particles
+inside the grid. Thus in Bornholdt's model local magnetic field is be
+expressed as:</p>
+<p>\begin{equation}
+ h_i(t) = \sum\limits_{j=1}^N J_{ij} S_j(t) - \alpha C_i(t) \frac{1}{N} \sum\limits_{j=1}^N S_j(t) ,
+\end{equation}</p>
+<p>here \(  N \) is a number of particles in the grid, \(  J_{ij} \) - strength of local interaction between two particles (\( J_{ij} = 1  \) if particles <em>i</em> and <em>j</em> are neighbors, o otherwise
+constant equals zero), \(  \alpha \) - strength of global
+interaction, \(  C_i(t) \) defines if global interaction is
+antiferromagnetic, \(  C_i(t) = 1 \), or ferromagnetic, \( C_i(t) = -1 \). These modifications and heterogeneity of agents, \( C_i(t) \), are required in order to introduce two mechanics - minority
+game and herding instinct - very common in agent-based model of the
+financial markets <span class="article-cite-items">[<a class="article-cite-item" href="#Cristelli2012Fermi" title="M. Cristelli, L. Pietronero, A. Zaccaria. Critical Overview of Agent-Based Models for Economics. Proceedings of the School of Physics 'E. Fermi', Course CLXXVI, ed. F. Mallnace, H. E. Stanley, pp. 235-282. SIF-IOS, Bologna-Amsterdam, 2012. doi: 10.3254/978-1-61499-071-0-235.">6</a>]</span>. Transition of
+\(  C_i(t) \) are defined according:</p>
+<p>\begin{equation}
+ C_i(t+1) = -C_i(t) , \quad \text{if} \quad \alpha C_i(t)S_i(t) \frac{1}{N} \sum\limits_{j=1}^N S_j(t) &lt; 0 . 
+\end{equation}</p>
+<p>Briefly (for detailed explanation see <span class="article-cite-items">[<a class="article-cite-item" href="#Bornholdt2001IJMPC" title="S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).">3</a>]</span>)
+the above scenario can be summarized as: agents in minority might panic
+and start to imitate majority (due to herding instinct), while agents in
+majority might see a possibility of making profit if they would join
+minority (one might draw analogy with the minority game). Thus one can
+simplify the expression of local magnetic field to</p>
+<p>\begin{equation}
+ h_i(t) = \sum\limits_{j=1}^N J_{ij} S_j(t) - \alpha\left| M(t) \right|,
+\end{equation}</p>
+<p>here \(  M(t) \) is average particle magnetization. In <span class="article-cite-items">[<a class="article-cite-item" href="#Kaizoji2002PhysA" title="T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).">4</a>]</span> it is assumed that this scenario describes
+behavior of chartist traders - those who optimistically or
+pessimistically follow global trends. While there is also a third kind
+of agents who are placed outside the grid.</p>
+<p>Fundamentalists are assumed to be those agents outside the grid. They
+tend to become more active then the difference between fundamental value
+(which can be seen as "true" value) and actual price (which can be seen
+as "perceived" value) becomes large. As they expect that market will
+stabilize - price will move towards fundamental value. Thus
+fundamentalists sell if the price is larger than fundamental value
+(stock is overrated) and buy if the price is smaller (stock is
+underrated). Therefore they limit chartists' speculations and disallow
+large enormous deviations of price from the fundamental value (which can
+be seen as speculative bubbles).</p>
+<h2>Introducing price and volume</h2>
+<p>If there are \(  m \) fundamentalists in the market and their
+influence equals \(  a \), then this group creates excess demand,
+which equals:</p>
+<p>\begin{equation}
+ ED_f (t)= a m \ln \frac{P_f(t)}{P(t)} . 
+\end{equation}</p>
+<p>Evidently chartist excess demands is dependent on magnetization of the
+grid:</p>
+<p>\begin{equation}
+ ED_c (t) = b N M(t) , 
+\end{equation}</p>
+<p>here \(  b \) is chartist influence on the market.</p>
+<p>By assuming that trades occur through the market maker, who sets correct
+prices by balancing demands (original Walras scenario), one can
+obtain</p>
+<p>\begin{equation}
+ ED_f (t) + ED_c (t) = a m \ln \frac{P_f(t)}{P(t)} + b NM(t) = 0. 
+\end{equation}</p>
+<p>From the above expression one can defined log-price of the stock:</p>
+<p>\begin{equation}
+ \ln P(t) = \ln P_f(t) + \frac{b N}{a m} M(t) . 
+\end{equation}</p>
+<p>And in such case return:</p>
+<p>\begin{equation}
+ r(t, \Delta t) = \ln P(t) - \ln P(t-\Delta t) = \sigma\sqrt{\Delta t} \xi(t) + \frac{b N}{a m} \left[M(t) - M(t-\Delta t) \right] , 
+\end{equation}</p>
+<p>here \(  \sigma \) is variability of fundamental value and \( \xi(t) \) is Gaussian random variable (unit variance, zero mean). If
+\(  \sigma \) is small, then one will observe typical statistical
+properties of return - power law distribution of returns and
+clustering of volatility. Otherwise dynamics of the market will be
+overwhelmed by the changes of fundamental value - market will act
+according to the efficient market hypothesis (one will observe Gaussian
+distribution and White noise spectral density).</p>
+<p>Under the assumption of market maker clearing the market one can also
+obtain expression of market volume. Note that if grid is not magnetized
+then price equals fundamental price, thus fundamentalists do not
+generate any demand. Though chartists also generate no excess demand in
+such case, yet both chartist groups generate their demands (as they are
+equal excess demand remains equal to zero). From Walras scenario
+follows that if magnetization is non-zero fundamentalists are forced by
+the market maker to make deals with the chartists, who were unable to
+make trades with other chartists. Therefore total amount of trade equals
+number of chartists in the majority group - some of them make trades
+with minority chartists, some trade with fundamentalists. By putting the
+above words into math one can express volume <span class="article-cite-items">[<a class="article-cite-item" href="#Kaizoji2002PhysA" title="T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).">4</a>]</span>,</p>
+<p>\begin{equation}
+ v(t) = \frac{V(t)}{N} = b \frac{1 + \left| M(t) \right|}{2}. 
+\end{equation}</p>
+<h2>Model results</h2>
+<div class="figure"><img alt="image" id="attachment_1342" src="https://rf.mokslasplius.lt/uploads/2011/bornholdt-model.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Phases observed in Bornholdt model: calmness (left figure), chaotic frustration (right figure). Note that Bornholdt model doesn't reach stable state - shown phases interchange during whole model evolution.</span></span></div>
+<div class="figure"><img alt="image" id="attachment_1341" src="https://rf.mokslasplius.lt/uploads/2011/bornholdt_price.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Evolution of log-price (red curve) and fundamental log-price (blue curve). Note that price fluctuations are by far stronger than fluctuations of fundamental price. Financial bubbles occur and end without major change in fundamental price.</span></span></div>
+<div class="figure"><img alt="image" id="attachment_1343" src="https://rf.mokslasplius.lt/uploads/2011/bornholdt_stats.png" title="image"/> <span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Statistical properties, probability density function ((a) and (c)) and spectral density ((b) and (d)), of normalized return (red curve) and changes of fundamental price (blue curve) observed in Bornholdt model. Figures (a) and (b) were obtained with small σ values, while (c) and (d) were obtained with significantly larger σ values. All figures use lg-lg scales. Note the (lack of) differences between statistical properties of return and changes of fundamental price.</span></span></div>
+<h2>HTML5 applet</h2>
+<p>The applet below models financial market using Bornholdt model, which
+was discussed above. Thus meaning of the parameters should be evident
+from previous discussion.</p>
+<iframe class="html5-embed html5-embed-iframe" src="https://rf.mokslasplius.lt/uploads/models/financial-markets/bornholdt-model/index.html" style="height: 570px; width: 500px" scrolling="no" allow="fullscreen"></iframe><h2>References</h2><ul class="article-references"><li id="Kirman1993QJE">A. P. Kirman. Ants, rationality and recruitment. Quarterly Journal of Economics 108: 137-156 (1993).</li><li id="Alfarano2005CompEco">S. Alfarano, T. Lux, F. Wagner. Estimation of Agent-Based Models: The Case of an Asymmetric Herding Model. Computational Economics 26: 19-49 (2005).</li><li id="Bornholdt2001IJMPC">S. Bornholdt. Expectation bubbles in a spin model of markets: Intermittency from frustration across scales. International Journal of Modern Physics C 12: 667-674 (2001).</li><li id="Kaizoji2002PhysA">T. Kaizoji, S. Bornholdt, Y. Fujiwara. Dynamics of price and trading volume in a spin model of stock markets with heterogeneous agents. Physica A 316: 441-452 (2002).</li><li id="Krause2011DPGVerh">S. M. Krause, S. Bornholdt. Spin models as microfoundation of macroscopic financial market models. 2011. <a href="https://arxiv.org/abs/1103.5345">arXiv: 1103.5345 [q-fin.PR]</a>.</li><li id="Cristelli2012Fermi">M. Cristelli, L. Pietronero, A. Zaccaria. Critical Overview of Agent-Based Models for Economics. Proceedings of the School of Physics 'E. Fermi', Course CLXXVI, ed. F. Mallnace, H. E. Stanley, pp. 235-282. SIF-IOS, Bologna-Amsterdam, 2012. <a href="https://doi.org/10.3254/978-1-61499-071-0-235">doi: 10.3254/978-1-61499-071-0-235</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/order-book-model-herd-behavior/">Order book model with herd behavior</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/granularity-order-book-model/">Granularity order book model</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/three-group-kirman-agent-based-model-for-financial-markets/">Three group Kirman's agent-based model for financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/agent-based-herding-model-financial-markets/">Agent-based herding model of financial markets</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/compartmental-voter-model/">Compartmental voter model</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 203 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 172 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 84 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 80 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 69 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 50 articles">#financial markets</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 48 articles">#voter model</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 36 articles">#power-law distributions</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 30 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 28 articles">#Kirman model</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 21 articles">#students</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 11 articles">#paradox</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+                <a href="/tag/topic-arfima/" data-toggle="tooltip" class="label label-default" title="#topic: ARFIMA has 10 articles">#topic: ARFIMA</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
