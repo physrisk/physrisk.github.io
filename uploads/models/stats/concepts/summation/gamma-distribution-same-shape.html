@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Addition of Gamma-distributed rvs (same scale, different shape)</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <style>
+        .rowLabel{font-weight:bold}
+        #simRow{color:#c11}
+        #theoryRow{color:#222}
+        .controlBlock:has(> #theta_1){margin-left:85px}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="mainPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span id="simRow" class="controlBlock rowLabel">Simulation:</span>
+        <span class="controlBlock">
+            <label for="alpha">&alpha; = </label>
+            <input id="alpha" type="number" min="0.05" max="20" step="0.05" value="2">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label for="theta_1">&theta;<sub>1</sub> = </label>
+            <input id="theta_1" type="number" min="0.05" max="20" step="0.05" value="0.5">
+        </span>
+        <span class="controlBlock">
+            <label for="theta_2">&theta;<sub>2</sub> = </label>
+            <input id="theta_2" type="number" min="0.05" max="20" step="0.05" value="1">
+        </span>
+        <span class="controlBlock">
+            <label for="theta_3">&theta;<sub>3</sub> = </label>
+            <input id="theta_3" type="number" min="0.05" max="20" step="0.05" value="1.5">
+        </span>
+        <br>
+        <span id="theoryRow" class="controlBlock rowLabel">Theory:</span>
+        <span class="controlBlock">
+            <label for="theory_alpha">&alpha; = </label>
+            <input id="theory_alpha" type="number" min="0.01" step="0.01" value="2">
+        </span>
+        <span class="controlBlock">
+            <label for="theory_theta">&theta; = </label>
+            <input id="theory_theta" type="number" min="0.01" step="0.01" value="1">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./gamma-distribution-same-shape.js"></script>
+</body>
+</html>
