@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Waiting time distribution</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <script src="../../../shared-libs/random-026.min.js"></script>
+    <style type="text/css">
+        #distribution_type {
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="distributionPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label for="waited_time">T = </label>
+            <input id="waited_time" type="number" min="1" max="60" step="1" value="5">
+            <label> [minutes]</label>
+        </span>
+        <span class="controlBlock">
+            <label for="avg_interarrival">&LeftAngleBracket;&tau;&RightAngleBracket; = </label>
+            <input id="avg_interarrival" type="number" min="1" max="60" step="1" value="15">
+            <label> [minutes]</label>
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label for="distribution_type">Interarrival time distribution:</label>
+            <select id="distribution_type">
+                <option value="0" selected>Exponential</option>
+                <option value="1">Normal</option>
+                <option value="2">Uniform</option>
+            </select>
+        </span>
+        <br/>
+        <span class="controlBlock">
+            <button name="start" id="start">Start</button>
+        </span>
+        <span class="controlBlock">
+            <button name="resume" id="resume">Resume</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>
