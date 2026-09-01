@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Binomial approximation to Hypergeometric distribution</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <style>
+    .success-label{color:red;font-weight:600}
+    .failure-label{color:blue;font-weight:600}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="pdfPlot" class="fullSize"></div>
+        <canvas id="outcomePlot" width="500" height="140"></canvas>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label for="n_successes" class="success-label">M = </label>
+            <input id="n_successes" type="number" min="1" step="1" value="50">
+        </span>
+        <span class="controlBlock">
+            <label for="n_failures" class="failure-label">N-M = </label>
+            <input id="n_failures" type="number" min="1" step="1" value="50">
+        </span>
+        <span class="controlBlock">
+            <label for="n_experiments">n = </label>
+            <input id="n_experiments" type="number" min="2" step="1" value="5">
+        </span>
+        <br>
+        <span class="controlBlock"><button name="start" id="start">Start</button></span>
+        <span class="controlBlock"><button name="continue" id="continue">Continue</button></span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./binomial-approximation.js"></script>
+</body>
+</html>

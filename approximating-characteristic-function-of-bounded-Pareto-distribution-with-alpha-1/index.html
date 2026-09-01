@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>    Approximating characteristic function of bounded Pareto distribution with α=1
+ &ndash; Physics of Risk</title>
+        <meta name="author" content="Physics of Risk">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/theme/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/theme/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/theme/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/theme/favicon/site.webmanifest">
+        <link rel="mask-icon" href="/theme/favicon/safari-pinned-tab.svg" color="#770033">
+        <link rel="shortcut icon" href="/theme/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Physics of Risk">
+        <meta name="application-name" content="Physics of Risk">
+        <meta name="msapplication-TileColor" content="#770033">
+        <meta name="msapplication-config" content="/theme/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#770033">
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css2?family=Roboto+Condensed:wght@700&family=Open+Sans" crossorigin="anonymous">
+
+            <link href="https://rf.mokslasplius.lt/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Physics of Risk - All posts - RSS Feed">
+
+            <meta name="description" content="During the summer, I received an email from a researcher at university abroad inquiring about how we (myself and my senior colleague, prof. B. Kaulakys) derived the approximation for the characteristic function of bounded Pareto distribution (for...">
+        <meta property="og:site_name" content="Physics of Risk" >
+        <meta property="og:type" content="article">
+    
+            <meta property="og:title" content="Approximating characteristic function of bounded Pareto distribution with α=1 - Physics of Risk">
+            <meta property="og:url" content="https://rf.mokslasplius.lt/approximating-characteristic-function-of-bounded-Pareto-distribution-with-alpha-1/">
+            <meta property="og:image" content="https://rf.mokslasplius.lt/uploads/2026/approximating-characteristic-function-of-bounded-Pareto-distribution-with-alpha-1.png">
+            <meta property="og:description" content="During the summer, I received an email from a researcher at university abroad inquiring about how we (myself and my senior colleague, prof. B. Kaulakys) derived the approximation for the characteristic function of bounded Pareto distribution (for...">
+
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://rf.mokslasplius.lt"><img src="https://rf.mokslasplius.lt/theme/img/phys-risk-light.svg" alt="Physics of Risk logo"> Physics of Risk</a>
+                    </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+<li ><a href="https://rf.mokslasplius.lt/about/">About</a></li>
+<li ><a href="https://rf.mokslasplius.lt/students/">Students</a></li>
+                        </ul>
+
+                        <form class="navbar-form navbar-right" role="search" action="https://google.com/search" onsubmit="doSearch();">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="searchInput" name="q" class="form-control search-query" placeholder="Search using Google" required>
+                                    <span class="input-group-btn"><button class="btn btn-default" type="submit" aria-label="Search"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="main col-md-9 article" role="main">
+                    <div class="panel panel-default">
+                        <div class="panel-body ">
+    <article>
+        <header>
+            <h1>Approximating characteristic function of bounded Pareto distribution with α=1</h1>
+            <div class="post-meta">
+                    <span class="label-calendar"><span class="glyphicon glyphicon-calendar"></span> September 08, 2026</span>
+                    <a href="/author/aleksejus-kononovicius/" class="author-label label label-default" title="View articles written by this author"><span class="glyphicon glyphicon-user"></span> Aleksejus Kononovicius</a>
+
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 93 articles">#statistics</a>
+            <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 42 articles">#power-law distributions</a>
+            <a href="/tag/b-kaulakys/" data-toggle="tooltip" class="label label-default" title="#B. Kaulakys has 7 articles">#B. Kaulakys</a>
+            <a href="/tag/python/" data-toggle="tooltip" class="label label-default" title="#Python has 7 articles">#Python</a>
+
+
+            </div>
+        </header>
+        <p>During the summer, I received an email from a researcher at university
+abroad inquiring about how we (myself and my senior colleague, <a href="/tag/b-kaulakys/">prof. B.
+Kaulakys</a>) derived the approximation for the
+characteristic function of bounded Pareto distribution (for the particular
+case with \( \alpha = 1 \)). The approximation was given in <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2023rtn" title="A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). doi: 10.1103/PhysRevE.107.034117. arXiv:2210.11792 [cond-mat.stat-mech].">1</a>]</span>, but derivation turned out to be somewhat more
+involved than I remembered. Originally, I derived it with the help of
+Wolfram Engine, while my colleague consulted various mathematical formula
+compendiums. Unfortunately, I was unable to find any notes containing the
+derivation. So I have attempted to reconstruct a combined approach from
+scratch. You'll find the derivation below.</p>
+<!--more-->
+<h2>Exact characteristic function</h2>
+<p>Let us consider a characteristic function of bounded Pareto distribution
+with \( \alpha=1 \). With \(
+\tau_{\text{min}}\leq\tau\leq\tau_{\text{max}} \), the probability
+density function of the considered distribution is given by</p>
+<p>\begin{equation}
+p\left(\tau\right)=\frac{\tau_{\text{min}}\tau_{\text{max}}}{\tau_{\text{max}}-\tau_{\text{min}}}\cdot\frac{1}{\tau^{2}}.
+\end{equation}</p>
+<p>Using the definition, characteristic function is given by</p>
+<p>\begin{equation}
+\chi\left(f\right)=\frac{\tau_{\text{min}}\tau_{\text{max}}}{\tau_{\text{max}}-\tau_{\text{min}}}\int^{\tau_{\text{max}}}_{\tau_{\text{min}}}\frac{e^{2\pi\mathrm{i}f\tau}}{\tau^{2}}d\tau.
+\end{equation}</p>
+<p>Alternatively, using \( \mathrm{Ei} \left(\ldots\right) \) special
+function (see
+<a href="https://en.wikipedia.org/wiki/Exponential_integral">Wikipedia</a>), we can
+rewrite it as follows</p>
+<p>\begin{equation}
+\chi\left(f \right)=\frac{\tau_{\text{min}}\tau_{\text{max}}}{\tau_{\text{max}}-\tau_{\text{min}}}\left[2\pi\mathrm{i}f\left\{ \mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{max}}\right)-\mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{min}}\right)\right\} -\frac{e^{2\pi\mathrm{i}f\tau_{\text{max}}}}{\tau_{\text{max}}}+\frac{e^{2\pi\mathrm{i}f\tau_{\text{min}}}}{\tau_{\text{min}}}\right].\label{eq:char-advanced}
+\end{equation}</p>
+<p><a href="https://en.wikipedia.org/wiki/Exponential_integral">Exponential integral</a>
+are still integrals under the hood, and thus using the exact formula is
+somewhat problematic. Furthermore, in <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2023rtn" title="A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). doi: 10.1103/PhysRevE.107.034117. arXiv:2210.11792 [cond-mat.stat-mech].">1</a>]</span> we
+primarily care about approximate behavior of the characteristic function for
+small \( f \). We would also prefer to have something simple to plugin
+into other, more complicated, expressions.</p>
+<h2>Side note: Deriving \eqref{eq:char-advanced}</h2>
+<p>First, let us calculate the following derivative</p>
+<p>\begin{equation}
+\frac{d}{dx}\left(\frac{e^{ax}}{x}\right)=\frac{ae^{ax}}{x}-\frac{e^{ax}}{x^{2}}.
+\end{equation}</p>
+<p>Rearranging the above leads to,</p>
+<p>\begin{equation}
+\frac{e^{ax}}{x^{2}}=\frac{ae^{ax}}{x}-\frac{d}{dx}\left(\frac{e^{ax}}{x}\right).
+\end{equation}</p>
+<p>Let us make an observation that the derivative of an <a href="https://en.wikipedia.org/wiki/Exponential_integral">exponential
+integral</a> is given by</p>
+<p>\begin{equation}
+\frac{d}{dx}\mathrm{Ei}\left(ax\right)=\frac{e^{ax}}{x}.
+\end{equation}</p>
+<p>Thus, we have that</p>
+<p>\begin{equation}
+\frac{e^{ax}}{x^{2}}=a\frac{d}{dx}\mathrm{Ei}\left(ax\right)-\frac{d}{dx}\left(\frac{e^{ax}}{x}\right).
+\end{equation}</p>
+<p>We are interested in antiderivative of the above, which is simply</p>
+<p>\begin{equation}
+\int\frac{e^{ax}}{x^{2}}dx=a\mathrm{Ei}\left(ax\right)-\frac{e^{ax}}{x}+\mathcal{C}.
+\end{equation}</p>
+<p>To finally obtain \eqref{eq:char-advanced}, we just need to use this result
+to obtain the definite integral.</p>
+<h2>Approximating the exact expression</h2>
+<p>Let us continue with \eqref{eq:char-advanced}. If we assume that \(
+\frac{1}{\tau_{\text{max}}}\ll f \) (or alternatively \(
+f\tau_{\text{max}}\gg 1 \)), we could do the following
+approximation</p>
+<p>\begin{equation}
+\mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{max}}\right)\approx\mathrm{i}\pi.
+\end{equation}</p>
+<p>Assuming that \( \tau_{\text{min}}\ll\tau_{\text{max}} \) yields</p>
+<p>\begin{equation}
+\frac{\tau_{\text{min}}\tau_{\text{max}}}{\tau_{\text{max}}-\tau_{\text{min}}}\approx\frac{\tau_{\text{min}}\tau_{\text{max}}}{\tau_{\text{max}}}=\tau_{\text{min}}.
+\end{equation}</p>
+<p>Also, we would have that \(
+\left|\frac{e^{2\pi\mathrm{i}f\tau_{\text{max}}}}{\tau_{\text{max}}}\right|\ll\left|\frac{e^{2\pi\mathrm{i}f\tau_{\text{min}}}}{\tau_{\text{min}}}\right|
+\), and thus</p>
+<p>\begin{equation}
+-\frac{e^{2\pi\mathrm{i}f\tau_{\text{max}}}}{\tau_{\text{max}}}+\frac{e^{2\pi\mathrm{i}f\tau_{\text{min}}}}{\tau_{\text{min}}}\approx\frac{e^{2\pi\mathrm{i}f\tau_{\text{min}}}}{\tau_{\text{min}}}.
+\end{equation}</p>
+<p>At this point we have,</p>
+<p>$$\begin{align}
+\chi\left(f\right) &amp; \approx\tau_{\text{min}}\left[2\pi\mathrm{i}f\left\{ \mathrm{i}\pi-\mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{min}}\right)\right\} +\frac{e^{2\pi\mathrm{i}f\tau_{\text{min}}}}{\tau_{\text{min}}}\right] = \nonumber\\
+    &amp; =-2\pi^{2}f\tau_{\text{min}}-2\pi\mathrm{i}f\tau_{\text{min}}\mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{min}}\right)+e^{2\pi\mathrm{i}f\tau_{\text{min}}}.
+\end{align}$$</p>
+<p>Let us proceed by taking Taylor series for small \( f \),</p>
+<p>$$\begin{align}
+e^{2\pi\mathrm{i}f\tau_{\text{min}}} &amp; \approx1+2\pi\mathrm{i}f\tau_{\text{min}}+\ldots,\\
+2\pi\mathrm{i}f\tau_{\text{min}}\mathrm{Ei}\left(2\pi\mathrm{i}f\tau_{\text{min}}\right) &amp; \approx-\pi^{2}f\tau_{\text{min}}+2\pi\mathrm{i}f\tau_{\text{min}}\left[C_{\gamma}+\ln\left(2\pi f\tau_{\text{min}}\right)\right]+\ldots.
+\end{align}$$</p>
+<p>Then,</p>
+<p>$$ \begin{align}
+\chi\left(f\right) &amp; \approx-2\pi^{2}f\tau_{\text{min}}-\left\{ -\pi^{2}f\tau_{\text{min}}+2\pi\mathrm{i}f\tau_{\text{min}}\left[C_{\gamma}+\ln\left(2\pi f\tau_{\text{min}}\right)\right]\right\} +\left[1+2\pi\mathrm{i}f\tau_{\text{min}}\right]=\nonumber \\
+ &amp; =1-\pi^{2}f\tau_{\text{min}}+\left[1-C_{\gamma}-\ln\left(2\pi f\tau_{\text{min}}\right)\right]\cdot\left(2\pi\mathrm{i}f\tau_{\text{min}}\right).
+\end{align}$$</p>
+<p>Which is exactly Eq. (28) from <span class="article-cite-items">[<a class="article-cite-item" href="#Kononovicius2023rtn" title="A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). doi: 10.1103/PhysRevE.107.034117. arXiv:2210.11792 [cond-mat.stat-mech].">1</a>]</span>.</p>
+<h2>How good the approximation is?</h2>
+<p>As usual, I would like to provide you with an
+<a href="/tag/interactive/">interactive</a> app so you could compare exact and
+approximate expressions on your own. But, it seems it is rather complicated
+to evaluate \eqref{eq:char-advanced} using JavaScript (as I would need to
+implement some advanced numerical integration method to evaluate \(
+\mathrm{Ei} \left(\ldots\right) \)).</p>
+<p>Thus, I have generated few static images (these use \( \tau_\text{min} =
+10^{-3} \) and \( \tau_\text{max} = 10^3 \) parameter values) using
+<a href="/tag/python/">Python</a>. Below you can see three figures which compare the
+absolute value, the real and the imaginary part of the exact expression
+(black curve) and the approximate expression (red curve).</p>
+<div class="figure"><img alt="Absolute value
+comparison" src="https://rf.mokslasplius.lt/uploads/2026/approximating-characteristic-function-of-bounded-Pareto-distribution-with-alpha-1.png" title="Absolute value
+comparison"/><span class="caption"><span class="caption-prefix">Fig. 1:</span><span class="caption-text">Comparing the absolute value of the exact expression (black curve) and the approximate expression (red curve).</span></span></div>
+<div class="figure"><img alt="Real part
+comparison" src="https://rf.mokslasplius.lt/uploads/2026/approximating-characteristic-function-of-bounded-Pareto-distribution-with-alpha-1-real.png" title="Real part
+comparison"/><span class="caption"><span class="caption-prefix">Fig. 2:</span><span class="caption-text">Comparing the real part of the exact expression (black curve) and the approximate expression (red curve).</span></span></div>
+<div class="figure"><img alt="Imaginary part
+comparison" src="https://rf.mokslasplius.lt/uploads/2026/approximating-characteristic-function-of-bounded-Pareto-distribution-with-alpha-1-imag.png" title="Imaginary part
+comparison"/><span class="caption"><span class="caption-prefix">Fig. 3:</span><span class="caption-text">Comparing the imaginary part of the exact expression (black curve) and the approximate expression (red curve).</span></span></div>
+<p>If you want to generate your own comparisons, you can reuse my
+<a href="/tag/python/">Python</a> code (which relies on <code>mpmath</code> library, but you could
+also reimplement the code using <code>scipy.special</code>). The figures above were
+generated by executing the <a href="/tag/python/">Python</a> code given below.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpmath</span><span class="w"> </span><span class="kn">import</span> <span class="n">ei</span><span class="p">,</span> <span class="n">euler</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">fabs</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">re</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">exact</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">t_min</span> <span class="o">*</span> <span class="n">t_max</span> <span class="o">/</span> <span class="p">(</span><span class="n">t_max</span> <span class="o">-</span> <span class="n">t_min</span><span class="p">)</span>
+    <span class="n">exp_max</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_max</span><span class="p">)</span> <span class="o">/</span> <span class="n">t_max</span>
+    <span class="n">exp_min</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_min</span><span class="p">)</span> <span class="o">/</span> <span class="n">t_min</span>
+    <span class="n">ei_max</span> <span class="o">=</span> <span class="n">ei</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_max</span><span class="p">)</span>
+    <span class="n">ei_min</span> <span class="o">=</span> <span class="n">ei</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_min</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">norm</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="n">ei_max</span> <span class="o">-</span> <span class="n">ei_min</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp_max</span> <span class="o">+</span> <span class="n">exp_min</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">approx</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="mi">1</span>
+        <span class="o">-</span> <span class="p">(</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_min</span>
+        <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">euler</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_min</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t_min</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="n">t_min</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">t_max</span> <span class="o">=</span> <span class="mf">1e3</span>
+
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">t_min</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">t_max</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">exact</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">])</span>
+<span class="n">y_approx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">approx</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">])</span>
+
+<span class="n">y_vals_im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">im</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_vals</span><span class="p">])</span>
+<span class="n">y_vals_re</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">re</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_vals</span><span class="p">])</span>
+<span class="n">y_vals_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fabs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_vals</span><span class="p">])</span>
+
+<span class="n">y_approx_im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">im</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_approx</span><span class="p">])</span>
+<span class="n">y_approx_re</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">re</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_approx</span><span class="p">])</span>
+<span class="n">y_approx_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fabs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_approx</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"$f$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"$\left|\chi(f)\right|$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals_abs</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_approx_abs</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"$f$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"$\mathrm</span><span class="si">{Re}</span><span class="s2">[\chi(f)]$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals_re</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_approx_re</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"$f$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"$\mathrm</span><span class="si">{Im}</span><span class="s2">[\chi(f)]$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals_im</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_approx_im</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><h2>References</h2><ul class="article-references"><li id="Kononovicius2023rtn">A. Kononovicius, B. Kaulakys. 1/f noise from the sequence of nonoverlapping rectangular pulses. Physical Review E 107: 034117 (2023). <a href="https://doi.org/10.1103/PhysRevE.107.034117">doi: 10.1103/PhysRevE.107.034117</a>. <a href="https://arxiv.org/abs/2210.11792">arXiv:2210.11792 [cond-mat.stat-mech]</a>.</li></ul>
+
+            <aside>
+                <h2>Related content</h2>
+                <ul>
+                    <li><a href="https://rf.mokslasplius.lt/beta-prime-distribution-from-gamma-distributed-random-values/">Beta prime distribution from Gamma-distributed random values</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/beta-prime-distribution/">Beta prime distribution</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/the-defining-property-of-stable-distributions/">The defining property of stable distributions</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/a-chadha-cauchy-101/">A. Chadha: Cauchy 101</a></li>
+                    <li><a href="https://rf.mokslasplius.lt/what-happens-if-you-sum-cauchy-random-variates/">What happens if you sum Cauchy random variates?</a></li>
+                </ul>
+            </aside>
+    </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                            <div class="sidebar-widget info-widget panel panel-default">
+            <div class="panel-body">
+                <div><img class="logo" alt="website logo" src="https://rf.mokslasplius.lt/theme/img/phys-risk-letters.svg"></div>
+                <p>Physics of risk, complexity and socio-economic systems.</p>
+                        <ul class="list-unstyled">
+            <li>    <a href="/feeds/rss.xml">
+            <i class="glyphicon glyphicon-bell"></i>
+        Subscribe via RSS feed
+    </a></li>
+            <li>    <a href="https://www.facebook.com/physics.risk/">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+        Follow on Facebook
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/website-source">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Content @ GitHub
+    </a></li>
+            <li>    <a href="https://github.com/physrisk/pelican-theme">
+            <i class="glyphicon glyphicon-cloud-download"></i>
+        Theme @ GitHub
+    </a></li>
+    </ul>
+
+ 
+            </div>
+        </div>
+
+                            <div class="sidebar-widget links-widget panel panel-default">
+            <div class="panel-body">
+                    <ul class="list-unstyled">
+            <li>    <a href="https://www.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Vilnius University
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/">
+            <i class="glyphicon glyphicon-education"></i>
+        Faculty of Physics
+    </a></li>
+            <li>    <a href="https://www.ff.vu.lt/en/itpa/">
+            <i class="glyphicon glyphicon-education"></i>
+        Institute of Theoretical Physics and Astronomy
+    </a></li>
+            <li>    <a href="https://rf.mokslasplius.lt/vilnius-2006-cost-p10/">
+            <span class="glyphicon glyphicon-link"></span>
+        COST P10 meeting in Vilnius (2006)
+    </a></li>
+            <li>    <a href="https://www.dpg-physik.de/vereinigungen/fachlich/skm/fvsoe">
+            <span class="glyphicon glyphicon-link"></span>
+        DPG Physics of Socio-Economic Systems Division
+    </a></li>
+            <li>    <a href="https://www.ptf.net.pl/en/fens">
+            <span class="glyphicon glyphicon-link"></span>
+        PPS Physics in Economy and Social Sciences
+    </a></li>
+    </ul>
+
+            </div>
+        </div>
+
+                        <div class="sidebar-widget hashtag-widget panel panel-default">
+        <div class="panel-body">
+                <a href="/tag/interactive/" data-toggle="tooltip" class="label label-default" title="#interactive has 210 articles">#interactive</a>
+                <a href="/tag/video/" data-toggle="tooltip" class="label label-default" title="#video has 176 articles">#video</a>
+                <a href="/tag/agent-based-models/" data-toggle="tooltip" class="label label-default" title="#agent-based models has 139 articles">#agent-based models</a>
+                <a href="/tag/economics/" data-toggle="tooltip" class="label label-default" title="#economics has 101 articles">#economics</a>
+                <a href="/tag/statistics/" data-toggle="tooltip" class="label label-default" title="#statistics has 93 articles">#statistics</a>
+                <a href="/tag/opinion-dynamics/" data-toggle="tooltip" class="label label-default" title="#opinion dynamics has 82 articles">#opinion dynamics</a>
+                <a href="/tag/general/" data-toggle="tooltip" class="label label-default" title="#general has 72 articles">#general</a>
+                <a href="/tag/statistical-physics/" data-toggle="tooltip" class="label label-default" title="#statistical physics has 53 articles">#statistical physics</a>
+                <a href="/tag/voter-model/" data-toggle="tooltip" class="label label-default" title="#voter model has 51 articles">#voter model</a>
+                <a href="/tag/financial-markets/" data-toggle="tooltip" class="label label-default" title="#financial markets has 51 articles">#financial markets</a>
+                <a href="/tag/politics/" data-toggle="tooltip" class="label label-default" title="#politics has 51 articles">#politics</a>
+                <a href="/tag/stochastic-models/" data-toggle="tooltip" class="label label-default" title="#stochastic models has 49 articles">#stochastic models</a>
+                <a href="/tag/power-law-distributions/" data-toggle="tooltip" class="label label-default" title="#power-law distributions has 42 articles">#power-law distributions</a>
+                <a href="/tag/a-kononovicius/" data-toggle="tooltip" class="label label-default" title="#A. Kononovicius has 41 articles">#A. Kononovicius</a>
+                <a href="/tag/postdoctoral-project/" data-toggle="tooltip" class="label label-default" title="#postdoctoral project has 40 articles">#postdoctoral project</a>
+                <a href="/tag/networks/" data-toggle="tooltip" class="label label-default" title="#networks has 39 articles">#networks</a>
+                <a href="/tag/v-gontis/" data-toggle="tooltip" class="label label-default" title="#V. Gontis has 35 articles">#V. Gontis</a>
+                <a href="/tag/1f-noise/" data-toggle="tooltip" class="label label-default" title="#1/f noise has 34 articles">#1/f noise</a>
+                <a href="/tag/game-theory/" data-toggle="tooltip" class="label label-default" title="#game theory has 31 articles">#game theory</a>
+                <a href="/tag/kirman-model/" data-toggle="tooltip" class="label label-default" title="#Kirman model has 30 articles">#Kirman model</a>
+                <a href="/tag/students/" data-toggle="tooltip" class="label label-default" title="#students has 27 articles">#students</a>
+                <a href="/tag/popular-culture/" data-toggle="tooltip" class="label label-default" title="#popular culture has 27 articles">#popular culture</a>
+                <a href="/tag/sociology/" data-toggle="tooltip" class="label label-default" title="#sociology has 27 articles">#sociology</a>
+                <a href="/tag/biology/" data-toggle="tooltip" class="label label-default" title="#biology has 26 articles">#biology</a>
+                <a href="/tag/fractals/" data-toggle="tooltip" class="label label-default" title="#fractals has 25 articles">#fractals</a>
+                <a href="/tag/tedcom/" data-toggle="tooltip" class="label label-default" title="#ted.com has 25 articles">#ted.com</a>
+                <a href="/tag/numberphile/" data-toggle="tooltip" class="label label-default" title="#Numberphile has 23 articles">#Numberphile</a>
+                <a href="/tag/methods/" data-toggle="tooltip" class="label label-default" title="#methods has 22 articles">#methods</a>
+                <a href="/tag/free-market/" data-toggle="tooltip" class="label label-default" title="#free market has 19 articles">#free market</a>
+                <a href="/tag/competition/" data-toggle="tooltip" class="label label-default" title="#competition has 19 articles">#competition</a>
+                <a href="/tag/spectral-density/" data-toggle="tooltip" class="label label-default" title="#spectral density has 19 articles">#spectral density</a>
+                <a href="/tag/macroeconomics/" data-toggle="tooltip" class="label label-default" title="#macroeconomics has 18 articles">#macroeconomics</a>
+                <a href="/tag/github/" data-toggle="tooltip" class="label label-default" title="#GitHub has 17 articles">#GitHub</a>
+                <a href="/tag/gross-domestic-product/" data-toggle="tooltip" class="label label-default" title="#gross domestic product has 16 articles">#gross domestic product</a>
+                <a href="/tag/conflicts/" data-toggle="tooltip" class="label label-default" title="#conflicts has 16 articles">#conflicts</a>
+                <a href="/tag/traffic/" data-toggle="tooltip" class="label label-default" title="#traffic has 16 articles">#traffic</a>
+                <a href="/tag/epidemiology/" data-toggle="tooltip" class="label label-default" title="#epidemiology has 15 articles">#epidemiology</a>
+                <a href="/tag/dynamical-chaos/" data-toggle="tooltip" class="label label-default" title="#dynamical chaos has 14 articles">#dynamical chaos</a>
+                <a href="/tag/kinetic-models/" data-toggle="tooltip" class="label label-default" title="#kinetic models has 13 articles">#kinetic models</a>
+                <a href="/tag/burst-statistics/" data-toggle="tooltip" class="label label-default" title="#burst statistics has 13 articles">#burst statistics</a>
+                <a href="/tag/market-price/" data-toggle="tooltip" class="label label-default" title="#market price has 13 articles">#market price</a>
+                <a href="/tag/paradox/" data-toggle="tooltip" class="label label-default" title="#paradox has 12 articles">#paradox</a>
+                <a href="/tag/wealth/" data-toggle="tooltip" class="label label-default" title="#wealth has 12 articles">#wealth</a>
+                <a href="/tag/sports/" data-toggle="tooltip" class="label label-default" title="#sports has 12 articles">#sports</a>
+                <a href="/tag/brownian-motion/" data-toggle="tooltip" class="label label-default" title="#Brownian motion has 12 articles">#Brownian motion</a>
+                <a href="/tag/r-kazakevicius/" data-toggle="tooltip" class="label label-default" title="#R. Kazakevicius has 11 articles">#R. Kazakevicius</a>
+                <a href="/tag/ising-model/" data-toggle="tooltip" class="label label-default" title="#Ising model has 11 articles">#Ising model</a>
+                <a href="/tag/conference/" data-toggle="tooltip" class="label label-default" title="#conference has 11 articles">#conference</a>
+                <a href="/tag/barabasi-albert-model/" data-toggle="tooltip" class="label label-default" title="#Barabasi-Albert model has 10 articles">#Barabasi-Albert model</a>
+                <a href="/tag/topic-price-formation/" data-toggle="tooltip" class="label label-default" title="#topic: price formation has 10 articles">#topic: price formation</a>
+             <div><a class="more-tags btn btn-primary" href="/tags.html">See all topics...</a></div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <footer class="footer navbar-inverse container-fluid" role="contentinfo">
+                <div class="license-info container">
+                        <a class="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" title="Creative Commons License"><img alt="Creative Commons License" src="/theme/img/license-80x15.png"></a>
+        2006 &ndash; 2026 
+        Physics of Risk.
+    The views and opinions expressed on this site are those of the <a href="https://rf.mokslasplius.lt/about/">authors</a> and do not necessarily reflect the official policies or positions of their previous, current and future employers or any of the employers' affiliates, partners or customers. Our Privacy Policy can be found <a href="https://rf.mokslasplius.lt/privacy-policy.html">here</a>. Generated by <a href="https://getpelican.com">Pelican</a> using <a href="https://github.com/physrisk/pelican-theme">PhysRisk</a> theme.
+
+                </div>
+        </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://rf.mokslasplius.lt/theme/js/application.js"></script>
+            <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha512-6FaAxxHuKuzaGHWnV00ftWqP3luSBRSopnNAA2RvQH1fOfnF/A1wOfiUWF7cLIOFcfb1dEhXwo5VG3DAisocRw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

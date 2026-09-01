@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>S. Galam referendum model</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+</head>
+<body>
+<div id="wrapper">
+<div id="figureWrapper">
+    <div id="plotLabel" class="label">S. Galam referendum model (t=0)</div><br/>
+    <div id="figDiv" class="halfSize"></div>
+    <canvas id="plotDiv" class="halfSize" width="250" height="200"></canvas>
+</div>
+<div id="controlWrapper">
+    <span class="controlBlock singleWidth">
+        <label for="initial_condition">ξ(0)=</label>
+        <input type="number" name="initial_condition" id="initial_condition" value="0.5" min="0" max="1" step="0.01"></span>
+    <br/>
+    <span class="controlBlock singleWidth">
+        <label for="group_1_prob">p[1]=</label>
+        <input type="number" name="group_1_prob" id="group_1_prob" value="0" disabled>
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="group_2_prob">p[2]=</label>
+        <input type="number" name="group_2_prob" id="group_2_prob" value="0.63" min="0" max="1" step="0.01">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="group_3_prob">p[3]=</label>
+        <input type="number" name="group_3_prob" id="group_3_prob" value="0.28" min="0" max="1" step="0.01">
+    </span>
+    <br>
+    <span class="controlBlock singleWidth">
+        <label for="group_4_prob">p[4]=</label>
+        <input type="number" name="group_4_prob" id="group_4_prob" value="0.08" min="0" max="1" step="0.01">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="group_5_prob">p[5]=</label>
+        <input type="number" name="group_5_prob" id="group_5_prob" value="0.01" min="0" max="1" step="0.01">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="group_6_prob">p[6]=</label>
+        <input type="number" name="group_6_prob" id="group_6_prob" value="0.0" min="0" max="1" step="0.01">
+    </span>
+    <br/>
+    <span class="controlBlock"><button id="start">Start</button></span>
+    <span class="controlBlock"><button id="restart">Pause</button></span>
+</div>
+</div>
+<script src="./index.js"></script>
+</body>
+</html>
