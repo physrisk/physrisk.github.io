@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Blotto game with fast and slow troops</title>
+    <script src="../../shared-libs/commonFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <style>
+        #message-round{font-weight:bold;margin:5px auto}
+        .proceed-block {width: 25px;margin-right:10px}
+        .proceed-block button {width:25px;font-size:20px;border-radius:5px;margin:0}
+        .troop-block {margin-right: 18.5px}
+        .troop-block button {width:30px;font-size:20px;margin:0}
+        .troop-block button.troop-remove {border-radius:5px 0 0 5px}
+        .troop-block button.troop-add {border-radius:0 5px 5px 0}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="message-round" class="label"></div>
+        <svg id="battlefield" width="480" height="150" version="1.1" viewBox="0 0 127 39.69" xmlns="http://www.w3.org/2000/svg">
+         <g transform="translate(-2.646 6.615)">
+          <g transform="translate(6.615)">
+           <path id="castle-1" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(29.77)">
+           <path id="castle-2" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(52.92)">
+           <path id="castle-3" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(76.07)">
+           <path id="castle-4" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+          <g transform="translate(99.22)">
+           <path id="castle-5" d="m4.366 3.565v3.512l2.782 1.588-1.588 14.23h15.34l-1.588-14.23 2.782-1.588v-3.512l-2.249 8.9e-5v1.552h-2.646v-1.552l-2.646 2.82e-5v1.552h-2.646v-1.552l-2.646 1.75e-5v1.552h-2.646v-1.552z" fill="#fff" stroke="#000" stroke-dashoffset="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7938"/>
+           <path d="m12.3 10.8h1.852v3.175h-1.852z" stroke-width="0"/>
+           <path d="m11.91 19.8c0-0.7916 0.7582-1.058 1.323-1.058 0.5647 0 1.323 0.2654 1.323 1.058v2.91h-2.646v-2.91z" stroke-width="0"/>
+          </g>
+         </g>
+         <g transform="translate(0 .0534)" fill="#000000" font-family="Arial" font-size="6.35px" letter-spacing="0px" text-anchor="middle" word-spacing="0px">
+          <text id="ai-assigned-troops-1" class="svg-ai-assigned" x="17.22" y="6.688" text-align="center" style="line-height:9.922px"><tspan x="17.22" y="6.688" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="ai-assigned-troops-2" class="svg-ai-assigned" x="40.37" y="6.688" text-align="center" style="line-height:9.922px"><tspan x="40.37" y="6.688" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="ai-assigned-troops-3" class="svg-ai-assigned" x="63.52" y="6.688" text-align="center" style="line-height:9.922px"><tspan x="63.52" y="6.688" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="ai-assigned-troops-4" class="svg-ai-assigned" x="86.67" y="6.688" text-align="center" style="line-height:9.922px"><tspan x="86.67" y="6.688" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="ai-assigned-troops-5" class="svg-ai-assigned" x="109.82" y="6.688" text-align="center" style="line-height:9.922px"><tspan x="109.82" y="6.688" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="player-assigned-troops-1" class="svg-player-assigned" x="17.22" y="37.381" text-align="center" style="line-height:9.922px"><tspan x="17.22" y="37.381" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="player-assigned-troops-2" class="svg-player-assigned" x="40.37" y="37.381" text-align="center" style="line-height:9.922px"><tspan x="40.37" y="37.381" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="player-assigned-troops-3" class="svg-player-assigned" x="63.52" y="37.381" text-align="center" style="line-height:9.922px"><tspan x="63.52" y="37.381" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="player-assigned-troops-4" class="svg-player-assigned" x="86.67" y="37.381" text-align="center" style="line-height:9.922px"><tspan x="86.67" y="37.381" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+          <text id="player-assigned-troops-5" class="svg-player-assigned" x="109.82" y="37.381" text-align="center" style="line-height:9.922px"><tspan x="109.82" y="37.381" font-size="6.35px" style="line-height:9.922px">0</tspan></text>
+         </g>
+        </svg>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock proceed-block">
+            <button name="proceed" id="proceed">&gt;</button>
+        </span>
+        <span class="controlBlock troop-block">
+            <button name="castle-1-remove" id="castle-1-remove" class="troop-remove">-</button><button name="castle-1-add" id="castle-1-add" class="troop-add">+</button>
+        </span>
+        <span class="controlBlock troop-block">
+            <button name="castle-2-remove" id="castle-2-remove" class="troop-remove">-</button><button name="castle-2-add" id="castle-2-add" class="troop-add">+</button>
+        </span>
+        <span class="controlBlock troop-block">
+            <button name="castle-3-remove" id="castle-3-remove" class="troop-remove">-</button><button name="castle-3-add" id="castle-3-add" class="troop-add">+</button>
+        </span>
+        <span class="controlBlock troop-block">
+            <button name="castle-4-remove" id="castle-4-remove" class="troop-remove">-</button><button name="castle-4-add" id="castle-4-add" class="troop-add">+</button>
+        </span>
+        <span class="controlBlock troop-block">
+            <button name="castle-5-remove" id="castle-5-remove" class="troop-remove">-</button><button name="castle-5-add" id="castle-5-add" class="troop-add">+</button>
+        </span>
+    </div><!-- #controlWrapper -->
+
+</div><!-- #wrapper -->
+<script src="./index-fast-slow.js"></script>
+</body>
+</html>
