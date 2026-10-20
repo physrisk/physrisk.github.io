@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Poll-delayed voter model</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/random-026.min.js"></script>
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+</head>
+<body>
+<div id="wrapper">
+<div id="figureWrapper">
+    <div id="timeSeries" class="fullSize"></div>
+</div><!-- #figureWrapper -->
+<div id="controlWrapper">
+    <span class="controlBlock singleWidth">
+        <label for="epsi_0">&epsilon;<sub>0</sub>=</label>
+        <input id="epsi_0" name="epsi_0" type="number" min="0" max="5" step="0.1" value="2">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="epsi_1">&epsilon;<sub>1</sub>=</label>
+        <input id="epsi_1" name="epsi_1" type="number" min="0" max="5" step="0.1" value="2">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="n_agents">N=</label>
+        <input id="n_agents" name="n_agents" type="number" value="1000" disabled>
+    </span>
+    <br>
+    <span class="controlBlock singleWidth">
+        <label for="x_0">X(0)=</label>
+        <input id="x_0" name="x_0" type="number" min="0" max="1000" step="10" value="500">
+    </span>
+    <span class="controlBlock singleWidth">
+        <label for="a_0">A<sub>-1</sub>=</label>
+        <input id="a_0" name="a_0" type="number" min="0" max="1000" step="10" value="500">
+    </span>
+    <span class="controlBlock oneandhalfWidth">
+        <label for="tau">&tau;=</label>
+        10^<input id="tau" name="tau" type="number" min="-4" max="-1" step="0.1" value="-2.5">
+    </span>
+    <br>
+    <span class="controlBlock"><button name="start" id="start">Start</button></span>
+    <span class="controlBlock"><button name="restart" id="restart">Pause</button></span>
+    <span class="controlBlock"><button name="quick" id="quick">»</button></span>
+</div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./PollDelayedModel.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>

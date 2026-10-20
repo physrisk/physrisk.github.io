@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Heterogeneous detrapping process</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/commonFunctions.js"></script>
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../shared-libs/jstat-192.min.js"></script>
+    <script src="../../shared-libs/random-026.min.js"></script>
+    <style>
+        #figureWrapper #title.label {padding-top:10px;padding-left:50px;display:block}
+        .inputBlock{width:140px}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="title" class="label">
+            min(&gamma;) = <span id="min_la_mantissa">0</span>&times;10<sup id="min_la_exp">0</sup>,
+            max(&tau;) = <span id="max_tau_mantissa">0</span>&times;10<sup id="max_tau_exp">0</sup>
+        </div>
+        <div id="ratePdfPlot" class="halfSize"></div>
+        <div id="cutoffPlot" class="halfSize"></div>
+        <div id="tauPdfPlot" class="halfSize"></div>
+        <div id="psdPlot" class="halfSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock inputBlock">
+            <label for="power_gap">&alpha; = </label>
+            <input id="power_gap" type="number" min="-2" max="2" step="0.1" value="0">
+        </span>
+        <span class="controlBlock inputBlock">
+            <label for="min_rate">&gamma;<sub>min</sub> = </label>
+            10^<input id="min_rate" type="number" min="-6" max="-2" step="0.1" value="-6">
+        </span>
+        <span class="controlBlock inputBlock">
+            <label for="max_rate">&gamma;<sub>max</sub> = </label>
+            10^<input id="max_rate" type="number" min="-3" max="1" step="0.1" value="0">
+        </span>
+        <br>
+        <span class="controlBlock inputBlock">
+            <label for="n_success">N<sub>success</sub> = </label>
+            <input id="n_success" type="number" min="1" max="10" step="1" value="1">
+        </span>
+        <span class="controlBlock inputBlock">
+            <label for="recombination_time">&theta;<sub>c</sub> = </label>
+            10^<input id="recombination_time" type="number" value="3">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+        <span class="controlBlock">
+            <button name="stop" id="stop">Stop</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./heterogeneous-detrapping-process.js"></script>
+</body>
+</html>
