@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Cauchy distribution comparison against normal distribution</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <style>
+        .rowLabel{font-weight:bold}
+        #cauchyRow{color:#c11}
+        #normalRow{color:#05a}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="mainPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span id="cauchyRow" class="controlBlock rowLabel">Cauchy distribution:</span>
+        <span class="controlBlock">
+            <label for="cauchy_x_0">x<sub>0</sub> = </label>
+            <input id="cauchy_x_0" type="number" min="-3" max="3" step="0.1" value="0">
+        </span>
+        <span class="controlBlock">
+            <label for="cauchy_gamma">&gamma; = </label>
+            <input id="cauchy_gamma" type="number" min="0.01" max="3" step="0.01" value="1">
+        </span>
+        <br>
+        <span id="normalRow" class="controlBlock rowLabel">Normal distribution:</span>
+        <span class="controlBlock">
+            <label for="norm_mean">&mu; = </label>
+            <input id="norm_mean" type="number" min="-3" max="3" step="0.1" value="0">
+        </span>
+        <span class="controlBlock">
+            <label for="norm_std">&sigma; = </label>
+            <input id="norm_std" type="number" min="0.01" max="3" step="0.01" value="1">
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>

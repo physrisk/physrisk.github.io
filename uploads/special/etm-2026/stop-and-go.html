@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stop-and-go waves</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (QR shown) */
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Restart" aria-label="Restart"></button>
+  <button class="btn" id="btnPlay" title="Play / pause" aria-label="Play / pause"></button>
+  <button class="btn" id="btnSupply" title="Car supply" aria-label="Car supply"></button>
+</div>
+<button class="btn" id="btnQr" title="Show / hide QR code" aria-label="Show or hide QR code">QR</button>
+<img id="qr" src="qr.png" alt="QR code" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; lengths in metres, times in seconds)
+   ===================================================================== */
+const P = {
+  // --- road: one lane, cars enter at the start and leave at the end; drawn as a snake ---
+  ROAD_LENGTH: 2000,          // total length of the road
+  TURN_RADIUS: 16,            // radius of the U-turns of the snake (drawing only; no effect on the traffic)
+  ROAD_WIDTH: 5,              // drawn width of the road
+  MAX_ROWS: 12,               // the snake picks the number of rows (1..MAX_ROWS) that makes the cars biggest on screen
+  VIEW_MARGIN: 24,            // free space (px) around the snake inside the window
+  PANEL_PAD: 14,              // padding (px) of the rounded panel behind the road
+
+  // --- cars ---
+  CAR_LENGTH: 5,              // bumper-to-bumper length (also used by the model)
+  CAR_WIDTH: 2.2,             // drawn width
+  BRAKE_ACCEL: 0.8,           // brake lights come on below this acceleration (negative), or when nearly stopped
+
+  // --- supply of new cars: arrival rate (cars per second) for the low / medium / high setting ---
+  SUPPLY: [0.2, 0.5, 0.62],
+  START_SUPPLY: 1,            // 0 = low, 1 = medium, 2 = high
+  ARRIVAL_RANDOMNESS: 0.6,    // 0 = evenly spaced arrivals, 1 = Poisson (random) arrivals
+  MAX_QUEUE: 3,               // cars waiting to enter; more arrivals are turned away
+  ENTRY_SPEED: 27,            // speed of a car entering a free road
+  ENTRY_MATCH: 0.95,          // a car enters only if the gap lets it match this share of the speed of the car ahead (or ENTRY_SPEED)
+  INIT_JITTER: 1.0,           // +/- random shift (m) of the cars in the initial filling
+
+  // --- Intelligent Driver Model (IDM) ---
+  V0: 30,                     // desired (free-road) speed
+  T_HEADWAY: 1.5,             // desired time headway
+  S0: 2,                      // minimum bumper gap when standing
+  A_MAX: 1.0,                 // maximum acceleration
+  B_COMF: 1.5,                // comfortable deceleration
+  B_LIMIT: 9,                 // hard cap on braking (physical limit)
+  MIN_GAP: 0.1,               // gaps are never allowed below this (avoids division by zero)
+
+  // --- obstacle (click on the road): the first car stops in front of it, then it disappears ---
+  OBSTACLE_HOLD: 2,           // seconds the first car stays stopped before the obstacle is removed
+  OBSTACLE_MIN_S: 40,         // obstacles cannot be placed closer than this to the entrance (m)
+  CLICK_TOLERANCE: 12,        // extra px around the road in which a click counts
+
+  // --- jam marker: runs of at least JAM_MIN_CARS consecutive cars slower than
+  //     JAM_FRACTION of the mean speed on the road are highlighted ---
+  JAM_FRACTION: 0.5,
+  JAM_MIN_CARS: 3,
+  JAM_PAD: 3,                 // extend the highlight this far (m) beyond the first and last car
+  JAM_FILL: 0.28,             // opacity of the transparent orange over the road
+  JAM_EDGE_WIDTH: 1.5,        // width (px) of the opaque lines along both sides of the road
+  JAM_END_CAPS: false,        // true = also close the highlight with a line across the road at both ends
+
+  // --- colours: slow cars orange, fast cars blue (full blue at V_COLOR_MAX and above) ---
+  V_COLOR_MAX: 22,
+  SCHEME: 'light',             // 'auto' = follow the system / browser light-dark setting (live), or force 'dark' / 'light'
+  PALETTES: {
+    dark: {
+      BG: '#0e1116', DISC: '#161b22', DISC_EDGE: '#2a313c', ROAD: '#2a313c', CLOCK: '#8b95a5',
+      SLOW: '#ff8a5c', FAST: '#5cb8ff',                       // car colour at standstill / at V_COLOR_MAX; jam marker uses SLOW
+      HEADLIGHT: '#f4f1d0', TAILLIGHT: '#ff4d4d', BRAKELIGHT: '#ff2d2d', WINDOW: 'rgba(14,17,22,0.6)',
+      OBSTACLE: '#e6edf3', OBSTACLE_ALT: '#0e1116',           // the two stripe colours of the barrier
+      BTN_BG: '#161b22', BTN_FG: '#8b95a5', BTN_EDGE: '#2a313c', BTN_HOVER_FG: '#e6edf3', BTN_HOVER_EDGE: '#4a5463',
+      BTN_ON_FG: '#0e1116', BTN_ON_BG: '#8b95a5', FOCUS: '#5cb8ff',
+    },
+    light: {
+      BG: '#eef1f5', DISC: '#fbfcfd', DISC_EDGE: '#d3d9e1', ROAD: '#dde2e9', CLOCK: '#5b6675',
+      SLOW: '#f2711c', FAST: '#1f7ae0',
+      HEADLIGHT: '#fff3b0', TAILLIGHT: '#c92a2a', BRAKELIGHT: '#ff1f1f', WINDOW: 'rgba(255,255,255,0.55)',
+      OBSTACLE: '#1f2933', OBSTACLE_ALT: '#ffffff',
+      BTN_BG: '#ffffff', BTN_FG: '#5b6675', BTN_EDGE: '#d3d9e1', BTN_HOVER_FG: '#111827', BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff', BTN_ON_BG: '#5b6675', FOCUS: '#1f7ae0',
+    },
+  },
+
+  // --- simulation / display ---
+  TIME_SCALE: 3,             // simulated seconds per real second
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR column while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  MAX_SUBSTEP: 0.05,          // largest simulation time step
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the clock and the buttons
+};
+
+/* =====================================================================
+   Car-following model (IDM)
+   ===================================================================== */
+function idmAccel(v, s, dv) {
+  const sStar = P.S0 + Math.max(0, v * P.T_HEADWAY + v * dv / (2 * Math.sqrt(P.A_MAX * P.B_COMF)));
+  return P.A_MAX * (1 - Math.pow(v / P.V0, 4) - (sStar / s) * (sStar / s));
+}
+
+// speed at which a car in uniform traffic with bumper gap s feels no acceleration
+function equilibriumSpeed(s) {
+  let lo = 0, hi = P.V0;
+  for (let i = 0; i < 60; i++) {
+    const m = (lo + hi) / 2;
+    if (idmAccel(m, s, 0) > 0) lo = m; else hi = m;
+  }
+  return (lo + hi) / 2;
+}
+
+// the road's capacity (largest possible flow) and the gap at which it occurs
+let FLOW_MAX = 0, GAP_CRIT = 0;
+(function () {
+  for (let s = P.S0 + 0.2; s < 200; s += 0.1) {
+    const q = equilibriumSpeed(s) / (s + P.CAR_LENGTH);
+    if (q > FLOW_MAX) { FLOW_MAX = q; GAP_CRIT = s; }
+  }
+})();
+
+// bumper gap of uniform free-flowing traffic that carries the flow q (at capacity or beyond: the critical gap)
+function fillGap(q) {
+  if (q >= FLOW_MAX) return GAP_CRIT;
+  let lo = GAP_CRIT, hi = 5000;                       // beyond the critical gap the flow falls as the gap grows
+  for (let i = 0; i < 60; i++) {
+    const m = (lo + hi) / 2;
+    if (equilibriumSpeed(m) / (m + P.CAR_LENGTH) > q) lo = m; else hi = m;
+  }
+  return (lo + hi) / 2;
+}
+
+/* =====================================================================
+   Road geometry: a snake of K rows joined by U-turns. Position along the road s (metres) maps to
+   (x, y, heading) in a drawing plane in metres. Even rows run left to right, odd rows right to left.
+   Before the start and after the end the road continues straight, so cars can slide in and out.
+   ===================================================================== */
+function makeGeom(K) {
+  const Rt = P.TURN_RADIUS, L = P.ROAD_LENGTH;
+  const Ls = (L - (K - 1) * Math.PI * Rt) / K;        // length of one straight row
+  return {
+    K, Rt, Ls, seg: Ls + Math.PI * Rt, pitch: 2 * Rt,
+    minX: K >= 3 ? -Rt : 0, maxX: Ls + (K >= 2 ? Rt : 0), minY: 0, maxY: (K - 1) * 2 * Rt,
+  };
+}
+
+function geomPos(g, s, o) {
+  let i = Math.floor(s / g.seg);
+  if (i < 0) i = 0; if (i > g.K - 1) i = g.K - 1;
+  const local = s - i * g.seg, y0 = i * g.pitch, even = i % 2 === 0;
+  if (local <= g.Ls || i === g.K - 1) {               // straight part (also the run-in and run-out)
+    o.x = even ? local : g.Ls - local; o.y = y0; o.h = even ? 0 : Math.PI;
+    return o;
+  }
+  const u = (local - g.Ls) / g.Rt;                    // U-turn: 0..pi
+  o.y = y0 + g.Rt - g.Rt * Math.cos(u);
+  if (even) { o.x = g.Ls + g.Rt * Math.sin(u); o.h = u; }
+  else { o.x = -g.Rt * Math.sin(u); o.h = Math.PI - u; }
+  return o;
+}
+
+/* =====================================================================
+   Traffic on the road
+   ===================================================================== */
+let level = P.START_SUPPLY;   // 0 = low, 1 = medium, 2 = high supply
+let sim = null;
+let simTime = 0;              // elapsed simulated time (seconds), shown by the clock
+
+function headway(lv) {
+  const mean = 1 / P.SUPPLY[lv], J = P.ARRIVAL_RANDOMNESS;
+  return Math.max(0.2, mean * ((1 - J) + J * -Math.log(1 - Math.random())));
+}
+
+// A road already filled with traffic at the current supply: evenly spaced cars at the equilibrium speed
+function makeSim(lv) {
+  const L = P.ROAD_LENGTH, len = P.CAR_LENGTH;
+  const gap = fillGap(P.SUPPLY[lv]), ve = equilibriumSpeed(gap), pitch = gap + len;
+  const c = { t: 0, cars: [], queued: 0, nextArrival: headway(lv), obstacles: [], jams: [], meanV: ve };
+  for (let x = L - 5; x >= len + 1; x -= pitch)
+    c.cars.push({ x: x + (Math.random() - 0.5) * 2 * P.INIT_JITTER, v: ve, a: 0 });   // cars[0] is the front-most
+  return c;
+}
+
+function setLevel(lv) { level = lv; if (sim) sim.nextArrival = sim.t + headway(lv); }
+
+function stepSim(c, dt) {
+  const cars = c.cars, len = P.CAR_LENGTH, L = P.ROAD_LENGTH, obs = c.obstacles;
+
+  while (c.t >= c.nextArrival) {                              // new arrivals join the entry queue
+    if (c.queued < P.MAX_QUEUE) c.queued++;
+    c.nextArrival += headway(level);
+  }
+
+  for (let i = 0; i < cars.length; i++) {                     // accelerations
+    const car = cars[i], lead = i > 0 ? cars[i - 1] : null;
+    let gap = lead ? lead.x - len - car.x : Infinity, dv = lead ? car.v - lead.v : 0;
+    for (const o of obs) {                                    // an obstacle acts like a stopped car
+      if (o.pass.has(car)) continue;
+      const og = o.x - car.x;
+      if (og > 0 && og < gap) { gap = og; dv = car.v; }
+    }
+    if (gap < P.MIN_GAP) gap = P.MIN_GAP;
+    car.a = Math.max(-P.B_LIMIT, idmAccel(car.v, gap, dv));
+  }
+  for (const car of cars) {                                   // move
+    car.v = Math.max(0, car.v + car.a * dt);
+    car.x += car.v * dt;
+  }
+  while (cars.length && cars[0].x - len > L) cars.shift();    // cars leave at the end
+
+  if (c.queued > 0) {                                         // one car may enter if there is room
+    const last = cars.length ? cars[cars.length - 1] : null, xNew = len;
+    let free = last ? last.x - len : Infinity;
+    for (const o of obs) if (o.x > xNew && o.x < free) free = o.x;
+    const gap = free - xNew, vSafe = Math.max(0, (gap - P.S0) / P.T_HEADWAY);
+    const vWant = Math.min(P.ENTRY_SPEED, last ? last.v : Infinity);
+    if (vSafe >= P.ENTRY_MATCH * vWant) {
+      cars.push({ x: xNew, v: Math.min(vWant, vSafe), a: 0 });
+      c.queued--;
+    }
+  }
+
+  for (let k = obs.length - 1; k >= 0; k--) {                 // an obstacle goes once its first car has stopped
+    const o = obs[k];
+    let first = null;
+    for (const car of cars) if (car.x < o.x && !o.pass.has(car) && (!first || car.x > first.x)) first = car;
+    if (first && first.v < 0.2 && o.x - first.x < P.S0 + 4) o.held += dt; else o.held = 0;
+    if (o.held >= P.OBSTACLE_HOLD) obs.splice(k, 1);
+  }
+  c.t += dt;
+}
+
+// The user clicked at road position sClick. The obstacle appears exactly there. Cars that are already too close
+// to stop in time (they are within their braking distance) simply drive through it; the first car that can stop does.
+function placeObstacle(c, sClick) {
+  const s = Math.max(P.OBSTACLE_MIN_S, sClick);
+  if (s > P.ROAD_LENGTH - 20) return false;
+  const pass = new Set();
+  for (const car of c.cars) {
+    const stopDist = car.v * car.v / (2 * 0.8 * P.B_LIMIT) + P.S0 + 1;
+    if (car.x <= s && s - car.x < stopDist) pass.add(car);
+  }
+  c.obstacles.push({ x: s, held: 0, pass });
+  return true;
+}
+
+// runs of consecutive cars that are much slower than the mean speed
+function updateJams(c) {
+  const cars = c.cars, n = cars.length, len = P.CAR_LENGTH;
+  c.jams = [];
+  if (n === 0) return;
+  let sum = 0;
+  for (const car of cars) sum += car.v;
+  const mean = sum / n, lim = P.JAM_FRACTION * mean;
+  c.meanV = mean;
+  let i0 = -1;
+  for (let i = 0; i <= n; i++) {
+    const slow = i < n && cars[i].v < lim;
+    if (slow && i0 < 0) i0 = i;
+    if (!slow && i0 >= 0) {
+      if (i - i0 >= P.JAM_MIN_CARS) c.jams.push({ a: cars[i - 1].x - len - P.JAM_PAD, b: cars[i0].x + P.JAM_PAD, n: i - i0 });
+      i0 = -1;
+    }
+  }
+}
+
+function advance(dtReal) {
+  const dt = Math.max(0, Math.min(dtReal, 0.1)) * P.TIME_SCALE;   // never negative
+  const n = Math.max(1, Math.ceil(dt / P.MAX_SUBSTEP)), h = dt / n;
+  for (let k = 0; k < n; k++) stepSim(sim, h);
+  simTime += dt;
+  updateJams(sim);
+}
+
+function reset() { simTime = 0; sim = makeSim(level); updateJams(sim); }
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0;
+let sideW = 0;             // width of the QR column on the right (0 while the code is hidden)
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layout();
+}
+
+function hexToRgba(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+function hexRgb(hex) { const n = parseInt(hex.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+
+// colour scheme: the current palette C is read on every frame, so a change shows at once
+let C = P.PALETTES.dark, SLOW_RGB = hexRgb(C.SLOW), FAST_RGB = hexRgb(C.FAST);
+const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function applyScheme() {
+  const name = P.SCHEME === 'auto' ? (schemeQuery && schemeQuery.matches ? 'light' : 'dark') : P.SCHEME;
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  SLOW_RGB = hexRgb(C.SLOW); FAST_RGB = hexRgb(C.FAST);
+  const st = document.documentElement.style;
+  st.setProperty('--bg', C.BG);
+  st.setProperty('--btn-bg', C.BTN_BG); st.setProperty('--btn-fg', C.BTN_FG); st.setProperty('--btn-edge', C.BTN_EDGE);
+  st.setProperty('--btn-hover-fg', C.BTN_HOVER_FG); st.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  st.setProperty('--btn-on-fg', C.BTN_ON_FG); st.setProperty('--btn-on-bg', C.BTN_ON_BG); st.setProperty('--focus', C.FOCUS);
+  document.documentElement.dataset.scheme = name;
+}
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+
+function fmtClock(t) {                       // whole simulated seconds (acts like a step counter)
+  return String(Math.floor(t + 1e-6));
+}
+
+// The view: how many rows the snake gets and how it is scaled into the free area of the window.
+let view = null;
+function buildView() {
+  const aw = Math.max(40, W - sideW - 2 * P.VIEW_MARGIN), ah = Math.max(40, H - P.CLOCK_HEIGHT - 2 * P.VIEW_MARGIN);
+  const rw = P.ROAD_WIDTH;
+  let best = null;
+  for (let K = 1; K <= P.MAX_ROWS; K++) {
+    const g = makeGeom(K);
+    if (g.Ls < 4 * g.Rt) break;
+    const sc = Math.min(aw / (g.maxX - g.minX + rw), ah / (g.maxY - g.minY + rw));
+    if (!best || sc > best.scale) best = { g, scale: sc };
+  }
+  const g = best.g, scale = best.scale;
+  const v = {
+    g, scale, roadPx: rw * scale,
+    x0: (W - sideW) / 2 - (g.minX + g.maxX) / 2 * scale,
+    y0: (H - P.CLOCK_HEIGHT) / 2 - (g.minY + g.maxY) / 2 * scale,
+    xs: [], ys: [], ss: [],               // the road's centre line, one point every 2 m (for drawing and clicks)
+  };
+  const o = { x: 0, y: 0, h: 0 }, L = P.ROAD_LENGTH;
+  for (let s = 0; s <= L + 1e-6; s += 2) { geomPos(g, s, o); v.xs.push(v.x0 + o.x * scale); v.ys.push(v.y0 + o.y * scale); v.ss.push(s); }
+  v.panel = {
+    x: v.x0 + (g.minX - rw / 2) * scale - P.PANEL_PAD, y: v.y0 + (g.minY - rw / 2) * scale - P.PANEL_PAD,
+    w: (g.maxX - g.minX + rw) * scale + 2 * P.PANEL_PAD, h: (g.maxY - g.minY + rw) * scale + 2 * P.PANEL_PAD,
+  };
+  view = v;
+}
+
+function nearestOnRoad(px, py) {
+  let bd = Infinity, bs = 0;
+  for (let k = 0; k < view.ss.length; k++) {
+    const dx = view.xs[k] - px, dy = view.ys[k] - py, d = dx * dx + dy * dy;
+    if (d < bd) { bd = d; bs = view.ss[k]; }
+  }
+  return { s: bs, dist: Math.sqrt(bd) };
+}
+
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+}
+
+const tmp = { x: 0, y: 0, h: 0 };
+
+function drawJam(j) {
+  const v = view, g = v.g, sc = v.scale, half = v.roadPx / 2;
+  const a = Math.max(0, j.a), b = Math.min(P.ROAD_LENGTH, j.b);
+  if (b <= a) return;
+  const px = [], py = [], hh = [];
+  for (let s = a; ; s += 2) {
+    if (s > b) s = b;
+    geomPos(g, s, tmp); px.push(v.x0 + tmp.x * sc); py.push(v.y0 + tmp.y * sc); hh.push(tmp.h);
+    if (s >= b) break;
+  }
+  const line = off => {
+    ctx.beginPath();
+    for (let k = 0; k < px.length; k++) {
+      const x = px[k] - Math.sin(hh[k]) * off, y = py[k] + Math.cos(hh[k]) * off;
+      if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+  };
+  line(0); ctx.lineWidth = v.roadPx; ctx.lineJoin = 'round'; ctx.lineCap = 'butt';       // transparent orange over the road
+  ctx.strokeStyle = hexToRgba(C.SLOW, P.JAM_FILL); ctx.stroke();
+  ctx.lineWidth = P.JAM_EDGE_WIDTH; ctx.strokeStyle = hexToRgba(C.SLOW, 0.95);     // opaque lines along both sides
+  line(-half); ctx.stroke(); line(half); ctx.stroke();
+  if (P.JAM_END_CAPS) {
+    for (const k of [0, px.length - 1]) {
+      ctx.beginPath();
+      ctx.moveTo(px[k] + Math.sin(hh[k]) * half, py[k] - Math.cos(hh[k]) * half);
+      ctx.lineTo(px[k] - Math.sin(hh[k]) * half, py[k] + Math.cos(hh[k]) * half);
+      ctx.stroke();
+    }
+  }
+}
+
+function drawObstacle(o) {
+  const v = view, rpx = v.roadPx;
+  geomPos(v.g, o.x, tmp);
+  ctx.save();
+  ctx.translate(v.x0 + tmp.x * v.scale, v.y0 + tmp.y * v.scale); ctx.rotate(tmp.h);
+  const w = Math.max(3, 1.3 * v.scale), len = rpx * 1.25, n = 5;       // a striped barrier across the road
+  for (let k = 0; k < n; k++) {
+    ctx.fillStyle = k % 2 === 0 ? C.OBSTACLE : C.OBSTACLE_ALT;
+    ctx.fillRect(-w / 2, -len / 2 + k * len / n, w, len / n);
+  }
+  ctx.restore();
+}
+
+function drawCar(car) {
+  const v = view, sc = v.scale, len = P.CAR_LENGTH * sc, wid = P.CAR_WIDTH * sc;
+  geomPos(v.g, car.x - P.CAR_LENGTH / 2, tmp);
+  const u = Math.max(0, Math.min(1, car.v / P.V_COLOR_MAX));
+  const body = 'rgb(' + Math.round(SLOW_RGB[0] + (FAST_RGB[0] - SLOW_RGB[0]) * u) + ',' +
+    Math.round(SLOW_RGB[1] + (FAST_RGB[1] - SLOW_RGB[1]) * u) + ',' + Math.round(SLOW_RGB[2] + (FAST_RGB[2] - SLOW_RGB[2]) * u) + ')';
+  const braking = car.a < -P.BRAKE_ACCEL || car.v < 0.5;
+  ctx.save();
+  ctx.translate(v.x0 + tmp.x * sc, v.y0 + tmp.y * sc); ctx.rotate(tmp.h);   // the car points along +x
+  rrect(-len / 2, -wid / 2, len, wid, Math.min(wid * 0.35, 3)); ctx.fillStyle = body; ctx.fill();
+  if (len >= 11) {
+    ctx.fillStyle = C.WINDOW;                                  // windows, with the roof left in body colour
+    ctx.fillRect(-len * 0.30, -wid * 0.4, len * 0.54, wid * 0.8);
+    ctx.fillStyle = body; ctx.fillRect(-len * 0.18, -wid * 0.36, len * 0.28, wid * 0.72);
+    const lr = Math.max(0.9, wid * 0.13), yy = wid * 0.28;
+    ctx.fillStyle = C.HEADLIGHT;                                           // headlights
+    for (const s of [-1, 1]) { ctx.beginPath(); ctx.arc(len / 2 - lr * 1.1, s * yy, lr, 0, 2 * Math.PI); ctx.fill(); }
+    for (const s of [-1, 1]) {                                             // tail lights, bright when braking
+      if (braking) { ctx.beginPath(); ctx.arc(-len / 2 - 0.5, s * yy, lr * 2.6, 0, 2 * Math.PI); ctx.fillStyle = hexToRgba(C.BRAKELIGHT, 0.3); ctx.fill(); }
+      ctx.beginPath(); ctx.arc(-len / 2 + lr * 1.1, s * yy, braking ? lr * 1.2 : lr, 0, 2 * Math.PI);
+      ctx.fillStyle = braking ? C.BRAKELIGHT : hexToRgba(C.TAILLIGHT, 0.5); ctx.fill();
+    }
+  } else if (braking) {
+    ctx.fillStyle = C.BRAKELIGHT; ctx.fillRect(-len / 2, -wid / 2, Math.max(1, len * 0.14), wid);
+  }
+  ctx.restore();
+}
+
+function draw() {
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H);
+  const v = view;
+
+  // panel and road
+  rrect(v.panel.x, v.panel.y, v.panel.w, v.panel.h, 14); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+  ctx.beginPath();
+  for (let k = 0; k < v.xs.length; k++) { if (k === 0) ctx.moveTo(v.xs[k], v.ys[k]); else ctx.lineTo(v.xs[k], v.ys[k]); }
+  ctx.lineWidth = v.roadPx; ctx.lineJoin = 'round'; ctx.lineCap = 'butt'; ctx.strokeStyle = C.ROAD; ctx.stroke();
+
+  for (const j of sim.jams) drawJam(j);
+  for (const car of sim.cars) drawCar(car);
+  for (const o of sim.obstacles) drawObstacle(o);
+
+  // clock (simulated time)
+  ctx.font = '600 18px ui-monospace, Menlo, Consolas, monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CLOCK;
+  ctx.fillText(fmtClock(simTime), (W - sideW) / 2, H - P.CLOCK_HEIGHT + 22);
+}
+
+/* =====================================================================
+   Controls  (mouse / touch buttons only)
+   ===================================================================== */
+// supply icon: one, two or three lit chevrons for low, medium, high
+function supplyIcon(n) {
+  let s = '<svg viewBox="0 0 24 24" aria-hidden="true">';
+  for (let k = 0; k < 3; k++) {
+    const x = 1.5 + k * 6.5;
+    s += '<path fill-opacity="' + (k < n ? 1 : 0.28) + '" d="M' + x + ' 6h3l4.5 6-4.5 6h-3l4.5-6z"/>';
+  }
+  return s + '</svg>';
+}
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+};
+const SUPPLY_NAMES = ['low', 'medium', 'high'];
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart');
+const btnSupply = document.getElementById('btnSupply'), btnQr = document.getElementById('btnQr');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Reserve a column on the right for the QR code while it is shown, so it never covers the road.
+// The road, the clock and the buttons are centred in the remaining space.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const show = !qrImg.hidden;
+  sideW = show ? Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION)) : 0;
+  if (show) {
+    const size = sideW - 28;                                  // 14 px margin on each side
+    qrImg.style.width = size + 'px';
+    qrImg.style.top = Math.max(10, (H - P.CLOCK_HEIGHT - size) / 2) + 'px';   // centred vertically beside the road
+  }
+  controlsEl.style.left = ((W - sideW) / 2) + 'px';
+  buildView();
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnSupply.innerHTML = supplyIcon(level + 1);
+  const t = 'Car supply: ' + SUPPLY_NAMES[level] + ' (click for the next setting)';
+  btnSupply.title = t; btnSupply.setAttribute('aria-label', t);
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+// Restart: halt, refill the road at the current supply, then resume after a short pause. Keeps the play / pause state.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function cycleSupply() { setLevel((level + 1) % 3); syncButtons(); }
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = 'qr.png not found next to this page';
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnSupply, cycleSupply);
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+// click (or tap) on the road: put an obstacle there
+canvas.addEventListener('click', e => {
+  const r = canvas.getBoundingClientRect();
+  const hit = nearestOnRoad(e.clientX - r.left, e.clientY - r.top);
+  if (hit.dist <= view.roadPx / 2 + P.CLICK_TOLERANCE) placeObstacle(sim, hit.s);
+});
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+applyScheme();
+resize();
+reset();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

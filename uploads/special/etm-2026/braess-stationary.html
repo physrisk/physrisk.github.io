@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Braess's paradox: bridge time</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (bridge built, QR shown) */
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }                  /* bridge time at its minimum / maximum */
+  .btn:disabled:hover { color: var(--btn-fg, #8b95a5); border-color: var(--btn-edge, #2a313c); }
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Restart" aria-label="Restart"></button>
+  <button class="btn" id="btnPlay" title="Play / pause" aria-label="Play / pause"></button>
+  <button class="btn" id="btnLess" title="Shorter bridge" aria-label="Shorter bridge"></button>
+  <button class="btn" id="btnMore" title="Longer bridge" aria-label="Longer bridge"></button>
+</div>
+<button class="btn" id="btnQr" title="Show / hide QR code" aria-label="Show or hide QR code">QR</button>
+<img id="qr" src="qr.png" alt="QR code" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; times in minutes)
+   ===================================================================== */
+const P = {
+  // --- the model: every driver goes from city A (left) to city B (right) once per "day"; drivers are always in equilibrium ---
+  N_CARS: 1000,               // drivers in total
+  K: 0.1,                     // country road: crossing time = K * (number of cars on that section), in minutes
+  HIGHWAY_TIME: 100,          // highway: crossing time, independent of the number of cars
+  BRIDGE_TIME: 1,             // crossing time of the shortcut road at the start; changed by the two buttons
+  BRIDGE_MIN: 1,              // shortest bridge time; the next one is BRIDGE_STEP, then 2 * BRIDGE_STEP, ...
+  BRIDGE_STEP: 5,             // each press of a button changes the bridge time by this much
+  BRIDGE_MAX: 100,            // longest bridge time
+  DEPART_WINDOW: 10,          // all drivers leave city A within this many minutes of the start of a day (rush hour)
+  DAY_GAP: 4,                 // quiet minutes after the last car has arrived, before the next day starts
+
+  // --- scene geometry (design units; the whole scene is scaled to fit the window) ---
+  SCENE_W: 1000, SCENE_H: 420,
+  ROAD_X0: 112, ROAD_X1: 888,         // x where the roads leave city A / enter city B
+  ROAD_Y_UP: 125, ROAD_Y_LOW: 295,    // y of the upper and the lower road
+  COUNTRY_FRACTION: 0.2,              // length of a country section as a share of the distance A-B (the highway section gets the rest)
+  HIGHWAY_WIDTH: 26,                  // drawn widths
+  COUNTRY_WIDTH: 8,
+  BRIDGE_WIDTH: 14,
+  LANE_MARK_WIDTH: 1,                 // dashed lane marks on the highways
+  LANE_DASH: 7,
+  CITY_MARGIN: 16,                    // free space between the panel edge and the houses
+  CITY_Y0: 55, CITY_Y1: 365,          // vertical extent of a city
+  CITY_ROWS: 7, CITY_COLS: 3,         // houses are placed on a jittered grid of this size
+  CITY_SKIP: 0.15,                    // share of grid cells left empty
+  STREET_WIDTH: 2.2,                  // narrow streets that connect the houses of a city to each other and to the outgoing roads (static)
+  STREET_DROP: 17,                    // a row's street runs this far below the centre of the row's houses
+  VIEW_MARGIN: 24,                    // free space (px) around the scene inside the window
+  PANEL_RADIUS: 14,
+
+  // --- cars (dots) ---
+  CAR_RADIUS: 1.8,                    // design units
+  CAR_MIN_PX: 1.1,                    // never drawn smaller than this radius in pixels
+  V_FULL_BLUE: 1.0,                   // speed (relative to the highway speed) at which a car is fully blue; slower = more orange
+  TIMER_UNIT: 'min',                  // unit written after the times
+  SHOW_COUNTS: true,                  // under each route's trip time: how many drivers use it
+  COUNT_UNIT: 'cars',
+  BRIDGE_LABEL_RISE: 10,              // the label of the bridge route (time, cars) sits to the right of the bridge, this far above its middle (design units)
+  BRIDGE_LABEL_GAP: 7,                // free space between the bridge and that label (design units)
+  PULSE_MS: 450,                      // when the bridge time changes, its sign swells (longer) or shrinks (shorter) and settles back in this many ms
+  PULSE_SCALE: 0.25,                  // ... by this fraction
+  TIMER_FONT: 15,                     // px at scene scale 1 (scales with the scene, 11..22 px)
+
+  // --- colours ---
+  SCHEME: 'light',             // 'auto' = follow the system / browser light-dark setting (live), or force 'dark' / 'light'
+  PALETTES: {
+    dark: {
+      BG: '#0e1116', DISC: '#161b22', DISC_EDGE: '#2a313c', ROAD: '#2a313c', CLOCK: '#8b95a5',
+      LANE: '#4a5463',                                      // dashed lane marks on the highways
+      SLOW: '#ff8a5c', FAST: '#5cb8ff',                     // car colour when slow / fast (relative to the highway)
+      HOUSE: '#3b4350', ROOF: '#4a5463', WINDOW: 'rgba(244,241,208,0.35)',   // the cities
+      BTN_BG: '#161b22', BTN_FG: '#8b95a5', BTN_EDGE: '#2a313c', BTN_HOVER_FG: '#e6edf3', BTN_HOVER_EDGE: '#4a5463',
+      BTN_ON_FG: '#0e1116', BTN_ON_BG: '#8b95a5', FOCUS: '#5cb8ff',
+    },
+    light: {
+      BG: '#eef1f5', DISC: '#fbfcfd', DISC_EDGE: '#d3d9e1', ROAD: '#dde2e9', CLOCK: '#5b6675',
+      LANE: '#b6bec9',
+      SLOW: '#f2711c', FAST: '#1f7ae0',
+      HOUSE: '#c5ccd6', ROOF: '#aeb7c3', WINDOW: 'rgba(255,255,255,0.55)',
+      BTN_BG: '#ffffff', BTN_FG: '#5b6675', BTN_EDGE: '#d3d9e1', BTN_HOVER_FG: '#111827', BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff', BTN_ON_BG: '#5b6675', FOCUS: '#1f7ae0',
+    },
+  },
+
+  // --- simulation / display ---
+  TIME_SCALE: 30,             // simulated minutes per real second
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR column while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the buttons (no clock is drawn)
+};
+
+/* =====================================================================
+   LOGIC (no DOM): route times and the equilibrium
+   ===================================================================== */
+// Trip times of the three routes when nu / nl / nb drivers use the upper road, the lower road and the shortcut,
+// and the shortcut road takes B minutes. A country section is shared by the old road and by the shortcut route that also uses it.
+//   upper road:  country (A->C), highway (C->B)
+//   lower road:  highway (A->D), country (D->B)
+//   shortcut:    country (A->C), bridge (C->D), country (D->B)
+function routeTimes(nu, nl, nb, B) {
+  const cu = P.K * (nu + nb), cl = P.K * (nl + nb);
+  return { cu, cl, up: cu + P.HIGHWAY_TIME, low: P.HIGHWAY_TIME + cl, br: cu + B + cl };
+}
+
+// The equilibrium split: drivers start at an even split between the two old roads and move to the shortcut route, one from
+// each old road at a time, for as long as the shortcut route is then no slower than the old roads (no overshoot).
+// The largest such number of moves is the equilibrium: nobody gains by changing route.
+function equilibrium(B) {
+  const nu0 = Math.floor(P.N_CARS / 2), nl0 = P.N_CARS - nu0;
+  for (let m = Math.min(nu0, nl0); m > 0; m--) {
+    const t = routeTimes(nu0 - m, nl0 - m, 2 * m, B);
+    if (t.br <= Math.min(t.up, t.low) + 1e-9) return { u: nu0 - m, l: nl0 - m, b: 2 * m };
+  }
+  return { u: nu0, l: nl0, b: 0 };
+}
+
+// the next longer / shorter bridge time on the ladder 1, 5, 10, 15, ...
+function nextBridgeTime(B, dir) {
+  const st = P.BRIDGE_STEP, i = Math.round(B / st);
+  const v = dir > 0 ? (B < st ? st : (i + 1) * st) : (B <= st ? P.BRIDGE_MIN : (i - 1) * st);
+  return Math.max(P.BRIDGE_MIN, Math.min(P.BRIDGE_MAX, v));
+}
+
+/* =====================================================================
+   State of the simulation
+   ===================================================================== */
+let route = new Uint8Array(P.N_CARS);          // 0 = upper road, 1 = lower road, 2 = shortcut route
+const dep = new Float64Array(P.N_CARS);        // departure delay within the day (fixed per driver)
+const lane = new Float64Array(P.N_CARS);       // sideways position on the road, -1..1 (fixed per driver)
+for (let i = 0; i < P.N_CARS; i++) {
+  dep[i] = P.DEPART_WINDOW * ((i * 0.6180339887498949) % 1);        // evenly spread over the window, whatever the route
+  lane[i] = (Math.sin(i * 12.9898 + 4.1) * 43758.5453 % 1 + 1) % 1 * 2 - 1;   // pseudo-random, unrelated to the departure
+}
+// the order in which drivers are handed their routes (unrelated to the departure times, so each route gets a mix of early and late drivers)
+const ORDER = Array.from({ length: P.N_CARS }, (_, i) => i).sort((a, b) => ((a * 0.7548776662466927) % 1) - ((b * 0.7548776662466927) % 1));
+
+let pulse = { t0: -1e9, dir: 0 };  // when and in which direction (+1 longer, -1 shorter) the bridge time last changed
+let bridgeTime = P.BRIDGE_TIME;    // crossing time of the bridge (minutes)
+let day = 1, dayT = 0, dayLen = 1, simTime = 0;
+let cnt = { u: 0, l: 0, b: 0 };
+let T = { up: 0, low: 0, br: 0 };  // trip times of today (the same every day, since the drivers are in equilibrium)
+let SECS = [[], [], []];           // sections (straight segments) of the three routes, with today's durations
+let KIND_U = [1, 1, 1, 1, 1];      // colour parameter (0 slow .. 1 fast) of the 5 kinds of section
+
+const GEO = (function () {
+  const f = P.COUNTRY_FRACTION, x0 = P.ROAD_X0, x1 = P.ROAD_X1, yu = P.ROAD_Y_UP, yl = P.ROAD_Y_LOW;
+  return { x0, x1, yu, yl, cx: x0 + f * (x1 - x0), dx: x1 - f * (x1 - x0) };   // C = (cx, yu), D = (dx, yl)
+})();
+
+function seg(x0, y0, x1, y1, dur, w, kind) {
+  return { x0, y0, x1, y1, dur, w, kind, len: Math.hypot(x1 - x0, y1 - y0) };
+}
+
+// everybody takes the route of the equilibrium for the current bridge time
+function assignEquilibrium() {
+  const e = equilibrium(bridgeTime);
+  for (let k = 0; k < P.N_CARS; k++) route[ORDER[k]] = k < e.b ? 2 : (k < e.b + e.u ? 0 : 1);
+}
+
+// start of a day: count the drivers per route and fix the durations of all sections for the day
+function beginDay() {
+  cnt = { u: 0, l: 0, b: 0 };
+  for (let i = 0; i < P.N_CARS; i++) { if (route[i] === 0) cnt.u++; else if (route[i] === 1) cnt.l++; else cnt.b++; }
+  const t = routeTimes(cnt.u, cnt.l, cnt.b, bridgeTime), G = GEO;
+  const sUp1 = seg(G.x0, G.yu, G.cx, G.yu, t.cu, P.COUNTRY_WIDTH, 0);
+  const sUp2 = seg(G.cx, G.yu, G.x1, G.yu, P.HIGHWAY_TIME, P.HIGHWAY_WIDTH, 1);
+  const sLo1 = seg(G.x0, G.yl, G.dx, G.yl, P.HIGHWAY_TIME, P.HIGHWAY_WIDTH, 2);
+  const sLo2 = seg(G.dx, G.yl, G.x1, G.yl, t.cl, P.COUNTRY_WIDTH, 3);
+  const sBr = seg(G.cx, G.yu, G.dx, G.yl, bridgeTime, P.BRIDGE_WIDTH, 4);
+  const sB1 = seg(G.x0, G.yu, G.cx, G.yu, t.cu, P.COUNTRY_WIDTH, 0), sB3 = seg(G.dx, G.yl, G.x1, G.yl, t.cl, P.COUNTRY_WIDTH, 3);
+  SECS = [[sUp1, sUp2], [sLo1, sLo2], [sB1, sBr, sB3]];
+  const hwSpeed = sUp2.len / P.HIGHWAY_TIME;
+  [sUp1, sUp2, sLo1, sLo2, sBr].forEach(s => {
+    KIND_U[s.kind] = s.dur > 1e-9 ? Math.max(0, Math.min(1, (s.len / s.dur) / (hwSpeed * P.V_FULL_BLUE))) : 1;
+  });
+  T = { up: t.up, low: t.low, br: t.br };
+  const used = Math.max(cnt.u > 0 ? t.up : 0, cnt.l > 0 ? t.low : 0, cnt.b > 0 ? t.br : 0);
+  dayLen = P.DEPART_WINDOW + used + P.DAY_GAP;
+  dayT = 0;
+}
+
+// end of a day: the next one looks the same (the drivers are in equilibrium)
+function endDay() { day++; beginDay(); }
+
+function reset() { day = 1; simTime = 0; assignEquilibrium(); beginDay(); }
+
+// a new bridge time: the drivers switch to the new equilibrium at once, and a new day starts
+function setBridgeTime(b) { bridgeTime = b; assignEquilibrium(); beginDay(); }
+
+function advance(dtReal) {
+  let dt = Math.max(0, Math.min(dtReal, 0.1)) * P.TIME_SCALE;   // never negative; capped after a stalled tab
+  simTime += dt;
+  while (dt > 1e-9) {
+    const step = Math.min(dt, dayLen - dayT);
+    dayT += step; dt -= step;
+    if (dayT >= dayLen - 1e-9) endDay();
+  }
+}
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+let sideW = 0;             // width of the QR column on the right (0 while the code is hidden)
+let view = { s: 1, ox: 0, oy: 0 };
+
+function resize() {
+  DPR = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+  layout();
+}
+
+function hexRgb(hex) { const n = parseInt(hex.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+
+// colour scheme: the current palette C is read on every frame, so a change shows at once
+let C = P.PALETTES.dark, SLOW_RGB = hexRgb(C.SLOW), FAST_RGB = hexRgb(C.FAST);
+const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function applyScheme() {
+  const name = P.SCHEME === 'auto' ? (schemeQuery && schemeQuery.matches ? 'light' : 'dark') : P.SCHEME;
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  SLOW_RGB = hexRgb(C.SLOW); FAST_RGB = hexRgb(C.FAST);
+  const st = document.documentElement.style;
+  st.setProperty('--bg', C.BG);
+  st.setProperty('--btn-bg', C.BTN_BG); st.setProperty('--btn-fg', C.BTN_FG); st.setProperty('--btn-edge', C.BTN_EDGE);
+  st.setProperty('--btn-hover-fg', C.BTN_HOVER_FG); st.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  st.setProperty('--btn-on-fg', C.BTN_ON_FG); st.setProperty('--btn-on-bg', C.BTN_ON_BG); st.setProperty('--focus', C.FOCUS);
+  document.documentElement.dataset.scheme = name;
+}
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+
+// scale the scene into the free area of the window (left of the QR column, above the clock strip)
+function buildView() {
+  const aw = Math.max(40, W - sideW - 2 * P.VIEW_MARGIN), ah = Math.max(40, H - P.CLOCK_HEIGHT - 2 * P.VIEW_MARGIN);
+  const s = Math.min(aw / P.SCENE_W, ah / P.SCENE_H);
+  view = { s, ox: (W - sideW) / 2 - P.SCENE_W * s / 2, oy: (H - P.CLOCK_HEIGHT) / 2 - P.SCENE_H * s / 2 };
+}
+
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+}
+
+// --- cities: a few houses on a jittered grid (fixed pseudo-random layout) ---
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function genCity(seed, xa, xb, collectorX, farX) {
+  const rnd = mulberry32(seed), houses = [], streets = [];
+  const cw = (xb - xa) / P.CITY_COLS, ch = (P.CITY_Y1 - P.CITY_Y0) / P.CITY_ROWS;
+  for (let r = 0; r < P.CITY_ROWS; r++) for (let c = 0; c < P.CITY_COLS; c++) {
+    if (rnd() < P.CITY_SKIP) continue;
+    const w = 19 + rnd() * 9, bh = 12 + rnd() * 6, roof = 8 + rnd() * 5;
+    houses.push({
+      x: xa + (c + 0.5) * cw + (rnd() - 0.5) * 5, y: P.CITY_Y0 + (r + 0.5) * ch + (rnd() - 0.5) * 6,
+      w, bh, roof, win: w >= 22,
+    });
+  }
+  for (let r = 0; r < P.CITY_ROWS; r++) streets.push(P.CITY_Y0 + (r + 0.5) * ch + P.STREET_DROP);   // one street per row of houses
+  return { houses, streets, collectorX, farX };
+}
+// the collector street runs along the side facing the outgoing roads (they start on it); the far street closes the network
+const CITY_A = genCity(7, P.CITY_MARGIN, P.ROAD_X0 - 8, P.ROAD_X0 - 1, P.CITY_MARGIN - 3);
+const CITY_B = genCity(19, P.ROAD_X1 + 8, P.SCENE_W - P.CITY_MARGIN, P.ROAD_X1 + 1, P.SCENE_W - P.CITY_MARGIN + 3);
+
+function drawCity(city) {
+  const houses = city.houses, ys = city.streets;
+  ctx.beginPath();                                   // streets: under the houses
+  for (const y of ys) { ctx.moveTo(city.farX, y); ctx.lineTo(city.collectorX, y); }
+  ctx.moveTo(city.farX, ys[0]); ctx.lineTo(city.farX, ys[ys.length - 1]);
+  ctx.moveTo(city.collectorX, ys[0]); ctx.lineTo(city.collectorX, ys[ys.length - 1]);
+  for (const h of houses) {                          // a short stub from each door to the street of its row
+    let best = ys[0];
+    for (const y of ys) if (Math.abs(y - h.y) < Math.abs(best - h.y)) best = y;
+    ctx.moveTo(h.x, h.y + h.bh / 2); ctx.lineTo(h.x, best);
+  }
+  ctx.lineWidth = P.STREET_WIDTH; ctx.strokeStyle = C.ROAD; ctx.lineCap = 'butt'; ctx.lineJoin = 'miter'; ctx.stroke();
+  for (const h of houses) {
+    const x = h.x - h.w / 2, yb = h.y + h.bh / 2, yt = h.y - h.bh / 2;
+    ctx.fillStyle = C.HOUSE; ctx.fillRect(x, yt, h.w, h.bh);
+    ctx.fillStyle = C.ROOF;
+    ctx.beginPath(); ctx.moveTo(x - 2, yt); ctx.lineTo(h.x, yt - h.roof); ctx.lineTo(x + h.w + 2, yt); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = C.WINDOW;
+    if (h.win) { ctx.fillRect(x + h.w * 0.2, yt + 3, 4, 4); ctx.fillRect(x + h.w * 0.8 - 4, yt + 3, 4, 4); }
+    else ctx.fillRect(h.x - 2, yt + 3, 4, 4);
+    ctx.fillRect(h.x - 1.5, yb - 5, 3, 5);
+  }
+}
+
+function strokeSeg(x0, y0, x1, y1, w, color) {
+  ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
+  ctx.lineWidth = w; ctx.strokeStyle = color; ctx.lineCap = 'butt'; ctx.stroke();
+}
+
+// position of a driver at the current moment of the day; false if it is not on the road (yet or any more)
+const pos = { x: 0, y: 0, k: 0 };
+function carPos(i, rr) {
+  let tau = dayT - dep[i];
+  if (tau < 0) return false;
+  const secs = SECS[route[i]];
+  for (let q = 0; q < secs.length; q++) {
+    const s = secs[q];
+    if (tau < s.dur) {
+      const f = tau / s.dur, dx = (s.x1 - s.x0) / s.len, dy = (s.y1 - s.y0) / s.len;
+      const off = lane[i] * Math.max(0, s.w / 2 - rr - 0.6);
+      pos.x = s.x0 + (s.x1 - s.x0) * f - dy * off; pos.y = s.y0 + (s.y1 - s.y0) * f + dx * off; pos.k = s.kind;
+      return true;
+    }
+    tau -= s.dur;
+  }
+  return false;
+}
+
+function mixColor(u) {
+  const c = k => Math.round(SLOW_RGB[k] + (FAST_RGB[k] - SLOW_RGB[k]) * u);
+  return 'rgb(' + c(0) + ',' + c(1) + ',' + c(2) + ')';
+}
+
+function drawTimer(text, x, y) {
+  ctx.fillText(text, view.ox + x * view.s, view.oy + y * view.s);
+}
+
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H);
+  const v = view, G = GEO;
+  ctx.save();
+  ctx.setTransform(DPR * v.s, 0, 0, DPR * v.s, DPR * v.ox, DPR * v.oy);       // design units from here on
+
+  // panel
+  rrect(0, 0, P.SCENE_W, P.SCENE_H, P.PANEL_RADIUS); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.lineWidth = 1.5 / v.s; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+
+  // roads
+  strokeSeg(G.x0, G.yu, G.cx, G.yu, P.COUNTRY_WIDTH, C.ROAD);
+  strokeSeg(G.cx, G.yu, G.x1, G.yu, P.HIGHWAY_WIDTH, C.ROAD);
+  strokeSeg(G.x0, G.yl, G.dx, G.yl, P.HIGHWAY_WIDTH, C.ROAD);
+  strokeSeg(G.dx, G.yl, G.x1, G.yl, P.COUNTRY_WIDTH, C.ROAD);
+  strokeSeg(G.cx, G.yu, G.dx, G.yl, P.BRIDGE_WIDTH, C.ROAD);
+  ctx.fillStyle = C.ROAD;
+  for (const [px, py] of [[G.cx, G.yu], [G.dx, G.yl]]) { ctx.beginPath(); ctx.arc(px, py, P.BRIDGE_WIDTH / 2, 0, 2 * Math.PI); ctx.fill(); }
+  ctx.setLineDash([P.LANE_DASH, P.LANE_DASH]);                                   // lane marks: three lanes on each highway
+  for (const [xa, xb, y] of [[G.cx, G.x1, G.yu], [G.x0, G.dx, G.yl]])
+    for (const o of [-1, 1]) strokeSeg(xa, y + o * P.HIGHWAY_WIDTH / 6, xb, y + o * P.HIGHWAY_WIDTH / 6, P.LANE_MARK_WIDTH, C.LANE);
+  ctx.setLineDash([]);
+
+  drawCity(CITY_A); drawCity(CITY_B);
+
+  // cars: one path (and one fill) per kind of section, since all cars on a section share a colour
+  const rr = Math.max(P.CAR_RADIUS, P.CAR_MIN_PX / v.s);
+  const paths = [new Path2D(), new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+  for (let i = 0; i < P.N_CARS; i++) {
+    if (!carPos(i, rr)) continue;
+    const p = paths[pos.k];
+    p.moveTo(pos.x + rr, pos.y); p.arc(pos.x, pos.y, rr, 0, 2 * Math.PI);
+  }
+  for (let k = 0; k < 5; k++) { ctx.fillStyle = mixColor(KIND_U[k]); ctx.fill(paths[k]); }
+  ctx.restore();
+
+  // trip time of each route and the number of drivers using it
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const fs = Math.max(11, Math.min(22, P.TIMER_FONT * v.s)), fsSmall = Math.round(fs * 0.8 * 10) / 10;
+  const FONT = px => '600 ' + px + 'px ui-monospace, Menlo, Consolas, monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = C.CLOCK;
+  const label = (time, n, x, y, dir, align) => {  // dir: -1 puts the count above the time, +1 below it; x, y in design units
+    const px = v.ox + x * v.s, py = v.oy + y * v.s;
+    ctx.textAlign = align || 'center';
+    ctx.font = FONT(fs); ctx.fillText(Math.round(time) + ' ' + P.TIMER_UNIT, px, py);
+    if (P.SHOW_COUNTS) {
+      ctx.font = FONT(fsSmall); ctx.globalAlpha = 0.7; ctx.fillText(n + ' ' + P.COUNT_UNIT, px, py + dir * fs * 1.15); ctx.globalAlpha = 1;
+    }
+    ctx.textAlign = 'center';
+  };
+  const sign = Math.round(bridgeTime) + ' ' + P.TIMER_UNIT;                     // the sign on the bridge
+  ctx.font = FONT(fs);
+  const pw = ctx.measureText(sign).width + 16, ph = fs + 10;
+  const mx = (G.x0 + G.x1) / 2;
+  label(T.up, cnt.u, mx, G.yu - P.HIGHWAY_WIDTH / 2 - 16, -1);
+  label(T.low, cnt.l, mx, G.yl + P.HIGHWAY_WIDTH / 2 + 17, 1);
+  if (cnt.b > 0) {      // the shortcut route, if anybody uses it: immediately to the right of the bridge, a little above its middle
+    const L = Math.hypot(G.dx - G.cx, G.yl - G.yu), sinT = (G.yl - G.yu) / L;
+    const yc = (G.yu + G.yl) / 2 - P.BRIDGE_LABEL_RISE;                       // centre of the two lines of text (design units)
+    const yTime = yc - 0.575 * fs / v.s, yBottom = yc + (0.575 * fs + 0.5 * fsSmall) / v.s;   // the time line, and the lowest edge of the block
+    const lineX = y => G.cx + (y - G.yu) / (G.yl - G.yu) * (G.dx - G.cx);     // x of the bridge's centre line at height y
+    const xRoad = lineX(yBottom) + (P.BRIDGE_WIDTH / 2) / sinT + P.BRIDGE_LABEL_GAP;   // clear of the road at the lowest line
+    const xSign = (G.cx + G.dx) / 2 + pw / 2 / v.s * (1 + P.PULSE_SCALE) + P.BRIDGE_LABEL_GAP / 2;   // and clear of the sign, even while it swells
+    const xLeft = Math.max(xRoad, xSign);
+    label(T.br, cnt.b, xLeft, yTime, 1, 'left');
+  }
+  // the crossing time of the bridge itself: a sign on the road
+  ctx.font = FONT(fs);
+  const sx = v.ox + (G.cx + G.dx) / 2 * v.s, sy = v.oy + (G.yu + G.yl) / 2 * v.s;
+  const pp = (performance.now() - pulse.t0) / P.PULSE_MS;                      // a short swell / shrink when the time was just changed
+  const sc = pp >= 0 && pp < 1 ? 1 + pulse.dir * P.PULSE_SCALE * Math.sin(Math.PI * pp) : 1;
+  ctx.save(); ctx.translate(sx, sy); ctx.scale(sc, sc);
+  rrect(-pw / 2, -ph / 2, pw, ph, ph / 2); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+  ctx.fillStyle = C.CLOCK; ctx.fillText(sign, 0, 0);
+  ctx.restore();
+}
+
+/* =====================================================================
+   Controls  (mouse / touch buttons only)
+   ===================================================================== */
+// bridge time buttons: minus / plus
+const MINUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10.5h14v3H5z"/></svg>';
+const PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10.5h5.5V5h3v5.5H19v3h-5.5V19h-3v-5.5H5z"/></svg>';
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+};
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart');
+const btnLess = document.getElementById('btnLess'), btnMore = document.getElementById('btnMore'), btnQr = document.getElementById('btnQr');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Reserve a column on the right for the QR code while it is shown, so it never covers the scene.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const show = !qrImg.hidden;
+  sideW = show ? Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION)) : 0;
+  if (show) {
+    const size = sideW - 28;                                  // 14 px margin on each side
+    qrImg.style.width = size + 'px';
+    qrImg.style.top = Math.max(10, (H - P.CLOCK_HEIGHT - size) / 2) + 'px';
+  }
+  controlsEl.style.left = ((W - sideW) / 2) + 'px';
+  buildView();
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnLess.innerHTML = MINUS; btnMore.innerHTML = PLUS;
+  const lo = nextBridgeTime(bridgeTime, -1), hi = nextBridgeTime(bridgeTime, 1);
+  btnLess.disabled = lo === bridgeTime; btnMore.disabled = hi === bridgeTime;
+  const tl = 'Bridge time: ' + bridgeTime + ' min (' + (btnLess.disabled ? 'the shortest' : 'click for ' + lo + ' min') + ')';
+  const tm = 'Bridge time: ' + bridgeTime + ' min (' + (btnMore.disabled ? 'the longest' : 'click for ' + hi + ' min') + ')';
+  btnLess.title = tl; btnLess.setAttribute('aria-label', 'Shorter bridge. ' + tl);
+  btnMore.title = tm; btnMore.setAttribute('aria-label', 'Longer bridge. ' + tm);
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+// Restart: halt, start the first day again, resume after a short pause. Keeps the play / pause state and the bridge time.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function changeBridge(dir) {
+  const b = nextBridgeTime(bridgeTime, dir);
+  if (b !== bridgeTime) { setBridgeTime(b); pulse = { t0: performance.now(), dir }; }
+  syncButtons();
+}
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = 'qr.png not found next to this page';
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnLess, () => changeBridge(-1));
+onClick(btnMore, () => changeBridge(1));
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+applyScheme();
+reset();
+resize();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

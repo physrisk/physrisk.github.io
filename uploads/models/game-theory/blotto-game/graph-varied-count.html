@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Colonel Blotto: Strategic partition for the two castle case</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+    <style>
+        div#graph{height:400px;width:400px}
+        #enemy-label{color:#b6000e;font-weight:700;width:auto}
+        #blotto-label{color:#0069b6;font-weight:700;width:auto}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="graph"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock oneandhalfWidth">
+            <label id="blotto-label">Blotto:</label>
+            <input id="blotto-power" type="number" value="20" disabled>
+            troops
+        </span>
+        <span class="controlBlock oneandhalfWidth">
+            <label id="enemy-label">Enemy:</label>
+            <input id="enemy-power" type="number" min="2" max="50" step="1" value="12">
+            troops
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./graph-varied-count.js"></script>
+</body>
+</html>

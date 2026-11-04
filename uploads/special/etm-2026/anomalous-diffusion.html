@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anomalous diffusion</title>
+<style>
+  /* colours come from CSS custom properties written by applyScheme(); the dark values are fallbacks
+     so the page is already correct before the script runs */
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (fast, QR shown) */
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Restart" aria-label="Restart"></button>
+  <button class="btn" id="btnPlay" title="Play / pause" aria-label="Play / pause"></button>
+  <button class="btn" id="btnFast" title="Fast forward" aria-label="Fast forward"></button>
+</div>
+<button class="btn" id="btnQr" title="Show / hide QR code" aria-label="Show or hide QR code">QR</button>
+<img id="qr" src="qr.png" alt="QR code" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; everything is in arena units, seconds)
+   ===================================================================== */
+const P = {
+  // --- arena and obstacles (identical for all three panels) ---
+  ARENA_RADIUS: 100,
+  N_PILLARS: 250,
+  PILLAR_SIZE: 4,             // side length of the square obstacles (axis-aligned)
+  PILLAR_MIN_GAP: 3.0,        // minimum free distance between neighbouring squares
+  CENTER_CLEARING: 10,        // no pillars closer than this to the centre
+  LAYOUT_SEED: 12345,         // change for a different pillar layout
+
+  // --- walkers ---
+  N_WALKERS: 300,             // per panel
+  WALKER_RADIUS: 0.8,
+  SPEED: 10,                // v, constant for all walkers
+  MEAN_WAIT: 1,               // T, mean waiting time at a pillar (normal and super cases)
+
+  // --- random walk (normal and sub cases) ---
+  TURN_DIFFUSION: 10.0,       // rotational diffusion of heading, rad^2/s
+                              // (persistence length is roughly SPEED / TURN_DIFFUSION)
+
+  // --- subdiffusive case ---
+  // Waits at an obstacle are drawn anew at every visit from a Pareto law,
+  //   P(wait > x) = (a / x)^beta  for x >= a,   with no upper cutoff (infinite mean).
+  // The scale a is chosen so that the MEDIAN wait equals the median of the exponential waits
+  // (ln2 * T) used in the other two cases. Smaller beta = heavier tail (0 < beta < 1).
+  SUB_BETA: 0.5,
+
+  // --- superdiffusive case: target choice weight ~ distance^-mu, unvisited pillars only ---
+  // In 2D the resulting flight-length density is ~ d^(1-mu).
+  SUPER_DISTANCE_EXPONENT: 3,
+  SUPER_MIN_DISTANCE: 3,      // distances below this are clamped when weighting
+
+  // --- reach circle: radius reached by this fraction of the walkers ---
+  REACH_FRACTION: 0.9,        // 0.9 = 90% of the walkers have been at least this far from the centre
+  REACH_DRAW_SCALE: { sub: 1, normal: 1, super: 1.07 },   // drawing-only factor per case (the super walkers
+                              // hop between obstacles and top out near 93% of the arena radius)
+  REACH_CIRCLE_WIDTH: 2.5,   // line width (px) of the circle
+
+  // --- trails: each walker draws the path of its most recent steps ---
+  TRAIL_SECONDS: 10,          // how far back the trail reaches, in simulated seconds (0 = no trails)
+  TRAIL_SAMPLE_DT: 0.1,       // simulated seconds between stored trail points (smaller = smoother, more memory)
+  TRAIL_WIDTH: 1,             // line width in DEVICE pixels. Keep it <= 1: thinner lines are drawn much faster
+                              // by the browser (at 1.2 the frame rate dropped from 60 to ~24 fps in testing)
+  TRAIL_BANDS: 4,             // the trail fades towards its old end in this many steps
+
+  // --- simulation / display ---
+  TIME_SCALE: 10,            // simulated seconds per real second
+  FAST_FACTOR: 4,             // extra speed-up while the fast-forward button is on (costs CPU: 4 means ~4x work per frame)
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR column while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  MAX_SUBSTEP: 0.05,          // largest simulation time step (keep SPEED*MAX_SUBSTEP < pillar size)
+  ORDER: ['sub', 'normal', 'super'],   // left-to-right order of panels
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the clock and the buttons
+
+  // --- colour scheme ---
+  SCHEME: 'light',             // 'auto' = follow the system / browser (live) | 'dark' | 'light' = force it
+  PALETTES: {
+    dark: {
+      BG: '#0e1116',            // page background
+      DISC: '#161b22',          // panel (the circular arena)
+      DISC_EDGE: '#2a313c',     // panel outline
+      PILLAR: '#3b4350',        // square obstacles
+      CLOCK: '#8b95a5',         // clock text
+      SUB: '#ff8a5c',           // accent of the subdiffusive case (walkers and reach circle)
+      NORMAL: '#5cb8ff',        // accent of the normal case
+      SUPER: '#7be08a',         // accent of the superdiffusive case
+      WAIT_ALPHA: 0.55,         // opacity of a walker while it waits at a pillar
+      OUTLINE_ALPHA: 0.85,      // opacity of the reach circle outline
+      REACH_FILL: 0.07,         // opacity of the faint fill inside the reach circle (0 = none)
+      TRAIL_ALPHA: 0.45,        // opacity of the newest part of a walker's trail (older parts fade)
+      BTN_BG: '#161b22',        // button face
+      BTN_FG: '#8b95a5',        // button icon
+      BTN_EDGE: '#2a313c',      // button border
+      BTN_HOVER_FG: '#e6edf3',  // icon on hover
+      BTN_HOVER_EDGE: '#4a5463',// border on hover
+      BTN_ON_FG: '#0e1116',     // icon of a toggled-on button
+      BTN_ON_BG: '#8b95a5',     // face (and border) of a toggled-on button
+      FOCUS: '#5cb8ff',         // keyboard focus ring
+    },
+    light: {
+      BG: '#eef1f5',
+      DISC: '#fbfcfd',
+      DISC_EDGE: '#d3d9e1',
+      PILLAR: '#c5ccd6',
+      CLOCK: '#5b6675',
+      SUB: '#e8590c',           // accents are darker and more saturated than in the dark scheme
+      NORMAL: '#1f7ae0',
+      SUPER: '#2b9348',
+      WAIT_ALPHA: 0.5,
+      OUTLINE_ALPHA: 0.9,
+      REACH_FILL: 0.10,
+      TRAIL_ALPHA: 0.5,
+      BTN_BG: '#ffffff',
+      BTN_FG: '#5b6675',
+      BTN_EDGE: '#d3d9e1',
+      BTN_HOVER_FG: '#111827',
+      BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff',
+      BTN_ON_BG: '#5b6675',
+      FOCUS: '#1f7ae0',
+    },
+  },
+};
+
+/* =====================================================================
+   Colour scheme: C is the current palette, D the accent colours derived from it.
+   Everything reads C / D on every frame, so a scheme change shows at once.
+   ===================================================================== */
+const ACCENT = { sub: 'SUB', normal: 'NORMAL', super: 'SUPER' };   // case -> palette key
+let C = P.PALETTES.dark, D = {};
+
+function hexToRgba(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+
+function applyScheme() {
+  const light = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: light)').matches;
+  const name = P.SCHEME === 'auto' ? (light ? 'light' : 'dark') : P.SCHEME;
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  D = {};                                              // derived colours, recomputed on every scheme change
+  for (const kind in ACCENT) {
+    const col = C[ACCENT[kind]];
+    const trail = [];                                  // oldest band first, fading in towards the newest
+    for (let b = 0; b < P.TRAIL_BANDS; b++) trail.push(hexToRgba(col, C.TRAIL_ALPHA * (b + 1) / P.TRAIL_BANDS));
+    D[kind] = { solid: col, wait: hexToRgba(col, C.WAIT_ALPHA), outline: hexToRgba(col, C.OUTLINE_ALPHA), fill: hexToRgba(col, C.REACH_FILL), trail };
+  }
+  const s = document.documentElement.style;
+  s.setProperty('--bg', C.BG);
+  s.setProperty('--btn-bg', C.BTN_BG);
+  s.setProperty('--btn-fg', C.BTN_FG);
+  s.setProperty('--btn-edge', C.BTN_EDGE);
+  s.setProperty('--btn-hover-fg', C.BTN_HOVER_FG);
+  s.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  s.setProperty('--btn-on-fg', C.BTN_ON_FG);
+  s.setProperty('--btn-on-bg', C.BTN_ON_BG);
+  s.setProperty('--focus', C.FOCUS);
+  document.documentElement.dataset.scheme = P.PALETTES[name] ? name : 'dark';
+  return name;
+}
+
+/* =====================================================================
+   Helpers
+   ===================================================================== */
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function gauss() {
+  let u = 0; while (u === 0) u = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random());
+}
+function expo(mean) { return -mean * Math.log(1 - Math.random()); }
+
+// Pareto waits for the subdiffusive case (median matched to Exp(T), whose median is ln2 * T)
+const SUB_SCALE = P.MEAN_WAIT * Math.LN2 / Math.pow(2, 1 / P.SUB_BETA);
+function samplePareto() { return SUB_SCALE * Math.pow(1 - Math.random(), -1 / P.SUB_BETA); }
+
+/* =====================================================================
+   Pillars: axis-aligned squares (shared by the three panels)
+   ===================================================================== */
+function makePillars() {
+  const rng = mulberry32(P.LAYOUT_SEED);
+  const h = P.PILLAR_SIZE / 2, rw = P.WALKER_RADIUS;
+  // a walker touching a square (even at a corner) must stay inside the arena
+  const maxC = P.ARENA_RADIUS - h * Math.SQRT2 - 2 * rw - 0.5;
+  const minC = P.CENTER_CLEARING;
+  const minSep = P.PILLAR_SIZE + P.PILLAR_MIN_GAP;   // centres differ by at least this along x or y
+  const out = [];
+  for (let tries = 0; out.length < P.N_PILLARS && tries < 200000; tries++) {
+    const r = Math.sqrt(minC * minC + rng() * (maxC * maxC - minC * minC));
+    const a = rng() * 2 * Math.PI;
+    const x = r * Math.cos(a), y = r * Math.sin(a);
+    let ok = true;
+    for (const q of out) {
+      if (Math.abs(q.x - x) < minSep && Math.abs(q.y - y) < minSep) { ok = false; break; }
+    }
+    if (ok) out.push({ x, y });
+  }
+  return out;
+}
+const pillars = makePillars();
+const M = pillars.length;
+
+// Distance from point (x, y) to square p, plus the outward normal and the closest surface point.
+// d < 0 means the point is inside the square.
+function squareContact(p, x, y) {
+  const h = P.PILLAR_SIZE / 2;
+  const dx = x - p.x, dy = y - p.y;
+  const qx = Math.max(-h, Math.min(h, dx)), qy = Math.max(-h, Math.min(h, dy));
+  const ex = dx - qx, ey = dy - qy, d2 = ex * ex + ey * ey;
+  if (d2 > 0) {
+    const d = Math.sqrt(d2);
+    return { d, nx: ex / d, ny: ey / d, cx: p.x + qx, cy: p.y + qy };
+  }
+  const gx = h - Math.abs(dx), gy = h - Math.abs(dy);   // inside: leave through the nearest face
+  if (gx < gy) { const s = dx >= 0 ? 1 : -1; return { d: -gx, nx: s, ny: 0, cx: p.x + s * h, cy: p.y + dy }; }
+  const s = dy >= 0 ? 1 : -1;
+  return { d: -gy, nx: 0, ny: s, cx: p.x + dx, cy: p.y + s * h };
+}
+
+/* =====================================================================
+   Cases and walkers
+   ===================================================================== */
+let cases = [];
+let simTime = 0;           // elapsed simulated time (seconds), shown by the clock
+
+// Trails: every walker keeps a ring buffer of (x, y, simulated time) samples, one every TRAIL_SAMPLE_DT
+// while it is moving. Old samples are simply overwritten; drawing ignores those older than TRAIL_SECONDS,
+// so a waiting walker's trail shrinks away after it stops.
+const TRAIL_CAP = Math.ceil(P.TRAIL_SECONDS / P.TRAIL_SAMPLE_DT) + 2;
+function pushTrail(w, t) {
+  w.tx[w.th] = w.x; w.ty[w.th] = w.y; w.tt[w.th] = t;
+  w.th = (w.th + 1) % TRAIL_CAP;
+  if (w.tn < TRAIL_CAP) w.tn++;
+  w.tLast = t;
+}
+
+function makeCase(kind) {
+  const c = {
+    kind, walkers: [], wts: new Float64Array(M),
+    reach: 0,              // radius reached by REACH_FRACTION of the walkers
+    sorted: new Float64Array(P.N_WALKERS),
+  };
+  for (let i = 0; i < P.N_WALKERS; i++) {
+    const w = {
+      x: 0, y: 0, angle: Math.random() * 2 * Math.PI,
+      state: 0,            // 0 = moving, 1 = waiting at a pillar
+      wait: 0, pillar: -1, target: -1,
+      maxR2: 0,            // squared furthest distance from the centre reached so far
+      visited: kind === 'super' ? new Uint8Array(M) : null,
+      tx: new Float32Array(TRAIL_CAP), ty: new Float32Array(TRAIL_CAP), tt: new Float64Array(TRAIL_CAP),
+      th: 0, tn: 0, tLast: 0,   // trail ring buffer: next write index, stored count, time of the last sample
+    };
+    if (kind === 'super') chooseTarget(c, w);
+    if (P.TRAIL_SECONDS > 0) pushTrail(w, 0);
+    c.walkers.push(w);
+  }
+  return c;
+}
+
+function waitFor(c) {
+  if (c.kind === 'sub') return samplePareto();
+  return expo(P.MEAN_WAIT);
+}
+
+// superdiffusive rule: pick an unvisited pillar with probability ~ distance^-mu
+function chooseTarget(c, w) {
+  const mu = P.SUPER_DISTANCE_EXPONENT, dmin = P.SUPER_MIN_DISTANCE;
+  for (let pass = 0; pass < 2; pass++) {
+    let total = 0;
+    for (let j = 0; j < M; j++) {
+      if (w.visited[j]) { c.wts[j] = 0; continue; }
+      const d = Math.max(Math.hypot(pillars[j].x - w.x, pillars[j].y - w.y), dmin);
+      const wt = Math.pow(d, -mu);
+      c.wts[j] = wt; total += wt;
+    }
+    if (total > 0) {
+      let r = Math.random() * total;
+      for (let j = 0; j < M; j++) {
+        r -= c.wts[j];
+        if (r <= 0 && c.wts[j] > 0) { w.target = j; return; }
+      }
+      for (let j = M - 1; j >= 0; j--) if (c.wts[j] > 0) { w.target = j; return; }
+    }
+    // every pillar visited: forget the history, keep only the current one
+    w.visited.fill(0);
+    if (w.pillar >= 0) w.visited[w.pillar] = 1;
+  }
+}
+
+function moveRandom(c, w, dt) {
+  const R = P.ARENA_RADIUS, rw = P.WALKER_RADIUS, reach = P.PILLAR_SIZE / 2 + rw;
+  w.angle += gauss() * Math.sqrt(2 * P.TURN_DIFFUSION * dt);
+  w.x += Math.cos(w.angle) * P.SPEED * dt;
+  w.y += Math.sin(w.angle) * P.SPEED * dt;
+
+  // circular wall: specular reflection
+  const lim = R - rw, d2 = w.x * w.x + w.y * w.y;
+  if (d2 > lim * lim) {
+    const d = Math.sqrt(d2), nx = w.x / d, ny = w.y / d;
+    w.x = nx * lim; w.y = ny * lim;
+    let vx = Math.cos(w.angle), vy = Math.sin(w.angle);
+    const dot = vx * nx + vy * ny;
+    if (dot > 0) { vx -= 2 * dot * nx; vy -= 2 * dot * ny; w.angle = Math.atan2(vy, vx); }
+  }
+
+  // square contact: stop on the surface and wait
+  for (let j = 0; j < M; j++) {
+    const p = pillars[j], dx = w.x - p.x, dy = w.y - p.y;
+    if (dx > reach || dx < -reach || dy > reach || dy < -reach) continue;   // cheap rejection
+    const k = squareContact(p, w.x, w.y);
+    if (k.d < rw) {
+      w.x = k.cx + k.nx * (rw + 1e-3); w.y = k.cy + k.ny * (rw + 1e-3);
+      w.state = 1; w.pillar = j; w.wait = waitFor(c);
+      return;
+    }
+  }
+}
+
+function moveSuper(c, w, dt) {
+  const rw = P.WALKER_RADIUS;
+  const t = pillars[w.target];
+  const dx = t.x - w.x, dy = t.y - w.y, d = Math.hypot(dx, dy) || 1e-9;
+  const step = P.SPEED * dt;
+  w.x += dx / d * step; w.y += dy / d * step;           // head straight for the target's centre
+  const k = squareContact(t, w.x, w.y);
+  if (k.d < rw) {                                        // touched the target: stop on its surface
+    w.x = k.cx + k.nx * (rw + 1e-3); w.y = k.cy + k.ny * (rw + 1e-3);
+    w.state = 1; w.pillar = w.target; w.visited[w.target] = 1;
+    w.wait = waitFor(c);
+  }
+}
+
+function stepWalker(c, w, dt) {
+  if (w.state === 1) {
+    w.wait -= dt;
+    if (w.wait <= 0) {                         // leave the pillar
+      if (c.kind === 'super') {
+        chooseTarget(c, w);
+      } else {
+        const k = squareContact(pillars[w.pillar], w.x, w.y);
+        w.angle = Math.atan2(k.ny, k.nx) + (Math.random() - 0.5) * Math.PI;   // outward half-plane
+      }
+      w.state = 0;
+    }
+    return;
+  }
+  if (c.kind === 'super') moveSuper(c, w, dt); else moveRandom(c, w, dt);
+  const r2 = w.x * w.x + w.y * w.y;
+  if (r2 > w.maxR2) w.maxR2 = r2;
+}
+
+// radius reached by REACH_FRACTION of the walkers: with fraction 0.5 this is the median of the
+// walkers' furthest distances so far (half of the walkers have been at least this far out)
+function updateReach(c) {
+  const n = c.walkers.length;
+  for (let i = 0; i < n; i++) c.sorted[i] = c.walkers[i].maxR2;
+  c.sorted.sort();
+  const idx = Math.min(n - 1, Math.max(0, Math.floor((1 - P.REACH_FRACTION) * n)));
+  c.reach = Math.sqrt(c.sorted[idx]);
+}
+
+let fast = false;          // fast-forward toggle
+
+function advance(dtReal) {
+  const dt = Math.max(0, Math.min(dtReal, 0.1)) * P.TIME_SCALE * (fast ? P.FAST_FACTOR : 1);   // never negative
+  const n = Math.max(1, Math.ceil(dt / P.MAX_SUBSTEP)), h = dt / n;
+  const trails = P.TRAIL_SECONDS > 0;
+  for (let k = 0; k < n; k++) {
+    const tNow = simTime + (k + 1) * h;
+    for (const c of cases) for (const w of c.walkers) {
+      stepWalker(c, w, h);
+      if (trails && w.state === 0 && tNow - w.tLast >= P.TRAIL_SAMPLE_DT) pushTrail(w, tNow);
+    }
+  }
+  simTime += dt;
+  for (const c of cases) updateReach(c);
+}
+
+function reset() { simTime = 0; cases = P.ORDER.map(makeCase); }
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0;
+let sideW = 0;             // width of the QR column on the right (0 while the code is hidden)
+let DPR = 1;               // device pixels per CSS pixel
+
+function resize() {
+  const dpr = DPR = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layout();
+}
+
+// All trail segments of one panel are collected into one path per fading band, so a panel costs only
+// TRAIL_BANDS strokes (and overlapping trails do not darken each other).
+function drawTrails(c, cx, cy, scale) {
+  const B = P.TRAIL_BANDS, cutoff = simTime - P.TRAIL_SECONDS, paths = [];
+  for (let b = 0; b < B; b++) paths.push(new Path2D());
+  for (const w of c.walkers) {
+    const n = w.tn;
+    if (!n) continue;
+    let have = false, px = 0, py = 0, cb = -1;                    // cb: band of the polyline currently being extended
+    for (let i = 0, idx = (w.th - n + TRAIL_CAP) % TRAIL_CAP; i < n; i++, idx = (idx + 1) % TRAIL_CAP) {
+      const t = w.tt[idx];
+      if (t < cutoff) continue;                                    // older than the trail length
+      const x = cx + w.tx[idx] * scale, y = cy + w.ty[idx] * scale;
+      if (have) {
+        const b = Math.min(B - 1, Math.floor((t - cutoff) / P.TRAIL_SECONDS * B));
+        if (b !== cb) { paths[b].moveTo(px, py); cb = b; }        // a new sub-path only when the fading band changes
+        paths[b].lineTo(x, y);
+      }
+      have = true; px = x; py = y;
+    }
+    if (have) {                                                    // last stretch: up to the walker itself
+      if (cb !== B - 1) paths[B - 1].moveTo(px, py);
+      paths[B - 1].lineTo(cx + w.x * scale, cy + w.y * scale);
+    }
+  }
+  ctx.lineWidth = P.TRAIL_WIDTH / DPR; ctx.lineJoin = 'bevel';
+  for (let b = 0; b < B; b++) { ctx.strokeStyle = D[c.kind].trail[b]; ctx.stroke(paths[b]); }
+}
+
+function fmtClock(t) {                       // whole simulated seconds (acts like a step counter)
+  return String(Math.floor(t + 1e-6));
+}
+
+function draw() {
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H);
+  const R = P.ARENA_RADIUS, simW = W - sideW, panelW = simW / cases.length;
+  const areaH = H - P.CLOCK_HEIGHT;
+  const diam = Math.min(panelW, areaH) * 0.94, scale = diam / (2 * R);
+  const side = P.PILLAR_SIZE * scale;
+
+  cases.forEach((c, i) => {
+    const cx = (i + 0.5) * panelW, cy = areaH / 2;
+    // drawn radius; the factor compensates for walkers that cannot get as far out as the wall
+    const rReach = Math.min(R, c.reach * (P.REACH_DRAW_SCALE[c.kind] || 1)) * scale;
+
+    // arena
+    ctx.beginPath(); ctx.arc(cx, cy, R * scale, 0, 2 * Math.PI);
+    ctx.fillStyle = C.DISC; ctx.fill();
+    ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+
+    // reach circle: faint fill behind the pillars
+    const col = D[c.kind];
+    if (C.REACH_FILL > 0) {
+      ctx.beginPath(); ctx.arc(cx, cy, rReach, 0, 2 * Math.PI);
+      ctx.fillStyle = col.fill; ctx.fill();
+    }
+
+    // pillars (squares)
+    ctx.fillStyle = C.PILLAR;
+    for (const p of pillars) ctx.fillRect(cx + p.x * scale - side / 2, cy + p.y * scale - side / 2, side, side);
+
+    // reach circle outline
+    ctx.beginPath(); ctx.arc(cx, cy, rReach, 0, 2 * Math.PI);
+    ctx.lineWidth = P.REACH_CIRCLE_WIDTH; ctx.strokeStyle = col.outline; ctx.stroke();
+
+    // trails (under the walkers)
+    if (P.TRAIL_SECONDS > 0) drawTrails(c, cx, cy, scale);
+
+    // walkers (dimmer while waiting at a pillar)
+    const wr = Math.max(2, P.WALKER_RADIUS * scale * 1.3);
+    for (const pass of [1, 0]) {
+      ctx.fillStyle = pass === 1 ? col.wait : col.solid;
+      for (const w of c.walkers) {
+        if (w.state !== pass) continue;
+        ctx.beginPath(); ctx.arc(cx + w.x * scale, cy + w.y * scale, wr, 0, 2 * Math.PI); ctx.fill();
+      }
+    }
+  });
+
+  // clock (simulated time)
+  ctx.font = '600 18px ui-monospace, Menlo, Consolas, monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CLOCK;
+  ctx.fillText(fmtClock(simTime), simW / 2, H - P.CLOCK_HEIGHT + 22);
+}
+
+/* =====================================================================
+   Controls  (mouse / touch buttons only)
+   ===================================================================== */
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+  fast:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14l8.5-7zM12.5 5v14L21 12z"/></svg>',
+};
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart');
+const btnFast = document.getElementById('btnFast'), btnQr = document.getElementById('btnQr');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Reserve a column on the right for the QR code while it is shown, so it never covers the simulations.
+// The simulations, the clock and the buttons are centred in the remaining space.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const show = !qrImg.hidden;
+  sideW = show ? Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION)) : 0;
+  if (show) {
+    const size = sideW - 28;                                  // 14 px margin on each side
+    qrImg.style.width = size + 'px';
+    qrImg.style.top = Math.max(10, (H - P.CLOCK_HEIGHT - size) / 2) + 'px';   // centred vertically beside the circles
+  }
+  controlsEl.style.left = ((W - sideW) / 2) + 'px';
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnFast.innerHTML = ICON.fast;
+  btnFast.classList.toggle('on', fast);
+  btnFast.setAttribute('aria-pressed', String(fast));
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+// Restart: halt, reset, then resume after a short pause. Keeps the play / pause / fast state.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function toggleFast() { fast = !fast; syncButtons(); }
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = 'qr.png not found next to this page';
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnFast, toggleFast);
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+// follow the system / browser setting live (harmless when a scheme is forced: applyScheme() returns the forced name)
+const schemeQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(prefers-color-scheme: light)') : null;
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+
+applyScheme();             // before the first resize / reset / draw
+resize();
+reset();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
