@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<!--
+
+DISCLAIMER: Use of large language models (artificial intelligence): All of
+these apps were generated using the large language model Claude Sonnet 5.5
+(Anthropic). Visually, the apps look tidy and demonstrate the effects that will
+be shown during the lecture. However, they have not been checked in detail, so
+they may be unsuitable for anything beyond visualization.
+
+-->
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bandos elgesys finansų rinkoje</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (QR shown) */
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Pradėti iš naujo" aria-label="Pradėti iš naujo"></button>
+  <button class="btn" id="btnPlay" title="Tęsti / pristabdyti" aria-label="Tęsti / pristabdyti"></button>
+</div>
+<button class="btn" id="btnQr" title="Rodyti / slėpti QR kodą" aria-label="Rodyti arba slėpti QR kodą">QR</button>
+<img id="qr" src="qr.png" alt="QR kodas" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; the clock counts ticks = "simulated seconds")
+
+   A financial market with three kinds of agents (a three-state herding model):
+     fundamentalists - trade on the fundamental value of the asset (gray),
+     optimists       - chartists who expect the price to rise, so they want to BUY (blue),
+     pessimists      - chartists who expect the price to fall, so they want to SELL (orange).
+   Agents change their kind at random. The rate at which an agent leaves its group is "spontaneous term + herding term", where the
+   herding term is proportional to the number of agents in the group it is about to join (agents imitate each other).
+   The price follows the imbalance of the chartists around a drifting fundamental price:   price = P_f(t) * exp(x),   x = (N_optimists - N_pessimists) / N_fundamentalists.
+   Every tick (model time TICK) the price is recorded; the volatility plot shows its absolute log-return.
+   ===================================================================== */
+const P = {
+  // --- the model ---
+  N_AGENTS: 100,              // agents in total
+  A1: 0.5, A2: 0.5,             // spontaneous switching of pessimists (A1) and optimists (A2) to fundamentalists
+  B1: 1, B2: 50,               // spontaneous switching of fundamentalists (B1) and pessimists (B2) to optimists
+  C1: 1, C2: 50,               // spontaneous switching of fundamentalists (C1) and optimists (C2) to pessimists
+  H1: 1,                      // herding strength when fundamentalists are involved (joining a group, or leaving it for the fundamentalists)
+  H2: 50,                     // herding strength between the two kinds of chartists (optimists <-> pessimists)
+  TICK: 1e-3,                 // model time between two price observations (smaller = smoother price line)
+  KAPPA: 0.3,                 // the model's time step is KAPPA / (total switching rate); in each step one agent switches with probability KAPPA
+  START_FUND_MIN: 20,         // at the start the number of fundamentalists is drawn from this ...
+  START_FUND_MAX: 45,         //   ... to this range; the chartists are split evenly between optimists and pessimists
+  P_FUND: 100,                // the starting fundamental price (the price when x = 0)
+  FUND_TREND_TICKS: 60,       // the fundamental price follows a trend for an exponentially distributed time with this mean (in ticks) ...
+  FUND_DRIFT_MAX: 0.08,       // ... then a new trend is drawn: the drift of ln(P_f) per tick is uniform on [-this, +this], so it stays well below the fluctuations of x
+
+  // --- the scene: buyers on the left, sellers on the right ---
+  OPT_X: 0.15,                // horizontal position of the optimists' cluster, as a share of the scene's width
+  PES_X: 0.85,                // ... and of the pessimists'
+  FUND_RANGE: 0.19,           // the fundamentalists drift around the middle (0.5) by at most this share of the width
+  DRIFT_GAIN: 12,             // how strongly the fundamentalists' inclination (to join optimists or pessimists) moves them: position = tanh(gain * smoothed inclination)
+  DRIFT_SECONDS: 0.6,         // inclination is smoothed over this many real seconds, so the group drifts instead of twitching
+  CLUSTER_Y: 0.47,            // vertical position of the clusters' centre, as a share of the scene's height
+  CLUSTER_SIZE: 0.40,         // radius of a full cluster (100 agents) as a share of the scene's height (also limited by SCENE_X_LIMIT)
+  SCENE_X_LIMIT: 0.11,        // ... and as a share of the scene's width
+  DOT_FRACTION: 0.62,         // radius of an agent's dot as a share of the cluster's spacing unit
+  WOBBLE: 0.16,               // idle motion of the dots (share of the spacing unit); purely decorative
+  FLY_PROB: 0.02,             // share of the switches that are shown as a little dot flying from one cluster to another
+  FLY_SECONDS: 0.45,          // real seconds a flying dot needs for its trip
+  MAX_FLYERS: 70,             // at most this many flying dots at once
+  ARROW_HEIGHT: 0.80,         // size of the faint arrows behind the clusters, as a share of the scene's height
+  SHOW_LABELS: true,          // small captions: buyers / sellers, names and sizes of the groups, names of the plots
+
+  // --- the plots (price on top, volatility below), sharing one time axis ---
+  WINDOW_TICKS: 300,          // ticks shown (the plots fill from the left, then slide)
+  PRICE_LOG: true,            // price axis: true = logarithmic (ln of the price), false = linear (price itself)
+  PRICE_MIN_HALF: 0.9,        // the (logarithmic) price axis always spans at least exp(2 * this) in price, centred on the data
+  VOL_MIN_TOP: 1.2,           // the volatility axis always reaches at least this
+  RANGE_RATE: 4,              // how fast the axes follow the data (1 / real seconds)
+  PLOT_LINE_WIDTH: 1.6,       // px
+
+  // --- layout ---
+  VIEW_MARGIN: 24,            // free space (px) around the panels inside the window
+  PANEL_GAP: 14,              // space between the panels (px)
+  PANEL_RADIUS: 14,
+  MAX_WIDTH: 1500,            // the panels are never wider than this (px)
+  SCENE_SHARE: 0.37,          // height of the scene as a share of the free height (also limited by 0.42 x width) ...
+  PRICE_SHARE: 0.62,          // ... the rest is divided between the price plot (this share) and the volatility plot
+
+  // --- colours ---
+  SCHEME: 'light',            // 'auto' = follow the system / browser light-dark setting (live), or force 'dark' / 'light'
+  PALETTES: {
+    dark: {
+      BG: '#0e1116', DISC: '#161b22', DISC_EDGE: '#2a313c', CLOCK: '#8b95a5',
+      LANE: '#4a5463',                                      // dashed guides: the divider in the scene, the fundamental price
+      OPT: '#5cb8ff', PES: '#ff8a5c', FUND: '#8b95a5',      // optimists (buyers) / pessimists (sellers) / fundamentalists
+      VOL: '#7be08a',                                       // volatility bars
+      PRICE: '#e6edf3',                                     // price line
+      ARROW_ALPHA: 0.09,                                    // opacity of the faint arrows behind the clusters
+      AREA_ALPHA: 0.16,                                     // opacity of the fill between the price line and the fundamental price
+      BTN_BG: '#161b22', BTN_FG: '#8b95a5', BTN_EDGE: '#2a313c', BTN_HOVER_FG: '#e6edf3', BTN_HOVER_EDGE: '#4a5463',
+      BTN_ON_FG: '#0e1116', BTN_ON_BG: '#8b95a5', FOCUS: '#5cb8ff',
+    },
+    light: {
+      BG: '#eef1f5', DISC: '#fbfcfd', DISC_EDGE: '#d3d9e1', CLOCK: '#5b6675',
+      LANE: '#b6bec9',
+      OPT: '#1f7ae0', PES: '#f2711c', FUND: '#7d8796',
+      VOL: '#2fa84f',
+      PRICE: '#111827',
+      ARROW_ALPHA: 0.10,
+      AREA_ALPHA: 0.14,
+      BTN_BG: '#ffffff', BTN_FG: '#5b6675', BTN_EDGE: '#d3d9e1', BTN_HOVER_FG: '#111827', BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff', BTN_ON_BG: '#5b6675', FOCUS: '#1f7ae0',
+    },
+  },
+
+  // --- language ---
+  LANG: 'lt',                 // 'lt' = Lithuanian, 'en' = English (all texts on the screen and in tooltips are in the table STR below)
+
+  // --- simulation / display ---
+  TIME_SCALE: 20,             // ticks per real second (one tick = one "simulated second" on the clock)
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR column while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the clock and the buttons
+};
+
+// texts shown on the screen (and in tooltips)
+const STR = {
+  lt: { title: 'Bandos elgesys finansų rinkoje', restart: 'Pradėti iš naujo', playPause: 'Tęsti / pristabdyti',
+        qr: 'Rodyti / slėpti QR kodą', qrAlt: 'QR kodas', qrMissing: 'qr.png nerastas šalia šio puslapio',
+        buyers: 'Pirkėjai', sellers: 'Pardavėjai',
+        group: ['fundamentalistai', 'optimistai', 'pesimistai'],
+        price: 'Kaina', logScale: ' (log. skalė)', vol: 'Kintamumas' },
+  en: { title: 'Herding in a financial market', restart: 'Restart', playPause: 'Play / pause',
+        qr: 'Show / hide QR code', qrAlt: 'QR code', qrMissing: 'qr.png not found next to this page',
+        buyers: 'Buyers', sellers: 'Sellers',
+        group: ['fundamentalists', 'optimists', 'pessimists'],
+        price: 'Price', logScale: ' (log scale)', vol: 'Volatility' },
+};
+const T = STR[P.LANG] || STR.lt;
+
+/* =====================================================================
+   LOGIC (no DOM): the three-state herding model
+   ===================================================================== */
+const FUND = 0, OPT = 1, PES = 2;                       // the three groups (also the indices of the counts n[])
+const JUMP_FROM = [PES, OPT, FUND, OPT, FUND, PES];     // the six possible switches, in the order of the rates below
+const JUMP_TO   = [FUND, FUND, PES, PES, OPT, OPT];
+
+let n = [0, 0, 0];                                      // number of agents in each group
+const rate = new Float64Array(6);                       // switching rates of the six switches in the current state
+
+// total rate of all switches (the individual rates are left in rate[])
+function computeRates() {
+  const F = n[FUND], O = n[OPT], Q = n[PES];
+  rate[0] = Q * (P.A1 + P.H1 * F);        // pessimist -> fundamentalist
+  rate[1] = O * (P.A2 + P.H1 * F);        // optimist -> fundamentalist
+  rate[2] = F * (P.C1 + P.H1 * Q);        // fundamentalist -> pessimist
+  rate[3] = O * (P.C2 + P.H2 * Q);        // optimist -> pessimist
+  rate[4] = F * (P.B1 + P.H1 * O);        // fundamentalist -> optimist
+  rate[5] = Q * (P.B2 + P.H2 * O);        // pessimist -> optimist
+  return rate[0] + rate[1] + rate[2] + rate[3] + rate[4] + rate[5];
+}
+
+// One model step of length w: with probability (total rate) * w one agent switches, the switch being chosen in proportion to its rate.
+function jumpOnce(w) {
+  let r = Math.random() / w;
+  for (let k = 0; k < 6; k++) {
+    r -= rate[k];
+    if (r < 0) {
+      const a = JUMP_FROM[k], b = JUMP_TO[k];
+      if (n[a] > 0) { n[a]--; n[b]++; noteJump(a, b); }      // any group may become empty
+      return;
+    }
+  }
+}
+
+// logarithm of the price relative to the fundamental price
+function curX() { return (n[OPT] - n[PES]) / (n[FUND] || 0.5); }       // with no fundamentalists, one half stands in for the zero (no division by zero)
+function ax(v) { return P.PRICE_LOG ? v : P.P_FUND * Math.exp(v); }   // what the price plot shows for a log-price v
+function curL() { return lf + curX(); }                // natural log of price / P_FUND   (price = P_FUND * exp(lf + x))
+function newTrend() {                                  // the fundamental price starts a new trend: a random drift, lasting an exponentially distributed time
+  fDrift = P.FUND_DRIFT_MAX * (2 * Math.random() - 1);
+  fLeft = -P.FUND_TREND_TICKS * Math.log(1 - Math.random());
+}
+
+// How inclined the fundamentalists are to become optimists (+1) or pessimists (-1): the difference of the two switching rates over their sum.
+function inclination() {
+  const up = P.B1 + P.H1 * n[OPT], dn = P.C1 + P.H1 * n[PES];
+  return (up - dn) / (up + dn);
+}
+
+const CAP = P.WINDOW_TICKS + 8;                         // ring buffers of the recorded ticks
+const hp = new Float64Array(CAP);                       // ln(price / P_FUND) at every tick
+const hf = new Float64Array(CAP);                       // ln(fundamental price / P_FUND) at every tick
+let lf = 0, fDrift = 0, fLeft = 0;                      // ln of the fundamental price, its current drift per tick, and the ticks left of the trend
+const hr = new Float64Array(CAP);                       // absolute return of every tick: |x(t) - x(t - TICK)|
+let tick = 0, tIn = 0;                                  // completed ticks, and the model time elapsed inside the current tick
+
+function endTick() {
+  tick++;
+  const v = curL();
+  hp[tick % CAP] = v; hf[tick % CAP] = lf;
+  hr[tick % CAP] = Math.abs(v - hp[(tick - 1) % CAP]);
+}
+
+function advanceModel(dtModel) {
+  while (dtModel > 1e-15) {
+    const tot = computeRates();
+    let w = P.KAPPA / tot;
+    const room = P.TICK - tIn;
+    if (w > room) w = room;
+    if (w > dtModel) w = dtModel;
+    jumpOnce(w);
+    const wt = w / P.TICK;                      // the fundamental price moves along with the trend
+    lf += fDrift * wt; fLeft -= wt; if (fLeft <= 0) newTrend();
+    tIn += w; dtModel -= w;
+    if (tIn >= P.TICK - 1e-12) { tIn = 0; endTick(); }
+  }
+}
+
+function resetModel() {
+  const F = P.START_FUND_MIN + Math.floor(Math.random() * (P.START_FUND_MAX - P.START_FUND_MIN + 1));
+  const Q = Math.floor((P.N_AGENTS - F) / 2);
+  n = [F, P.N_AGENTS - F - Q, Q];
+  hp.fill(0); hf.fill(0); hr.fill(0);
+  tick = 0; tIn = 0; lf = 0; newTrend();
+  hp[0] = curL(); hf[0] = lf;
+}
+
+/* =====================================================================
+   Display state (not part of the model)
+   ===================================================================== */
+let clk = 0;                       // real seconds elapsed while running (drives the idle motion and the flying dots)
+let incS = 0;                      // smoothed inclination of the fundamentalists
+let yLo = 0, yHi = 1, vHi = 1;     // axes of the price and volatility plots (they follow the data smoothly)
+let flyers = [];                   // flying dots: { a, ka, b, kb, t0, arc }
+let pending = [];                  // switches waiting to be shown: a, b, n[a], n[b] (four numbers per switch)
+
+function noteJump(a, b) {          // called by the model for every switch
+  if (Math.random() < P.FLY_PROB && pending.length < 4 * P.MAX_FLYERS) pending.push(a, b, n[a], n[b]);
+}
+
+function resetDisplay() {
+  clk = 0; incS = inclination(); flyers = []; pending = [];
+  updateRanges(0, true);
+}
+
+function advance(dtReal) {
+  const dt = Math.max(0, Math.min(dtReal, 0.1));      // never negative; capped after a stalled tab
+  clk += dt;
+  advanceModel(dt * P.TIME_SCALE * P.TICK);
+  incS += (inclination() - incS) * (1 - Math.exp(-dt / P.DRIFT_SECONDS));
+}
+
+function curT() { return tick + tIn / P.TICK; }       // the time axis of the plots, in ticks
+
+// the axes follow the visible data (the price plot always keeps the fundamental price in view)
+function updateRanges(dtReal, snap) {
+  const s = curT(), t0 = Math.max(0, s - P.WINDOW_TICKS), i0 = Math.max(0, Math.floor(t0));
+  let lo = Infinity, hi = -Infinity, vm = 0;                       // the price axis is logarithmic: it works with ln(price / P_FUND)
+  for (let i = i0; i <= tick; i++) {
+    const p = ax(hp[i % CAP]), q = ax(hf[i % CAP]);
+    lo = Math.min(lo, p, q); hi = Math.max(hi, p, q);
+    if (i > 0 && hr[i % CAP] > vm) vm = hr[i % CAP];
+  }
+  lo = Math.min(lo, ax(curL()), ax(lf)); hi = Math.max(hi, ax(curL()), ax(lf));
+  if (P.PRICE_LOG) { if (hi - lo < 2 * P.PRICE_MIN_HALF) { const mid = (hi + lo) / 2; lo = mid - P.PRICE_MIN_HALF; hi = mid + P.PRICE_MIN_HALF; } }
+  else { lo = Math.min(lo, ax(lf - P.PRICE_MIN_HALF)); hi = Math.max(hi, ax(lf + P.PRICE_MIN_HALF)); }   // always room around the fundamental price
+  const pad = (hi - lo) * 0.07;
+  const tLo = P.PRICE_LOG ? lo - pad : Math.max(0, lo - pad), tHi = hi + pad, tV = Math.max(P.VOL_MIN_TOP, vm * 1.12);
+  if (snap) { yLo = tLo; yHi = tHi; vHi = tV; return; }
+  const k = 1 - Math.exp(-Math.min(dtReal, 0.1) * P.RANGE_RATE);
+  yLo += (tLo - yLo) * k; yHi += (tHi - yHi) * k; vHi += (tV - vHi) * k;
+}
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+let sideW = 0;             // width of the QR column on the right (0 while the code is hidden)
+let L = null;              // layout: the three panels and the spacing unit of the clusters
+
+function resize() {
+  DPR = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+  layout();
+}
+
+function hexRgb(hex) { const v = parseInt(hex.slice(1), 16); return [v >> 16, (v >> 8) & 255, v & 255]; }
+function rgba(rgb, a) { return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
+
+// colour scheme: the current palette C is read on every frame, so a change shows at once;
+// everything derived from the palette (parsed colours, colours with opacity) is recomputed here
+let C = P.PALETTES.dark, COL_RGB = [], ARROW_FILL = ['', ''], AREA_FILL = ['', ''];
+const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function applyScheme() {
+  const name = P.SCHEME === 'auto' ? (schemeQuery && schemeQuery.matches ? 'light' : 'dark') : P.SCHEME;
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  COL_RGB = [hexRgb(C.FUND), hexRgb(C.OPT), hexRgb(C.PES)];
+  ARROW_FILL = [rgba(COL_RGB[OPT], C.ARROW_ALPHA), rgba(COL_RGB[PES], C.ARROW_ALPHA)];
+  AREA_FILL = [rgba(COL_RGB[OPT], C.AREA_ALPHA), rgba(COL_RGB[PES], C.AREA_ALPHA)];
+  const st = document.documentElement.style;
+  st.setProperty('--bg', C.BG);
+  st.setProperty('--btn-bg', C.BTN_BG); st.setProperty('--btn-fg', C.BTN_FG); st.setProperty('--btn-edge', C.BTN_EDGE);
+  st.setProperty('--btn-hover-fg', C.BTN_HOVER_FG); st.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  st.setProperty('--btn-on-fg', C.BTN_ON_FG); st.setProperty('--btn-on-bg', C.BTN_ON_BG); st.setProperty('--focus', C.FOCUS);
+  document.documentElement.dataset.scheme = name;
+}
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+
+// three panels one under another, in the free area (left of the QR column, above the clock strip)
+function buildLayout() {
+  const M = P.VIEW_MARGIN, G = P.PANEL_GAP, freeW = W - sideW;
+  const aw = Math.max(80, Math.min(P.MAX_WIDTH, freeW - 2 * M)), ah = Math.max(160, H - P.CLOCK_HEIGHT - 2 * M);
+  const x = (freeW - aw) / 2, y = M;
+  const hs = Math.max(70, Math.min(ah * P.SCENE_SHARE, aw * 0.42));
+  const rest = Math.max(80, ah - hs - 2 * G), hp = rest * P.PRICE_SHARE, hv = rest - hp;
+  L = {
+    scene: { x, y, w: aw, h: hs },
+    price: { x, y: y + hs + G, w: aw, h: hp },
+    vol:   { x, y: y + hs + G + hp + G, w: aw, h: hv },
+  };
+  L.c = Math.min(hs * P.CLUSTER_SIZE, aw * P.SCENE_X_LIMIT) / Math.sqrt(P.N_AGENTS);   // spacing unit of the clusters
+  L.rd = Math.max(1.5, L.c * P.DOT_FRACTION);                                            // radius of a dot
+}
+
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+}
+function panel(R) {
+  rrect(R.x, R.y, R.w, R.h, P.PANEL_RADIUS); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+}
+
+const MONO = 'ui-monospace, Menlo, Consolas, monospace';
+
+// --- the scene ---
+function groupX(g) {         // horizontal centre of a group's cluster (px)
+  const S = L.scene;
+  if (g === OPT) return S.x + S.w * P.OPT_X;
+  if (g === PES) return S.x + S.w * P.PES_X;
+  return S.x + S.w * (0.5 + P.FUND_RANGE * Math.tanh(P.DRIFT_GAIN * incS));
+}
+function groupY() { return L.scene.y + L.scene.h * P.CLUSTER_Y; }
+
+// agents sit on a sunflower spiral, so a cluster of any size is a compact disc that grows outwards; slot k is the k-th agent of the group
+const tmp = { x: 0, y: 0 };
+function slotPos(g, k, gx) {
+  const c = L.c, r = c * Math.sqrt(k + 0.5), a = k * 2.399963 + g * 2.1, wb = c * P.WOBBLE;
+  tmp.x = gx + r * Math.cos(a) + wb * Math.sin(clk * 1.3 + k * 1.7 + g);
+  tmp.y = groupY() + r * Math.sin(a) + wb * Math.cos(clk * 1.1 + k * 2.3 + g * 1.9);
+}
+
+// faint arrow behind a cluster: up for the buyers, down for the sellers
+function arrow(cx, cy, w, h, up, fill) {
+  const k = up ? 1 : -1, hd = h * 0.46, sw = w * 0.4;
+  const pts = [[0, -h / 2], [w / 2, -h / 2 + hd], [sw / 2, -h / 2 + hd], [sw / 2, h / 2], [-sw / 2, h / 2], [-sw / 2, -h / 2 + hd], [-w / 2, -h / 2 + hd]];
+  ctx.beginPath();
+  pts.forEach((p, i) => { const x = cx + p[0], y = cy + k * p[1]; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+  ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+}
+
+function mixRgb(a, b, t) {
+  return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * t) + ',' + Math.round(a[1] + (b[1] - a[1]) * t) + ',' + Math.round(a[2] + (b[2] - a[2]) * t) + ')';
+}
+
+function spawnFlyers() {                                  // the switches noted by the model become flying dots
+  for (let i = 0; i < pending.length; i += 4) {
+    if (flyers.length >= P.MAX_FLYERS) break;
+    flyers.push({ a: pending[i], ka: pending[i + 2], b: pending[i + 1], kb: Math.max(0, pending[i + 3] - 1), t0: clk, arc: Math.random() < 0.5 ? -1 : 1 });
+  }
+  pending.length = 0;
+}
+
+function drawScene() {
+  const S = L.scene, cy = S.y + S.h / 2;
+  panel(S);
+
+  // arrows (buyers want the price to go up, sellers want it to go down) and the divider between the two camps
+  const ah = S.h * P.ARROW_HEIGHT;
+  arrow(groupX(OPT), cy, ah * 0.62, ah, true, ARROW_FILL[0]);
+  arrow(groupX(PES), cy, ah * 0.62, ah, false, ARROW_FILL[1]);
+  ctx.setLineDash([4, 5]); ctx.lineWidth = 1; ctx.strokeStyle = C.LANE;
+  ctx.beginPath(); ctx.moveTo(S.x + S.w / 2, S.y + S.h * 0.14); ctx.lineTo(S.x + S.w / 2, S.y + S.h * 0.86); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // the agents: one path per group
+  const gxs = [groupX(FUND), groupX(OPT), groupX(PES)], rd = L.rd;
+  for (const g of [FUND, OPT, PES]) {
+    const path = new Path2D();
+    for (let k = 0; k < n[g]; k++) { slotPos(g, k, gxs[g]); path.moveTo(tmp.x + rd, tmp.y); path.arc(tmp.x, tmp.y, rd, 0, 2 * Math.PI); }
+    ctx.fillStyle = g === FUND ? C.FUND : g === OPT ? C.OPT : C.PES; ctx.fill(path);
+  }
+
+  // flying dots: an agent changing its group
+  const arcH = S.h * 0.22;
+  for (let i = flyers.length - 1; i >= 0; i--) {
+    const f = flyers[i], t = (clk - f.t0) / P.FLY_SECONDS;
+    if (t >= 1) { flyers.splice(i, 1); continue; }
+    if (t < 0) continue;
+    slotPos(f.a, f.ka, gxs[f.a]); const x0 = tmp.x, y0 = tmp.y;
+    slotPos(f.b, f.kb, gxs[f.b]); const x1 = tmp.x, y1 = tmp.y;
+    const e = t * t * (3 - 2 * t);
+    ctx.globalAlpha = Math.sqrt(Math.sin(Math.PI * t));
+    ctx.fillStyle = mixRgb(COL_RGB[f.a], COL_RGB[f.b], e);
+    ctx.beginPath(); ctx.arc(x0 + (x1 - x0) * e, y0 + (y1 - y0) * e + f.arc * arcH * Math.sin(Math.PI * t), rd * 0.9, 0, 2 * Math.PI); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  if (P.SHOW_LABELS) {
+    const fs = Math.max(10, Math.min(14, S.h * 0.065));
+    ctx.font = '600 ' + fs + 'px ' + MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = C.CLOCK; ctx.globalAlpha = 0.85;
+    ctx.fillText(T.buyers, S.x + S.w * 0.25, S.y + fs + 6);
+    ctx.fillText(T.sellers, S.x + S.w * 0.75, S.y + fs + 6);
+    ctx.globalAlpha = 1;
+    const wide = S.w >= 560, ly = S.y + S.h - fs - 4;      // under each cluster: its name (when there is room) and its size
+    for (const g of [FUND, OPT, PES]) {
+      ctx.fillStyle = g === FUND ? C.FUND : g === OPT ? C.OPT : C.PES;
+      ctx.fillText(wide ? T.group[g] + ' ' + n[g] : String(n[g]), gxs[g], ly);
+    }
+  }
+}
+
+// --- the plots ---
+function inner(R) {
+  const pl = 16, pr = 16, pt = P.SHOW_LABELS ? 30 : 14, pb = 14;
+  return { ix: R.x + pl, iy: R.y + pt, iw: Math.max(10, R.w - pl - pr), ih: Math.max(10, R.h - pt - pb) };
+}
+function plotLabel(R, text) {
+  if (!P.SHOW_LABELS) return;
+  ctx.font = '600 12px ' + MONO; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CLOCK; ctx.globalAlpha = 0.85; ctx.fillText(text, R.x + 16, R.y + 16); ctx.globalAlpha = 1;
+}
+
+function drawPrice() {
+  const R = L.price, a = inner(R), s = curT(), Wt = P.WINDOW_TICKS, t0 = Math.max(0, s - Wt), i0 = Math.max(0, Math.floor(t0));
+  panel(R); plotLabel(R, T.price + (P.PRICE_LOG ? T.logScale : ''));
+  const X = t => a.ix + (t - t0) / Wt * a.iw;
+  const Y = v => a.iy + a.ih - (v - yLo) / (yHi - yLo) * a.ih;       // v: the price, or its natural log relative to the starting fundamental price (P.PRICE_LOG)
+  const top = a.iy - 3, bot = a.iy + a.ih + 3;
+
+  const xs = [], ps = [], fs = [];                                     // screen coordinates of the price and of the fundamental price
+  for (let i = i0; i <= tick; i++) { xs.push(X(i)); ps.push(Y(ax(hp[i % CAP]))); fs.push(Y(ax(hf[i % CAP]))); }
+  xs.push(X(s)); ps.push(Y(ax(curL()))); fs.push(Y(ax(lf)));
+  const m = xs.length;
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(a.ix - 3, top, a.iw + 6, bot - top); ctx.clip();
+
+  const up = new Path2D(), dn = new Path2D();                          // price above the fundamental: blue, below: orange
+  for (let k = 0; k < m - 1; k++) {
+    const d0 = fs[k] - ps[k], d1 = fs[k + 1] - ps[k + 1];
+    if (d0 * d1 >= 0) {
+      const p = (d0 + d1 >= 0) ? up : dn;
+      p.moveTo(xs[k], fs[k]); p.lineTo(xs[k + 1], fs[k + 1]); p.lineTo(xs[k + 1], ps[k + 1]); p.lineTo(xs[k], ps[k]); p.closePath();
+    } else {
+      const t = d0 / (d0 - d1), xc = xs[k] + t * (xs[k + 1] - xs[k]), yc = fs[k] + t * (fs[k + 1] - fs[k]);
+      const p0 = d0 > 0 ? up : dn, p1 = d1 > 0 ? up : dn;
+      p0.moveTo(xs[k], fs[k]); p0.lineTo(xc, yc); p0.lineTo(xs[k], ps[k]); p0.closePath();
+      p1.moveTo(xc, yc); p1.lineTo(xs[k + 1], fs[k + 1]); p1.lineTo(xs[k + 1], ps[k + 1]); p1.closePath();
+    }
+  }
+  ctx.fillStyle = AREA_FILL[0]; ctx.fill(up);
+  ctx.fillStyle = AREA_FILL[1]; ctx.fill(dn);
+
+  ctx.setLineDash([4, 5]); ctx.lineWidth = 1.4; ctx.strokeStyle = C.LANE;       // the fundamental price
+  ctx.beginPath(); for (let k = 0; k < m; k++) { if (k) ctx.lineTo(xs[k], fs[k]); else ctx.moveTo(xs[k], fs[k]); } ctx.stroke();
+  ctx.setLineDash([]);
+
+  const line = new Path2D();
+  for (let k = 0; k < m; k++) { if (k) line.lineTo(xs[k], ps[k]); else line.moveTo(xs[k], ps[k]); }
+  ctx.lineWidth = P.PLOT_LINE_WIDTH; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.strokeStyle = C.PRICE; ctx.stroke(line);
+  ctx.beginPath(); ctx.arc(xs[m - 1], ps[m - 1], 3.2, 0, 2 * Math.PI); ctx.fillStyle = C.PRICE; ctx.fill();
+  ctx.restore();
+}
+
+function drawVolatility() {
+  const R = L.vol, a = inner(R), s = curT(), Wt = P.WINDOW_TICKS, t0 = Math.max(0, s - Wt), i0 = Math.max(1, Math.floor(t0));
+  panel(R); plotLabel(R, T.vol);
+  const X = t => a.ix + (t - t0) / Wt * a.iw, base = a.iy + a.ih;
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(a.ix - 3, a.iy - 3, a.iw + 6, a.ih + 6); ctx.clip();
+  ctx.lineWidth = 1; ctx.strokeStyle = C.LANE;
+  ctx.beginPath(); ctx.moveTo(a.ix, base); ctx.lineTo(a.ix + a.iw, base); ctx.stroke();
+  const bars = new Path2D();
+  for (let i = i0; i <= tick; i++) { const x = X(i); bars.moveTo(x, base); bars.lineTo(x, base - hr[i % CAP] / vHi * a.ih); }
+  ctx.lineWidth = Math.max(1, Math.min(4, a.iw / Wt * 0.6)); ctx.lineCap = 'butt'; ctx.strokeStyle = C.VOL; ctx.stroke(bars);
+  ctx.restore();
+}
+
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H);
+  spawnFlyers();
+  drawScene(); drawPrice(); drawVolatility();
+
+  // clock: the number of ticks
+  ctx.font = '600 18px ' + MONO;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CLOCK;
+  ctx.fillText(String(tick), (W - sideW) / 2, H - P.CLOCK_HEIGHT + 22);
+}
+
+/* =====================================================================
+   Controls  (mouse / touch buttons only)
+   ===================================================================== */
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+};
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart'), btnQr = document.getElementById('btnQr');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Reserve a column on the right for the QR code while it is shown, so it never covers the panels.
+// The panels, the clock and the buttons are centred in the remaining space.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const show = !qrImg.hidden;
+  sideW = show ? Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION)) : 0;
+  if (show) {
+    const size = sideW - 28;                                  // 14 px margin on each side
+    qrImg.style.width = size + 'px';
+    qrImg.style.top = Math.max(10, (H - P.CLOCK_HEIGHT - size) / 2) + 'px';
+  }
+  controlsEl.style.left = ((W - sideW) / 2) + 'px';
+  buildLayout();
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+// Restart: halt, start a new run, resume after a short pause. Keeps the play / pause state.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = T.qrMissing;
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function reset() { resetModel(); resetDisplay(); }
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  updateRanges(dt, false);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+// texts in the chosen language
+document.documentElement.lang = P.LANG; document.title = T.title; qrImg.alt = T.qrAlt;
+for (const [b, txt] of [[btnRestart, T.restart], [btnPlay, T.playPause], [btnQr, T.qr]]) { b.title = txt; b.setAttribute('aria-label', txt); }
+
+applyScheme();
+reset();
+resize();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<!--
+
+DISCLAIMER: Use of large language models (artificial intelligence): All of
+these apps were generated using the large language model Claude Sonnet 5.5
+(Anthropic). Visually, the apps look tidy and demonstrate the effects that will
+be shown during the lecture. However, they have not been checked in detail, so
+they may be unsuitable for anything beyond visualization.
+
+-->
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maltuso augimas (besidalijančios ląstelės)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (fast forward, QR shown) */
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Pradėti iš naujo" aria-label="Pradėti iš naujo"></button>
+  <button class="btn" id="btnPlay" title="Tęsti / pristabdyti" aria-label="Tęsti / pristabdyti"></button>
+  <button class="btn" id="btnFast" title="Pagreitinti" aria-label="Pagreitinti"></button>
+</div>
+<button class="btn" id="btnQr" title="Rodyti / slėpti QR kodą" aria-label="Rodyti arba slėpti QR kodą">QR</button>
+<img id="qr" src="qr.png" alt="QR kodas" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; times in simulated seconds)
+
+   Malthusian growth with cells as discs. At the end of every time step each cell splits with probability PROB (the
+   expected growth per step is PROB, 10 %, so the population grows exponentially). The new cell appears next to its parent,
+   small at first, and grows to full size; the discs push each other aside while it does. A weak pull towards the middle keeps
+   the colony compact, so the colony grows outwards.
+   ===================================================================== */
+const P = {
+  // --- the model ---
+  INITIAL_POPULATION: 50,     // cells at the start
+  PROB: 0.10,                 // chance that a cell splits at the end of a step
+  STEP_SECONDS: 4,            // simulated seconds between two time steps; the clock counts the steps
+  MAX_POPULATION: 10000,      // the simulation stops splitting once the population has reached this (the last step may overshoot it; 0 = no limit, only the array size stops it)
+
+  // --- the cells ---
+  RADIUS_SPREAD: 0.12,        // cell radii vary randomly by +- this share around 1 (a little irregularity looks more like cells)
+  BIRTH_SIZE: 0.25,           // a new cell starts with this share of its final size ...
+  GROW_SECONDS: 2,            // ... and reaches the full size after this many simulated seconds
+  BIRTH_OFFSET: 0.6,          // a new cell appears this many parent radii from the parent's centre
+  DRAW_SCALE: 0.94,           // drawn radius / physical radius (leaves a thin gap between neighbours)
+  HIGHLIGHT_SECONDS: 3.8,     // a new cell is drawn in the highlight colour for this many simulated seconds (it fades to normal during the last part); never longer than 95 % of STEP_SECONDS, so the fade is over before the next step starts
+  PARENT_SECONDS: 3,          // the parent of a split is brightest at the split and returns to its normal colour over this many simulated seconds (also at most 95 % of STEP_SECONDS)
+  HIGHLIGHT_HOLD: 0.5,        // share of HIGHLIGHT_SECONDS during which a new cell keeps the highlight colour unchanged before it starts to fade
+
+  // --- the physics (overlapping discs are pushed apart) ---
+  PASSES: 12,                 // relaxation passes per frame (more = the colony reacts faster and stays less overlapped)
+  PHYSICS_MS: 9,              // time budget per frame (ms) for the relaxation; fewer passes are made if it is exceeded
+  STIFFNESS: 1,               // share of an overlap removed by a pass (1 = completely)
+  PULL: 0.0001,               // pull towards the middle per pass (share of the distance from the middle)
+
+  // --- the view ---
+  MIN_VIEW: 12,               // radius of the view (in cell radii) at the start
+  ZOOM_HEADROOM: 1.08,        // the view's radius is the colony's radius times this ...
+  ZOOM_PAD: 2,                // ... plus this many cell radii, and zooms out smoothly as the colony grows
+  ZOOM_RATE: 2.5,             // how fast the view follows (1 / seconds of real time)
+  VIEW_MARGIN: 24,            // free space (px) around the arena inside the window
+  LABEL_HEIGHT: 28,           // pixels reserved under the arena for the number of cells
+  PANEL_RADIUS: 14,           // corner radius of the plot panel
+
+  // --- the plot of the population ---
+  LOG_PLOT: false,            // start with a logarithmic population axis (click on the plot to switch)
+  SIDE_FRACTION: 0.26,        // share of the window width taken by the column on the right (plot, and the QR code above it)
+  SIDE_MIN: 220,              // ... but never narrower than this (px)
+  SIDE_MAX: 440,              // ... and never wider than this (px)
+  PLOT_LINE: 2,               // width of the population curve (px)
+
+  // --- colours ---
+  SCHEME: 'light',            // 'auto' = follow the system / browser light-dark setting (live), or force 'dark' / 'light'
+  PALETTES: {
+    dark: {
+      BG: '#0e1116', DISC: '#161b22', DISC_EDGE: '#2a313c', CLOCK: '#8b95a5',   // DISC = arena and plot panels
+      CELL_A: '#5cb8ff', CELL_B: '#4fa8ee', CELL_C: '#69c2ff',   // cells: three close shades of blue (CELL_A is also the population curve and its number)
+      NEW: '#ff8a5c',                                            // a cell that has just been created (and the last point of the curve)
+      PARENT: '#c4e8ff',                                         // a cell that has just split
+      PLOT_GRID: '#222933',                                      // grid lines of the plot
+      BTN_BG: '#161b22', BTN_FG: '#8b95a5', BTN_EDGE: '#2a313c', BTN_HOVER_FG: '#e6edf3', BTN_HOVER_EDGE: '#4a5463',
+      BTN_ON_FG: '#0e1116', BTN_ON_BG: '#8b95a5', FOCUS: '#5cb8ff',
+    },
+    light: {
+      BG: '#eef1f5', DISC: '#fbfcfd', DISC_EDGE: '#d3d9e1', CLOCK: '#5b6675',
+      CELL_A: '#1f7ae0', CELL_B: '#2a88ee', CELL_C: '#1a6fd0',
+      NEW: '#f2711c',
+      PARENT: '#0a3a85',
+      PLOT_GRID: '#e6eaf0',
+      BTN_BG: '#ffffff', BTN_FG: '#5b6675', BTN_EDGE: '#d3d9e1', BTN_HOVER_FG: '#111827', BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff', BTN_ON_BG: '#5b6675', FOCUS: '#1f7ae0',
+    },
+  },
+
+  // --- language ---
+  LANG: 'lt',                 // 'lt' = Lithuanian, 'en' = English (all texts on the screen are in the table STR below)
+
+  // --- simulation / display ---
+  TIME_SCALE: 1,              // simulated seconds per real second
+  FAST_FACTOR: 4,             // extra speed-up while the fast-forward button is on
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR card while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the clock and the buttons
+};
+
+// texts shown on the screen (and in tooltips)
+const STR = {
+  lt: { title: 'Maltuso augimas (besidalijančios ląstelės)', restart: 'Pradėti iš naujo', playPause: 'Tęsti / pristabdyti', fast: 'Pagreitinti',
+        qr: 'Rodyti / slėpti QR kodą', qrAlt: 'QR kodas', qrMissing: 'qr.png nerastas šalia šio puslapio',
+        fastOn: 'įjungtas (spustelėkite, kad grįžtumėte prie įprasto greičio)', fastOff: 'išjungtas (spustelėkite, kad pagreitintumėte)',
+        dec: ',', thousand: 'k', million: 'M' },
+  en: { title: 'Malthusian growth (splitting cells)', restart: 'Restart', playPause: 'Play / pause', fast: 'Fast forward',
+        qr: 'Show / hide QR code', qrAlt: 'QR code', qrMissing: 'qr.png not found next to this page',
+        fastOn: 'on (click for normal speed)', fastOff: 'off (click to speed up)',
+        dec: '.', thousand: 'k', million: 'M' },
+};
+const T = STR[P.LANG] || STR.lt;
+
+// the highlights must be over before the next step starts
+P.HIGHLIGHT_SECONDS = Math.min(P.HIGHLIGHT_SECONDS, 0.95 * P.STEP_SECONDS);
+P.PARENT_SECONDS = Math.min(P.PARENT_SECONDS, 0.95 * P.STEP_SECONDS);
+
+/* =====================================================================
+   LOGIC (no DOM): the cells, the splits, the relaxation
+   ===================================================================== */
+const CAP = (P.MAX_POPULATION > 0 ? Math.ceil(P.MAX_POPULATION * 1.3) : 400000) + 200;   // size of the arrays
+const px = new Float32Array(CAP), py = new Float32Array(CAP);     // position of a cell's centre (in units of the average cell radius)
+const br = new Float32Array(CAP);                                 // full radius of a cell
+const gr = new Float32Array(CAP);                                 // how much of its full size a cell has grown (0..1)
+const tb = new Float32Array(CAP), tp = new Float32Array(CAP);     // time when a cell was created / when it last split
+const sh = new Uint8Array(CAP);                                   // shade of a cell (0..2)
+const isHot = new Uint8Array(CAP);                                // 1 while a cell is in the list 'hot'
+let N = 0, step = 0, simTime = 0, nextStep = 0, finished = false;
+let hist = [];                                                    // population after each step (hist[0] = start)
+let hot = [];                                                     // cells that are highlighted (just created or just split)
+let growing = [];                                                 // cells that have not reached their full size yet
+let extent = 1;                                                   // radius of the colony (cell radii): the view follows this
+
+// spatial hash for neighbour search
+const CS = 2 * (1 + P.RADIUS_SPREAD);                             // grid cell size: the largest possible cell diameter
+const head = new Int32Array(1 << 20), nxt = new Int32Array(CAP);
+
+function newRadius() { return 1 + P.RADIUS_SPREAD * (2 * Math.random() - 1); }
+
+// One relaxation pass: overlapping discs are pushed apart (each by half of the overlap), then everything is pulled a little towards the middle.
+function relaxPass() {
+  let minx = Infinity, miny = Infinity, maxx = -Infinity, maxy = -Infinity, sx = 0, sy = 0;
+  for (let i = 0; i < N; i++) {
+    const x = px[i], y = py[i];
+    if (x < minx) minx = x; if (x > maxx) maxx = x; if (y < miny) miny = y; if (y > maxy) maxy = y;
+    sx += x; sy += y;
+  }
+  const gw = Math.floor((maxx - minx) / CS) + 3, gh = Math.floor((maxy - miny) / CS) + 3;
+  if (gw * gh > head.length) return false;                        // far too spread out (cannot happen with the pull)
+  head.fill(-1, 0, gw * gh);
+  for (let i = 0; i < N; i++) {
+    const g = (Math.floor((py[i] - miny) / CS) + 1) * gw + Math.floor((px[i] - minx) / CS) + 1;
+    nxt[i] = head[g]; head[g] = i;
+  }
+  const k = P.STIFFNESS * 0.5;
+  for (let i = 0; i < N; i++) {
+    const cx = Math.floor((px[i] - minx) / CS) + 1, cy = Math.floor((py[i] - miny) / CS) + 1, ri = br[i] * gr[i];
+    for (let gy = cy - 1; gy <= cy + 1; gy++) for (let gx = cx - 1; gx <= cx + 1; gx++) {
+      for (let j = head[gy * gw + gx]; j >= 0; j = nxt[j]) {
+        if (j <= i) continue;
+        const dx = px[j] - px[i], dy = py[j] - py[i], rr = ri + br[j] * gr[j], d2 = dx * dx + dy * dy;
+        if (d2 >= rr * rr) continue;
+        let nx, ny, d = Math.sqrt(d2);
+        if (d < 1e-6) { const a = Math.random() * 2 * Math.PI; nx = Math.cos(a); ny = Math.sin(a); d = 0; }
+        else { nx = dx / d; ny = dy / d; }
+        const push = (rr - d) * k;
+        px[i] -= nx * push; py[i] -= ny * push; px[j] += nx * push; py[j] += ny * push;
+      }
+    }
+  }
+  const mx = sx / N, my = sy / N, f = 1 - P.PULL;
+  let ext = 0;
+  for (let i = 0; i < N; i++) {
+    const x = (px[i] - mx) * f, y = (py[i] - my) * f;
+    px[i] = x; py[i] = y;
+    const e = Math.sqrt(x * x + y * y) + br[i] * gr[i];
+    if (e > ext) ext = e;
+  }
+  extent = ext;
+  return true;
+}
+
+// the end of a time step: every cell splits with probability PROB; the new cells appear next to their parents
+function splitStep() {
+  const n0 = N;
+  for (let i = 0; i < n0 && N < CAP; i++) {
+    if (Math.random() >= P.PROB) continue;
+    const j = N++, a = Math.random() * 2 * Math.PI, r = br[i] * gr[i] * P.BIRTH_OFFSET;
+    px[j] = px[i] + Math.cos(a) * r; py[j] = py[i] + Math.sin(a) * r;
+    br[j] = newRadius(); gr[j] = P.BIRTH_SIZE; sh[j] = (Math.random() * 3) | 0;
+    tb[j] = simTime; tp[j] = -1e9; isHot[j] = 1; hot.push(j); growing.push(j);
+    tp[i] = simTime; if (!isHot[i]) { isHot[i] = 1; hot.push(i); }
+  }
+  step++; hist.push(N);
+  if (P.MAX_POPULATION > 0 && N >= P.MAX_POPULATION) finished = true;
+}
+
+function reset() {
+  N = 0; step = 0; simTime = 0; finished = false; hist = []; hot = []; growing = []; isHot.fill(0);
+  nextStep = P.STEP_SECONDS;
+  // the first cells: the points of a hexagonal lattice nearest to the middle
+  const pts = [], S = 2;
+  for (let q = -12; q <= 12; q++) for (let r = -12; r <= 12; r++) {
+    const x = S * (q + r / 2), y = S * r * Math.sqrt(3) / 2;
+    pts.push([x, y, x * x + y * y]);
+  }
+  pts.sort((a, b) => a[2] - b[2]);
+  for (let i = 0; i < P.INITIAL_POPULATION; i++) {
+    px[N] = pts[i][0] + (Math.random() - 0.5) * 0.3; py[N] = pts[i][1] + (Math.random() - 0.5) * 0.3;
+    br[N] = newRadius(); gr[N] = 1; tb[N] = -1e9; tp[N] = -1e9; sh[N] = (Math.random() * 3) | 0; N++;
+  }
+  for (let t = 0; t < 200; t++) relaxPass();
+  hist.push(N);
+  vr = targetR();
+}
+
+function advance(dtReal) {
+  const dt = Math.max(0, Math.min(dtReal, 0.1)) * P.TIME_SCALE * (fast ? P.FAST_FACTOR : 1);   // never negative
+  simTime += dt;
+  while (!finished && simTime >= nextStep) { splitStep(); nextStep += P.STEP_SECONDS; }
+  // growth of the new cells
+  const gstep = dt / P.GROW_SECONDS;
+  let w = 0;
+  for (let n = 0; n < growing.length; n++) {
+    const i = growing[n];
+    gr[i] = Math.min(1, gr[i] + gstep * (1 - P.BIRTH_SIZE));
+    if (gr[i] < 1) growing[w++] = i;
+  }
+  growing.length = w;
+  // relaxation: as many passes as the time budget allows
+  const t0 = performance.now();
+  for (let n = 0; n < P.PASSES * (fast ? 2 : 1); n++) {
+    if (!relaxPass()) break;
+    if (performance.now() - t0 > P.PHYSICS_MS) break;
+  }
+}
+
+/* =====================================================================
+   Colours and layout
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H_ = 0, DPR = 1;
+let arena = { x: 0, y: 0, w: 100, h: 100 };     // free area for the arena (px)
+let plotRect = null;                            // panel of the population plot (null = not shown)
+let vr = P.MIN_VIEW;                            // radius (in cell radii) of the arena as currently shown (follows targetR smoothly)
+
+function hexRgb(hex) { const n = parseInt(hex.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+function mixA(a, b, t) { return [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)]; }
+function mix(a, b, t) { return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * t) + ',' + Math.round(a[1] + (b[1] - a[1]) * t) + ',' + Math.round(a[2] + (b[2] - a[2]) * t) + ')'; }
+
+// colour scheme: the current palette C is read on every frame, so a change shows at once
+let C = P.PALETTES.dark, SHADE = [], SHADE_CSS = [], ORANGE = [0, 0, 0], PARENT = [0, 0, 0];
+const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function applyScheme() {
+  const name = P.SCHEME === 'auto' ? (schemeQuery && schemeQuery.matches ? 'light' : 'dark') : P.SCHEME;
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  SHADE = [hexRgb(C.CELL_A), hexRgb(C.CELL_B), hexRgb(C.CELL_C)]; ORANGE = hexRgb(C.NEW); PARENT = hexRgb(C.PARENT);
+  SHADE_CSS = SHADE.map(b => 'rgb(' + b.join(',') + ')');
+  const st = document.documentElement.style;
+  st.setProperty('--bg', C.BG);
+  st.setProperty('--btn-bg', C.BTN_BG); st.setProperty('--btn-fg', C.BTN_FG); st.setProperty('--btn-edge', C.BTN_EDGE);
+  st.setProperty('--btn-hover-fg', C.BTN_HOVER_FG); st.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  st.setProperty('--btn-on-fg', C.BTN_ON_FG); st.setProperty('--btn-on-bg', C.BTN_ON_BG); st.setProperty('--focus', C.FOCUS);
+  document.documentElement.dataset.scheme = name;
+}
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+
+function resize() {
+  DPR = window.devicePixelRatio || 1;
+  W = window.innerWidth; H_ = window.innerHeight;
+  canvas.width = Math.round(W * DPR); canvas.height = Math.round(H_ * DPR);
+  layout();
+}
+
+// radius (in cell radii) of the part of the world that the arena shows
+function targetR() { return Math.max(P.MIN_VIEW, extent * P.ZOOM_HEADROOM + P.ZOOM_PAD); }
+function updateZoom(dtReal) {
+  const t = targetR();
+  vr = Math.abs(t - vr) < 0.001 ? t : vr + (t - vr) * (1 - Math.exp(-Math.min(dtReal, 0.1) * P.ZOOM_RATE));
+}
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+}
+function smooth(p) { p = Math.max(0, Math.min(1, p)); return p * p * (3 - 2 * p); }
+
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H_);
+
+  // arena: a disc, centred in the free area
+  const Rp = Math.min(arena.w, arena.h) / 2, mx = arena.x + arena.w / 2, my = arena.y + arena.h / 2;
+  const s = Rp / vr;                                              // pixels per cell radius
+  ctx.beginPath(); ctx.arc(mx, my, Rp, 0, 2 * Math.PI); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.save();
+  ctx.beginPath(); ctx.arc(mx, my, Rp, 0, 2 * Math.PI); ctx.clip();
+
+  // cells whose highlight is over go back to the normal batch; this is done before anything is drawn, so that no cell is left out for a frame
+  { let w0 = 0;
+    for (let n = 0; n < hot.length; n++) {
+      const i = hot[n];
+      if ((simTime - tb[i]) / P.HIGHLIGHT_SECONDS >= 1 && (simTime - tp[i]) / P.PARENT_SECONDS >= 1) isHot[i] = 0; else hot[w0++] = i;
+    }
+    hot.length = w0; }
+
+  // settled cells: one path per shade; the highlighted ones afterwards, one by one
+  const paths = [new Path2D(), new Path2D(), new Path2D()], small = s < 1.4;
+  for (let i = 0; i < N; i++) {
+    if (isHot[i]) continue;
+    const x = mx + px[i] * s, y = my + py[i] * s, r = br[i] * gr[i] * P.DRAW_SCALE * s, p = paths[sh[i]];
+    if (small) p.rect(x - r, y - r, 2 * r, 2 * r); else { p.moveTo(x + r, y); p.arc(x, y, r, 0, 2 * Math.PI); }
+  }
+  for (let k = 0; k < 3; k++) { ctx.fillStyle = SHADE_CSS[k]; ctx.fill(paths[k]); }
+  for (let n = 0; n < hot.length; n++) {
+    const i = hot[n], pn = (simTime - tb[i]) / P.HIGHLIGHT_SECONDS, pp = (simTime - tp[i]) / P.PARENT_SECONDS;
+    const b = SHADE[sh[i]], hd = P.HIGHLIGHT_HOLD;
+    let c0 = pn < 1 ? mixA(ORANGE, b, smooth((pn - hd) / (1 - hd))) : b;       // a new cell: highlight colour, fading to normal
+    if (pp < 1) c0 = mixA(c0, PARENT, smooth(1 - pp));                           // a parent: brightest at the split, then back to the colour it had
+    ctx.fillStyle = 'rgb(' + c0.join(',') + ')';
+    const x = mx + px[i] * s, y = my + py[i] * s, r = br[i] * gr[i] * P.DRAW_SCALE * s;
+    ctx.beginPath(); ctx.arc(x, y, Math.max(r, 0.5), 0, 2 * Math.PI); ctx.fill();
+  }
+  ctx.restore();
+  ctx.beginPath(); ctx.arc(mx, my, Rp, 0, 2 * Math.PI); ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+
+  // the population under the arena
+  ctx.font = '600 16px ui-monospace, Menlo, Consolas, monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CELL_A; ctx.fillText(fmtInt(N), mx, my + Rp + 18);
+
+  drawPlot();
+
+  // clock: the number of time steps so far
+  ctx.font = '600 18px ui-monospace, Menlo, Consolas, monospace';
+  ctx.fillStyle = C.CLOCK;
+  ctx.fillText(String(step), arena.x + arena.w / 2, H_ - P.CLOCK_HEIGHT + 22);
+}
+
+function fmtInt(n) { return Math.round(n).toLocaleString('en-US').replace(/,/g, ' '); }
+
+/* =====================================================================
+   Plot of the total population
+   ===================================================================== */
+let logY = !!P.LOG_PLOT;
+
+function niceStep(range, n) {
+  const raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+  return (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * p;
+}
+function fmt(v) {
+  const d = x => x.replace(/\.0$/, '').replace('.', T.dec);
+  if (v >= 1e6) return d((v / 1e6).toFixed(v >= 1e7 ? 0 : 1)) + T.million;
+  if (v >= 1e3) return d((v / 1e3).toFixed(v >= 1e4 ? 0 : 1)) + T.thousand;
+  return String(Math.round(v));
+}
+
+function drawPlot() {
+  const R = plotRect;
+  if (!R) return;
+  rrect(R.x, R.y, R.w, R.h, P.PANEL_RADIUS); ctx.fillStyle = C.DISC; ctx.fill();
+  rrect(R.x, R.y, R.w, R.h, P.PANEL_RADIUS); ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+
+  const padL = 44, padR = 16, padT = 16, padB = 28;
+  const ix = R.x + padL, iy = R.y + padT, iw = R.w - padL - padR, ih = R.h - padT - padB;
+  if (iw < 20 || ih < 20) return;
+  const n = hist.length, xmax = Math.max(10, step), p0 = hist[0], cur = hist[n - 1];
+  const X = t => ix + t / xmax * iw;
+
+  // vertical scale: linear from 0, or logarithmic
+  let Y, yTicks = [];
+  if (logY) {
+    const lo = p0 / 3, hi = Math.max(cur * 1.5, p0 * 10), l0 = Math.log(lo), l1 = Math.log(hi);
+    Y = v => iy + ih - (Math.log(v) - l0) / (l1 - l0) * ih;
+    for (let e = Math.ceil(Math.log10(lo)); Math.pow(10, e) <= hi; e++) yTicks.push(Math.pow(10, e));
+  } else {
+    const st = niceStep(cur * 1.05, 4), ymax = Math.max(st, Math.ceil(cur * 1.05 / st) * st);
+    Y = v => iy + ih - v / ymax * ih;
+    for (let v = 0; v <= ymax + 1e-9; v += st) yTicks.push(v);
+  }
+  const xs = niceStep(xmax, 5), xTicks = [];
+  for (let t = 0; t <= xmax + 1e-9; t += xs) xTicks.push(t);
+
+  ctx.font = '11px ui-monospace, Menlo, Consolas, monospace';
+  ctx.lineWidth = 1; ctx.strokeStyle = C.PLOT_GRID; ctx.fillStyle = C.CLOCK;
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (const v of yTicks) {
+    const y = Math.round(Y(v)) + 0.5;
+    ctx.beginPath(); ctx.moveTo(ix, y); ctx.lineTo(ix + iw, y); ctx.stroke();
+    ctx.fillText(fmt(v), ix - 7, y);
+  }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (const t of xTicks) {
+    const x = Math.round(X(t)) + 0.5;
+    ctx.beginPath(); ctx.moveTo(x, iy); ctx.lineTo(x, iy + ih); ctx.stroke();
+    ctx.fillText(String(t), x, iy + ih + 8);
+  }
+
+  // the curve, and its last point in the highlight colour
+  ctx.save();
+  ctx.beginPath(); ctx.rect(ix - 4, iy - 6, iw + 8, ih + 12); ctx.clip();
+  ctx.beginPath();
+  for (let j = 0; j < n; j++) { if (j) ctx.lineTo(X(j), Y(hist[j])); else ctx.moveTo(X(0), Y(hist[0])); }
+  ctx.lineWidth = P.PLOT_LINE; ctx.lineJoin = 'round'; ctx.strokeStyle = C.CELL_A; ctx.stroke();
+  ctx.beginPath(); ctx.arc(X(n - 1), Y(cur), 4, 0, 2 * Math.PI); ctx.fillStyle = C.NEW; ctx.fill();
+  ctx.restore();
+}
+
+/* =====================================================================
+   Controls  (mouse / touch only)
+   ===================================================================== */
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+  fast:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14l8.5-7zM12.5 5v14L21 12z"/></svg>',
+};
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart');
+const btnFast = document.getElementById('btnFast'), btnQr = document.getElementById('btnQr');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false, fast = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Layout. Wide window: the arena on the left, a column on the right with the plot (and the QR code above it while it is shown).
+// Tall window: the plot goes under the arena, and the QR code (if shown) gets its own column on the right.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const M = P.VIEW_MARGIN, qrShown = !qrImg.hidden, portrait = W < H_ * 0.9;
+  const qrCol = Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION));
+  const sideCol = Math.max(P.SIDE_MIN, Math.min(P.SIDE_MAX, W * P.SIDE_FRACTION));
+  const colW = portrait ? (qrShown ? qrCol : 0) : Math.max(sideCol, qrShown ? qrCol : 0);
+  const bandH = portrait ? Math.round(Math.min(220, Math.max(120, H_ * 0.22))) : 0;
+  arena = { x: M, y: M, w: Math.max(60, W - colW - 2 * M),
+            h: Math.max(60, H_ - P.CLOCK_HEIGHT - 2 * M - P.LABEL_HEIGHT - (portrait ? bandH + M : 0)) };
+
+  const qrBox = qrCol - 28;                                    // 14 px margin on each side
+  if (qrShown) { qrImg.style.width = qrBox + 'px'; qrImg.style.top = M + 'px'; }
+  if (portrait) {
+    plotRect = { x: M, y: arena.y + arena.h + P.LABEL_HEIGHT + M, w: arena.w, h: bandH };
+  } else {
+    const pw = colW - 24, px0 = W - colW + 10, free = H_ - P.CLOCK_HEIGHT;
+    if (qrShown) {
+      const y = M + qrBox + 14, h = free - M - y;
+      plotRect = h >= 90 ? { x: px0, y, w: pw, h: Math.min(h, pw) } : null;
+    } else {
+      const h = Math.min(pw * 0.9, free - 2 * M);
+      plotRect = { x: px0, y: (free - h) / 2, w: pw, h };
+    }
+  }
+  controlsEl.style.left = (arena.x + arena.w / 2) + 'px';
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnFast.innerHTML = ICON.fast;
+  btnFast.classList.toggle('on', fast);
+  const t = T.fast + ' (×' + P.FAST_FACTOR + '): ' + (fast ? T.fastOn : T.fastOff);
+  btnFast.title = t; btnFast.setAttribute('aria-label', t);
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+// Restart: halt, reset, then resume after a short pause. Keeps the play / pause and fast-forward state.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function toggleFast() { fast = !fast; syncButtons(); }
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = T.qrMissing;
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnFast, toggleFast);
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+// clicking the plot switches between a linear and a logarithmic population axis
+function inPlot(e) { const r = plotRect; return !!r && e.clientX >= r.x && e.clientX <= r.x + r.w && e.clientY >= r.y && e.clientY <= r.y + r.h; }
+canvas.addEventListener('click', e => { if (inPlot(e)) logY = !logY; });
+canvas.addEventListener('pointermove', e => { canvas.style.cursor = inPlot(e) ? 'pointer' : 'default'; });
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  updateZoom(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+// texts in the chosen language
+document.documentElement.lang = P.LANG; document.title = T.title; qrImg.alt = T.qrAlt;
+for (const [b, txt] of [[btnRestart, T.restart], [btnPlay, T.playPause], [btnQr, T.qr]]) { b.title = txt; b.setAttribute('aria-label', txt); }
+
+applyScheme();
+resize();
+reset();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

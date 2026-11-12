@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Self-similarity under summation</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <style>
+        .rowLabel{font-weight:bold}
+        .lhsRV{color:#c11}
+        .rhsRV{color:#222}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div id="mainPlot" class="fullSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock rowLabel lhsRV">X~Cauchy(</span>
+        <span class="controlBlock">
+            <label for="x_x0">x<sub>0</sub> = </label>
+            <input id="x_x0" type="number" min="-5" max="5" step="0.1" value="-2">
+        </span>
+        <span class="controlBlock">
+            <label for="x_gamma">&gamma; = </label>
+            <input id="x_gamma" type="number" min="0.1" max="5" step="0.1" value="3">
+        </span>
+        <span class="controlBlock rowLabel lhsRV">)</span>
+        <br>
+        <span class="controlBlock rowLabel lhsRV">Y~Cauchy(</span>
+        <span class="controlBlock">
+            <label for="y_x0">x<sub>0</sub> = </label>
+            <input id="y_x0" type="number" min="-5" max="5" step="0.1" value="0">
+        </span>
+        <span class="controlBlock">
+            <label for="y_gamma">&gamma; = </label>
+            <input id="y_gamma" type="number" min="0.1" max="5" step="0.1" value="0.3">
+        </span>
+        <span class="controlBlock rowLabel lhsRV">)</span>
+        <br>
+        <span class="controlBlock rowLabel lhsRV">Coeffs.:</span>
+        <span class="controlBlock">
+            <label for="coeff_a">a = </label>
+            <input id="coeff_a" type="number" min="-5" max="5" step="0.1" value="0.5">
+        </span>
+        <span class="controlBlock">
+            <label for="coeff_b">b = </label>
+            <input id="coeff_b" type="number" min="-5" max="5" step="0.1" value="1">
+        </span>
+        <span class="controlBlock">
+            <label for="coeff_c">c = </label>
+            <input id="coeff_c" type="number" min="-5" max="5" step="0.1" value="0">
+        </span>
+        <br>
+        <span class="controlBlock rowLabel rhsRV">Σ~Cauchy(</span>
+        <span class="controlBlock">
+            <label for="sum_x0">x<sub>0</sub> = </label>
+            <input id="sum_x0" class="theoryParam" type="number" min="-50" max="50" step="0.1" value="0">
+        </span>
+        <span class="controlBlock">
+            <label for="sum_gamma">&gamma; = </label>
+            <input id="sum_gamma" class="theoryParam" type="number" min="0.1" max="50" step="0.1" value="1">
+        </span>
+        <span class="controlBlock rowLabel rhsRV">)</span>
+        <br>
+        <span class="controlBlock">
+            <button name="generate" id="generate">Generate</button>
+        </span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./self-similarity.js"></script>
+</body>
+</html>
