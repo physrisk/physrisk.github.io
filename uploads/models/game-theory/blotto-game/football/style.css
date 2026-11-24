@@ -1,0 +1,185 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    padding: 0.48rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.card {
+    display: none;
+    background: #eee;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
+}
+
+#pitch-card {
+    background-color: #00ae00;
+    color: #fff;
+    width: 30.25rem;
+}
+.eleven-container {
+    width: 29rem;
+    margin: 0 auto;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+}
+#pitch-score-line {
+    padding: 0 0 0.5rem 0;
+    font-size: 2.5rem;
+}
+.pitch-zone {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.pitch-section, .pitch-section-wing, .pitch-section-gk {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 10rem;
+    padding: 1rem;
+    cursor: pointer;
+}
+.pitch-section {
+    width: 21rem;
+}
+.pitch-section-wing {
+    width: 8rem;
+}
+.home-part, .away-part {
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.pitch-section-gk {
+    flex-direction: row;
+    height: 6rem;
+    width: 7rem;
+    margin: 0 auto;
+}
+#pitch-midfield .pitch-section-wing {
+    border: 0;
+    border-top: 0.125rem;
+    border-bottom: 0.125rem;
+    border-style: dashed;
+    border-color: #fff;
+}
+.pitch-section {
+    border: 0;
+    border-left: 0.125rem;
+    border-right: 0.125rem;
+    border-style: solid;
+    border-color: #fff;
+}
+#pitch-midfield .pitch-section {
+    border: 0.125rem solid #fff;
+}
+.pitch-section-gk, #pitch-attack, #pitch-midfield, #pitch-defence {
+    border: 0.125rem solid #fff;
+}
+#pitch-away-gk, #pitch-attack, #pitch-midfield {
+    border-bottom: 0;
+}
+#pitch-home-gk, #pitch-defence, #pitch-midfield {
+    border-top: 0;
+}
+
+#pitch .player, #player-card .player {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1rem;
+    font-family: monospace;
+}
+#pitch .player.away {
+    padding-top: 0.5rem;
+}
+#pitch .player.home {
+    padding-top: 1rem;
+}
+#pitch .player.away.goalkeeper {
+    background: url("./img/away-keeper.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.home.goalkeeper {
+    background: url("./img/home-keeper.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.away.attack {
+    background: url("./img/away-attack.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.home.attack {
+    background: url("./img/home-attack.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.away.defence {
+    background: url("./img/away-defence.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.home.defence {
+    background: url("./img/home-defence.svg") no-repeat center center;
+    background-size: contain;
+}
+#pitch .player.home.attack.scored {
+    background: url("./img/home-attack-scored.svg") no-repeat center center;
+    background-size: contain;
+    color: #daa520;
+}
+#pitch .player.away.attack.scored {
+    background: url("./img/away-attack-scored.svg") no-repeat center center;
+    background-size: contain;
+    color: #daa520;
+}
+
+#menu-card button, #update-goalkeeper {
+    width: 100%;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+#player-home {
+    background: url("./img/home.svg") no-repeat center center;
+    background-size: contain;
+}
+#player-away {
+    background: url("./img/away.svg") no-repeat center center;
+    background-size: contain;
+}
+#player-attack {
+    background: url("./img/attack.svg") no-repeat center center;
+    background-size: contain;
+}
+#player-defence {
+    background: url("./img/defence.svg") no-repeat center center;
+    background-size: contain;
+}
+#player-level-container {
+    width: 7rem;
+    font-family: monospace;
+    padding-top: 1.5rem;
+}
+#player-card .player {
+    opacity: 0.4;
+}
+#player-card .player.selected {
+    opacity: 1;
+}
+#player-card-add, #player-card-close {
+    width: 40%;
+}

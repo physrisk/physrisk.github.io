@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<!--
+
+DISCLAIMER: Use of large language models (artificial intelligence): All of
+these apps were generated using the large language model Claude Sonnet 5.5
+(Anthropic). Visually, the apps look tidy and demonstrate the effects that will
+be shown during the lecture. However, they have not been checked in detail, so
+they may be unsuitable for anything beyond visualization.
+
+-->
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bandos elgesys tarp trijų grupių</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg, #0e1116); overflow: hidden; }
+  canvas { position: fixed; left: 0; top: 0; display: block; width: 100vw; height: 100vh; }
+
+  /* player-style controls (bottom centre) and the QR toggle (bottom right) */
+  #controls { position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .btn {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--btn-bg, #161b22); color: var(--btn-fg, #8b95a5); border: 1px solid var(--btn-edge, #2a313c);
+    cursor: pointer; font: 700 13px ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.5px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .btn:hover { color: var(--btn-hover-fg, #e6edf3); border-color: var(--btn-hover-edge, #4a5463); }
+  .btn:focus-visible { outline: 2px solid var(--focus, #5cb8ff); outline-offset: 2px; }
+  .btn.on { color: var(--btn-on-fg, #0e1116); background: var(--btn-on-bg, #8b95a5); border-color: var(--btn-on-bg, #8b95a5); }   /* toggled on (fast mode, QR shown) */
+  .btn.missing { opacity: 0.35; cursor: not-allowed; }                    /* qr.png not found */
+  .btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+  #btnQr { position: fixed; right: 14px; bottom: 10px; }
+  /* the QR code lives in a side column; its size and position are set by layout() in the script */
+  #qr {
+    position: fixed; right: 14px; top: 20px; width: 200px; height: auto; box-sizing: border-box;
+    background: #fff; padding: 12px; border-radius: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <button class="btn" id="btnRestart" title="Restart" aria-label="Restart"></button>
+  <button class="btn" id="btnPlay" title="Play / pause" aria-label="Play / pause"></button>
+  <button class="btn" id="btnMode" title="Mode" aria-label="Mode"></button>
+  <button class="btn" id="btnRegime" title="Regime" aria-label="Regime"></button>
+</div>
+<button class="btn" id="btnQr" title="Show / hide QR code" aria-label="Show or hide QR code">QR</button>
+<img id="qr" src="qr.png" alt="QR code" hidden>
+<script>
+/* =====================================================================
+   PARAMETERS  (edit freely; the clock counts simulated seconds)
+
+   Three groups of individuals with no particular meaning (the colours are only names: orange, blue, green).
+   Every individual belongs to exactly one group and sometimes changes it. An individual in group a moves to group b at the rate
+        SIGMA + H * n_b
+   where n_b is the number of individuals in b. SIGMA is the individual's own, independent decision (it does not look at anybody);
+   H * n_b is herding: the individual picks one individual of group b at random and copies it. Each of the two terms is a separate kind
+   of switch, which the slow mode shows differently. The ratio SIGMA / H decides the picture: small = one group usually
+   dominates and the leader changes now and then; around 1 = all fractions wander freely; large = the groups stay equal.
+   The model is simulated exactly (Gillespie): the time to the next switch is exponentially distributed.
+
+   Two buttons next to play / pause:
+     speed (two chevrons / one step):
+       fast - the model runs in real time, TIME_SCALE simulated seconds per real second; the plot shows the popularity of the groups.
+       slow - the model runs until the next switch, the switch is highlighted (who decides, whom they copy), the app pauses, then goes on.
+     regime (cluster / grid / scattered dots) - sets SIGMA as a multiple of H (SIGMA_FACTORS); it changes the rates only, the run goes on:
+       herd       - SIGMA = H / 10: independent decisions are rare, the individuals mostly copy each other;
+       uniform    - SIGMA = H;
+       individual - SIGMA = 10 H: independent decisions are frequent.
+   ===================================================================== */
+const P = {
+  // --- the model ---
+  N_INDIVIDUALS: 99,          // individuals in total
+  H: 0.00096,                 // herding: extra rate (per simulated second) of one individual towards a group, for every individual already in that group
+  SIGMA_FACTORS: [0.1, 1, 10],// the three regimes (button): the independent switching rate SIGMA of one individual towards one particular other group,
+                              //   as a multiple of H: herd, uniform, individual
+  START_REGIME: 'uniform',    // 'herd', 'uniform' or 'individual'
+  START_EQUAL: true,          // true = three equal groups at the start, false = every individual gets a random group
+
+  // --- modes ---
+  START_MODE: 'fast',         // 'fast' or 'slow'
+  TIME_SCALE: 20,             // fast mode: simulated seconds per real second
+  MAX_EVENTS_PER_FRAME: 4000, // safety limit for the number of switches processed in one frame
+  SLOW_LINE_SECONDS: 0.55,    // slow mode (real seconds): the line grows from the deciding individual ... (the switch happens when it is complete)
+  SLOW_HOLD_SECONDS: 0.95,    // ... stays while the individual moves to its new group ...
+  SLOW_FADE_SECONDS: 0.35,    // ... fades out ...
+  SLOW_GAP_SECONDS: 0.25,     // ... and the app rests this long before the next switch
+  FOCUS_RATE: 8,              // how fast the other individuals dim when a switch is shown (1 / real seconds)
+
+  // --- the scene: the three groups sit in the corners of a triangle ---
+  ZONE_SIZE: 0.40,            // radius of a group's zone (it fits the whole population) as a share of the distance between two groups
+  ZONE_PAD: 34,               // free space (px) between the zones and the panel edge, for the counts
+  DOT_FRACTION: 0.62,         // radius of an individual's dot as a share of the cluster's spacing unit
+  WOBBLE: 0.14,               // idle motion of the dots (share of the spacing unit); purely decorative
+  EASE: 7,                    // how fast the dots glide to their places (1 / real seconds)
+  LINE_WIDTH: 2.6,            // width of the herding line and of the squiggle (px)
+  WAVE_LENGTH: 2.6,           // squiggle: wavelength (in spacing units) ...
+  WAVE_AMP: 0.75,             // ... and amplitude (in spacing units)
+  SHOW_COUNTS: true,          // the number of individuals under each group
+  SHOW_LABELS: true,          // small caption of the plot
+
+  // --- the plot: number of individuals in each of the three groups ---
+  WINDOW_SECONDS: 240,        // simulated seconds shown (the plot fills from the left, then slides)
+  SAMPLE_DT: 0.2,             // simulated seconds between stored points of the lines
+  PLOT_LINE_WIDTH: 1.8,       // px
+
+  // --- layout ---
+  VIEW_MARGIN: 24,            // free space (px) around the panels inside the window
+  PANEL_GAP: 14,              // space between the panels (px)
+  PANEL_RADIUS: 14,
+  MAX_WIDTH: 1500,            // the panels are never wider than this (px)
+  SIDE_BY_SIDE_RATIO: 1.3,    // free width / free height at which the scene and the plot go side by side (narrower: one above the other)
+  SCENE_WIDTH_SHARE: 0.46,    // side by side: the scene's share of the width (it is also never wider than the free height)
+  STACK_SCENE_SHARE: 0.58,    // one above the other: the scene's share of the free height (also limited by the width)
+
+  // --- colours ---
+  SCHEME: 'light',            // 'auto' = follow the system / browser light-dark setting (live), or force 'dark' / 'light'
+  PALETTES: {
+    dark: {
+      BG: '#0e1116', DISC: '#161b22', DISC_EDGE: '#2a313c', CLOCK: '#8b95a5',
+      LANE: '#4a5463',                                      // guides: the line at a third of the total and the frame of the plot
+      G0: '#ff8a5c', G1: '#5cb8ff', G2: '#7be08a',          // the three groups: orange (top), blue (bottom right), green (bottom left)
+      RING: '#e6edf3',                                      // rings around the individuals of the switch that is shown
+      ZONE_ALPHA: 0.08,                                     // opacity of the zone behind each group
+      DIM_ALPHA: 0.32,                                      // opacity of the other individuals while a switch is shown
+      BTN_BG: '#161b22', BTN_FG: '#8b95a5', BTN_EDGE: '#2a313c', BTN_HOVER_FG: '#e6edf3', BTN_HOVER_EDGE: '#4a5463',
+      BTN_ON_FG: '#0e1116', BTN_ON_BG: '#8b95a5', FOCUS: '#5cb8ff',
+    },
+    light: {
+      BG: '#eef1f5', DISC: '#fbfcfd', DISC_EDGE: '#d3d9e1', CLOCK: '#5b6675',
+      LANE: '#b6bec9',
+      G0: '#f2711c', G1: '#1f7ae0', G2: '#2fa84f',
+      RING: '#111827',
+      ZONE_ALPHA: 0.09,
+      DIM_ALPHA: 0.38,
+      BTN_BG: '#ffffff', BTN_FG: '#5b6675', BTN_EDGE: '#d3d9e1', BTN_HOVER_FG: '#111827', BTN_HOVER_EDGE: '#98a2b3',
+      BTN_ON_FG: '#ffffff', BTN_ON_BG: '#5b6675', FOCUS: '#1f7ae0',
+    },
+  },
+
+  // --- language ---
+  LANG: 'lt',                 // 'lt' = Lithuanian, 'en' = English (all texts on the screen and in tooltips are in the table STR below)
+
+  // --- display ---
+  START_PAUSED: false,        // true = wait for the play button
+  RESTART_DELAY_MS: 100,      // pause between pressing restart and the simulation starting again
+  QR_PANEL_FRACTION: 0.24,    // share of the window width taken by the QR column while the code is shown
+  QR_PANEL_MIN: 200,          // ... but never narrower than this (px)
+  QR_PANEL_MAX: 420,          // ... and never wider than this (px)
+  CLOCK_HEIGHT: 84,           // pixels reserved at the bottom for the clock and the buttons
+};
+
+// texts shown on the screen (and in tooltips)
+const STR = {
+  lt: { title: 'Bandos elgesys tarp trijų grupių', restart: 'Pradėti iš naujo', playPause: 'Tęsti / pristabdyti',
+        qr: 'Rodyti / slėpti QR kodą', qrAlt: 'QR kodas', qrMissing: 'qr.png nerastas šalia šio puslapio',
+        modeFast: 'Greitas režimas: grupių populiarumo dinamika (spustelėkite – lėtas režimas)',
+        modeSlow: 'Lėtas režimas: pavienių individų sprendimai (spustelėkite – greitas režimas)',
+        regime: ['Bandos režimas', 'Tolygusis režimas', 'Individualus režimas'],
+        regimeTip: (name, f, next) => name + ': nepriklausomų perėjimų sparta ' + f + ' × H (spustelėkite – ' + next.toLowerCase() + ')',
+        fractions: 'Grupės dydis' },
+  en: { title: 'Herding among three groups', restart: 'Restart', playPause: 'Play / pause',
+        qr: 'Show / hide QR code', qrAlt: 'QR code', qrMissing: 'qr.png not found next to this page',
+        modeFast: 'Fast mode: popularity of the groups over time (click for slow mode)',
+        modeSlow: 'Slow mode: decisions of individuals (click for fast mode)',
+        regime: ['Herd regime', 'Uniform regime', 'Individual regime'],
+        regimeTip: (name, f, next) => name + ': independent switching rate ' + f + ' × H (click for ' + next.toLowerCase() + ')',
+        fractions: 'Group size' },
+};
+const T = STR[P.LANG] || STR.lt;
+
+/* =====================================================================
+   LOGIC (no DOM): the three-group herding model
+   ===================================================================== */
+const NG = 3;
+const CH_A = [0, 0, 1, 1, 2, 2], CH_B = [1, 2, 0, 2, 0, 1];     // the six possible switches a -> b
+const chV = new Float64Array(6);
+
+let n = [0, 0, 0];             // number of individuals in each group
+let ag = [];                   // the individuals: { g: group, slot: place in the group's cluster, x, y: position on screen, cr, cg, cb: displayed colour }
+let members = [[], [], []];    // the individuals of each group, in the order of their places
+let tClock = 0;                // simulated time (s)
+let ev = null;                 // the next switch, already drawn: { t, a, b, i: deciding individual, herd: copying?, j: copied individual (or -1) }
+
+// Draws the next switch after time t0 (the state is constant until then, so the waiting time is exponential).
+function drawEvent(t0) {
+  let R = 0;
+  const S = sigma();
+  for (let k = 0; k < 6; k++) { chV[k] = n[CH_A[k]] * (S + P.H * n[CH_B[k]]); R += chV[k]; }
+  if (!(R > 0)) return { t: Infinity };
+  const t = t0 - Math.log(1 - Math.random()) / R;
+  let u = Math.random() * R, k = 0;
+  for (; k < 5; k++) { u -= chV[k]; if (u < 0) break; }
+  const a = CH_A[k], b = CH_B[k];
+  const i = members[a][Math.floor(Math.random() * n[a])];                  // which individual of the group decides
+  const hw = P.H * n[b], herd = Math.random() * (S + hw) < hw;       // herding part of the rate / total rate of this individual towards b
+  const j = herd ? members[b][Math.floor(Math.random() * n[b])] : -1;      // the individual it copies
+  return { t, a, b, i, herd, j, phase: Math.random() * 2 * Math.PI };
+}
+
+// the individual i leaves its group; the last individual of the group takes over its place, so the places stay filled from the centre outwards
+function moveMember(i, b) {
+  const A = ag[i], a = A.g, k = A.slot, last = members[a].pop();
+  if (last !== i) { members[a][k] = last; ag[last].slot = k; }
+  members[b].push(i); A.g = b; A.slot = members[b].length - 1;
+  n[a]--; n[b]++;
+}
+
+// history of the group sizes: one stored point every SAMPLE_DT simulated seconds (ring buffer)
+const CAP = Math.ceil(P.WINDOW_SECONDS / P.SAMPLE_DT) + 8;
+const hist = [new Uint16Array(CAP), new Uint16Array(CAP), new Uint16Array(CAP)];
+let kRec = 0;                  // number of stored points; point k belongs to time k * SAMPLE_DT
+function record(t) {           // store the (unchanged) state for every grid time up to t
+  const lim = Math.floor(t / P.SAMPLE_DT + 1e-9);
+  while (kRec <= lim) { const s = kRec % CAP; hist[0][s] = n[0]; hist[1][s] = n[1]; hist[2][s] = n[2]; kRec++; }
+}
+
+function applyEvent(e) {
+  record(e.t);                 // the grid points before the switch keep the old state
+  if (e.t > tClock) tClock = e.t;
+  moveMember(e.i, e.b);
+}
+
+function resetModel() {
+  ag = []; members = [[], [], []]; n = [0, 0, 0];
+  for (let i = 0; i < P.N_INDIVIDUALS; i++) {
+    const g = P.START_EQUAL ? i % NG : Math.floor(Math.random() * NG);
+    ag.push({ g, slot: members[g].length, x: 0, y: 0, cr: 0, cg: 0, cb: 0 });
+    members[g].push(i); n[g]++;
+  }
+  tClock = 0; kRec = 0; record(0);
+  ev = drawEvent(0);
+}
+
+/* =====================================================================
+   Display state (not part of the model)
+   ===================================================================== */
+const FAST = 0, SLOW = 1;
+let mode = P.START_MODE === 'slow' ? SLOW : FAST;
+let regime = Math.max(0, ['herd', 'uniform', 'individual'].indexOf(P.START_REGIME));    // 0 = herd, 1 = uniform, 2 = individual
+function sigma() { return P.H * P.SIGMA_FACTORS[regime]; }   // the independent switching rate in the current regime
+
+// Changes the rates only; the run goes on. The next switch was drawn with the old rates, so it is drawn again from the current time
+// (allowed: the waiting time is memoryless). A switch that slow mode is just showing is finished first; the next one uses the new rates.
+function setRegime(r) {
+  if (r === regime) return;
+  regime = r;
+  if (!slow.active) ev = null;                         // fast mode and slow mode between two switches: drawn afresh when needed
+}
+let clk = 0;                   // real seconds elapsed while running (drives the idle motion and the slow-mode timeline)
+let foc = 0;                   // 0..1: how strongly the other individuals are dimmed
+let slow = { active: false, cur: null, tl: 0, committed: false, gap: 0 };   // the switch being shown in slow mode
+
+function resetDisplay() {
+  clk = 0; foc = 0;
+  slow = { active: false, cur: null, tl: 0, committed: false, gap: 0 };
+  snapDots();
+}
+
+function advance(dtReal) {
+  const dt = Math.max(0, Math.min(dtReal, 0.1));      // never negative; capped after a stalled tab
+  clk += dt;
+  if (mode === FAST) advanceFast(dt); else advanceSlow(dt);
+  foc += ((slow.active ? 1 : 0) - foc) * (1 - Math.exp(-dt * P.FOCUS_RATE));
+  easeDots(dt);
+}
+
+function advanceFast(dt) {
+  if (!ev) ev = drawEvent(tClock);
+  const target = tClock + dt * P.TIME_SCALE;
+  let guard = 0;
+  while (ev.t <= target && guard++ < P.MAX_EVENTS_PER_FRAME) { const te = ev.t; applyEvent(ev); ev = drawEvent(te); }
+  if (guard <= P.MAX_EVENTS_PER_FRAME) tClock = target;
+  record(tClock);
+}
+
+// Slow mode: run to the next switch, show it, rest, go on.
+function advanceSlow(dt) {
+  if (!slow.active) {
+    slow.gap -= dt;
+    if (slow.gap > 0) return;
+    if (!ev) ev = drawEvent(tClock);
+    if (!isFinite(ev.t)) return;
+    slow.cur = ev; slow.active = true; slow.tl = 0; slow.committed = false;
+    const A = ag[ev.i], c = L.gc[ev.b], d = Math.hypot(A.x - c.x, A.y - c.y) || 1;
+    ev.dx = (A.x - c.x) / d; ev.dy = (A.y - c.y) / d;       // direction from the new group's centre towards the deciding individual (where its squiggle ends)
+    return;
+  }
+  slow.tl += dt;
+  if (!slow.committed && slow.tl >= P.SLOW_LINE_SECONDS) { applyEvent(slow.cur); ev = null; slow.committed = true; }   // the individual changes its group
+  if (slow.tl >= P.SLOW_LINE_SECONDS + P.SLOW_HOLD_SECONDS + P.SLOW_FADE_SECONDS) { slow.active = false; slow.cur = null; slow.gap = P.SLOW_GAP_SECONDS; }
+}
+
+function setMode(m) {
+  if (m === mode) return;
+  if (m === FAST && slow.active) {                    // leave a half-shown switch: finish it at once
+    if (!slow.committed) { applyEvent(slow.cur); ev = null; }
+    slow.active = false; slow.cur = null;
+  }
+  if (m === SLOW) slow.gap = 0;
+  mode = m;
+  if (!ev) ev = drawEvent(tClock);
+}
+
+// the dots glide to their places (and change their colour on the way)
+function easeDots(dt) {
+  const k = 1 - Math.exp(-dt * P.EASE);
+  for (let i = 0; i < ag.length; i++) {
+    const A = ag[i], c = COL_RGB[A.g];
+    slotPos(A.g, A.slot);
+    A.x += (tmp.x - A.x) * k; A.y += (tmp.y - A.y) * k;
+    A.cr += (c[0] - A.cr) * k; A.cg += (c[1] - A.cg) * k; A.cb += (c[2] - A.cb) * k;
+  }
+}
+function snapDots() {
+  if (!L) return;
+  for (let i = 0; i < ag.length; i++) {
+    const A = ag[i], c = COL_RGB[A.g];
+    slotPos(A.g, A.slot); A.x = tmp.x; A.y = tmp.y; A.cr = c[0]; A.cg = c[1]; A.cb = c[2];
+  }
+}
+
+/* =====================================================================
+   Drawing
+   ===================================================================== */
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+let sideW = 0;             // width of the QR column on the right (0 while the code is hidden)
+let L = null;              // layout: the scene, the plot, the places of the three groups
+
+function resize() {
+  DPR = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+  layout();
+}
+
+function hexRgb(hex) { const v = parseInt(hex.slice(1), 16); return [v >> 16, (v >> 8) & 255, v & 255]; }
+function rgba(rgb, a) { return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
+
+// colour scheme: the current palette C is read on every frame, so a change shows at once;
+// everything derived from the palette (parsed colours, colours with opacity) is recomputed here
+let C = P.PALETTES.dark, COL_RGB = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], ZONE_FILL = ['', '', ''], ZONE_EDGE = ['', '', ''];
+const root = document.documentElement;
+const schemeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+function schemeName() {
+  if (P.SCHEME !== 'auto') return P.SCHEME;
+  const t = root.dataset.theme;                       // a host page with its own light / dark switch may set this (absent otherwise)
+  if (t === 'light' || t === 'dark') return t;
+  return schemeQuery && schemeQuery.matches ? 'light' : 'dark';
+}
+function applyScheme() {
+  const name = schemeName();
+  C = P.PALETTES[name] || P.PALETTES.dark;
+  COL_RGB = [hexRgb(C.G0), hexRgb(C.G1), hexRgb(C.G2)];
+  ZONE_FILL = COL_RGB.map(c => rgba(c, C.ZONE_ALPHA));
+  ZONE_EDGE = COL_RGB.map(c => rgba(c, Math.min(1, C.ZONE_ALPHA * 3.2)));
+  const st = root.style;
+  st.setProperty('--bg', C.BG);
+  st.setProperty('--btn-bg', C.BTN_BG); st.setProperty('--btn-fg', C.BTN_FG); st.setProperty('--btn-edge', C.BTN_EDGE);
+  st.setProperty('--btn-hover-fg', C.BTN_HOVER_FG); st.setProperty('--btn-hover-edge', C.BTN_HOVER_EDGE);
+  st.setProperty('--btn-on-fg', C.BTN_ON_FG); st.setProperty('--btn-on-bg', C.BTN_ON_BG); st.setProperty('--focus', C.FOCUS);
+  root.dataset.scheme = name;
+}
+if (schemeQuery) {
+  if (schemeQuery.addEventListener) schemeQuery.addEventListener('change', applyScheme);
+  else if (schemeQuery.addListener) schemeQuery.addListener(applyScheme);
+}
+if (window.MutationObserver) new MutationObserver(applyScheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+// the scene (three groups in the corners of a triangle) and the plot of the fractions, side by side or one above the other
+const ANG = [-Math.PI / 2, Math.PI / 6, 5 * Math.PI / 6];      // directions of the three groups seen from the centre of the triangle: top, bottom right, bottom left
+function buildLayout() {
+  const M = P.VIEW_MARGIN, G = P.PANEL_GAP, freeW = W - sideW;
+  const aw = Math.max(80, Math.min(P.MAX_WIDTH, freeW - 2 * M)), ah = Math.max(160, H - P.CLOCK_HEIGHT - 2 * M);
+  const x = (freeW - aw) / 2, y = M;
+  let S, Pl;
+  if (aw / ah >= P.SIDE_BY_SIDE_RATIO) {
+    const sw = Math.max(80, Math.min(aw * P.SCENE_WIDTH_SHARE, ah));
+    S = { x, y, w: sw, h: ah }; Pl = { x: x + sw + G, y, w: Math.max(60, aw - sw - G), h: ah };
+  } else {
+    const hs = Math.max(90, Math.min(ah * P.STACK_SCENE_SHARE, aw));
+    S = { x, y, w: aw, h: hs }; Pl = { x, y: y + hs + G, w: aw, h: Math.max(60, ah - hs - G) };
+  }
+  // the triangle: Rt = distance of a group from its centre, Rz = radius of the zone of a group (a zone has room for all individuals)
+  const pad = P.ZONE_PAD, k = P.ZONE_SIZE * Math.sqrt(3);
+  const Rt = Math.max(16, Math.min((S.h - 2 * pad) / (1.5 + 2 * k), (S.w / 2 - pad) / (Math.cos(Math.PI / 6) + k)));
+  const Rz = k * Rt, top = S.y + (S.h - (1.5 + 2 * k) * Rt) / 2, cx = S.x + S.w / 2, cy = top + Rz + Rt;
+  L = { scene: S, plot: Pl, rz: Rz, gc: ANG.map(a => ({ x: cx + Rt * Math.cos(a), y: cy + Rt * Math.sin(a) })) };
+  L.c = Rz / Math.sqrt(P.N_INDIVIDUALS + 0.5);                          // spacing unit of the clusters
+  L.rd = Math.max(1.5, L.c * P.DOT_FRACTION);                      // radius of a dot
+  snapDots();
+}
+
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+}
+function panel(R) {
+  rrect(R.x, R.y, R.w, R.h, P.PANEL_RADIUS); ctx.fillStyle = C.DISC; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = C.DISC_EDGE; ctx.stroke();
+}
+
+const MONO = 'ui-monospace, Menlo, Consolas, monospace';
+
+// individuals sit on a sunflower spiral, so a cluster of any size is a compact disc that grows outwards; slot k is the k-th individual of the group
+const tmp = { x: 0, y: 0 };
+function slotPos(g, k) {
+  const c = L.c, r = c * Math.sqrt(k + 0.5), a = k * 2.399963 + g * 2.1, wb = c * P.WOBBLE;
+  tmp.x = L.gc[g].x + r * Math.cos(a) + wb * Math.sin(clk * 1.3 + k * 1.7 + g);
+  tmp.y = L.gc[g].y + r * Math.sin(a) + wb * Math.cos(clk * 1.1 + k * 2.3 + g * 1.9);
+}
+
+function drawDot(i, alpha) {
+  const A = ag[i];
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = 'rgb(' + (A.cr | 0) + ',' + (A.cg | 0) + ',' + (A.cb | 0) + ')';
+  ctx.beginPath(); ctx.arc(A.x, A.y, L.rd, 0, 2 * Math.PI); ctx.fill();
+}
+
+function ease01(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
+
+// the line of the switch being shown: a straight line to the copied individual (herding) or a squiggle into the new group (independent decision)
+function drawEventLine(e, p, alpha) {
+  const A = ag[e.i], x0 = A.x, y0 = A.y;
+  ctx.globalAlpha = alpha; ctx.lineWidth = P.LINE_WIDTH; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  if (e.herd) {
+    const B = ag[e.j], x1 = x0 + (B.x - x0) * p, y1 = y0 + (B.y - y0) * p;
+    const gr = ctx.createLinearGradient(x0, y0, B.x, B.y);
+    gr.addColorStop(0, rgba(COL_RGB[e.a], 1)); gr.addColorStop(1, rgba(COL_RGB[e.b], 1));
+    ctx.strokeStyle = gr;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+  } else {
+    // the squiggle ends on the boundary of the new group's zone, on the side facing the deciding individual;
+    // it disappears once the individual has entered the zone
+    const cx = L.gc[e.b].x, cy = L.gc[e.b].y;
+    const gx = cx + e.dx * L.rz, gy = cy + e.dy * L.rz;
+    const dx = gx - x0, dy = gy - y0, len = Math.hypot(dx, dy);
+    if (len < 2 || Math.hypot(x0 - cx, y0 - cy) <= L.rz) { ctx.globalAlpha = 1; return; }
+    const nx = -dy / len, ny = dx / len, waves = Math.max(2, len / (P.WAVE_LENGTH * L.c)), amp = P.WAVE_AMP * L.c;
+    const steps = Math.max(8, Math.ceil(len * p / 3));
+    ctx.strokeStyle = rgba(COL_RGB[e.b], 1);
+    ctx.beginPath();
+    for (let s = 0; s <= steps; s++) {
+      const u = p * s / steps, env = Math.min(1, u * 8, (1 - u) * 8), o = amp * env * Math.sin(2 * Math.PI * waves * u + e.phase);
+      const x = x0 + dx * u + nx * o, y = y0 + dy * u + ny * o;
+      if (s) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawScene() {
+  const S = L.scene;
+  panel(S);
+
+  // the zones: where each group lives
+  for (let g = 0; g < NG; g++) {
+    ctx.beginPath(); ctx.arc(L.gc[g].x, L.gc[g].y, L.rz, 0, 2 * Math.PI);
+    ctx.fillStyle = ZONE_FILL[g]; ctx.fill();
+    ctx.lineWidth = 1; ctx.strokeStyle = ZONE_EDGE[g]; ctx.stroke();
+  }
+
+  // the individuals; while a switch is shown the individuals that do not take part are dimmed
+  const cur = slow.active ? slow.cur : null;
+  const dimA = 1 - (1 - C.DIM_ALPHA) * foc;
+  for (let i = 0; i < ag.length; i++) { if (cur && (i === cur.i || i === cur.j)) continue; drawDot(i, dimA); }
+  ctx.globalAlpha = 1;
+
+  if (cur) {
+    const tl = slow.tl, p = ease01(tl / P.SLOW_LINE_SECONDS);
+    const la = 1 - Math.max(0, Math.min(1, (tl - P.SLOW_LINE_SECONDS - P.SLOW_HOLD_SECONDS) / P.SLOW_FADE_SECONDS));
+    drawEventLine(cur, p, la);
+    drawDot(cur.i, 1); if (cur.j >= 0) drawDot(cur.j, 1);
+    ctx.globalAlpha = la; ctx.strokeStyle = C.RING;
+    ctx.lineWidth = 2; ctx.beginPath();                                                    // the individual that decides
+    ctx.arc(ag[cur.i].x, ag[cur.i].y, L.rd * (1.55 + 0.12 * Math.sin(clk * 9)), 0, 2 * Math.PI); ctx.stroke();
+    if (cur.j >= 0) {                                                                      // the individual that is copied
+      ctx.lineWidth = 1.5; ctx.beginPath();
+      ctx.arc(ag[cur.j].x, ag[cur.j].y, L.rd * 1.5, 0, 2 * Math.PI); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  if (P.SHOW_COUNTS) {                                  // the size of each group, outside its zone
+    const fs = Math.max(11, Math.min(16, L.rz * 0.12));
+    ctx.font = '600 ' + fs + 'px ' + MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (let g = 0; g < NG; g++) {
+      const d = L.rz + fs * 0.9 + 4;
+      ctx.fillStyle = rgba(COL_RGB[g], 1);
+      ctx.fillText(String(n[g]), L.gc[g].x + d * Math.cos(ANG[g]), L.gc[g].y + d * Math.sin(ANG[g]));
+    }
+  }
+}
+
+// --- the plot ---
+function inner(R) {
+  const pl = 40, pr = 16, pt = P.SHOW_LABELS ? 34 : 16, pb = 16;
+  return { ix: R.x + pl, iy: R.y + pt, iw: Math.max(10, R.w - pl - pr), ih: Math.max(10, R.h - pt - pb) };
+}
+
+function drawPlot() {
+  const R = L.plot, a = inner(R), Wt = P.WINDOW_SECONDS, t1 = tClock, t0 = Math.max(0, t1 - Wt), dt = P.SAMPLE_DT;
+  panel(R);
+  if (P.SHOW_LABELS) {
+    ctx.font = '600 12px ' + MONO; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = C.CLOCK; ctx.globalAlpha = 0.85; ctx.fillText(T.fractions, R.x + 16, R.y + 17); ctx.globalAlpha = 1;
+  }
+  const X = t => a.ix + (t - t0) / Wt * a.iw, Y = f => a.iy + a.ih * (1 - f);
+
+  // guides: 0 and the total number of individuals, and a third of it (the groups are equal)
+  ctx.lineWidth = 1; ctx.strokeStyle = C.LANE;
+  ctx.beginPath(); ctx.moveTo(a.ix, Y(0)); ctx.lineTo(a.ix + a.iw, Y(0)); ctx.moveTo(a.ix, Y(1)); ctx.lineTo(a.ix + a.iw, Y(1)); ctx.stroke();
+  ctx.setLineDash([4, 5]); ctx.beginPath(); ctx.moveTo(a.ix, Y(1 / 3)); ctx.lineTo(a.ix + a.iw, Y(1 / 3)); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '10px ' + MONO; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillStyle = C.CLOCK;
+  const third = +(P.N_INDIVIDUALS / 3).toFixed(1);                     // the axis shows numbers of individuals: 0, a third of the total, the total
+  ctx.fillText(String(P.N_INDIVIDUALS), a.ix - 8, Y(1)); ctx.fillText(String(third), a.ix - 8, Y(1 / 3)); ctx.fillText('0', a.ix - 8, Y(0));
+
+  const N = P.N_INDIVIDUALS, k0 = Math.max(0, kRec - CAP + 2, Math.ceil(t0 / dt - 1e-9));
+  ctx.save();
+  ctx.beginPath(); ctx.rect(a.ix - 1, a.iy - 4, a.iw + 2, a.ih + 8); ctx.clip();
+  ctx.lineWidth = P.PLOT_LINE_WIDTH; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  for (let g = 0; g < NG; g++) {
+    const h = hist[g], line = new Path2D();
+    for (let k = k0; k < kRec; k++) { const x = X(k * dt), y = Y(h[k % CAP] / N); if (k === k0) line.moveTo(x, y); else line.lineTo(x, y); }
+    line.lineTo(X(t1), Y(n[g] / N));
+    ctx.strokeStyle = rgba(COL_RGB[g], 1); ctx.stroke(line);
+  }
+  for (let g = 0; g < NG; g++) { ctx.fillStyle = rgba(COL_RGB[g], 1); ctx.beginPath(); ctx.arc(X(t1), Y(n[g] / N), 3.2, 0, 2 * Math.PI); ctx.fill(); }
+  ctx.restore();
+}
+
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = C.BG; ctx.fillRect(0, 0, W, H);
+  drawScene(); drawPlot();
+
+  // clock: whole simulated seconds
+  ctx.font = '600 18px ' + MONO;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = C.CLOCK;
+  ctx.fillText(String(Math.floor(tClock)), (W - sideW) / 2, H - P.CLOCK_HEIGHT + 22);
+}
+
+/* =====================================================================
+   Controls  (mouse / touch buttons only)
+   ===================================================================== */
+const ICON = {
+  play:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  pause:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  restart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg>',
+  fast:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5v11l8-5.5zM12 6.5v11l8-5.5z"/></svg>',     // fast mode: two chevrons
+  slow:    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 6.5v11l9-5.5zM16.5 6.5H19v11h-2.5z"/></svg>',   // slow mode: one step
+  // regimes: the dots show how the individuals behave - huddled together (herd), evenly spread (uniform), scattered (individual)
+  herd:       '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.3"/><circle cx="12" cy="6.6" r="2.3"/><circle cx="16.7" cy="9.3" r="2.3"/><circle cx="16.7" cy="14.7" r="2.3"/><circle cx="12" cy="17.4" r="2.3"/><circle cx="7.3" cy="14.7" r="2.3"/><circle cx="7.3" cy="9.3" r="2.3"/></svg>',
+  uniform:    '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="5.5" r="1.9"/><circle cx="12" cy="5.5" r="1.9"/><circle cx="18.5" cy="5.5" r="1.9"/><circle cx="5.5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="18.5" cy="12" r="1.9"/><circle cx="5.5" cy="18.5" r="1.9"/><circle cx="12" cy="18.5" r="1.9"/><circle cx="18.5" cy="18.5" r="1.9"/></svg>',
+  individual: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4.5" cy="8" r="1.7"/><circle cx="12.5" cy="4" r="1.7"/><circle cx="19.5" cy="7" r="1.7"/><circle cx="8.5" cy="14" r="1.7"/><circle cx="15" cy="12.5" r="1.7"/><circle cx="20" cy="17.5" r="1.7"/><circle cx="4.5" cy="19.5" r="1.7"/><circle cx="11.5" cy="20" r="1.7"/></svg>',
+};
+const REGIME_ICON = ['herd', 'uniform', 'individual'];
+const btnPlay = document.getElementById('btnPlay'), btnRestart = document.getElementById('btnRestart'), btnQr = document.getElementById('btnQr');
+const btnMode = document.getElementById('btnMode'), btnRegime = document.getElementById('btnRegime');
+const qrImg = document.getElementById('qr');
+let paused = !!P.START_PAUSED, qrMissing = false;
+let halted = false, restartTimer = null;      // halted: brief hold right after a restart
+
+// Reserve a column on the right for the QR code while it is shown, so it never covers the panels.
+// The panels, the clock and the buttons are centred in the remaining space.
+const controlsEl = document.getElementById('controls');
+function layout() {
+  const show = !qrImg.hidden;
+  sideW = show ? Math.max(P.QR_PANEL_MIN, Math.min(P.QR_PANEL_MAX, W * P.QR_PANEL_FRACTION)) : 0;
+  if (show) {
+    const size = sideW - 28;                                  // 14 px margin on each side
+    qrImg.style.width = size + 'px';
+    qrImg.style.top = Math.max(10, (H - P.CLOCK_HEIGHT - size) / 2) + 'px';
+  }
+  controlsEl.style.left = ((W - sideW) / 2) + 'px';
+  buildLayout();
+}
+
+function syncButtons() {
+  btnPlay.innerHTML = paused ? ICON.play : ICON.pause;       // shows the action the button will perform
+  btnRestart.innerHTML = ICON.restart;
+  btnMode.innerHTML = mode === FAST ? ICON.fast : ICON.slow; // shows the current mode
+  btnMode.classList.toggle('on', mode === FAST);
+  const tip = mode === FAST ? T.modeFast : T.modeSlow;
+  btnMode.title = tip; btnMode.setAttribute('aria-label', tip);
+  btnRegime.innerHTML = ICON[REGIME_ICON[regime]];           // shows the current regime; the tooltip names it and says what the next click does
+  const rtip = T.regimeTip(T.regime[regime], +P.SIGMA_FACTORS[regime].toPrecision(3), T.regime[(regime + 1) % 3]);
+  btnRegime.title = rtip; btnRegime.setAttribute('aria-label', rtip);
+  btnQr.classList.toggle('on', !qrImg.hidden);
+}
+function togglePause() { paused = !paused; syncButtons(); }
+function toggleMode() { setMode(mode === FAST ? SLOW : FAST); syncButtons(); }
+// Restart: halt, start a new run, resume after a short pause. Keeps the play / pause state and the mode.
+function restart() {
+  halted = true;
+  clearTimeout(restartTimer);
+  reset();
+  restartTimer = setTimeout(() => { last = performance.now(); halted = false; }, P.RESTART_DELAY_MS);
+  syncButtons();
+}
+function toggleQr() { if (qrMissing) return; qrImg.hidden = !qrImg.hidden; layout(); syncButtons(); }
+
+qrImg.addEventListener('error', () => {            // qr.png not found: keep the button, but dim it
+  qrMissing = true; qrImg.hidden = true; layout();
+  btnQr.classList.add('missing'); btnQr.title = T.qrMissing;
+  syncButtons();
+});
+
+function onClick(btn, fn) { btn.addEventListener('click', () => { fn(); btn.blur(); }); }
+onClick(btnPlay, togglePause);
+onClick(btnRestart, restart);
+onClick(btnMode, toggleMode);
+onClick(btnRegime, () => { setRegime((regime + 1) % 3); syncButtons(); });      // herd -> uniform -> individual -> herd; the run is not restarted
+onClick(btnQr, toggleQr);
+qrImg.addEventListener('click', toggleQr);
+
+/* =====================================================================
+   Main loop
+   ===================================================================== */
+let last = performance.now();
+
+function reset() { resetModel(); resetDisplay(); }
+
+function frame(now) {
+  const dt = Math.max(0, (now - last) / 1000); last = now;
+  if (!paused && !halted) advance(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('resize', resize);
+
+// texts in the chosen language
+document.documentElement.lang = P.LANG; document.title = T.title; qrImg.alt = T.qrAlt;
+for (const [b, txt] of [[btnRestart, T.restart], [btnPlay, T.playPause], [btnQr, T.qr]]) { b.title = txt; b.setAttribute('aria-label', txt); }
+
+applyScheme();
+resize();
+reset();
+syncButtons();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

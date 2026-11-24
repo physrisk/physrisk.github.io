@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Promotion in hierarchical organization</title>
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../shared-libs/universal-style.css">
+    <script src="../../shared-libs/random-026.min.js"></script>
+    <script src="../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../shared-libs/plotlyPlot.js"></script>
+    <style>
+        select {width: 150px}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+<div id="figureWrapper">
+    <canvas id="hierarchyPlot" width="250" height="200"></canvas>
+    <div id="histogramPlot" class="halfSize"></div>
+    <div id="timeSeries" class="fullSize"></div>
+</div><!-- #figureWrapper -->
+<div id="controlWrapper">
+    <span class="controlBlock">
+        <label for="competence_hypothesis">Competence hypothesis:</label>
+        <select name="competence_hypothesis" id="competence_hypothesis">
+            <option value="0">Transfer (&rho;=0.9)</option>
+            <option value="1">Randomization (&rho;=0)</option>
+        </select>
+    </span>
+    <br>
+    <span class="controlBlock">
+        <label for="level_multiplier">Level importance:</label>
+        <select name="level_multiplier" id="level_multiplier">
+            <option value="1">Increasing (+100%)</option>
+            <option value="0.5">Increasing (+50%)</option>
+            <option value="0.25">Increasing (+25%)</option>
+            <option value="0" selected="selected">Constant</option>
+            <option value="-0.25">Decreasing (-25%)</option>
+            <option value="-0.5">Decreasing (-50%)</option>
+            <option value="-0.8">Decreasing (-80%)</option>
+        </select>
+    </span>
+    <br>
+    <span class="controlBlock">
+        <label for="promotion_algorithm">Promotion algorithm:</label>
+        <select name="promotion_algorithm" id="promotion_algorithm">
+            <option value="0">Pick best</option>
+            <option value="1">Pick worst</option>
+            <option value="2">Random pick</option>
+            <option value="3">Pick best or worst</option>
+        </select>
+    </span>
+    <br>
+    <span class="controlBlock"><button name="start" id="start">Start</button></span>
+    <span class="controlBlock"><button name="restart" id="restart">Pause</button></span>
+</div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./index.js"></script>
+</body>
+</html>

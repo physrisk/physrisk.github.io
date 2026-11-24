@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Beta prime distribution from a ratio of Gamma rvs</title>
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../shared-libs/universal-style.css">
+    <script src="../../../shared-libs/plotly-131.min.js"></script>
+    <script src="../../../shared-libs/plotlyPlot.js"></script>
+    <script src="../../../shared-libs/jstat-192.min.js"></script>
+    <style>
+        .label .gamma_1 {color:#c11}
+        .label .gamma_2 {color:#05a}
+        .label .gamma_ratio {color:#094}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="figureWrapper">
+        <div class="label halfSize"><span class="gamma_1">x<sub>1</sub></span>, <span class="gamma_2">x<sub>2</sub></span> ~ Gamma</div>
+        <div class="label halfSize"><span class="gamma_ratio">y</span> = <span class="gamma_1">x<sub>1</sub></span> / <span class="gamma_2">x<sub>2</sub></span> ~ BetaPrime</div>
+        <div id="xpdfPlot" class="halfSize"></div>
+        <div id="ypdfPlot" class="halfSize"></div>
+    </div><!-- #figureWrapper -->
+    <div id="controlWrapper">
+        <span class="controlBlock">
+            <label for="alpha_1">&alpha;<sub>1</sub> = </label>
+            <input id="alpha_1" type="number" min="0.1" max="5" step="0.1" value="3">
+        </span>
+        <span class="controlBlock">
+            <label for="theta_1">&theta;<sub>1</sub> = </label>
+            <input id="theta_1" type="number" min="0.1" max="5" step="0.1" value="1.5">
+        </span>
+        <br>
+        <span class="controlBlock">
+            <label for="alpha_2">&alpha;<sub>2</sub> = </label>
+            <input id="alpha_2" type="number" min="0.1" max="5" step="0.1" value="2">
+        </span>
+        <span class="controlBlock">
+            <label for="theta_2">&theta;<sub>2</sub> = </label>
+            <input id="theta_2" type="number" min="0.1" max="5" step="0.1" value="1.5">
+        </span>
+        <br>
+        <span class="controlBlock"><button name="generate" id="generate">Generate</button></span>
+    </div><!-- #controlWrapper -->
+</div><!-- #wrapper -->
+<script src="./gamma-ratio.js"></script>
+</body>
+</html>
